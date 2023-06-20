@@ -1,0 +1,1235 @@
+1. User
+    - id number
+    - username string
+    - email string
+    - password string
+    - verified bool
+    - userProfile UserProfile
+    - userSettings UserSettings
+    - createdAt date
+    - updatedAt date
+2. UserProfile
+    - id
+    - user User
+    - firstName string
+    - lastName string
+    - discordUser DiscordUser
+    - discordServers array[DiscordServer]
+    - createdAt date
+    - updatedAt date
+3. UserSettings
+    - id number
+    - user User
+    - newsletter bool
+    - 2faEnabled bool
+    - RecoveryEmail string
+    - PublicProfile bool
+    - createdAt date
+    - updatedAt date
+4. Role
+    - id number
+    - users array[User]
+    - name string
+    - discription string
+    - permissions array[Permissions]
+    - createdAt date
+    - updatedAt date
+5. Permmissions
+    - id number
+    - roles array[Role]
+    - name string
+    - description string
+    - createdAt date
+    - updatedAt date
+6. Newsletters
+    - id number
+    - name string
+    - content text
+    - createdAt date
+    - updatedAt date
+7. NewletterTemplates
+    - id number
+    - name string
+    - content text
+    - createdAt date
+    - updatedAt date
+8. NewsletterSubscribers
+    - id
+    - user User
+    - userEmail User.email
+    - subscribed User.userSettings.newsletter
+    - createdAt date
+    - updatedAt date
+9. DiscordUser
+    - id number
+    - discordId snowflake
+    - usename string
+    - discriminator string
+    - GlobalName ?string
+    - avatar ?string
+    - bot? bool
+    - system? bool
+    - mfaEnabled? bool
+    - banner? ?string
+    - accentColor? ?integer
+    - locale? string
+    - EmailVerfied boolean
+    - email? ?stringflags? integer
+    - Premiumtype integer
+    - publicFlags integer
+    - Verified boolean
+    - tuppers array[Tupper]
+    - tupperCategories array[TupperGroup]
+    - tupperSettings TupperSettings
+    - createdAt date
+    - updatedAt date
+10. DiscordServer
+    - id number
+    - discordId snowflake
+    - name string
+    - icon ?string
+    - iconHash? ?string
+    - splash ?string
+    - discoverySplash ?string
+    - owner? bool
+    - ownerId snowflake
+    - permissions? string
+    - afkChannelId ?snowflake
+    - afkTimeout integer
+    - WidgetEnabled? bool
+    - WidgetChannelId ?snowflake
+    - verificationLevel integer
+    - defaultMessageNotifications integer
+    - ExplicitContentFilter integer
+    - roles array[DiscordRole]
+    - emojis array[DiscordEmoji]
+    - features array[DiscordFeature]
+    - mfaLevel integer
+    - applicationid ?snowflake
+    - systemChannelId ?snowflake
+    - systemChannelFlags integer
+    - rulesChannelId ?snowflake
+    - maxPresences ?integer
+    - maxMembers? integer
+    - vanityIrlCode ?String
+    - description ?string
+    - banner ?string
+    - premiumTier integer
+    - PremiumSubscriptionCount integer
+    - preferedLocale string
+    - publicUpdatesChannelId ?snowflake
+    - maxVideoChannelUsers integer
+    - MaxStageVideoChannelUsers integer
+    - aproxamateMemberCount? integer
+    - approximate_presence_count? integer
+    - welcomeScreen? DiscordWelcomeScreen
+    - nsfwLevel integer
+    - stickers? array[DiscordSticker]
+    - premiumProgressBarEnabled bool
+    - safteyAlertsChannelId ?snowflake
+    - liveStatistics DiscordStatistics
+    - statistisYesterday DiscordDailyStatistics
+    - statisticsWeekly array[DiscordWeeklyStatistics]
+    - statisticsYearly array[DiscordYearlyStatistics]
+    - 5yearStatistics array[Discord5YearStatistics]
+    - createdAt date
+    - updatedAt date
+11. DiscordStatistics
+    - id integer
+    - date date
+    - discordServer DiscordServer
+    - bans integer
+    - TextChannels integer
+    - Threads integer
+    - VoiceChannels integer
+    - StageChannel integer
+    - ForumChannels integer
+    - Kicks integer
+    - MemberCount integer
+    - MessageCount integer
+    - averagePerChannel integer
+12. DiscordDailyStatistics
+    - id integer
+    - date date
+    - discordServer DiscordServer
+    - bans integer
+    - TextChannels integer
+    - Threads integer
+    - VoiceChannels integer
+    - StageChannel integer
+    - ForumChannels integer
+    - Kicks integer
+    - MemberCount integer
+    - MessageCount integer
+    - averagePerChannel integer
+    - createdAt date
+    - updatedAt date
+13. DiscordWeeklyStatistics
+    - id
+    - server DiscordServer
+    - stats array[DiscordDailyStatistics]
+    - weekStart date
+    - WeekEnd date
+    - createdAt date
+    - updatedAt date
+14. DiscordMonthlyStatistics
+    - id integer
+    - server DiscordServer
+    - stats array[DiscordWeeklyStatistics]
+    - Month integer
+    - createdAt date
+    - updatedAt date
+15. DiscordYearlyStatistics
+    - id integer
+    - server DiscordServer
+    - stats array[DiscordMonthlyStatistics]
+    - year integer
+    - createdAt date
+    - updatedAt date
+16. Discord5YearStatistics
+    - id integer
+    - server DiscordServer
+    - stats array[DiscordYearlyStatistics]
+    - yearStart integer
+    - yearEnd integer
+    - createdAt date
+    - updatedAt date
+17. DiscordServerSettings
+    - id integer
+    - server DiscordServer
+    - PremiumUse? bool
+    - PremiumEndDate date
+    - actionLog ActionLog
+    - actionLogSettings ActionLogSettings
+    - afkSettings afkSettings
+    - aiModuleSettings AIModuleSettings
+    - announcementSettings AnnouncementSettings
+    - autoBanSettings AutoBanSettings
+    - autoMessageSettings AutoMessageSettings
+    - autoMessages AutoMessages
+    - autoModSettings AutoModSettings
+    - autoPurgeSettings AutoPurgeSettings
+    - autoResponderSettings AutoResponderSettings
+    - autoRoles array[AutoRole]
+    - chatBotSettings ChatBotSettings
+    - customCommandsSettings CustomCommandsSettings
+    - forms array[Form]
+    - funSettings FunSettings
+    - giveAwaySettings GiveAwaySettings
+    - highlights array[Highlights]
+    - highlightSettings HighlightSettings
+    - messageEmbedderSettings MessageEmbedderSettings
+    - moderationSettings ModerationSettings
+    - musicSettings MusicSettings
+    - opentickets array[Tickets]
+    - reationRoleSettings ReationRoleSettings
+    - redditSettings RedditSettings
+    - reminderSettings ReminderSettings
+    - ruleSettings RuleSettings
+    - slowModeSettings SlowModeSettings
+    - starBoardMessages array[StarBoardMessage]
+    - starBoardSettings StarBoardSettings
+    - suggestionSettings SuggestionSettings
+    - tagSettings TagSettings
+    - tags Tags
+    - ticketArchive array[Tickets
+    - ticketSettings TicketSettings
+    - twitchSettings TwitchSettings
+    - verificationSettings VerificationSettings
+    - voiceAssistantSettings VoiceAssistantSettings
+    - welcomeSettings WelcomeSettings
+    - youtubeSettings YoutubeSettings
+    - createdAt date
+    - updatedAt date
+18. DiscordChannel
+    - id integer
+    - DiscordId snowflake
+    - type integer
+    - guildId DiscordServer
+    - position integer
+    - permissionOverwrites? array[object]
+    - name? ?string
+    - topic? ?string
+    - nsfw? bool
+    - lastMessageId? ?snowflake
+    - bitrate integer
+    - userLimit? integer
+    - rateLimitperUser? integer
+    - recipienmts array[DiscordUser]
+    - icon? ?string
+    - ownerId? snowflake
+    - apllicationId? snowflake
+    - managed? bool
+    - parentId? ?snowflake
+    - lastPinTimestamp? ?ISO8601 timestamp
+    - rtcRegion ?string
+    - videoQualityMode? integer
+    - messageCount integer
+    - threadMetadata? object
+    - threadMember object
+    - defaultAutoArchiveDuration integer
+    - permissions? string
+    - flags? integer
+    - totalMessageSent integer
+    - availableTags? array[]
+    - defaultReactionEmoji object
+    - defaultThreadRateLimitPerUser integer
+    - defaultSortOrder ?integer
+    - defaultForumLayout? integer
+    - createdAt date
+    - updatedAt date
+19. DiscordServerScheduledEvent
+    - id number
+    - DiscordId snowflake
+    - discordServer DiscordServer
+    - channelId ?snowflake
+    - creator_id? ?snowflake
+    - name string
+    - description? ?string
+    - schedualedStartTime ISO8601 timestamp
+    - ScheduledEndTime ?ISO8601 timestamp
+    - status integer
+    - entityId ?snowflake
+    - creator DiscordUser
+    - userCount integer
+    - image? ?string
+    - createdAt date
+    - updatedAt date
+20. DiscordInvite
+    - id integer
+    - code string
+    - server DiscordServer
+    - channel DiscordChannel
+    - inviter? DiscordUser
+    - targetType? integer
+    - targetUser? DiscordUser
+    - targetApplication? DiscordApplication
+    - approximatePressenceCount? integer
+    - approximateMemberCount? integer
+    - expiresAt? ?ISO8601 timestamp
+    - stageInstance? DiscordStageInstanceInvite
+    - guildScheduledEvent? DiscordServerSchedualedEvent
+    - createdAt date
+    - updatedAt date
+21. DiscordStageInstance
+    - id integer
+    - DiscordId snowflake
+    - server DiscordServer
+    - channel DiscordChannel
+    - topic string
+    - privacylevel integer
+    - discoverableEnabled boolean
+    - guildScheduledEvent DiscordServerSchedualedEvent
+    - createdAt date
+    - updatedAt date
+22. DiscordSticker
+    -  id integer
+    -  discordId snowflake
+    -  packId? snowflake
+    -  name string
+    -  description ?string
+    -  tags string
+    -  asset? string
+    -  type integer
+    -  formatType integer
+    -  available? boolean
+    -  server? DiscordServer
+    -  user? DiscordUser
+    -  sortValue? integer
+    -  createdAt date
+    -  updatedAt date
+23. DiscordVoice
+    - id integer
+    - server DiscordServer
+    - channel DiscordChannel
+    - user DiscordUser
+    - member DiscordGuildMember
+    - sessionId string
+    - deaf boolean
+    - mute boolean
+    - selfDeaf boolean
+    - selfMute boolean
+    - selfStream booleanselfVideo Boolean
+    - supress boolean
+    - requestToSpeakTimestamp ?ISO8601 timestamp
+    - createdAt date
+    - updatedAt date
+24. DiscordWebhook
+    - id integer
+    - discordId snowflake
+    - type integer
+    - server DiscordServer
+    - channel DiscordChannel
+    - user DiscordUser
+    - avatar ?string
+    - token? string
+    - application DiscordApplication
+    - sourceGuild DiscordServer
+    - sourceChannel DiscordChannel
+    - url? string
+    - createdAt date
+    - updatedAt date
+25. DiscordAuditLog
+    - id integer
+    - applicationCommands array[DiscordApplicationCommands]
+    - auditLogEntries array[DiscordAuditLogEntry]
+    - autoModerationRules array[DiscordAutoModerationRule]
+    - guildScheduledEvents array[DiscordServerSchedualedEvent]
+    - integrations array[DiscordIntegration]
+    - threads array[DiscordChannel]
+    - users array[DiscordUser]
+    - webhooks array[DiscordWebhook]
+    - createdAt date
+    - updatedAt date
+26. DiscordApplicationCommands
+    - id integer
+    - discordId snowflake
+    - type? integer
+    - application DiscordApplication
+    - server DiscordServer
+    - name string
+    - description string
+    - defaultMemberPermissions ?string
+    - dmPermmision? boolean
+    - defaultPermission? ?bool
+    - nsfw? bool
+    - version snowflake
+    - createdAt date
+    - updatedAt date
+27. DiscordAuditLogEntry
+    - id integer
+    - targetId ?string
+    - changes? [?]
+    - user DiscordUser
+    - DiscordId snowflake
+    - actionType ?
+    - options? ?
+    - reason? string
+28. DiscordAutoModerationRule
+    - id integer
+    - discordId snowflake
+    - server DiscordServer
+    - name string
+    - creator DiscordUser
+    - eventType integer
+    - triggerType integer
+    - triggermetadata object
+    - actions array[int]
+    - enabled boolean
+    - exemptRoles array[DiscordRole]
+    - exemptChannels array[DiscordChannel]
+    - createdAt date
+    - updatedAt date
+29. DiscordIntegration
+    - id integer
+    - discordId snowflake
+    - type string
+    - enabled bool
+    - syncing? bool
+    - roleId snowflake
+    - enableEmoticons bool
+    - enableGracePeriod? integer
+    - user? DiscordUser
+    - account DiscordIntegrationAccount
+    - syncingAt ISO8601 timestamp
+    - subscriberCount? integer
+    - revoked? boolean
+    - application? DiscordApplication
+    - scopes? array[OAuth2Scopes]
+    - createdAt date
+    - updatedAt date
+30. DiscordIntegrationAccount
+    - id integer
+    - discordId string
+    - name string
+    - createdAt date
+    - updatedAt date
+31. DiscordEmbed
+    - id integer
+    - server DiscordServer
+    - message? text
+    - title? string
+    - description? string
+    - embedUrl? string
+    - color string
+    - fields array[DiscordEmbedFields]
+    - timestamp date
+    - image [url string, proxyUrl string, hieght string, width string]
+    - thubmnail [url string, proxyUrl string, hieght string, width string]
+    - author [name string, url string, hieght string, width string]
+    - footer [text string, iconUrl string, proxyIconUrl string]
+    - texttospeech bool
+    - createdAt date
+    - updatedAt date
+32. DiscordEmbedFields
+    - id integer
+    - name string
+    - content text
+    - createdAt date
+    - updatedAt date
+33. DiscordRole
+    - id integer
+    - discordId snowflake
+    - name stringcolor integer
+    - hoist bool
+    - icon? ?string
+    - unicodeEmoji? ?string
+    - position integer
+    - permissions string
+    - managed bool
+    - mentionable bool
+    - tags? object {BotId? snowflake, integrationId? snowflake, PremiumSubscriber? null, subscriptionListingId? snowflake, availableForPurchase? null, guildConnections? null}
+    - createdAt date
+    - updatedAt date
+34. DiscordEmoji
+    - id integer
+    - discordId snowflake
+    - name ?string
+    - roles array[DiscordRole]
+    - user DiscordUser
+    - requireColons? bool
+    - managed? bool
+    - animated? bool
+    - available? bool
+    - createdAt date
+    - updatedAt date
+35. DiscordApplication
+    - id integer
+    -    discordId snowflake
+    -    name string
+    -    icon ?string
+    -    description string
+    -    rpcOringins? array[string]
+    -    botPublic bool
+    -    botRequireCodeGrant bool
+    -    termsOfServiceUrl? string
+    -    PrivacyPolicyUrl? string
+    -    owner? DiscordUser
+    -    verifyKey string
+    -    team ?object
+    -    guildId? snowflake
+    -    primarySkuId? snowflake
+    -    slug? string
+    -    coverImage? string
+    -    flags? integer
+    -    tags? array[String]
+    -    installParams? object
+    -    customInstallUrl? string
+    -    roleConnectionsVerificationUrl? string
+    -    createdAt date
+    -    updatedAt date
+36. DiscordStageInstanceInvite
+    -   id integer
+    -    members DiscordGuildMember
+    -    participantCount integer
+    -    SpeakerCount integertopic string
+    -    createdAt date
+    -    updatedAt date
+37. DiscordGuildMember
+    - id integer
+    - user? DiscordUser
+    - server DiscordServer
+    - nick? ?string
+    - avatar? ?stringroles array[DiscordRole]
+    - joinedAt ISO8601 timestamp
+    - premiumSince ?ISO8601 timestamp
+    - deaf bool
+    - mute bool
+    - flags integer
+    - pending? bool
+    - permissions? string
+    - communicationDisabledUntil? ?ISO8601 timestamp
+    - createdAt date
+    - updatedAt date
+38. YoutubeSettings
+    - id integer
+    - enabled bool
+    - channel DiscordChannel
+    - server DiscordServerSettings
+    - url string
+    - embed? DiscordEmbed
+    - message? text
+    - createdAt date
+    - updatedAt date
+39. RedditSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - channel DiscordChannel
+    - subReddit string
+    - messageType string
+    - filterbyflair enum
+    - titleIncludes array[string]
+    - TitleExcludes array[string]
+    - showImages bool
+    - includeNsfw? bool
+    - embed? DiscordEmbed
+    - message? text
+    - createdAt date
+    - updatedAt date
+40. Forms
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - forms array[Form]
+    - createdAt date
+    - updatedAt date
+41. Form
+
+42. MusicSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - lofiRadioEnabled bool
+    - streamerRadioEnabled bool
+    - queueLimit integer
+    - queue array[Song]
+    - createdAt date
+    - updatedAt date
+43. Song
+    - id integer
+    - title string
+    - url string
+    - poster string
+    - createdAt date
+    - updatedAt date
+44. ModerationSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - ModerationLogChannel DiscordChannel
+    - ModeratorRoles array[DiscordRole]
+    - ProtectedRoles array[DiscordRoles]
+    - lockDownChannels array[DiscordChannels]
+    - customMessages object[ban string, unBan string, softBan string, kick string, mute string unMute string]
+    - autoPunishEnabled? bool
+    - punishRules array[PunishRule]
+    - appealsEnabled bool
+    - banApeals bool
+    - muteApeals bool
+    - banWaitingPeriod integer
+    - dmOnApproval bool
+    - dmOnRejextion bool
+    - dmOnKickBanMute bool
+    - respondWithReason bool
+    - useDiscordTimeoutsForMute bool
+    - PreserveMessagesOnBan bool
+    - ArchiveMessagesOnBan bool
+    - DeleteCommandsAfterExecuted bool
+    - bannedMessageArchive array[BannedMessageArchive]
+    - inviteUrl
+    - appealForm Form
+    - createdAt date
+    - updatedAt date
+45. BannedMessageArchive
+    - id integer
+    - user DiscordUser
+    - server DiscordServer
+    - messages array[DiscordMessage]
+    - createdAt date
+    - updatedAt date
+46. PunishRule
+    - id number
+    - enabled bool
+    - server DiscordServer
+    - punishAfter integer
+    - type enum[mute, kick, ban, addRole, Removerole]
+    - role? DiscordRole
+    - createdAt date
+    - updatedAt date 
+47. DiscordBan
+    - id: integer
+    - discordId: snowflake
+    - server: DiscordServer
+    - bannedUser: DiscordUser
+    - moderator: DiscordUser
+    - reason: string
+    - timestamp: date
+    - createdAt: date
+    - updatedAt: date 
+48. DiscordMessage
+    - id: integer
+    - channel: DiscordChannel
+    - server: DiscordServer
+    - author: DiscordUser
+    - content: string
+    - timestamp: date
+    - editedTimestamp: ?date
+    - attachments: array[DiscordAttachment]
+    - embeds: array[DiscordEmbed]
+    - reactions: array[DiscordReaction]
+    - mentions: array[DiscordUser]
+    - mentionRoles: array[DiscordRole]
+    - mentionChannels: array[DiscordChannel]
+    - pinned: boolean
+    - tts: boolean
+    - type: integer
+    - activity: ?DiscordMessageActivity
+    - application: ?DiscordMessageApplication
+    - messageReference: ?DiscordMessageReference
+    - flags: ?integer
+    - nonce: ?snowflake
+    - webhookId: ?snowflake
+    - interaction: ?DiscordMessageInteraction
+    - components: ?array[DiscordMessageComponent]
+    - createdAt: date
+    - updatedAt: date 
+49. AutoResponderSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - responseRules array[AutoResponse]
+    - createdAt date
+    - updatedAt date 
+50. AutoResponse
+    - id integer
+    - server DiscordServer
+    - messageResponse bool
+    - embedResponse bool
+    - reactionResponse bool
+    - message? text
+    - embed? DiscordEmbed
+    - Reaction DiscordEmoji
+    - allowedChannels array[DiscordChannel]
+    - ignoredChannels array[DiscordChannels]
+    - allowedRoles array[DiscordRole]
+    - ignoredRoles array[DiscordRole]
+    - wildcard bool
+    - createdAt date
+    - updatedAt date 
+51. TagSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - tags array[Tag]
+    - createdAt date
+    - updatedAt date 
+52. Tag
+    - id number
+    - tagSettings TagSettings
+    - name string
+    - description string
+    - createdAt date
+    - updatedAt date
+53. AutoRoles
+    - id number
+    - enabled bool
+    - roles array[DiscordRole]
+    - createdAt date
+    - updatedAt date
+54. ReactionRoleSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - channel DiscordChannel
+    - reactionRoles array[ReactionRole]
+    - createdAt date
+    - updatedAt date 
+55. ReactionRole
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - name string
+    - channel DiscordChannel
+    - messageType enum[Plain Message, Embed Message, Existing Message]
+    - selectionType enum[Reactions, Buttons, DropDowns]
+    - messageId? ?string
+    - embed? DiscordEmbed
+    - reactions array[object[reaction DiscordEmoji, role DiscordRole, buttonLabel? string, dropDownLabel string, dropDownDescription string]]
+    - type enum[Normal, Add Only, RemoveOnly]
+    - allowedRoles array[DiscordRole]
+    - ignoredRoles array[DiscordRole]
+    - allowMembersToGetMultipleRoles bool
+    - shuffleRoleAndThierEmoji bool
+    - keepReactionCounterAt1 bool
+    - createdAt date
+    - updatedAt date 
+56. SuggestionSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - suggestions array[Suggestion]
+    - status enum[Added, Voting, New, Rejected, Closed]
+    - rejectReason? string
+    - votes integer
+    - endDate? date
+    - defaultVoteTime integer
+    - createThreads bool
+    - enableArchive bool
+    - voteType enum[Reaction, Button]
+    - reactions? object[yes DiscordEmoji, no DiscordEmoji]
+    - buttonvoteEnabled bool
+    - createdAt date
+    - updatedAt date 
+57. Suggestion
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - suggestionTitle string
+    - suggestionDescription text
+    - suggestionThread DiscordChannel
+    - createdAt date
+    - updatedAt date
+58. WelcomeSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - messageType enum[Image, Plain Message, EmbedMessage]
+    - dmUserOnJoin bool
+    - message? text
+    - welcomeChannel DiscordChannel
+    - channelLinks array[DiscordChannel]
+    - embed? DiscordEmbed
+    - image? ?string
+    - createdAt date
+    - updatedAt date 
+59. AutoBanSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - bans array[DiscordBans]
+    - autobans array{DiscordUser]
+    - disableGlobalBans bool
+    - createdAt date
+    - updatedAt date 
+60. GlobalBans
+    - id number
+    - server? DiscordServer
+    - ip? string
+    - user? User
+    - discordUser DiscordUser
+    - application DiscordApplication
+    - active? bool
+    - activatedAt date
+    - endDate date
+    - timesActive integer
+    - createdAt date
+    - updatedAt date 
+61. PermanentBan
+    - id integer
+    - server? DiscordServer
+    - ip? string
+    - user? User
+    - discordUser DiscordUser
+    - application DiscordApplication
+    - active? bool
+    - createdAt date
+    - updatedAt date 
+62. ReminderSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - reminders array[Reminder]
+    - ignoredChannels array[DiscordChannel]
+    - createdAt date
+    - updatedAt date 
+63. Reminder
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - mentionRoles? array[DiscordRole]
+    - messageType enum[Plain Text, Embed]
+    - embed? DiscordEmbed
+    - message? text
+    - createdAt date
+    - updatedAt date 
+64. StarBoardSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - channel DiscordChannel
+    - ignoredRoles array[DiscordRole]
+    - ignoredChannels array[DiscordChannel]
+    - ignoreSelfStars bool
+    - reactToStarboardPost bool
+    - starCount integer
+    - embedColor Enum[Specific Color, Message Author Color, RandomColor]
+    - color? ?string
+    - customEmoji DiscordEmoji
+    - messagesStared array[StarBoardMessage]
+    - createdAt date
+    - updatedAt date 
+65. StarBoardMessage
+    - id number
+    - enabled bool
+    - user DiscordUser
+    - message DiscordMessage
+    - starCount integer
+    - createdAt date
+    - updatedAt date 
+66. AnnouncementSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - enableJoinMessages bool
+    - enableLeaveMessages bool
+    - EnableBanMessages bool
+    - SendJoinMessageAsDm bool
+    - AnnouncementChannel DiscordChannel
+    - joinMessageType enum[Message, Embed]
+    - joinmessage? string
+    - joinEmbed DiscordEmbed
+    - leaveMessageType enum[Message, Embed]
+    - leavemessage? string
+    - leaveEmbed DiscordEmbed
+    - banMessageType enum[Message, Embed]
+    - banmessage? string
+    - banEmbed DiscordEmbed
+    - createdAt date
+    - updatedAt date 
+67. MessageEmbedderSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - name string
+    - channel DiscordChannel
+    - embed DiscordEmbed
+    - createdAt date
+    - updatedAt date 
+68. AutoMessageSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - name string
+    - channel DiscordChannel
+    - reapeating bool
+    - oneTime bool
+    - interval integer
+    - dateOfFirst date
+    - plainText bool
+    - embed bool
+    - message? string
+    - embed? discordEmbed
+    - createdAt date
+    - updatedAt date 
+69. Giveaway
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - title string
+    - prize text
+    - startsOn date
+    - endsOn date
+    - numberofWinners integer
+    - channel DiscordChannel
+    - useButtons bool
+    - dmWinners bool
+    - image ?string
+    - allowDailyEntry bool
+    - enforceMaximumEntries bool
+    - MaxEntries integer
+    - allowreferalEntries
+    - hideFromNonMembers bool
+    - invite DiscordInvite
+    - allowedRoles array[DscordRole]
+    - ignoredRoles[DiscordRole]
+    - active bool
+    - createdAt date
+    - updatedAt date 
+70. GiveAwaySettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - editorRoles array{DiscordRole]
+    - giveaways array[Giveaway]
+    - activeGiveAways array[Giveaway]
+    - endedGiveAways array[Giveaway]
+    - createdAt date
+    - updatedAt date 
+71. ActionLog
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - eventType enum[MESSAGE DELETE, MESSAGE EDIT, IMAGE DELETE, BULK MESSAGE DELETE, LOG INVITES/INVITE INFO, MODERATOR COMMANDS, MEMBER JOIN, MEMBER LEAVE, MEMBER ROLE ADD, MEMBER ROLE REMOVE, NICKNAME CHANGE, MEMBER BAN, MEMBER UNBAN, ROLE CREATE,  ROLE DELETE, ROLE UPDATE, CHANNEL CREATE, CHANNEL DELETE, VOICE CHANNEL JOIN,  VOICE CHANNEL LEAVE, VOICE CHANNEL MOVE]
+    - content ?string
+    - createdAt date
+    - updatedAt date 
+72. ActionLogSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - logs array[ActionLog]
+    - ignoredChannels array[DiscordChannel]
+    - ignoredRoles array[DiscordRole]
+    - createdAt date
+    - updatedAt date 
+73. AutoModSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - rules array[Rules]
+    - AIModuleEnabled bool
+    - AIDetectionModel bool
+    - AIThreatPrediction bool
+    - createdAt date
+    - updatedAt date 
+74. HighlightSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - createdAt date
+    - updatedAt date 
+75. AIModuleSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - token string
+    - ThreatDetection bool
+    - Threatprevention bool
+    - MachineLearning bool default true
+    - chatBot ChatBotSettings
+    - voiceAssistant VoiceAssistantSettings
+    - createdAt date
+    - updatedAt date 
+76. ChatBotSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - textChatenabled bool
+    - VoiceChatEnabled bool
+    - allowedChannels array[DiscordChannel]
+    - ignoredChannels array[DiscordChannel]
+    - allowedRoles array[DiscordRole]
+    - ignoredRoles array[Discordrole]
+    - createdAt date
+    - updatedAt date 
+77. VoiceAssistantSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - WakeWord string
+    - modules array[AssisstantModules]
+    - allowedChannels array[DiscordChannel]
+    - ignoredChannels array[DiscordChannel]
+    - allowedRoles array[DiscordRole]
+    - ignoredRoles array[Discordrole]
+    - createdAt date
+    - updatedAt date 
+78. Tickets
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - status enum[Open, Closed, In Progress]
+    - Title string
+    - originalMessage Discordmessage
+    - messagelog array[Discordmessage]
+    - createdAt date
+    - updatedAt date 
+79. TicketArchive
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - tickets array[Tickets]
+    - createdAt date
+    - updatedAt date 
+80. TicketSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - openTickets array[Tickets]
+    - closedTickets array[Tickets]
+    - inProgressTickets array[Tickets]
+    - archived TicketArchive
+    - archiveOnClose bool
+    - ticketCategory DiscordChannel
+    - ticketChannel DiscordChannel
+    - createdAt date
+    - updatedAt date 
+81. SlowModeSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - interval integer
+    - createdAt date
+    - updatedAt date 
+82. AutoPurgeSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - Channels array[DiscordChannel]
+    - interval integer
+    - unit enum[Minute, Hour, Day, Week]
+    - createdAt date
+    - updatedAt date 
+83. Rule
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - ruleNumber Integer
+    - rule String
+    - ignoredRoles array[DiscordRole]
+    - createdAt date
+    - updatedAt date 
+84. GlobalRules
+    - id number
+    - enabled bool
+    - ruleNumber Integer
+    - rule String
+    - createdAt date
+    - updatedAt date 
+85. RuleSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - useGlobalRules bool
+    - rules array[Rule | GlobalRules]
+    - warnOnInfraction bool
+    - aiInfractionDetection bool
+    - createdAt date
+    - updatedAt date 
+86. VerificationSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - ageVerificationrequired bool
+    - accountAgerequirement bool
+    - captchaRequired bool
+    - requiredAge integer
+    - requiredAccountAge integer
+    - createdAt date
+    - updatedAt date 
+87. Tupper
+    - id number
+    - enabled bool
+    - name string
+    - displayName string
+    - avatarUrl string
+    - profile TupperProfile
+    - group TupperGroup
+    - brackets string
+    - createdAt date
+    - updatedAt date 
+88. TupperProfile
+    - id number
+    - enabled bool
+    - description string
+    - birthday string
+    - backstory text
+    - plotPoints text
+    - age integer
+    - posts integer
+    - pictures array[?string]
+    - createdAt date
+    - updatedAt date 
+89. TupperSettings
+    - id number
+    - enabled bool
+    - user DiscordUser
+    - groups array[TupperGroup]
+    - tuppers array[Tupper]
+    - createdAt date
+    - updatedAt date 
+90. TupperGroup
+    - id number
+    - enabled bool
+    - name string
+    - tuppers array[Tupper]
+    - createdAt date
+    - updatedAt date 
+91. CustomCommandsSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - commands array[CustomCommand]
+    - createdAt date
+    - updatedAt date 
+92. CustomCommand
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - name string
+    - description string
+    - command string
+    - embed? Discordembed
+    - deleteCommand bool
+    - silentCommand bool
+    - dmResponse bool
+    - disableMassPings bool
+    - allowedChannels array[DiscordChannel]
+    - ignoredChannels array[DiscordChannel]
+    - allowedRoles array[DiscordRole]
+    - ignoredRoles array[DiscordRole]
+    - responseChannel DiscordChannel
+    - cooldown integer
+    - deleteAfter integer
+    - requiredArguements integer
+    - responseMessage? text
+    - ResponseEmbed? DiscordEmbed
+    - embed? DiscordEmbed
+    - createdAt date
+    - updatedAt date 
+93. DiscordServerAdvertisement
+    - id integer
+    - name string
+    - server DiscordServer
+    - name string
+    - description string
+    - memberCount integer
+    - activityScore enum[Active, Very Active, Lively, Not very Active, Kinda Active, Dead]
+    - isPremiumServer bool
+    - isPremiumAdvertisement bool
+    - votes integer
+    - reviews array[DiscordServerReview]
+    - stars integer
+    - owner DiscordUser
+    - bumped? bool
+    - bumpCoolDown integer
+    - listPosition integer
+    - createdBy User
+    - createdAt date
+    - updatedAt date 
+94. DiscordServerReview
+    - id integer
+    - discordUser DiscordUser
+    - user User
+    - title string
+    - content string
+    - stars integer
+    - createdAt date
+    - updatedAt date
+95. TwitchSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - channel DiscordChannel
+    - streamer string
+    - embed? DiscordEmbed
+    - message? text
+    - createdAt date
+    - updatedAt date
+96. AFkSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - afkChannel DiscordChannel
+    - createdAt date
+    - updatedAt date
+97. FunSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - createdAt date
+    - updatedAt date
+98. SlowModeSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - messagePerSec integer
+    - createdAt date
+    - updatedAt date
+99. AutoRoleSettings
+    - id number
+    - enabled bool
+    - server DiscordServerSettings
+    - keepRolesOnLeave bool
+    - keepRolesOnKick bool
+    - autoRoles AutoRoles
+    - createdAt date
+    - updatedAt date
+100. MessageEmbederSettings
+     - id number
+     - enabled bool
+     - server DiscordServerSettings
+     - embeds array[DiscordEmbed]
+     - createdAt date
+     - updatedAt date
