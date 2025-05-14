@@ -22,6 +22,11 @@ jobs:
       # 1) Checkout your code
       - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.10.0
 
       # 2) Setup Node.js (v20) + Corepack (pnpm)
       - name: Setup Node.js & enable pnpm
