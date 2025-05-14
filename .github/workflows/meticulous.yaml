@@ -2,8 +2,7 @@ name: Meticulous
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
   pull_request: {}
   workflow_dispatch: {}
 
@@ -24,23 +23,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2) Install Node & PNPM, with built-in caching
-      - name: Setup Node.js & PNPM cache
+      # 2) Setup Node.js (v20) + Corepack (pnpm)
+      - name: Setup Node.js & enable pnpm
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: pnpm
+          cache: "pnpm"
+        # Corepack is bundled with Node 20, so pnpm is on the PATH now
 
-      # 3) Install deps
+      # 3) Install dependencies
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --non-interactive
 
-      # 4) Build your app (adjust if your build script is different)
+      # 4) Build your app
       - name: Build project
         run: pnpm build
 
-      # 5) If you’re using Next.js, export out a static “out/” folder
-      #    so Meticulous has actual HTML/CSS/JS to diff.
+      # 5) (Optional) Export static assets for Meticulous
       - name: Export static assets
         run: pnpm exec next export -o out
 
