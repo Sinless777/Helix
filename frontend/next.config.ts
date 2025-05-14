@@ -12,7 +12,7 @@ const nxOptions: WithNxOptions = {
 const baseConfig: NextConfig = {
   nx: nxOptions,
   crossOrigin: 'anonymous',
-  
+  output: 'export',
   images: {
     remotePatterns: [
       {

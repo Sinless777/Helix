@@ -45,10 +45,6 @@ jobs:
       - name: Build project
         run: task frontend:build
 
-      # 5) (Optional) Export static assets for Meticulous
-      - name: Export static assets
-        run: task frontend:export
-
       # 6) Publish the static folder to Meticulous
       - name: Run Meticulous tests
         uses: alwaysmeticulous/report-diffs-action/upload-assets@v1

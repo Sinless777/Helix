@@ -34,8 +34,3 @@ tasks:
       - cd frontend && pnpm run format
     env:
       CI: true
-
-  export:
-    desc: "Export static assets for Meticulous"
-    cmds:
-      - cd frontend && pnpx next export -o out
