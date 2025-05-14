@@ -38,12 +38,12 @@ export default function RootLayout({
       </head>
       <body>
         <Analytics />
-        <SpeedInsights />
         <ErrorBoundary>
           <BackgroundImage {...backgroundImageProps}>
             {children}
           </BackgroundImage>
         </ErrorBoundary>
+        <SpeedInsights />
       </body>
     </html>
   )
