@@ -1,0 +1,36 @@
+# go-task file
+# $schema: "https://raw.githubusercontent.com/go-task/taskfile/master/taskfile.schema.json"
+
+version: "3"
+
+tasks:
+  run-dev:
+    desc: "Run the development server"
+    cmds:
+      - cd frontend && pnpm run dev
+
+  build:
+    desc: "Build the frontend"
+    cmds:
+      - cd frontend && pnpm run build
+
+  test:
+    desc: "Run tests"
+    cmds:
+      - cd frontend && pnpm run test
+    env:
+      CI: true
+  
+  lint:
+    desc: "Run linters"
+    cmds:
+      - cd frontend && pnpm run lint
+    env:
+      CI: true
+  
+  format:
+    desc: "Format code"
+    cmds:
+      - cd frontend && pnpm run format
+    env:
+      CI: true

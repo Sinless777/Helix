@@ -1,6 +1,10 @@
+packages:
+  - frontend
+  - apis/*
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
+  - '@vercel/speed-insights'
   - esbuild
   - nx
   - protobufjs

@@ -1,6 +1,4 @@
 html {
-  -webkit-text-size-adjust: 100%; /* For Safari, old Android WebKit */
-  text-size-adjust: 100%;         /* For modern Chrome, Edge, etc. */
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
     Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;

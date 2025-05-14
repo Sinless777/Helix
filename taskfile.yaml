@@ -1,0 +1,17 @@
+# go-task file
+# $schema: "https://raw.githubusercontent.com/go-task/taskfile/master/taskfile.schema.json"
+
+version: "3"
+
+vars:
+  # Directories
+  TASKFILE_DIR: './.taskfiles'
+
+includes:
+  frontend:
+    taskfile: '{{.TASKFILE_DIR}}/frontend/taskfile.yaml'
+
+tasks:
+  default:
+    cmd: task --list-all
+

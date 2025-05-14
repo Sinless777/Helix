@@ -13,7 +13,6 @@ const baseConfig: NextConfig = {
   nx: nxOptions,
   crossOrigin: 'anonymous',
   
-
   images: {
     remotePatterns: [
       {
