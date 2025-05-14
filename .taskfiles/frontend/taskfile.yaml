@@ -38,4 +38,4 @@ tasks:
   export:
     desc: "Export static assets for Meticulous"
     cmds:
-      - cd frontend && next export -o out
+      - cd frontend && pnpx next export -o out
