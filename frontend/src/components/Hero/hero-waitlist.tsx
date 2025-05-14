@@ -58,7 +58,7 @@ export default function HeroWaitlist() {
     >
       {/* Prompt */}
       <Typography
-        variant="h3"
+        variant="h2"
         sx={{
           color: 'rgba(255,255,255,0.85)',
           textAlign: 'center',
