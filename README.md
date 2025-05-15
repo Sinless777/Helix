@@ -20,7 +20,6 @@
 
 ![GitHub](https://img.shields.io/github/license/Sinless777/Helix?style=for-the-badge)
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/Sinless777/Helix/master?style=for-the-badge)
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Sinless777/Helix/nx-workflow.yml?style=for-the-badge&label=Nx%20Pipeline%20Status)
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Sinless777/Helix/labeler.yaml?style=for-the-badge&label=Label%20PR%20workflow)
 
 #### Forks and Stars
