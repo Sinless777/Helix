@@ -1,21 +1,181 @@
-# Configuration for actions/labeler
+# .github/labeler.yaml
 
-# Define labels and conditions for applying them to PRs and issues
+# ========== General Maintenance ==========
 bug:
   - '*.bug'
-feature:
-  - '*.feature'
-documentation:
-  - '*.docs'
+  - 'fix/*'
+  - 'hotfix/*'
+
 enhancement:
   - '*.enhancement'
+  - 'improve/*'
+  - 'refactor/*'
+
+chore:
+  - 'chore/*'
+  - '*.chore'
+
+documentation:
+  - '*.docs'
+  - 'docs/*'
+  - 'readme/*'
+
+tests:
+  - 'tests/*'
+  - '*.test'
+  - 'e2e/*'
+  - 'unit/*'
+
+dependencies:
+  - 'deps/*'
+  - 'renovate/*'
+
+ci-cd:
+  - '.github/workflows/*'
+  - 'ci/*'
+  - 'cd/*'
+  - 'pipeline/*'
+
+# ========== Feature Development ==========
+feature:
+  - '*.feature'
+  - 'feat/*'
+
+backend:
+  - 'backend/*'
+  - 'server/*'
+  - 'api/*'
+  - 'database/*'
+
+frontend:
+  - 'frontend/*'
+  - 'client/*'
+  - 'ui/*'
+  - 'components/*'
+
 user-interface:
   - 'ui/*'
-security:
-  - 'security/*'
-apis:
-  - 'api/*'
-ux:
+  - 'styles/*'
+  - '*.ui'
+
+user-experience:
   - 'ux/*'
+  - '*.ux'
+  - 'feedback/*'
+
+cli:
+  - 'cli/*'
+  - 'tooling/cli/*'
+
+api:
+  - 'api/*'
+  - 'routes/*'
+  - 'services/api/*'
+
+graphql:
+  - 'graphql/*'
+  - '*.gql'
+
+# ========== AI & ML ==========
+ai:
+  - 'ai/*'
+  - 'ml/*'
+  - 'models/*'
+  - '*.ai'
+
+nlp:
+  - 'nlp/*'
+  - 'language/*'
+
+prompts:
+  - 'prompts/*'
+
+training:
+  - 'training/*'
+  - 'data/*'
+
+# ========== Integrations ==========
 discord-bot:
   - 'discord-bot/*'
+
+github-actions:
+  - '.github/actions/*'
+
+slack:
+  - 'integrations/slack/*'
+
+cloudflare:
+  - 'cloudflare/*'
+
+openai:
+  - 'integrations/openai/*'
+
+stripe:
+  - 'payments/stripe/*'
+
+# ========== Infrastructure ==========
+infrastructure:
+  - 'infra/*'
+  - 'infrastructure/*'
+
+kubernetes:
+  - 'k8s/*'
+  - '*.k8s'
+
+docker:
+  - 'docker/*'
+  - 'Dockerfile'
+
+terraform:
+  - 'terraform/*'
+  - '*.tf'
+
+ansible:
+  - 'ansible/*'
+  - 'provisioning/*'
+
+monitoring:
+  - 'monitoring/*'
+  - 'grafana/*'
+  - 'prometheus/*'
+
+logging:
+  - 'logging/*'
+  - 'loki/*'
+  - 'fluentd/*'
+
+# ========== Security ==========
+security:
+  - 'security/*'
+  - 'auth/*'
+  - 'permissions/*'
+
+secrets:
+  - 'secrets/*'
+  - 'vault/*'
+
+compliance:
+  - 'compliance/*'
+  - 'policy/*'
+  - 'hipaa/*'
+
+# ========== Misc & Meta ==========
+discussion:
+  - 'discussion/*'
+  - '*.talk'
+
+question:
+  - 'question/*'
+  - 'qna/*'
+
+roadmap:
+  - 'roadmap/*'
+  - '*.plan'
+
+wip:
+  - 'wip/*'
+  - '*.draft'
+
+deprecated:
+  - 'legacy/*'
+  - 'deprecated/*'
