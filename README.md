@@ -135,7 +135,7 @@ immersion and dreams come true!
 
 ## Getting Started
 
-Inorder to get started with development please goto the [Getting Started](docs/getting-started.md) guide.
+In order to get started with development please go to the [Getting Started](docs/getting-started.md) guide.
 
 ## Contributing
 

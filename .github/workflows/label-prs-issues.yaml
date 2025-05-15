@@ -1,0 +1,21 @@
+name: Label PRs and Issues
+
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+  issues:
+    types: [opened, edited, reopened]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Label PRs and Issues
+        uses: actions/labeler@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yaml
