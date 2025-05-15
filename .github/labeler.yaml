@@ -1,0 +1,21 @@
+# Configuration for actions/labeler
+
+# Define labels and conditions for applying them to PRs and issues
+bug:
+  - '*.bug'
+feature:
+  - '*.feature'
+documentation:
+  - '*.docs'
+enhancement:
+  - '*.enhancement'
+user-interface:
+  - 'ui/*'
+security:
+  - 'security/*'
+apis:
+  - 'api/*'
+ux:
+  - 'ux/*'
+discord-bot:
+  - 'discord-bot/*'
