@@ -1,0 +1,21 @@
+name: Auto Assign PRs and Issues
+
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+  issues:
+    types: [opened, edited, reopened]
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Auto Assign PRs and Issues
+        uses: kentaro-m/auto-assign-action@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/auto-assign.yaml

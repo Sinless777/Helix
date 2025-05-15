@@ -1,0 +1,48 @@
+name: Sync Milestones
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight
+
+jobs:
+  sync-milestones:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Sync Milestones
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const fs = require('fs');
+            const milestones = YAML.parse(fs.readFileSync('milestones.yaml', 'utf8'));
+            const existingMilestones = await github.issues.listMilestonesForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            for (const milestone of milestones) {
+              const existingMilestone = existingMilestones.data.find(m => m.title === milestone.title);
+              if (existingMilestone) {
+                await github.issues.updateMilestone({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  milestone_number: existingMilestone.number,
+                  title: milestone.title,
+                  state: milestone.state,
+                  description: milestone.description,
+                  due_on: milestone.due_on,
+                });
+              } else {
+                await github.issues.createMilestone({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: milestone.title,
+                  state: milestone.state,
+                  description: milestone.description,
+                  due_on: milestone.due_on,
+                });
+              }
+            }
