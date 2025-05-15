@@ -1,4 +1,4 @@
-# Helix AI License (Custom Restricted Open Source License)
+# Helix AI License (Open Source License)
 
 Copyright (c) 2020–Present SinLess Games LLC
 
