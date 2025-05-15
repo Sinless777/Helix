@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
+    "@jest/globals": "^29.7.0",
     "@nx/next": "^21.0.3",
     "@tailwindcss/postcss": "^4.1.6",
     "@testing-library/dom": "^10.4.0",
@@ -25,6 +26,7 @@
     "nx": "^21.0.3",
     "prettier": "^3.5.3",
     "sass": "^1.86.3",
+    "ts-jest": "^29.3.3",
     "ts-node": "^10.9.2",
     "typescript": "5.8.3",
     "webpack": "^5.99.8"
