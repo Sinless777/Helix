@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "composite": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "outDir": "../../../dist/out-tsc",
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true,
+    "types": ["node"]
+  },
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/Colors/colors.ts",
+    "src/Colors/colors.spec.ts",
+    "src/Colors/colors.type.d.ts",
+    "src/Colors/colors.type.ts"
+  ]
+}
