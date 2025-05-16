@@ -1,6 +1,9 @@
 packages:
   - frontend
   - apis/*
+  - libs/*
+
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
