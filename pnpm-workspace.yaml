@@ -13,4 +13,4 @@ onlyBuiltDependencies:
   - protobufjs
   - sharp
   - es5-ext
-  - sass
+  - node-sass
