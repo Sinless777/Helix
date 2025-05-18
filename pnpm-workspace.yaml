@@ -1,6 +1,9 @@
 packages:
   - frontend
   - apis/*
+  - libs/*
+
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
@@ -9,3 +12,5 @@ onlyBuiltDependencies:
   - nx
   - protobufjs
   - sharp
+  - es5-ext
+  - node-sass
