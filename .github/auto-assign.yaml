@@ -1,0 +1,11 @@
+# Configuration for actions/auto-assign
+
+# Define the list of users who can be assigned to PRs and issues
+assignees:
+  - user1
+  - user2
+  - user3
+reviewers:
+  - reviewer1
+  - reviewer2
+  - reviewer3
