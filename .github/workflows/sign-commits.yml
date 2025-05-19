@@ -3,10 +3,17 @@ name: Sign Unsigned Commits
 on:
   push:
     branches:
-      - main
+      - master
+      - develop
+      - feature/*
   pull_request:
     branches:
-      - main
+      - develop
+      - feature/*
+
+
+permissions:
+  contents: write
 
 jobs:
   sign-commits:
