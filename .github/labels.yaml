@@ -1,0 +1,170 @@
+# Area specific labels
+- name: area/apps
+  description: Application specific changes
+  color: 'f1e05a'
+- name: area/libs
+  description: Library specific changes
+  color: '2b7489'
+- name: area/docker
+  description: Docker specific changes
+  color: '3572A5'
+- name: area/.github
+  description: GitHub specific changes
+  color: '00ADD8'
+- name: area/workflows
+  description: Workflow specific changes
+  color: 'f1e05a'
+- name: area/package.json
+  description: package.json updates
+  color: '2b7489'
+- name: area/requirements.txt
+  description: requirements.txt updates
+  color: '3572A5'
+- name: area/addons
+  description: Add-ons and integrations
+  color: '0e8a16'
+- name: area/ansible
+  description: Ansible automation changes
+  color: '0e8a16'
+- name: area/bootstrap
+  description: Bootstrap and UI framework
+  color: '0e8a16'
+- name: area/github
+  description: GitHub config and actions
+  color: '0e8a16'
+- name: area/kubernetes
+  description: Kubernetes manifests and configs
+  color: '0e8a16'
+- name: area/taskfile
+  description: Taskfile scripts
+  color: '0e8a16'
+
+# Applications
+- name: app/frontend
+  description: Frontend application
+  color: 'f1e05a'
+- name: app/auth-server
+  description: Auth server application
+  color: '2b7489'
+- name: app/discord-bot
+  description: Discord bot application
+  color: '3572A5'
+- name: app/helix
+  description: Helix AI application
+  color: '00ADD8'
+
+# Renovate
+- name: renovate/container
+  description: Docker container updates
+  color: '027fa0'
+- name: renovate/ansible
+  description: Ansible role updates
+  color: '027fa0'
+- name: renovate/github-action
+  description: GitHub Action updates
+  color: '027fa0'
+- name: renovate/github-release
+  description: GitHub Release updates
+  color: '027fa0'
+- name: renovate/helm
+  description: Helm chart updates
+  color: '027fa0'
+
+# Semantic version bump type
+- name: type/patch
+  description: Patch version bump
+  color: 'ffec19'
+- name: type/minor
+  description: Minor version bump
+  color: 'ff9800'
+- name: type/major
+  description: Major version bump
+  color: 'f6412d'
+- name: type/break
+  description: Breaking changes
+  color: 'f6412d'
+
+# Lifecycle
+- name: bug
+  description: Something isn't working
+  color: 'd73a4a'
+- name: feature
+  description: New feature or request
+  color: 'a2eeef'
+- name: enhancement
+  description: Enhancement to existing functionality
+  color: 'a2eeef'
+- name: question
+  description: Further information is requested
+  color: 'd876e3'
+- name: fixed
+  description: Issue has been fixed
+  color: '0e8a16'
+- name: duplicate
+  description: This issue or PR already exists
+  color: 'cfd3d7'
+- name: wontfix
+  description: This will not be worked on
+  color: 'cfd3d7'
+- name: invalid
+  description: This does not seem right
+  color: 'cfd3d7'
+- name: automated
+  description: Automated issue or PR
+  color: 'cfd3d7'
+- name: dependencies
+  description: Dependency-related issue or PR
+  color: 'cfd3d7'
+
+# Release Labels
+- name: release/patch
+  description: Patch release
+  color: 'ffec19'
+- name: release/minor
+  description: Minor release
+  color: 'ff9800'
+- name: release/major
+  description: Major release
+  color: 'f6412d'
+- name: release/break
+  description: Breaking changes release
+  color: 'f6412d'
+- name: release/alpha
+  description: Alpha release
+  color: 'f6412d'
+- name: release/beta
+  description: Beta release
+  color: 'f6412d'
+
+# Languages
+- name: language/javascript
+  description: JavaScript code
+  color: 'f1e05a'
+- name: language/typescript
+  description: TypeScript code
+  color: '2b7489'
+- name: language/python
+  description: Python code
+  color: '3572A5'
+- name: language/go
+  description: Go code
+  color: '00ADD8'
+
+# Priority
+- name: priority/low
+  description: Low priority
+  color: 'cfd3d7'
+- name: priority/medium
+  description: Medium priority
+  color: 'cfd3d7'
+- name: priority/high
+  description: High priority
+  color: 'cfd3d7'
+- name: priority/critical
+  description: Critical priority
+  color: 'cfd3d7'
+
+# Special
+- name: hold/upstream
+  description: Held for upstream
+  color: 'ee0701'
