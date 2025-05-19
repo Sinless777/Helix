@@ -5,11 +5,16 @@ packages:
 onlyBuiltDependencies:
   - '@nestjs/core'
   - '@parcel/watcher'
+  - '@scarf/scarf'
+  - '@swc/core'
   - '@tailwindcss/oxide'
   - '@vercel/speed-insights'
+  - bcrypt
   - es5-ext
   - esbuild
+  - node-sass
   - nx
   - protobufjs
   - sass
   - sharp
+  - unrs-resolver
