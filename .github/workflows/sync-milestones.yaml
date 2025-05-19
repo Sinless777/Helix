@@ -53,7 +53,6 @@ jobs:
               title   = m['title']
               state   = m.get('state', 'open')
               desc    = m.get('description', '')
-              due_str = m.get('due_on')  # may be None or missing
 
               # build params dict and only include due_on if provided
               params = {
@@ -61,10 +60,6 @@ jobs:
                 'state': state,
                 'description': desc,
               }
-              if due_str:
-                  # parse ISO8601 into datetime
-                  due_dt = datetime.fromisoformat(due_str.replace('Z', '+00:00'))
-                  params['due_on'] = due_dt
 
               if title in existing:
                   existing[title].edit(**params)
