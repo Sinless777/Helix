@@ -35,6 +35,17 @@ export default function RootLayout({
             src="https://snippet.meticulous.ai/v1/meticulous.js"
           />
         )}
+        
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXCL6FMDHY"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-EXCL6FMDHY');
+      </script>
+
       </head>
       <body>
         <Analytics />
