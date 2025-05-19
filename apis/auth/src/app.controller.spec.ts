@@ -1,37 +1,54 @@
-// apis/auth/src/app.controller.spec.ts
-
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Test, TestingModule } from '@nestjs/testing'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
 
 describe('AppController', () => {
-  let appController: AppController;
-  let appService: AppService;
+  let appController: AppController
+
+  const mockAppService = {
+    getHealthStatus: jest.fn(() => '✅ Auth service is running'),
+    getEnvironment: jest.fn(() => process.env.NODE_ENV || 'development'),
+    getDatabaseConfig: jest.fn(() => ({
+      host: 'localhost',
+      port: 5432,
+      dbName: 'test_db',
+      user: 'test_user',
+    })),
+  }
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
-    }).compile();
+      providers: [
+        {
+          provide: AppService,
+          useValue: mockAppService,
+        },
+      ],
+    }).compile()
 
-    appController = moduleRef.get<AppController>(AppController);
-    appService = moduleRef.get<AppService>(AppService);
-  });
+    appController = moduleRef.get<AppController>(AppController)
+  })
 
   it('should return health status', () => {
-    expect(appController.getHealthStatus()).toBe('OK');
-  });
+    expect(appController.getHealthStatus()).toBe('✅ Auth service is running')
+    expect(mockAppService.getHealthStatus).toHaveBeenCalled()
+  })
 
   it('should return current environment', () => {
-    const env = process.env.NODE_ENV || 'development';
-    expect(appController.getEnvironment()).toBe(env);
-  });
+    const expectedEnv = process.env.NODE_ENV || 'development'
+    expect(appController.getEnvironment()).toBe(expectedEnv)
+    expect(mockAppService.getEnvironment).toHaveBeenCalled()
+  })
 
   it('should return database config', () => {
-    const dbConfig = appService.getDatabaseConfig();
-    expect(dbConfig).toHaveProperty('host');
-    expect(dbConfig).toHaveProperty('port');
-    expect(dbConfig).toHaveProperty('dbName');
-    expect(dbConfig).toHaveProperty('user');
-  });
-});
+    const config = appController.getDatabaseConfig()
+    expect(config).toMatchObject({
+      host: 'localhost',
+      port: 5432,
+      dbName: 'test_db',
+      user: 'test_user',
+    })
+    expect(mockAppService.getDatabaseConfig).toHaveBeenCalled()
+  })
+})

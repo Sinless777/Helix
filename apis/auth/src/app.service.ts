@@ -1,48 +1,49 @@
-// apis/auth/src/app.service.ts
+import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-
+/**
+ * AppService provides utility methods for health checks
+ * and accessing configuration values.
+ */
 @Injectable()
 export class AppService {
   constructor(private readonly configService: ConfigService) {}
 
   /**
+   * Returns a basic health check message.
    *
-   * @returns Health status message
-   * @description This method returns a health status message indicating that the auth service is running.
-   * It can be used for health checks in the application.
+   * @returns {string} Health status message
    */
   getHealthStatus(): string {
-    return '✅ Auth service is running';
+    return '✅ Auth service is running'
   }
 
   /**
+   * Retrieves the current environment mode (e.g., development, production).
    *
-   * @returns Environment variable
-   * @description This method retrieves the current environment variable from the ConfigService.
-   * It uses the ConfigService to get the value of NODE_ENV.
-   * If NODE_ENV is not set, it defaults to 'development'.
+   * @returns {string} The value of NODE_ENV or 'development' if not set
    */
   getEnvironment(): string {
-    return this.configService.get<string>('NODE_ENV') || 'development';
+    return this.configService.get<string>('NODE_ENV') || 'development'
   }
 
   /**
+   * Retrieves the database configuration values from environment variables.
    *
-   * @returns Database configuration object
-   * @description This method retrieves the database configuration from the environment variables.
-   * It uses the ConfigService to get the values for host, port, dbName, and user.
-   * The values are expected to be set in the environment variables.
-   * If any of the values are not set, it will return undefined for that property.
-   * The returned object can be used to configure the database connection in the application.
+   * @returns {{ host?: string; port?: number; dbName?: string; user?: string }}
+   * An object containing DB_HOST, DB_PORT, DB_NAME, and DB_USER
    */
-  getDatabaseConfig() {
+  getDatabaseConfig(): {
+    host?: string
+    port?: number
+    dbName?: string
+    user?: string
+  } {
     return {
       host: this.configService.get<string>('DB_HOST'),
       port: this.configService.get<number>('DB_PORT'),
       dbName: this.configService.get<string>('DB_NAME'),
       user: this.configService.get<string>('DB_USER'),
-    };
+    }
   }
 }
