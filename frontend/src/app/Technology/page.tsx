@@ -45,7 +45,9 @@ export default function Technology() {
             display: { xs: 'none', lg: 'block' },
           }}
           data-ad-client="ca-pub-REPLACE_WITH_YOUR_CLIENT_ID"
-          data-ad-slot={side === 'left' ? 'REPLACE_LEFT_SLOT_ID' : 'REPLACE_RIGHT_SLOT_ID'}
+          data-ad-slot={
+            side === 'left' ? 'REPLACE_LEFT_SLOT_ID' : 'REPLACE_RIGHT_SLOT_ID'
+          }
           data-ad-format="vertical"
           data-full-width-responsive="false"
         />
@@ -68,14 +70,21 @@ export default function Technology() {
           component="p"
           sx={{ textAlign: 'center', mt: 1, color: '#fff', padding: '2rem' }}
         >
-          Helix AI is built on a foundation of modern, battle-tested technologies—each carefully chosen to ensure performance, reliability, scalability, and security. From 
-          cloud infrastructure and orchestration to real-time analytics, AI frameworks, and robust observability stacks, every tool in our ecosystem plays a strategic role. 
-          We leverage powerful third-party APIs and open-source libraries not only to accelerate innovation but to deliver a seamless, responsive, and intelligent experience 
-          to our users. Transparency is a core value at Helix; that&apos;s why we proudly share the technologies we rely on and link directly to their official documentation. 
-          Whether you're a developer, researcher, or simply curious, we invite you to explore the systems that power Helix. Behind every feature is a stack engineered to evolve, 
-          scale, and serve—because great technology should never be invisible, just intuitive.
+          Helix AI is built on a foundation of modern, battle-tested
+          technologies—each carefully chosen to ensure performance, reliability,
+          scalability, and security. From cloud infrastructure and orchestration
+          to real-time analytics, AI frameworks, and robust observability
+          stacks, every tool in our ecosystem plays a strategic role. We
+          leverage powerful third-party APIs and open-source libraries not only
+          to accelerate innovation but to deliver a seamless, responsive, and
+          intelligent experience to our users. Transparency is a core value at
+          Helix; that&apos;s why we proudly share the technologies we rely on
+          and link directly to their official documentation. Whether you're a
+          developer, researcher, or simply curious, we invite you to explore the
+          systems that power Helix. Behind every feature is a stack engineered
+          to evolve, scale, and serve—because great technology should never be
+          invisible, just intuitive.
         </Typography>
-
       </Box>
 
       {/* Cards Grid wrapped in Container for side gutters */}

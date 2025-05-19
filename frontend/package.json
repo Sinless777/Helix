@@ -47,6 +47,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/otel": "^1.12.0",
     "@vercel/speed-insights": "^1.2.0",
+    "braces": "^3.0.3",
     "flags": "^4.0.0",
     "framer-motion": "^12.11.0",
     "next": "^15.3.2",

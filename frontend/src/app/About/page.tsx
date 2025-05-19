@@ -3,12 +3,7 @@
 import React from 'react'
 import Script from 'next/script'
 import Grid from '@mui/material/Grid'
-import {
-  Box,
-  Container,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Box, Container, Typography, useTheme } from '@mui/material'
 import { Header } from '@/components/Header'
 import { headerProps } from '@/constants/header'
 import { AboutContent } from '@/constants/about'
@@ -70,7 +65,7 @@ export default function AboutPage() {
 
         <Grid container spacing={4}>
           {AboutContent.map((sec, i) => (
-            <Grid key={i} size={{ xs: 12, sm: 6, }}>
+            <Grid key={i} size={{ xs: 12, sm: 6 }}>
               {/* Card Animation */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -79,11 +74,11 @@ export default function AboutPage() {
                 whileHover={{ scale: 1.03 }}
                 className={styles.card}
               >
-                <Box component="div" sx={{ height: 360, overflowY: 'auto', p: 2 }}>
-                  <Typography
-                    variant="h5"
-                    className={styles.cardTitle}
-                  >
+                <Box
+                  component="div"
+                  sx={{ height: 360, overflowY: 'auto', p: 2 }}
+                >
+                  <Typography variant="h5" className={styles.cardTitle}>
                     <span className={styles.icon}>{sec.icon || '🔹'}</span>
                     {sec.title}
                   </Typography>

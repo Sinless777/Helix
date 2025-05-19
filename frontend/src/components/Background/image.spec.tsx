@@ -23,7 +23,7 @@ describe('BackgroundImage', () => {
 
   it('renders an img element with an src and alt attribute', () => {
     const { getByAltText } = render(
-      <BackgroundImage imageUrl={imageUrl} altText={altText} />
+      <BackgroundImage imageUrl={imageUrl} altText={altText} />,
     )
     const img = getByAltText(altText) as HTMLImageElement
     // Verify the img element exists
@@ -39,7 +39,7 @@ describe('BackgroundImage', () => {
     const { getByText } = render(
       <BackgroundImage imageUrl={imageUrl} altText={altText}>
         <span>{childText}</span>
-      </BackgroundImage>
+      </BackgroundImage>,
     )
     const child = getByText(childText)
     // Verify the child node renders in the document

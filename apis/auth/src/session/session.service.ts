@@ -43,7 +43,7 @@ export class SessionService {
     return session;
   }
 
-  /** 
+  /**
    * Fetch geoIP information for a given IP address.
    * @param ipAddress - The IP address to fetch geoIP information for.
    * @returns The geoIP information.
@@ -101,7 +101,8 @@ export class SessionService {
    * Validates the format of a user agent string.
    */
   validateUserAgent(userAgent: string): boolean {
-    const userAgentRegex = /^(Mozilla|Opera|Chrome|Safari|Edge|Trident)\/[0-9]+\.[0-9]+/;
+    const userAgentRegex =
+      /^(Mozilla|Opera|Chrome|Safari|Edge|Trident)\/[0-9]+\.[0-9]+/;
     return userAgentRegex.test(userAgent);
   }
 
@@ -135,7 +136,7 @@ export class SessionService {
    */
   async revokeAllSessionsForUser(user: User): Promise<Session[]> {
     const sessions = await this.findAllByUser(user);
-    sessions.forEach(session => (session.revoked = true));
+    sessions.forEach((session) => (session.revoked = true));
     await this.em.persistAndFlush(sessions);
     return sessions;
   }
@@ -151,7 +152,9 @@ export class SessionService {
    * Validates a UUID v5 string.
    */
   validateUuid(uuid: string): boolean {
-    return /^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(uuid);
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(
+      uuid,
+    );
   }
 
   /**

@@ -115,7 +115,10 @@ export const HelixCard: React.FC<CardProps> = ({
           <Box sx={{ maxHeight: '10.5rem', overflowY: 'auto' }}>
             <List disablePadding sx={{ textAlign: 'center' }}>
               {listItems.map((item, idx) => (
-                <ListItem key={idx} sx={{ display: 'list-item', justifyContent: 'center', p: 0 }}>
+                <ListItem
+                  key={idx}
+                  sx={{ display: 'list-item', justifyContent: 'center', p: 0 }}
+                >
                   <Button
                     component="a"
                     href={item.href}
@@ -173,7 +176,9 @@ export const HelixCard: React.FC<CardProps> = ({
               variant="contained"
               sx={{
                 bgcolor: 'secondary.main',
-                color: theme.palette.getContrastText(theme.palette.secondary.main),
+                color: theme.palette.getContrastText(
+                  theme.palette.secondary.main,
+                ),
                 fontFamily: '"Mate SC", serif',
               }}
               aria-label={`Learn more about ${title}`}

@@ -22,14 +22,19 @@ export class SessionController {
    * Create a session for a user (useful for programmatic testing or internal logic).
    */
   @Post('create')
-  async create(@Body() body: {
-    userId: string;
-    ipAddress: string;
-    userAgent: string;
-    geoLocation?: string;
-    geoIP?: string;
-  }): Promise<Session> {
-    const user = await this.sessionService.em.findOne(User, { id: body.userId });
+  async create(
+    @Body()
+    body: {
+      userId: string;
+      ipAddress: string;
+      userAgent: string;
+      geoLocation?: string;
+      geoIP?: string;
+    },
+  ): Promise<Session> {
+    const user = await this.sessionService.em.findOne(User, {
+      id: body.userId,
+    });
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
@@ -111,7 +116,7 @@ export class SessionController {
    *  Find a session by its ID.
    * @param id - The ID of the session to find.
    * @throws {HttpException} If the session is not found.
-   * @returns 
+   * @returns
    */
   async findSessionById(id: string): Promise<Session | null> {
     const session = await this.sessionService.findById(id);
@@ -122,10 +127,10 @@ export class SessionController {
   }
 
   /**
-   * 
+   *
    * @param id - The ID of the session to revoke.
    * @throws {HttpException} If the session is not found.
-   * @returns 
+   * @returns
    */
   revokeSession(id: string): Promise<Session | null> {
     return this.sessionService.revokeSession(id);
@@ -140,7 +145,10 @@ export class SessionController {
   async getSessionsForUser(user: User): Promise<Session[]> {
     const sessions = await this.sessionService.findAllByUser(user);
     if (!sessions) {
-      throw new HttpException('No sessions found for user', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'No sessions found for user',
+        HttpStatus.NOT_FOUND,
+      );
     }
     return sessions;
   }

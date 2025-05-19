@@ -8,7 +8,7 @@ export class AppService {
   constructor(private readonly configService: ConfigService) {}
 
   /**
-   * 
+   *
    * @returns Health status message
    * @description This method returns a health status message indicating that the auth service is running.
    * It can be used for health checks in the application.
@@ -18,7 +18,7 @@ export class AppService {
   }
 
   /**
-   * 
+   *
    * @returns Environment variable
    * @description This method retrieves the current environment variable from the ConfigService.
    * It uses the ConfigService to get the value of NODE_ENV.
@@ -29,7 +29,7 @@ export class AppService {
   }
 
   /**
-   * 
+   *
    * @returns Database configuration object
    * @description This method retrieves the database configuration from the environment variables.
    * It uses the ConfigService to get the values for host, port, dbName, and user.

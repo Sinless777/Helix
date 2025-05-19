@@ -30,7 +30,10 @@ export class UserController {
 
     const validPassword = await this.userService.isValidPassword(password);
     if (!validPassword) {
-      throw new HttpException('Password does not meet security requirements', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Password does not meet security requirements',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     return this.userService.create(email, password);
@@ -51,7 +54,10 @@ export class UserController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updates: Partial<User>): Promise<User> {
+  async update(
+    @Param('id') id: string,
+    @Body() updates: Partial<User>,
+  ): Promise<User> {
     return this.userService.update(id, updates);
   }
 

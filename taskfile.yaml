@@ -1,7 +1,7 @@
 # go-task file
 # $schema: "https://raw.githubusercontent.com/go-task/taskfile/master/taskfile.schema.json"
 
-version: "3"
+version: '3'
 
 vars:
   # Directories
@@ -14,4 +14,3 @@ includes:
 tasks:
   default:
     cmd: task --list-all
-

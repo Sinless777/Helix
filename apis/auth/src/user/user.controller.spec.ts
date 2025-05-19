@@ -48,7 +48,10 @@ describe('UserController', () => {
   });
 
   it('should create a user', async () => {
-    const result = await controller.create({ email: mockUser.email, password: 'Password123!' });
+    const result = await controller.create({
+      email: mockUser.email,
+      password: 'Password123!',
+    });
     expect(result).toEqual(mockUser);
     expect(service.create).toHaveBeenCalledWith(mockUser.email, 'Password123!');
   });

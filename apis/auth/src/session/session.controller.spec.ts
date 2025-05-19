@@ -54,7 +54,9 @@ describe('SessionController', () => {
       mockSessionService.deleteSession.mockResolvedValue(undefined);
 
       await controller.deleteSession('session-id');
-      expect(mockSessionService.deleteSession).toHaveBeenCalledWith('session-id');
+      expect(mockSessionService.deleteSession).toHaveBeenCalledWith(
+        'session-id',
+      );
     });
   });
 
@@ -66,7 +68,9 @@ describe('SessionController', () => {
 
       const result = await controller.revokeSession('session-id');
       expect(result).toBe(session);
-      expect(mockSessionService.revokeSession).toHaveBeenCalledWith('session-id');
+      expect(mockSessionService.revokeSession).toHaveBeenCalledWith(
+        'session-id',
+      );
     });
   });
 

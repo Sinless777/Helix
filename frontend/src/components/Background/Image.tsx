@@ -26,7 +26,7 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
           width: '100vw',
           height: '100vh',
           zIndex: -1,
-          backgroundColor: '#000',       // fallback behind the image
+          backgroundColor: '#000', // fallback behind the image
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -40,8 +40,8 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
           fill
           priority
           style={{
-            objectFit: 'fill',        // show entire image
-            objectPosition: 'center',    // center it
+            objectFit: 'fill', // show entire image
+            objectPosition: 'center', // center it
           }}
         />
       </Box>

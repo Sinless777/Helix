@@ -5,7 +5,9 @@ import { BotColors } from '@/constants/bot'
 
 export default function HeroWaitlist() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<
+    'idle' | 'sending' | 'success' | 'error'
+  >('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
   const isValidEmail = /^\S+@\S+\.\S+$/.test(email)
@@ -20,7 +22,6 @@ export default function HeroWaitlist() {
     }
   }, [status])
 
-
   const handleSubmit = async () => {
     if (!isValidEmail) return
     setStatus('sending')
@@ -30,21 +31,20 @@ export default function HeroWaitlist() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
-        })
+      })
 
-        const body = await res.json()
-        if (body.status === 'success') {
+      const body = await res.json()
+      if (body.status === 'success') {
         setStatus('success')
         setEmail('')
-        } else {
+      } else {
         throw new Error(body.message || 'Server error')
-        }
+      }
     } catch (err: any) {
-        setErrorMsg(err.message)
-        setStatus('error')
+      setErrorMsg(err.message)
+      setStatus('error')
     }
-    }
-
+  }
 
   return (
     <Box
@@ -75,7 +75,8 @@ export default function HeroWaitlist() {
           severity="success"
           sx={{ mt: 2, width: { xs: '100%', sm: 'auto' } }}
         >
-          Thanks! You&apos;re on the waitlist. We will notify you when we launch.
+          Thanks! You&apos;re on the waitlist. We will notify you when we
+          launch.
         </Alert>
       )}
       {status === 'error' && (
@@ -90,7 +91,7 @@ export default function HeroWaitlist() {
       {/* Form Row */}
       <Box
         component="form"
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault()
           handleSubmit()
         }}
@@ -107,7 +108,7 @@ export default function HeroWaitlist() {
           type="email"
           variant="filled"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           error={email !== '' && !isValidEmail}
           helperText={
             email !== '' && !isValidEmail ? 'Please enter a valid email' : ''
@@ -116,8 +117,12 @@ export default function HeroWaitlist() {
             bgcolor: 'rgba(255,255,255,0.1)',
             borderRadius: 1,
             input: { color: '#fff' },
-            '& .MuiFilledInput-underline:before': { borderBottomColor: 'rgba(255,255,255,0.4)' },
-            '& .MuiFilledInput-underline:hover:before': { borderBottomColor: '#fff' },
+            '& .MuiFilledInput-underline:before': {
+              borderBottomColor: 'rgba(255,255,255,0.4)',
+            },
+            '& .MuiFilledInput-underline:hover:before': {
+              borderBottomColor: '#fff',
+            },
             '& .MuiFilledInput-root': { borderRadius: '4px' },
             '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.7)' },
             '& .MuiInputLabel-root.Mui-focused': { color: '#fff' },

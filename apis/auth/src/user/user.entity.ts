@@ -37,7 +37,7 @@ export class User {
 
   @Property({ onUpdate: () => new Date() })
   updatedAt: Date = new Date();
-  
+
   @BeforeCreate()
   generateUuid() {
     if (!this.id && this.email) {

@@ -2,13 +2,14 @@ packages:
   - frontend
   - apis/*
   - libs/*
-
-
 onlyBuiltDependencies:
+  - '@nestjs/core'
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
   - '@vercel/speed-insights'
+  - es5-ext
   - esbuild
   - nx
   - protobufjs
+  - sass
   - sharp

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { Header } from '@/components/Header'
 import { Box, Typography, Button } from '@mui/material'
@@ -29,16 +29,30 @@ export function ErrorPage({ title, message, showRetry, onRetry }: Props) {
           px: 2,
         }}
       >
-        <Typography variant="h3" gutterBottom>{title}</Typography>
-        <Typography variant="body1" gutterBottom>{message}</Typography>
+        <Typography variant="h3" gutterBottom>
+          {title}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {message}
+        </Typography>
 
         {showRetry && onRetry && (
-          <Button variant="contained" color="secondary" onClick={onRetry} sx={{ mt: 2 }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={onRetry}
+            sx={{ mt: 2 }}
+          >
             Try Again
           </Button>
         )}
 
-        <Button variant="outlined" color="secondary" onClick={() => router.push('/')} sx={{ mt: 2 }}>
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => router.push('/')}
+          sx={{ mt: 2 }}
+        >
           Go to Home
         </Button>
       </Box>

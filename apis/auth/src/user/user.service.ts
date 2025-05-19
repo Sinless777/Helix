@@ -12,12 +12,12 @@ export class UserService {
    * @param email - The email of the user to create.
    * @param password - The password of the user to create.
    * @returns The created user.
-   * 
+   *
    * @throws {Error} If the user already exists.
    * @throws {Error} If the email is invalid.
    * @throws {Error} If the password is invalid.
    * @throws {Error} If the user cannot be created.
-   * 
+   *
    */
   async create(email: string, password: string): Promise<User> {
     if (!email || !password) {
@@ -31,10 +31,10 @@ export class UserService {
 
     const user = new User();
     user.email = email;
-    
+
     // Hash the password before saving
     user.passwordHash = await bcrypt.hash(password, 1000);
-    
+
     await this.em.persistAndFlush(user);
     return user;
   }
@@ -124,11 +124,12 @@ export class UserService {
    * Checks if the given password is valid.
    * @param password - The password to check.
    * @returns True if the password is valid, false otherwise.
-   * 
+   *
    * PASSWORD MUST BE 8 CHARACTERS LONG, CONTAIN AT LEAST ONE UPPERCASE LETTER, ONE LOWERCASE LETTER, ONE NUMBER, AND ONE SPECIAL CHARACTER
    */
   async isValidPassword(password: string): Promise<boolean> {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordRegex.test(password);
   }
 
@@ -151,5 +152,4 @@ export class UserService {
     const user = await this.findById(id);
     return user !== null;
   }
-
 }

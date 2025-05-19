@@ -35,12 +35,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       }}
     >
       {/* Updated Grid v2 usage: no item prop, use size for breakpoints */}
-      <Grid
-        container
-        spacing={4}
-        alignItems="center"
-        sx={{ width: '100%' }}
-      >
+      <Grid container spacing={4} alignItems="center" sx={{ width: '100%' }}>
         {/* Image Column */}
         <Grid
           size={{ xs: 12, md: 6 }}
@@ -68,7 +63,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             sx={{
               fontWeight: 'bold',
               color: BotColors.bot.pink.hex,
-              fontSize: { xs: '1.75rem', sm: '2.25rem', md: '3rem', lg: '4rem' },
+              fontSize: {
+                xs: '1.75rem',
+                sm: '2.25rem',
+                md: '3rem',
+                lg: '4rem',
+              },
               textAlign: { xs: 'center', md: 'left' },
             }}
             gutterBottom

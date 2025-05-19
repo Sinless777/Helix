@@ -11,7 +11,10 @@ interface ErrorBoundaryState {
   error: Error | null
 }
 
-export class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, ErrorBoundaryState> {
+export class ErrorBoundary extends React.Component<
+  React.PropsWithChildren<{}>,
+  ErrorBoundaryState
+> {
   constructor(props: React.PropsWithChildren<{}>) {
     super(props)
     this.state = { hasError: false, error: null }
@@ -32,7 +35,9 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, 
   render() {
     if (this.state.hasError) {
       return (
-        <Box sx={{ minHeight: '100vh', backgroundColor: '#121212', color: '#fff' }}>
+        <Box
+          sx={{ minHeight: '100vh', backgroundColor: '#121212', color: '#fff' }}
+        >
           <Header {...headerProps} />
           <Box
             sx={{
