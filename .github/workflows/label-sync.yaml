@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: '0 0 * * *' # Runs at midnight every day
 
+permissions:
+  contents: read # Read access to the repository contents
+  issues: write # Write access to issues for label management
+
 jobs:
   sync-labels:
     name: Sync Labels # Clearer job name
