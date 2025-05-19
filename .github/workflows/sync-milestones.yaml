@@ -10,8 +10,8 @@ jobs:
   sync-milestones:
     runs-on: ubuntu-latest
     permissions:
-      issues: write          # necessary to create/update milestones
-      contents: read         # to read the workflow and YAML file
+      issues: write      # necessary to create/update milestones
+      contents: read     # to read the workflow and YAML file
 
     steps:
       - name: Check out repository
@@ -50,30 +50,26 @@ jobs:
           existing = {m.title: m for m in repo.get_milestones()}
 
           for m in milestones:
-              title    = m['title']
-              state    = m.get('state', 'open')
-              desc     = m.get('description', '')
-              due_str  = m.get('due_on')
-              # convert ISO8601 to datetime (PyGithub expects a datetime/date)
-              due_dt = (
-                datetime.fromisoformat(due_str.replace('Z', '+00:00'))
-                if due_str else None
-              )
+              title   = m['title']
+              state   = m.get('state', 'open')
+              desc    = m.get('description', '')
+              due_str = m.get('due_on')  # may be None or missing
+
+              # build params dict and only include due_on if provided
+              params = {
+                'title': title,
+                'state': state,
+                'description': desc,
+              }
+              if due_str:
+                  # parse ISO8601 into datetime
+                  due_dt = datetime.fromisoformat(due_str.replace('Z', '+00:00'))
+                  params['due_on'] = due_dt
 
               if title in existing:
-                  existing[title].edit(
-                    title=title,
-                    state=state,
-                    description=desc,
-                    due_on=due_dt
-                  )
+                  existing[title].edit(**params)
                   print(f"Updated milestone: {title}")
               else:
-                  repo.create_milestone(
-                    title=title,
-                    state=state,
-                    description=desc,
-                    due_on=due_dt
-                  )
+                  repo.create_milestone(**params)
                   print(f"Created milestone: {title}")
           EOF
