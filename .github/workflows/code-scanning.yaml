@@ -1,24 +1,65 @@
-name: "Code Scanning"
+name: "Code Scanning - CodeQL"
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  push:              # all branches
+  pull_request:      # all branches
+  schedule:
+    - cron: '0 0 * * 0'  # every Sunday at midnight UTC
+
+permissions:
+  contents: read
+  security-events: write
 
 jobs:
-  codeql:
-    name: "CodeQL Analysis"
+  codeql-analysis:
+    name: CodeQL Analysis
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        language: [ 'javascript', 'typescript', 'python', 'go', 'cpp' ]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
+      # 1) Install pnpm (v10+) onto PATH, but don't auto-install
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
-          languages: ['javascript', 'python', 'rust', 'ruby', 'typescript', 'go', 'cpp']
+          version: 'latest'
+          run_install: false
 
+      # 2) Install Node and enable pnpm caching for JS/TS jobs
+      - name: Setup Node.js (for JS/TS)
+        if: matrix.language == 'javascript' || matrix.language == 'typescript'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      # 3) Install your JS/TS deps
+      - name: Install dependencies (JS/TS)
+        if: matrix.language == 'javascript' || matrix.language == 'typescript'
+        run: pnpm install --frozen-lockfile
+
+      # 4) Build your JS/TS code
+      - name: Build (JS/TS)
+        if: matrix.language == 'javascript' || matrix.language == 'typescript'
+        run: pnpm run build
+
+      # 5) Initialize CodeQL
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+
+      # 6) Autobuild (for compiled langs)
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      # 7) Run the analysis
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: ${{ matrix.language }}
