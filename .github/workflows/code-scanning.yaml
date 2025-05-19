@@ -1,20 +1,8 @@
 name: "Code Scanning - CodeQL"
 
 on:
-  push:
-    branches:
-      - master
-      - develop
-      - 'feature/*'
-      - 'hotfix/*'
-      - 'release/*'
-  pull_request:
-    branches:
-      - master
-      - develop
-      - 'feature/*'
-      - 'hotfix/*'
-      - 'release/*'
+  push:              # all branches
+  pull_request:      # all branches
   schedule:
     - cron: '0 0 * * 0'  # every Sunday at midnight UTC
 
@@ -35,27 +23,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 1) Install pnpm so it's on PATH
+      # 1) Install pnpm (v10+) onto PATH, but don't auto-install
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
-          run_install: false                  # only installs pnpm, does not run `pnpm install` yet :contentReference[oaicite:0]{index=0}
+          version: 'latest'
+          run_install: false
 
-      # 2) Install Node.js and configure pnpm cache
-      - name: Setup Node.js
+      # 2) Install Node and enable pnpm caching for JS/TS jobs
+      - name: Setup Node.js (for JS/TS)
         if: matrix.language == 'javascript' || matrix.language == 'typescript'
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'pnpm'                      # caches pnpm’s store directory :contentReference[oaicite:1]{index=1}
+          cache: 'pnpm'
 
-      # 3) Install dependencies via pnpm
+      # 3) Install your JS/TS deps
       - name: Install dependencies (JS/TS)
         if: matrix.language == 'javascript' || matrix.language == 'typescript'
-        run: pnpm install --frozen-lockfile   # now pnpm is available on PATH :contentReference[oaicite:2]{index=2}
+        run: pnpm install --frozen-lockfile
 
-      # 4) Run your build
+      # 4) Build your JS/TS code
       - name: Build (JS/TS)
         if: matrix.language == 'javascript' || matrix.language == 'typescript'
         run: pnpm run build
@@ -66,11 +54,11 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
-      # 6) Autobuild for compiled languages
+      # 6) Autobuild (for compiled langs)
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
 
-      # 7) Perform analysis
+      # 7) Run the analysis
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
