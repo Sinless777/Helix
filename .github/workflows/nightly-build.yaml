@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: '0 0 * * *' # Runs nightly at midnight
 
+permissions:
+  contents: read # Required for actions/checkout
+  packages: write # Required for pushing Docker images
+
 jobs:
   nightly-build:
     runs-on: ubuntu-latest
