@@ -19,8 +19,8 @@ on:
     - cron: '0 0 * * 0'  # every Sunday at midnight UTC
 
 permissions:
-  contents: read          # for checkout
-  security-events: write  # to upload CodeQL alerts
+  contents: read
+  security-events: write
 
 jobs:
   codeql-analysis:
@@ -35,34 +35,43 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # If you have a build step (e.g. TS, Go, Rust), uncomment and adjust:
-      - name: Set up Node.js (for JS/TS)
+      # 1) Install pnpm so it's on PATH
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false                  # only installs pnpm, does not run `pnpm install` yet :contentReference[oaicite:0]{index=0}
+
+      # 2) Install Node.js and configure pnpm cache
+      - name: Setup Node.js
         if: matrix.language == 'javascript' || matrix.language == 'typescript'
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'pnpm'
+          cache: 'pnpm'                      # caches pnpm’s store directory :contentReference[oaicite:1]{index=1}
 
+      # 3) Install dependencies via pnpm
       - name: Install dependencies (JS/TS)
         if: matrix.language == 'javascript' || matrix.language == 'typescript'
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile   # now pnpm is available on PATH :contentReference[oaicite:2]{index=2}
 
+      # 4) Run your build
       - name: Build (JS/TS)
         if: matrix.language == 'javascript' || matrix.language == 'typescript'
         run: pnpm run build
 
-      # Init CodeQL          
+      # 5) Initialize CodeQL
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
 
-      # Autobuild picks up your build for compiled langs
+      # 6) Autobuild for compiled languages
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
 
+      # 7) Perform analysis
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          # optional: only upload alerts for this language
           category: ${{ matrix.language }}
