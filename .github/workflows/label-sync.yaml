@@ -15,7 +15,7 @@ permissions:
 jobs:
   sync-labels:
     name: Sync Labels # Clearer job name
-    runs-on: self-hosted # Runs on a self-hosted runner
+    runs-on: ubuntu-latest # Runs on a self-hosted runner
 
     steps:
       - name: Checkout Code
