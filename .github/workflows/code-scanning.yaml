@@ -1,8 +1,8 @@
 name: "Code Scanning - CodeQL"
 
 on:
-  push:              # all branches
-  pull_request:      # all branches
+  push:             # all branches
+  pull_request:     # all branches
   schedule:
     - cron: '0 0 * * 0'  # every Sunday at midnight UTC
 
@@ -11,55 +11,45 @@ permissions:
   security-events: write
 
 jobs:
-  codeql-analysis:
+  codeql:
     name: CodeQL Analysis
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        language: [ 'javascript', 'typescript', 'python', 'go', 'cpp' ]
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # 1) Install pnpm (v10+) onto PATH, but don't auto-install
+      # 1) Install pnpm (v10+) onto PATH, but don't auto-install deps
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 'latest'
           run_install: false
 
-      # 2) Install Node and enable pnpm caching for JS/TS jobs
-      - name: Setup Node.js (for JS/TS)
-        if: matrix.language == 'javascript' || matrix.language == 'typescript'
+      # 2) Install & cache Node.js (so you can build TS/JS)
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'pnpm'
 
-      # 3) Install your JS/TS deps
-      - name: Install dependencies (JS/TS)
-        if: matrix.language == 'javascript' || matrix.language == 'typescript'
-        run: pnpm install --frozen-lockfile
+      # 3) Install and build your JS/TS code (if you have any)
+      - name: Install JS/TS dependencies & build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+        # if you only want this for JS/TS, you can guard with `if: ...` 
+        # but leaving it flat won’t hurt if you don’t have TS code
 
-      # 4) Build your JS/TS code
-      - name: Build (JS/TS)
-        if: matrix.language == 'javascript' || matrix.language == 'typescript'
-        run: pnpm run build
-
-      # 5) Initialize CodeQL
+      # 4) Initialize CodeQL (no `languages:` → auto-detect)
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
-        with:
-          languages: ${{ matrix.language }}
+        # omit `with.languages` so CodeQL figures out which analyzers to run
 
-      # 6) Autobuild (for compiled langs)
+      # 5) Autobuild (for any compiled langs)
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
 
-      # 7) Run the analysis
+      # 6) Run the analysis
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
-        with:
-          category: ${{ matrix.language }}
