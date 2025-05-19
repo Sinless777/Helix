@@ -20,7 +20,7 @@
     {
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
-      "milestone": "🔗 Dependency Management"
+      "milestone": 31
     }
   ]
 }
