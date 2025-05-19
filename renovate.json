@@ -1,46 +1,82 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "dependencyDashboard": true,
   "milestone": 31,
   "packageRules": [
     {
-      "matchPaths": ["docker/**"],
+      "matchFileNames": [
+        "docker/**"
+      ],
       "groupName": "docker dependencies",
-      "schedule": ["before 3am on the first day of the month"]
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
     },
     {
-      "matchPaths": ["apis/**"],
+      "matchFileNames": [
+        "apis/**"
+      ],
       "groupName": "API packages",
-      "schedule": ["before 3am on the first day of the month"]
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
     },
     {
-      "matchPaths": ["libs/**"],
+      "matchFileNames": [
+        "libs/**"
+      ],
       "groupName": "lib packages",
-      "schedule": ["before 3am on the first day of the month"]
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
     },
     {
-      "matchPaths": ["user-interfaces/**"],
+      "matchFileNames": [
+        "user-interfaces/**"
+      ],
       "groupName": "frontend packages",
-      "schedule": ["before 3am on the first day of the month"]
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
     },
     {
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["patch"],
+      "matchUpdateTypes": [
+        "patch"
+      ],
       "groupName": "all patch dependencies",
-      "schedule": ["before 3am on the first day of the month"]
+      "schedule": [
+        "before 3am on the first day of the month"
+      ],
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor"],
+      "matchUpdateTypes": [
+        "minor"
+      ],
       "groupName": "all minor dependencies",
-      "schedule": ["before 3am on the first day of the month"]
+      "schedule": [
+        "before 3am on the first day of the month"
+      ],
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["major"],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "groupName": "all major dependencies",
-      "schedule": ["before 3am on the first day of the month"]
+      "schedule": [
+        "before 3am on the first day of the month"
+      ],
+      "matchPackageNames": [
+        "*"
+      ]
     }
   ]
 }
