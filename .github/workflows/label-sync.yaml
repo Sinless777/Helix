@@ -26,7 +26,7 @@ jobs:
           node-version: '16' # Set a specific Node.js version for consistency
 
       - name: Cache Node.js Modules
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
         with:
           path: ~/.npm # Caches the npm dependencies
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Cache key based on OS and package-lock.json
