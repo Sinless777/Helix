@@ -1,42 +1,68 @@
-name: "Code Scanning"
+name: "Code Scanning - CodeQL"
 
 on:
   push:
-    branches: 
+    branches:
       - master
       - develop
-      - feature/*
-      - hotfix/*
-      - release/*
-
+      - 'feature/*'
+      - 'hotfix/*'
+      - 'release/*'
   pull_request:
-    branches: 
+    branches:
       - master
       - develop
-      - feature/*
-      - hotfix/*
-      - release/*
+      - 'feature/*'
+      - 'hotfix/*'
+      - 'release/*'
+  schedule:
+    - cron: '0 0 * * 0'  # every Sunday at midnight UTC
+
+permissions:
+  contents: read          # for checkout
+  security-events: write  # to upload CodeQL alerts
 
 jobs:
-  codeql:
-    name: "CodeQL Analysis"
+  codeql-analysis:
+    name: CodeQL Analysis
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        language: [ 'javascript', 'typescript', 'python', 'go', 'cpp' ]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
+      # If you have a build step (e.g. TS, Go, Rust), uncomment and adjust:
+      - name: Set up Node.js (for JS/TS)
+        if: matrix.language == 'javascript' || matrix.language == 'typescript'
+        uses: actions/setup-node@v4
         with:
-          languages: # ['javascript', 'python', 'rust', 'ruby', 'typescript', 'go', 'cpp']
-            - javascript
-            - python
-            - rust
-            - ruby
-            - typescript
-            - go
-            - cpp
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install dependencies (JS/TS)
+        if: matrix.language == 'javascript' || matrix.language == 'typescript'
+        run: pnpm install --frozen-lockfile
+
+      - name: Build (JS/TS)
+        if: matrix.language == 'javascript' || matrix.language == 'typescript'
+        run: pnpm run build
+
+      # Init CodeQL          
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+
+      # Autobuild picks up your build for compiled langs
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
+        uses: github/codeql-action/analyze@v2
+        with:
+          # optional: only upload alerts for this language
+          category: ${{ matrix.language }}
