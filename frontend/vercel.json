@@ -1,6 +1,7 @@
 {
   "version": 2,
   "framework": "nextjs",
+  
   "env": {
     "REDIS_URL": "3d/G5gFYsCCCmVvu9kEsb+t5xuTWmvAL1rTIv18zAHcmSIk34euddC8Udvuo24doJTczVPQV/k5SLaNWMIw0jQ63FX722Jm9v3lLzMLtet+41CRciYt04I3dWvSv5tAgKF95t2Mj/6tbMU/kNoQnxZyADFM6q9dV8olB4nwGRHg=",
     "ARCJET_KEY": "",
