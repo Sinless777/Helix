@@ -1,0 +1,12 @@
+# Add files here to ignore them from prettier formatting
+/dist
+/coverage
+/.nx/cache
+/.nx/workspace-data
+**/.venv
+.github
+docker/**/*
+**/node_modules/
+node_modules/
+**/.next/
+.vercel/

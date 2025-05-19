@@ -1,0 +1,46 @@
+name: Label Synchronization
+
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
+  push:
+    paths:
+      - '.github/labels.yaml' # Only triggers when labels.yaml is changed
+  schedule:
+    - cron: '0 0 * * *' # Runs at midnight every day
+
+jobs:
+  sync-labels:
+    name: Sync Labels # Clearer job name
+    runs-on: self-hosted # Runs on a self-hosted runner
+    permissions:
+      contents: read # Allows reading repository contents
+      issues: write # Allows managing labels
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4 # Updated to the latest version
+
+      - name: Set up Node.js
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4 # Ensure Node.js is set up, required by many GitHub Actions
+        with:
+          node-version: '16' # Set a specific Node.js version for consistency
+
+      - name: Cache Node.js Modules
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
+        with:
+          path: ~/.npm # Caches the npm dependencies
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Cache key based on OS and package-lock.json
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Sync Labels
+        uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2
+        with:
+          config-file: .github/labels.yaml # Path to the labels configuration file
+          delete-other-labels: true # Removes labels not defined in the config file
+
+      - name: Post-run cleanup
+        if: failure()
+        run: |
+          echo "Cleanup actions if the label sync fails"
+          # Add any cleanup steps here if needed

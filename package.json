@@ -2,8 +2,71 @@
   "version": "1.0.0",
   "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977",
   "scripts": {
-    "build:frontend": "cd frontend && pnpm install && pnpm build && cd ..",
-    "start:frontend": "cd frontend && pnpm start && cd ..",
-    "dev:frontend": "cd frontend && pnpm dev && cd .."
+
+  },
+  "dependencies": {
+    "next": "^15.3.2"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --max-warnings=0 --fix --",
+      "prettier --write --"
+    ],
+    "**/*.{html,json,css,scss,md,mdx}": [
+      "prettier --write --"
+    ]
+  },
+  "devDependencies": {
+    "@aws-sdk/client-s3": "^3.797.0",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@commitlint/config-nx-scopes": "19.8.0",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.25.1",
+    "@module-federation/enhanced": "^0.9.1",
+    "@module-federation/runtime-tools": "^0.9.1",
+    "@rollup/plugin-url": "^8.0.2",
+    "@rspack/core": "^1.3.7",
+    "@svgr/core": "^8.1.0",
+    "@svgr/rollup": "^8.1.0",
+    "@swc-node/register": "^1.10.10",
+    "@swc/core": "^1.3.0",
+    "@swc/jest": "^0.2.38",
+    "@types/express": "^4.17.21",
+    "@types/express-winston": "^4.0.2",
+    "@types/jest": "^29.5.14",
+    "@typescript-eslint/eslint-plugin": "^8.31.0",
+    "axios": "^1.9.0",
+    "browserslist": "^4.24.4",
+    "cypress": "^14.3.2",
+    "dmg-builder": "^25.1.8",
+    "encoding": "^0.1.13",
+    "eslint": "9.25.1",
+    "eslint-config-next": "^15.3.1",
+    "eslint-plugin-cypress": "^4.3.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-resolve": "^29.7.0",
+    "less": "^4.1.3",
+    "lint-staged": "^15.5.1",
+    "picomatch": "4.0.2",
+    "pnpm": "^10.9.0",
+    "postcss": "^8.5.3",
+    "prettier": "2.8.8",
+    "sass": "^1.87.0",
+    "sass-embedded": "^1.87.0",
+    "stylus": "^0.64.0",
+    "ts-jest": "^29.3.2",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typedoc": "^0.23.28",
+    "typedoc-plugin-rename-defaults": "^0.6.7",
+    "typedoc-theme-hierarchy": "^3.2.1",
+    "typescript": "5.0.x",
+    "unenv": "2.0.0-rc.15",
+    "webpack": "^5.99.7",
+    "ws": "^8.18.0"
   }
 }

@@ -3,7 +3,5 @@
 # Define the list of users who can be assigned to PRs and issues
 assignees:
   - Sinless777
-
-
 reviewers:
   - Sinless777

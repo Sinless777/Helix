@@ -1,21 +1,39 @@
-name: Label PRs and Issues
+name: Labeler
 
 on:
-  pull_request:
-    types: [opened, edited, reopened]
-  issues:
-    types: [opened, edited, reopened]
+  workflow_dispatch:
+  pull_request_target:
+  schedule:
+    - cron: '0 18 * * *' # Runs every day at 6 PM UTC
+
+env:
+  PR_EXISTS: false
 
 jobs:
-  label:
-    runs-on: ubuntu-latest
-
+  labeler:
+    name: Labeler
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Label PRs and Issues
-        uses: actions/labeler@v3
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+
+      - name: Check if Pull Request exists
+        id: pr_exists
+        run: |
+          if [ "${{ github.event.pull_request }}" != "" ]; then
+            echo "PR_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "PR_EXISTS=false" >> $GITHUB_ENV
+          fi
+
+      - name: Run Labeler
+        # if: env.PR_EXISTS == 'false'
+        uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5
+        with:
           configuration-path: .github/labeler.yaml
+          sync-labels: true

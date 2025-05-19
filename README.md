@@ -6,7 +6,7 @@
 <div align="center">
     <a href="https://helixaibot.com/" target="blank">
         <img
-            src="docs/images/helix/Favicon-01.png"
+            src="https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix_Logo.png"
             width="350"
             alt="Helix Ai Logo"
         />
@@ -18,9 +18,7 @@
 
 #### Status
 
-![GitHub](https://img.shields.io/github/license/Sinless777/Helix?style=for-the-badge)
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/Sinless777/Helix/master?style=for-the-badge)
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Sinless777/Helix/labeler.yaml?style=for-the-badge&label=Label%20PR%20workflow)
 
 #### Forks and Stars
 
