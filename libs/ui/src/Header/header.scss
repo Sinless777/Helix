@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+  background-color: var(--header-bg-color); /* Background color variable */
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.header__logo {
+  margin-right: 10px;
+  height: 5rem;
+  width: 5rem;
+}
+
+.header__title {
+  font-size: 4rem;
+  font-weight: bold;
+  font-family: 'Pinyon Script', cursive;
+  letter-spacing: 0.5rem;
+  align-items: center;
+  align-content: center;
+  margin-right: 5px;
+  color: rgb(2, 35, 113);
+}
+
+.header__version {
+  font-size: 0.9rem;
+  color: rgb(40, 43, 48);
+  padding-top: 3rem;
+  padding-left: 1.5rem;
+  padding-bottom: 1.5rem;
+
+  &:hover {
+    color: rgb(40, 43, 48);
+    font-weight: bold;
+    color: rgb(209, 207, 208);
+    text-shadow: 1rem 1rem 0.5rem rgb(2, 35, 113);
+  }
+}
+
+.header__middle {
+  flex: 1; /* Keeps the middle section empty for spacing */
+}
+
+.header__nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header__nav-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header__nav-list.hidden {
+  display: none; /* Hides the navigation list when using the hamburger menu */
+}
+
+.header__nav-list li {
+  margin: 0 10px;
+}
+
+.header__nav-list li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header__menu-button {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: inherit; /* Inherits text color from the parent */
+}
+
+@media screen and (max-width: 768px) {
+  .header__menu-button {
+    display: block; /* Show hamburger menu button on smaller screens */
+  }
+
+  .header__nav-list {
+    display: none; /* Hide the navigation list by default on smaller screens */
+  }
+
+  .header__nav-list.header__nav-list--open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 10px;
+    top: 60px; /* Adjust this value based on header height */
+    background-color: var(--header-bg-color);
+    border-radius: 4px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .header__nav-list li {
+    margin: 10px 0;
+  }
+}

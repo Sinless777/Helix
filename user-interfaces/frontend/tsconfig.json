@@ -1,6 +1,7 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -29,7 +30,7 @@
       }
     ],
     "types": ["jest", "node"],
-    "baseUrl": "./",
+    "baseUrl": "",
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/constants/*": ["src/constants/*"],
