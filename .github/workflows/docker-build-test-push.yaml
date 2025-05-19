@@ -3,10 +3,14 @@ name: Docker Build, Test, and Push
 on:
   push:
     branches:
-      - main
+      - develop
   pull_request:
     branches:
-      - main
+      - devlop
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   docker:
