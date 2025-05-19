@@ -1,6 +1,35 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  "extends": ["config:recommended"],
+
+  // treat this repo as a monorepo
+  "repositoryType": "monorepo",
+
+  // where to look for package files
+  "packageDirectories": [
+    { "packageDir": ".", "groupName": "root packages" },
+    { "packageDir": "apis/*", "groupName": "APIs" },
+    { "packageDir": "libs/*", "groupName": "Libraries" },
+    { "packageDir": "user-interfaces/*", "groupName": "UI" },
+    {
+      // assumes docker/Data-Layer.yaml defines images/tags you want to bump
+      "packageDir": "docker",
+      "packageFile": "docker/Data-Layer.yaml",
+      "groupName": "Docker images"
+    }
+  ],
+
+  // turn on dockerfile support out-of-the-box
+  "docker": {
+    "enabled": true
+  },
+
+  // all updates go into this milestone
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
+      "milestone": "🔗 Dependency Management"
+    }
   ]
 }
