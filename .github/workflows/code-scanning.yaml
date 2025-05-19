@@ -40,13 +40,13 @@ jobs:
 
       # 4) Initialize CodeQL (no `languages:` → auto-detect)
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
+        uses: github/codeql-action/init@v3
         # omit `with.languages` so CodeQL figures out which analyzers to run
 
       # 5) Autobuild (for any compiled langs)
       - name: Autobuild
-        uses: github/codeql-action/autobuild@4
+        uses: github/codeql-action/autobuild@3
 
       # 6) Run the analysis
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4
+        uses: github/codeql-action/analyze@v3
