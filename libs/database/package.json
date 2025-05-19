@@ -11,7 +11,19 @@
     "cloudflare": "^4.2.0",
     "redis": "^4.7.0",
     "slugify": "^1.6.6",
-    "uuidv5": "^1.0.0",
+    "uuid":"11.1.0",
     "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.19",
+    "@types/uuid": "^8.3.4",
+    "@types/winston": "^2.4.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
+    "typescript": "^5.3.3"
   }
 }

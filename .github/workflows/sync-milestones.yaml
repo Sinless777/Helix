@@ -1,8 +1,11 @@
 # .github/workflows/sync-milestones.yaml
+# .github/workflows/sync-milestones.yaml
 name: Sync Milestones
 
 on:
   schedule:
+    - cron: '0 0 * * *'   # every night at midnight
+  workflow_dispatch:     # also allow manual runs
     - cron: '0 0 * * *'   # every night at midnight
   workflow_dispatch:     # also allow manual runs
 
@@ -17,6 +20,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
       - name: Set up Python
         uses: actions/setup-python@v4
         with:

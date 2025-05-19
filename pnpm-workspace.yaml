@@ -1,14 +1,22 @@
 packages:
-  - frontend
+  - user-interfaces/*
   - apis/*
   - libs/*
-
-
 onlyBuiltDependencies:
+  - '@nestjs/core'
   - '@parcel/watcher'
+  - '@scarf/scarf'
+  - '@swc/core'
   - '@tailwindcss/oxide'
   - '@vercel/speed-insights'
+  - bcrypt
+  - cypress
+  - electron
+  - es5-ext
   - esbuild
+  - node-sass
   - nx
   - protobufjs
+  - sass
   - sharp
+  - unrs-resolver

@@ -1,0 +1,39 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@helix/core/*": ["libs/core/src/*"],
+      "@helix/database/*": ["libs/database/src/*"],
+      "@helix/logger/*": ["libs/logger/src/*"],
+      "@helix/ui/*": ["libs/ui/src/*"],
+      "@auth/*": ["apis/auth/src/*"],
+      "@frontend/*": ["user-interfaces/frontend/src/*"]
+    },
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "incremental": true,
+    "composite": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx"
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tmp",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

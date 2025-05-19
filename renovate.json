@@ -2,5 +2,81 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "dependencyDashboard": true,
+  "milestone": 31,
+  "packageRules": [
+    {
+      "matchFileNames": [
+        "docker/**"
+      ],
+      "groupName": "docker dependencies",
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
+    },
+    {
+      "matchFileNames": [
+        "apis/**"
+      ],
+      "groupName": "API packages",
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
+    },
+    {
+      "matchFileNames": [
+        "libs/**"
+      ],
+      "groupName": "lib packages",
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
+    },
+    {
+      "matchFileNames": [
+        "user-interfaces/**"
+      ],
+      "groupName": "frontend packages",
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "groupName": "all patch dependencies",
+      "schedule": [
+        "before 3am on the first day of the month"
+      ],
+      "matchPackageNames": [
+        "*"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "groupName": "all minor dependencies",
+      "schedule": [
+        "before 3am on the first day of the month"
+      ],
+      "matchPackageNames": [
+        "*"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": "all major dependencies",
+      "schedule": [
+        "before 3am on the first day of the month"
+      ],
+      "matchPackageNames": [
+        "*"
+      ]
+    }
   ]
 }

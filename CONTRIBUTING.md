@@ -13,6 +13,8 @@ We’re excited that you’re interested in contributing to **Helix AI** — a f
    ```bash
    git clone https://github.com/your-username/helix-ai.git
    cd helix-ai
+   ```
+
 ````
 
 3. **Install dependencies**:
@@ -116,3 +118,4 @@ Need help? Join us on [Discord](https://discord.gg/Za8MVstYnr).
 —
 **The Helix AI Team**
 
+````
