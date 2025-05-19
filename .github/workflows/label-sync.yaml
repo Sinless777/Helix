@@ -16,10 +16,13 @@ jobs:
   sync-labels:
     name: Sync Labels # Clearer job name
     runs-on: self-hosted # Runs on a self-hosted runner
+    permissions:
+      contents: read # Allows reading repository contents
+      issues: write # Allows managing labels
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4 # Updated to the latest version
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4 # Updated to the latest version
 
       - name: Set up Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4 # Ensure Node.js is set up, required by many GitHub Actions
