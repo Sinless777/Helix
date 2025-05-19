@@ -49,3 +49,16 @@ milestones:
       🧩 Integration of Helix AI into Discord.
       Build a bot that responds to commands, supports authentication, interacts with Helix plugins,
       and syncs user sessions between Discord and the main platform.
+      
+  # Dependency Management
+  - title: '🔗 Dependency Management'
+    state: 'open'
+    description: >
+      📦 Focused on managing and updating dependencies across the monorepo.
+      Includes setting up tools for dependency tracking, vulnerability scanning, and automated updates.
+      
+  - title: '🔄 Version Updates'
+    state: 'open'
+    description: >
+      🔄 Regularly updating dependencies to their latest versions.
+      This includes testing for breaking changes, updating lock files, and ensuring compatibility across the monorepo.
