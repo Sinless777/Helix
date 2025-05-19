@@ -20,7 +20,7 @@
     "@aws-sdk/client-s3": "^3.797.0",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "@commitlint/config-nx-scopes": "19.8.0",
+    "@commitlint/config-nx-scopes": "19.8.1",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.25.1",
     "@module-federation/enhanced": "^0.9.1",
@@ -65,7 +65,7 @@
     "typedoc-plugin-rename-defaults": "^0.6.7",
     "typedoc-theme-hierarchy": "^3.2.1",
     "typescript": "5.0.x",
-    "unenv": "2.0.0-rc.15",
+    "unenv": "2.0.0-rc.17",
     "webpack": "^5.99.7",
     "ws": "^8.18.0"
   }
