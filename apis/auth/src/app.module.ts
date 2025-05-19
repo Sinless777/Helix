@@ -11,6 +11,9 @@ import { UserModule } from './user/user.module'
 import { SessionModule } from './session/session.module'
 import { MfaModule } from './mfa/mfa.module'
 import { DeviceModule } from './device/device.module'
+import { MfaModule } from './mfa/mfa.module';
+import { DeviceModule } from './device/device.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
