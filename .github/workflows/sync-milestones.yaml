@@ -3,6 +3,8 @@ name: Sync Milestones
 on:
   schedule:
     - cron: '0 0 * * *' # Runs daily at midnight
+  # Manual trigger
+  workflow_dispatch:
 
 jobs:
   sync-milestones:
@@ -17,7 +19,8 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const milestones = YAML.parse(fs.readFileSync('milestones.yaml', 'utf8'));
+            const yaml = require('js-yaml');
+            const milestones = yaml.load(fs.readFileSync('milestones.yaml', 'utf8'));
             const existingMilestones = await github.issues.listMilestonesForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
