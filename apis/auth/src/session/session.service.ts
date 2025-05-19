@@ -1,11 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { EntityManager } from '@mikro-orm/postgresql';
-import { Session } from './session.entity';
-import { User } from '../user/user.entity';
-import { v5 as uuidv5 } from 'uuidv5';
-import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs';
+import { Injectable } from '@nestjs/common'
+import { EntityManager } from '@mikro-orm/postgresql'
+import { Session } from './session.entity'
+import { User } from '../user/user.entity'
+import { v5 as uuidv5 } from 'uuid'
+import { HttpService } from '@nestjs/axios'
+import { firstValueFrom } from 'rxjs'
 
+/**
+ * Service responsible for managing user sessions:
+ * creation, validation, revocation, and device/geo lookups.
+ */
 @Injectable()
 export class SessionService {
   constructor(
@@ -13,16 +17,17 @@ export class SessionService {
     readonly httpService: HttpService,
   ) {}
 
-  private readonly UUID_NAMESPACE = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
+  private readonly UUID_NAMESPACE = '6ba7b810-9dad-11d1-80b4-00c04fd430c8'
 
   /**
-   * Creates a new session for the given user.
-   * @param user - The user for whom to create the session.
-   * @param ipAddress - The IP address of the user.
-   * @param userAgent - The user agent string of the user's browser.
-   * @param geoLocation - The geographical location of the user.
-   * @param geoIP - The geographical IP address of the user.
-   * @returns The created session.
+   * Creates a new session for a user.
+   *
+   * @param user - User entity
+   * @param ipAddress - IP address of the user
+   * @param userAgent - User agent string
+   * @param geoLocation - Optional location
+   * @param geoIP - Optional geo IP data
+   * @returns The persisted Session entity
    */
   async createSession(
     user: User,
@@ -31,165 +36,187 @@ export class SessionService {
     geoLocation?: string,
     geoIP?: string,
   ): Promise<Session> {
-    const session = new Session();
-    session.id = this.generateUuid(`${user.id}-${Date.now()}`);
-    session.user = user;
-    session.ipAddress = ipAddress;
-    session.userAgent = userAgent;
-    session.geoLocation = geoLocation;
-    session.geoIP = geoIP;
+    const session = new Session()
+    session.id = this.generateUuid(`${user.id}-${Date.now()}`)
+    session.user = user
+    session.ipAddress = ipAddress
+    session.userAgent = userAgent
+    session.geoLocation = geoLocation
+    session.geoIP = geoIP
 
-    await this.em.persistAndFlush(session);
-    return session;
+    await this.em.persistAndFlush(session)
+    return session
   }
 
   /**
-   * Fetch geoIP information for a given IP address.
-   * @param ipAddress - The IP address to fetch geoIP information for.
-   * @returns The geoIP information.
-   * @throws {Error} Various network or validation issues.
+   * Fetches geoIP information from an external service.
+   *
+   * @param ipAddress - IPv4 address
+   * @returns Location data
+   * @throws Error if the IP is invalid or fetch fails
    */
   async fetchGeoIPInformation(ipAddress: string): Promise<any> {
     if (!this.validateIpAddress(ipAddress)) {
-      throw new Error('Invalid IP address format.');
+      throw new Error('Invalid IP address format.')
     }
 
     try {
       const response = await firstValueFrom(
         this.httpService.get(`https://geoip.example.com/${ipAddress}`),
-      );
+      )
       if (response.status !== 200) {
-        throw new Error('Failed to fetch geoIP information.');
+        throw new Error('Failed to fetch geoIP information.')
       }
-      return response.data;
-    } catch (error) {
-      throw new Error('GeoIP service is unavailable.');
+      return response.data
+    } catch {
+      throw new Error('GeoIP service is unavailable.')
     }
   }
 
   /**
-   * Validates the format of an IP address.
+   * Validates an IPv4 address format.
+   *
+   * @param ipAddress - IP string
+   * @returns True if valid
    */
   validateIpAddress(ipAddress: string): boolean {
     const ipRegex =
-      /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-    return ipRegex.test(ipAddress);
+      /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+    return ipRegex.test(ipAddress)
   }
 
   /**
-   * Fetch device information for a given user agent.
+   * Fetches device metadata from an external service.
+   *
+   * @param userAgent - User agent string
+   * @returns Device info
+   * @throws Error if user agent is invalid or fetch fails
    */
   async fetchDeviceInformation(userAgent: string): Promise<any> {
     if (!this.validateUserAgent(userAgent)) {
-      throw new Error('Invalid user agent format.');
+      throw new Error('Invalid user agent format.')
     }
 
     try {
       const response = await firstValueFrom(
         this.httpService.get(`https://device.example.com/${userAgent}`),
-      );
+      )
       if (response.status !== 200) {
-        throw new Error('Failed to fetch device information.');
+        throw new Error('Failed to fetch device information.')
       }
-      return response.data;
-    } catch (error) {
-      throw new Error('Device service is unavailable.');
+      return response.data
+    } catch {
+      throw new Error('Device service is unavailable.')
     }
   }
 
   /**
-   * Validates the format of a user agent string.
+   * Validates a user-agent string format.
+   *
+   * @param userAgent - User agent string
+   * @returns True if valid
    */
   validateUserAgent(userAgent: string): boolean {
     const userAgentRegex =
-      /^(Mozilla|Opera|Chrome|Safari|Edge|Trident)\/[0-9]+\.[0-9]+/;
-    return userAgentRegex.test(userAgent);
+      /^(Mozilla|Opera|Chrome|Safari|Edge|Trident)\/[0-9]+\.[0-9]+/
+    return userAgentRegex.test(userAgent)
   }
 
   /**
-   * Finds a session by its ID.
+   * Finds a session by ID.
+   *
+   * @param id - Session UUID
+   * @returns Session or null
    */
   async findById(id: string): Promise<Session | null> {
-    return this.em.findOne(Session, { id });
+    return this.em.findOne(Session, { id })
   }
 
   /**
-   * Finds all sessions for a given user.
+   * Returns all sessions for a given user.
+   *
+   * @param user - User entity
+   * @returns Array of sessions
    */
   async findAllByUser(user: User): Promise<Session[]> {
-    return this.em.find(Session, { user });
+    return this.em.find(Session, { user })
   }
 
   /**
-   * Revokes a session by its ID.
+   * Revokes a session by marking it inactive.
+   *
+   * @param id - Session UUID
+   * @returns The updated session or null
    */
   async revokeSession(id: string): Promise<Session | null> {
-    const session = await this.findById(id);
-    if (!session) return null;
-    session.revoked = true;
-    await this.em.persistAndFlush(session);
-    return session;
+    const session = await this.findById(id)
+    if (!session) return null
+
+    session.revoked = true
+    await this.em.persistAndFlush(session)
+    return session
   }
 
   /**
-   * Revokes all sessions for a given user.
+   * Revokes all sessions for a user.
+   *
+   * @param user - The user entity
+   * @returns The updated sessions
    */
   async revokeAllSessionsForUser(user: User): Promise<Session[]> {
-    const sessions = await this.findAllByUser(user);
-    sessions.forEach((session) => (session.revoked = true));
-    await this.em.persistAndFlush(sessions);
-    return sessions;
+    const sessions = await this.findAllByUser(user)
+    sessions.forEach((session) => (session.revoked = true))
+    await this.em.persistAndFlush(sessions)
+    return sessions
   }
 
   /**
-   * Generates a UUIDv5 using a namespace.
+   * Generates a deterministic UUIDv5.
+   *
+   * @param seed - A string to hash
+   * @returns UUID string
    */
   generateUuid(seed: string): string {
-    return uuidv5(seed, this.UUID_NAMESPACE);
+    return uuidv5(seed, this.UUID_NAMESPACE)
   }
 
   /**
-   * Validates a UUID v5 string.
+   * Validates a UUIDv5 format.
+   *
+   * @param uuid - The UUID string
+   * @returns True if valid
    */
   validateUuid(uuid: string): boolean {
     return /^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(
       uuid,
-    );
+    )
   }
 
   /**
-   * Delete a session
-   * @param id - The ID of the session to delete.
-   * @returns The deleted session.
-   * @throws {Error} If the session is not found.
-   * @throws {Error} If the session is already revoked.
-   * @throws {Error} If the session is not valid.
-   * @throws {Error} If the session is not valid.
-   * @throws {Error} If the session is not valid.
+   * Deletes a session by ID.
+   *
+   * @param id - Session UUID
+   * @throws Error if session is invalid or already revoked
    */
-
   async deleteSession(id: string): Promise<void> {
-    const session = await this.findById(id);
-    if (!session) throw new Error('Session not found');
-    if (session.revoked) throw new Error('Session already revoked');
-    if (!this.validateUuid(session.id)) throw new Error('Invalid session ID');
+    const session = await this.findById(id)
+    if (!session) throw new Error('Session not found')
+    if (session.revoked) throw new Error('Session already revoked')
+    if (!this.validateUuid(session.id)) throw new Error('Invalid session ID')
 
-    await this.em.removeAndFlush(session);
-
-    return;
+    await this.em.removeAndFlush(session)
   }
 
   /**
-   * Delete all sessions for a user
-   * @param userId - The ID of the user whose sessions to delete.
-   * @returns The deleted sessions.
-   * @throws {Error} If the user is not found.
-   * @throws {Error} If the session is not valid.
+   * Deletes all sessions for a user.
+   *
+   * @param user - The user entity
+   * @throws Error if any session fails validation or deletion
    */
   async deleteAllSessionsForUser(user: User): Promise<void> {
-    const sessions = await this.findAllByUser(user);
+    const sessions = await this.findAllByUser(user)
     for (const session of sessions) {
-      await this.deleteSession(session.id);
+      await this.deleteSession(session.id)
     }
   }
 }
