@@ -24,3 +24,21 @@ services:
       - COCKROACH_PASSWORD=helix
       # Database
       - COCKROACH_DATABASE=helix
+
+  redis:
+    imahe: redis/redis-stack-server
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=helix
+
+  redisinsight:
+    image: redislabs/rebloom
+    container_name: redisinsight
+    ports:
+      - "8001:8001"
+    environment:
+      - REDISINSIGHT_PASSWORD=helix
+    depends_on:
+      - redis
