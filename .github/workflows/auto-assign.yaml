@@ -6,6 +6,11 @@ on:
   issues:
     types: [opened, edited, reopened]
 
+permissions:
+  issues: write      # necessary to assign issues
+  pull-requests: write # necessary to assign PRs
+  contents: read     # to read the workflow and YAML file
+
 jobs:
   auto-assign:
     runs-on: ubuntu-latest
