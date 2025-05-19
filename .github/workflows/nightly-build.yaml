@@ -3,6 +3,9 @@ name: Nightly Build
 on:
   schedule:
     - cron: '0 0 * * *' # Runs nightly at midnight
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   nightly-build:
