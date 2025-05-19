@@ -15,11 +15,7 @@ permissions:
 jobs:
   sync-labels:
     name: Sync Labels # Clearer job name
-    runs-on: self-hosted # Runs on a self-hosted runner
-    permissions:
-      contents: read # Allows reading repository contents
-      issues: write # Allows managing labels
-
+    runs-on: ubuntu-latest # Runs on a self-hosted runner
     steps:
       - name: Checkout Code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4 # Updated to the latest version
