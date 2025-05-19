@@ -4,6 +4,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { SessionModule } from './session/session.module';
+import { MfaModule } from './mfa/mfa.module';
+import { DeviceModule } from './device/device.module';
+import { JwtModule } from '@nestjs/jwt';
+import { ThrottlerModule } from '@nestjs/throttler';
+
 
 @Module({
   imports: [
@@ -25,6 +33,13 @@ import { AppService } from './app.service';
       }),
       inject: [ConfigService],
     }),
+    JwtModule.register({}), // or registerAsync with ConfigService
+    AuthModule,
+    UserModule,
+    SessionModule,
+    MfaModule,
+    DeviceModule,
+    ThrottlerModule.forRoot({ ttl: 60, limit: 5 }), // for rate-limiting
   ],
   controllers: [AppController],
   providers: [AppService],
