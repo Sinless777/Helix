@@ -37,9 +37,6 @@ jobs:
       - name: Install JS/TS dependencies & build
         run: |
           pnpm install --frozen-lockfile
-          pnpm run build
-        # if you only want this for JS/TS, you can guard with `if: ...` 
-        # but leaving it flat won’t hurt if you don’t have TS code
 
       # 4) Initialize CodeQL (no `languages:` → auto-detect)
       - name: Initialize CodeQL
