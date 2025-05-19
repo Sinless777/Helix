@@ -1,48 +1,79 @@
+# .github/workflows/sync-milestones.yaml
 name: Sync Milestones
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight
+    - cron: '0 0 * * *'   # every night at midnight
+  workflow_dispatch:     # also allow manual runs
 
 jobs:
   sync-milestones:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write          # necessary to create/update milestones
+      contents: read         # to read the workflow and YAML file
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Sync Milestones
-        uses: actions/github-script@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          script: |
-            const fs = require('fs');
-            const milestones = YAML.parse(fs.readFileSync('milestones.yaml', 'utf8'));
-            const existingMilestones = await github.issues.listMilestonesForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            });
+          python-version: '3.x'
 
-            for (const milestone of milestones) {
-              const existingMilestone = existingMilestones.data.find(m => m.title === milestone.title);
-              if (existingMilestone) {
-                await github.issues.updateMilestone({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  milestone_number: existingMilestone.number,
-                  title: milestone.title,
-                  state: milestone.state,
-                  description: milestone.description,
-                  due_on: milestone.due_on,
-                });
-              } else {
-                await github.issues.createMilestone({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  title: milestone.title,
-                  state: milestone.state,
-                  description: milestone.description,
-                  due_on: milestone.due_on,
-                });
-              }
-            }
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyGithub pyyaml
+
+      - name: Sync milestones
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          python << 'EOF'
+          import os, yaml
+          from datetime import datetime
+          from github import Github
+
+          # authenticate and grab repo
+          gh = Github(os.environ['GITHUB_TOKEN'])
+          owner, repo_name = os.environ['REPO'].split('/')
+          repo = gh.get_repo(f"{owner}/{repo_name}")
+
+          # load milestones from YAML
+          with open('.github/milestones.yaml') as f:
+              milestones = yaml.safe_load(f)['milestones']
+
+          # map existing milestones by title
+          existing = {m.title: m for m in repo.get_milestones()}
+
+          for m in milestones:
+              title    = m['title']
+              state    = m.get('state', 'open')
+              desc     = m.get('description', '')
+              due_str  = m.get('due_on')
+              # convert ISO8601 to datetime (PyGithub expects a datetime/date)
+              due_dt = (
+                datetime.fromisoformat(due_str.replace('Z', '+00:00'))
+                if due_str else None
+              )
+
+              if title in existing:
+                  existing[title].edit(
+                    title=title,
+                    state=state,
+                    description=desc,
+                    due_on=due_dt
+                  )
+                  print(f"Updated milestone: {title}")
+              else:
+                  repo.create_milestone(
+                    title=title,
+                    state=state,
+                    description=desc,
+                    due_on=due_dt
+                  )
+                  print(f"Created milestone: {title}")
+          EOF
