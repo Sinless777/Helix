@@ -1,26 +1,46 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "repositoryType": "monorepo",
-  "packageDirectories": [
-    { "packageDir": ".", "groupName": "root packages" },
-    { "packageDir": "apis/*", "groupName": "APIs" },
-    { "packageDir": "libs/*", "groupName": "Libraries" },
-    { "packageDir": "user-interfaces/*", "groupName": "UI" },
-    {
-      "packageDir": "docker",
-      "packageFile": "docker/Data-Layer.yaml",
-      "groupName": "Docker images"
-    }
-  ],
-  "docker": {
-    "enabled": true
-  },
+  "dependencyDashboard": true,
+  "milestone": 31,
   "packageRules": [
     {
+      "matchPaths": ["docker/**"],
+      "groupName": "docker dependencies",
+      "schedule": ["before 3am on the first day of the month"]
+    },
+    {
+      "matchPaths": ["apis/**"],
+      "groupName": "API packages",
+      "schedule": ["before 3am on the first day of the month"]
+    },
+    {
+      "matchPaths": ["libs/**"],
+      "groupName": "lib packages",
+      "schedule": ["before 3am on the first day of the month"]
+    },
+    {
+      "matchPaths": ["user-interfaces/**"],
+      "groupName": "frontend packages",
+      "schedule": ["before 3am on the first day of the month"]
+    },
+    {
       "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
-      "milestone": 31
+      "matchUpdateTypes": ["patch"],
+      "groupName": "all patch dependencies",
+      "schedule": ["before 3am on the first day of the month"]
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor"],
+      "groupName": "all minor dependencies",
+      "schedule": ["before 3am on the first day of the month"]
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "all major dependencies",
+      "schedule": ["before 3am on the first day of the month"]
     }
   ]
 }
