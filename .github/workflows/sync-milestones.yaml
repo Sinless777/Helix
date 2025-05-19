@@ -4,14 +4,17 @@ name: Sync Milestones
 on:
   schedule:
     - cron: '0 0 * * *'   # every night at midnight
-  workflow_dispatch:     # manual trigger
+  workflow_dispatch:     # also allow manual runs
 
 jobs:
   sync-milestones:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write          # necessary to create/update milestones
+      contents: read         # to read the workflow and YAML file
 
     steps:
-      - name: Check out repo
+      - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -31,40 +34,46 @@ jobs:
         run: |
           python << 'EOF'
           import os, yaml
+          from datetime import datetime
           from github import Github
 
-          # Load GitHub client
+          # authenticate and grab repo
           gh = Github(os.environ['GITHUB_TOKEN'])
           owner, repo_name = os.environ['REPO'].split('/')
           repo = gh.get_repo(f"{owner}/{repo_name}")
 
-          # Read your milestones YAML
+          # load milestones from YAML
           with open('.github/milestones.yaml') as f:
               milestones = yaml.safe_load(f)['milestones']
 
-          # Index existing milestones by title
+          # map existing milestones by title
           existing = {m.title: m for m in repo.get_milestones()}
 
-          # Create or update
           for m in milestones:
-              title = m['title']
-              state = m.get('state', 'open')
-              desc  = m.get('description', '')
-              due   = m.get('due_on', None)
+              title    = m['title']
+              state    = m.get('state', 'open')
+              desc     = m.get('description', '')
+              due_str  = m.get('due_on')
+              # convert ISO8601 to datetime (PyGithub expects a datetime/date)
+              due_dt = (
+                datetime.fromisoformat(due_str.replace('Z', '+00:00'))
+                if due_str else None
+              )
+
               if title in existing:
                   existing[title].edit(
                     title=title,
                     state=state,
                     description=desc,
-                    due_on=due
+                    due_on=due_dt
                   )
-                  print(f"Updated: {title}")
+                  print(f"Updated milestone: {title}")
               else:
                   repo.create_milestone(
                     title=title,
                     state=state,
                     description=desc,
-                    due_on=due
+                    due_on=due_dt
                   )
-                  print(f"Created: {title}")
+                  print(f"Created milestone: {title}")
           EOF
