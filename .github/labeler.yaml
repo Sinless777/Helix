@@ -1,221 +1,127 @@
 # .github/labeler.yaml
 
 # ========== General Maintenance ==========
-bug:
-  - changed-files:
-      - any-glob-to-any-file: '*.bug'
-      - any-glob-to-any-file: 'fix/*'
-      - any-glob-to-any-file: 'hotfix/*'
+Bugfix:
+  # Branch name: 'bugfix/*'
+  - - head-branch: 'bugfix/*'
+    - label: 'bugfix'
 
-enhancement:
-  - changed-files:
-      - any-glob-to-any-file: '*.enhancement'
-      - any-glob-to-any-file: 'improve/*'
-      - any-glob-to-any-file: 'refactor/*'
+Hotfix:
+  # Branch name: 'hotfix/*'
+  - - head-branch: 'hotfix/*'
+    - label: 'hotfix'
 
-chore:
-  - changed-files:
-      - any-glob-to-any-file: 'chore/*'
-      - any-glob-to-any-file: '*.chore'
+Feature:
+  # Branch name: 'feature/*'
+  - - head-branch: 'feature/*'
+    - label: 'feature'
 
-documentation:
-  - changed-files:
-      - any-glob-to-any-file: '*.docs'
-      - any-glob-to-any-file: 'docs/*'
-      - any-glob-to-any-file: 'readme/*'
+Release:
+  # Branch name: 'release/*'
+  - - head-branch: 'release/*'
+    - label: 'release'
 
-tests:
-  - changed-files:
-      - any-glob-to-any-file: 'tests/*'
-      - any-glob-to-any-file: '*.test'
-      - any-glob-to-any-file: 'e2e/*'
-      - any-glob-to-any-file: 'unit/*'
+Support:
+  # Branch name: 'support/*'
+  - - head-branch: 'support/*'
+    - label: 'support'
 
-dependencies:
-  - changed-files:
-      - any-glob-to-any-file: 'deps/*'
-      - any-glob-to-any-file: 'renovate/*'
 
-ci-cd:
-  - changed-files:
-      - any-glob-to-any-file: '.github/workflows/*'
-      - any-glob-to-any-file: 'ci/*'
-      - any-glob-to-any-file: 'cd/*'
-      - any-glob-to-any-file: 'pipeline/*'
+# ========== APIs & User Interfaces ==========
 
-# ========== Feature Development ==========
-feature:
+Authentication:
   - changed-files:
-      - any-glob-to-any-file: '*.feature'
-      - any-glob-to-any-file: 'feat/*'
+    - any-glob-to-any-file: 'apis/auth/**'
 
-backend:
+Discord-Bot:
   - changed-files:
-      - any-glob-to-any-file: 'backend/*'
-      - any-glob-to-any-file: 'server/*'
-      - any-glob-to-any-file: 'api/*'
-      - any-glob-to-any-file: 'database/*'
+    - any-glob-to-any-file: 'apis/discord-bot/**'
 
-frontend:
+Frontend:
   - changed-files:
-      - any-glob-to-any-file: 'frontend/*'
-      - any-glob-to-any-file: 'client/*'
-      - any-glob-to-any-file: 'ui/*'
-      - any-glob-to-any-file: 'components/*'
+    - any-glob-to-any-file: 'user-interfaces/frontend/**'
 
-user-interface:
-  - changed-files:
-      - any-glob-to-any-file: 'ui/*'
-      - any-glob-to-any-file: 'styles/*'
-      - any-glob-to-any-file: '*.ui'
-
-user-experience:
-  - changed-files:
-      - any-glob-to-any-file: 'ux/*'
-      - any-glob-to-any-file: '*.ux'
-      - any-glob-to-any-file: 'feedback/*'
-
-cli:
-  - changed-files:
-      - any-glob-to-any-file: 'cli/*'
-      - any-glob-to-any-file: 'tooling/cli/*'
-
-api:
-  - changed-files:
-      - any-glob-to-any-file: 'api/*'
-      - any-glob-to-any-file: 'routes/*'
-      - any-glob-to-any-file: 'services/api/*'
-
-graphql:
-  - changed-files:
-      - any-glob-to-any-file: 'graphql/*'
-      - any-glob-to-any-file: '*.gql'
 
 # ========== AI & ML ==========
-ai:
-  - changed-files:
-      - any-glob-to-any-file: 'ai/*'
-      - any-glob-to-any-file: 'ml/*'
-      - any-glob-to-any-file: 'models/*'
-      - any-glob-to-any-file: '*.ai'
-
-nlp:
-  - changed-files:
-      - any-glob-to-any-file: 'nlp/*'
-      - any-glob-to-any-file: 'language/*'
-
-prompts:
-  - changed-files:
-      - any-glob-to-any-file: 'prompts/*'
-
-training:
-  - changed-files:
-      - any-glob-to-any-file: 'training/*'
-      - any-glob-to-any-file: 'data/*'
 
 # ========== Integrations ==========
-discord-bot:
-  - changed-files:
-      - any-glob-to-any-file: 'discord-bot/*'
 
-github-actions:
-  - changed-files:
-      - any-glob-to-any-file: '.github/actions/*'
-
-slack:
-  - changed-files:
-      - any-glob-to-any-file: 'integrations/slack/*'
-
-cloudflare:
-  - changed-files:
-      - any-glob-to-any-file: 'cloudflare/*'
-
-openai:
-  - changed-files:
-      - any-glob-to-any-file: 'integrations/openai/*'
-
-stripe:
-  - changed-files:
-      - any-glob-to-any-file: 'payments/stripe/*'
-
-# ========== Infrastructure ==========
-infrastructure:
-  - changed-files:
-      - any-glob-to-any-file: 'infra/*'
-      - any-glob-to-any-file: 'infrastructure/*'
-
-kubernetes:
-  - changed-files:
-      - any-glob-to-any-file: 'k8s/*'
-      - any-glob-to-any-file: '*.k8s'
-
-docker:
-  - changed-files:
-      - any-glob-to-any-file: 'docker/*'
-      - any-glob-to-any-file: 'Dockerfile'
-
-terraform:
-  - changed-files:
-      - any-glob-to-any-file: 'terraform/*'
-      - any-glob-to-any-file: '*.tf'
-
-ansible:
-  - changed-files:
-      - any-glob-to-any-file: 'ansible/*'
-      - any-glob-to-any-file: 'provisioning/*'
-
-monitoring:
-  - changed-files:
-      - any-glob-to-any-file: 'monitoring/*'
-      - any-glob-to-any-file: 'grafana/*'
-      - any-glob-to-any-file: 'prometheus/*'
-
-logging:
-  - changed-files:
-      - any-glob-to-any-file: 'logging/*'
-      - any-glob-to-any-file: 'loki/*'
-      - any-glob-to-any-file: 'fluentd/*'
 
 # ========== Security ==========
-security:
-  - changed-files:
-      - any-glob-to-any-file: 'security/*'
-      - any-glob-to-any-file: 'auth/*'
-      - any-glob-to-any-file: 'permissions/*'
 
-secrets:
+HIPAA-Compliance:
   - changed-files:
-      - any-glob-to-any-file: 'secrets/*'
-      - any-glob-to-any-file: 'vault/*'
+    - any-glob-to-any-file: 'docs/security/hipaa/**'
 
-compliance:
+Encryption:
   - changed-files:
-      - any-glob-to-any-file: 'compliance/*'
-      - any-glob-to-any-file: 'policy/*'
-      - any-glob-to-any-file: 'hipaa/*'
+    - any-glob-to-any-file: 'docs/security/encryption/**'
+
 
 # ========== Misc & Meta ==========
-discussion:
-  - changed-files:
-      - any-glob-to-any-file: 'discussion/*'
-      - any-glob-to-any-file: '*.talk'
 
-question:
-  - changed-files:
-      - any-glob-to-any-file: 'question/*'
-      - any-glob-to-any-file: 'qna/*'
+# ========== Documentation ==========
+Documentation:
+- changed-files:
+  - any-glob-to-any-file: '**/*.md'
+  - any-glob-to-any-file: 'docs/**'
 
-roadmap:
+- 
+# ========== Testing ==========
+Testing:
   - changed-files:
-      - any-glob-to-any-file: 'roadmap/*'
-      - any-glob-to-any-file: '*.plan'
+    - any-glob-to-any-file: 'tests/**'
+    - any-glob-to-any-file: 'test/**'
+    - any-glob-to-any-file: 'tests/*'
+    - any-glob-to-any-file: 'test/*'
+    - any-glob-to-any-file: '**/*.test.js'
+    - any-glob-to-any-file: '**/*.test.ts'
+    - any-glob-to-any-file: '**/*.test.tsx'
+    - any-glob-to-any-file: '**/*.spec.js'
+    - any-glob-to-any-file: '**/*.spec.ts'
+    - any-glob-to-any-file: '**/*.spec.tsx'
+    - any-glob-to-any-file: '**/*.test.jsx'
+    - any-glob-to-any-file: '**/*.spec.jsx'
+    - any-glob-to-any-file: '**/*.test.py'
+    - any-glob-to-any-file: '**/*.spec.py'
+    - any-glob-to-any-file: '**/*.test.rb'
+    - any-glob-to-any-file: '**/*.spec.rb'
+    - any-glob-to-any-file: '**/*.test.go'
+    - any-glob-to-any-file: '**/*.spec.go'
+    - any-glob-to-any-file: '**/*.test.java'
+    - any-glob-to-any-file: '**/*.spec.java'
+    - any-glob-to-any-file: '**/*.test.c'
+    - any-glob-to-any-file: '**/*.spec.c'
+    - any-glob-to-any-file: '**/*.test.cpp'
+    - any-glob-to-any-file: '**/*.spec.cpp'
+    - any-glob-to-any-file: '**/*.test.cs'
+    - any-glob-to-any-file: '**/*.spec.cs'
+    - any-glob-to-any-file: '**/*.test.swift'
+    - any-glob-to-any-file: '**/*.spec.swift'
+    - any-glob-to-any-file: '**/*.test.r'
+    - any-glob-to-any-file: '**/*.spec.r'
+    - any-glob-to-any-file: '**/*.test.rs'
+    - any-glob-to-any-file: '**/*.spec.rs'
+    - any-glob-to-any-file: '**/*.test.kt'
+    - any-glob-to-any-file: '**/*.spec.kt'
+    - any-glob-to-any-file: '**/*.test.dart'
+    - any-glob-to-any-file: '**/*.spec.dart'
+    - any-glob-to-any-file: '**/*.test.elm'
+    - any-glob-to-any-file: '**/*.spec.elm'
 
-wip:
-  - changed-files:
-      - any-glob-to-any-file: 'wip/*'
-      - any-glob-to-any-file: '*.draft'
+# ========== CI/CD ==========
 
-deprecated:
+Dependencies:
   - changed-files:
-      - any-glob-to-any-file: 'legacy/*'
-      - any-glob-to-any-file: 'deprecated/*'
+    - any-glob-to-any-file: 'requirements.txt'
+    - any-glob-to-any-file: 'requirements/**'
+    - any-glob-to-any-file: 'package.json'
+    - any-glob-to-any-file: '**/package.json'
+    - any-glob-to-any-file: 'package-lock.json'
+    - any-glob-to-any-file: 'yarn.lock'
+    - any-glob-to-any-file: 'yarn-error.log'
+    - any-glob-to-any-file: 'pnpm-lock.yaml'
+    - any-glob-to-any-file: 'Gemfile'
+    - any-glob-to-any-file: 'Gemfile.lock'
+    - any-glob-to-any-file: 'Pipfile'
+    - any-glob-to-any-file: 'Pipfile.lock'
