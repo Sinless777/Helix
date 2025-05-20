@@ -1,0 +1,50 @@
+# .github/workflows/publish-libs.yml
+name: Publish Libraries to npm
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read        # to checkout your code
+  packages: write       # to publish to npm
+
+jobs:
+  publish:
+    name: Publish libs/*
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Grab your code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2) Setup Node.js and point at the npm registry
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'                  # or whichever LTS you need
+          registry-url: 'https://registry.npmjs.org'
+
+      # 3) Inject your NPM auth token (add NPM_TOKEN to your repo/secrets)
+      - name: Configure npm auth
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      # 4) Publish every package under libs/*
+      - name: Publish packages in libs/
+        run: |
+          set -eux
+          for pkg in libs/*; do
+            if [ -f "$pkg/package.json" ]; then
+              echo "→ Publishing $pkg"
+              cd "$pkg"
+              # optional: install & build if needed
+              # npm install
+              # npm run build
+              npm publish --access public
+              cd - 
+            fi
+          done
