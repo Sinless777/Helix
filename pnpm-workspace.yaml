@@ -10,6 +10,7 @@ onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - '@vercel/speed-insights'
   - bcrypt
+  - core-js
   - cypress
   - electron
   - es5-ext

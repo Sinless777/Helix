@@ -18,7 +18,7 @@
   "module": "./index.js",
   "devDependencies": {
     "@types/node": "18.19.49",
-    "eslint": "8.57.0",
+    "eslint": "9.27.0",
     "prettier": "2.8.8",
     "typescript": "5.5.4"
   }
