@@ -1,181 +1,98 @@
 # .github/labeler.yaml
 
-# ========== General Maintenance ==========
-bug:
-  - '*.bug'
-  - 'fix/*'
-  - 'hotfix/*'
+# ————— Branch-based labels —————
+Bugfix:
+  branches:
+    - 'bugfix/*'
 
-enhancement:
-  - '*.enhancement'
-  - 'improve/*'
-  - 'refactor/*'
+Hotfix:
+  branches:
+    - 'hotfix/*'
 
-chore:
-  - 'chore/*'
-  - '*.chore'
+Feature:
+  branches:
+    - 'feature/*'
 
-documentation:
-  - '*.docs'
-  - 'docs/*'
-  - 'readme/*'
+Release:
+  branches:
+    - 'release/*'
 
-tests:
-  - 'tests/*'
-  - '*.test'
-  - 'e2e/*'
-  - 'unit/*'
+Support:
+  branches:
+    - 'support/*'
 
-dependencies:
-  - 'deps/*'
-  - 'renovate/*'
 
-ci-cd:
-  - '.github/workflows/*'
-  - 'ci/*'
-  - 'cd/*'
-  - 'pipeline/*'
+# ————— GitHub meta —————
+GitHub:
+  paths:
+    - '.github/**'
 
-# ========== Feature Development ==========
-feature:
-  - '*.feature'
-  - 'feat/*'
+GitHub-Workflows:
+  paths:
+    - '.github/workflows/**'
 
-backend:
-  - 'backend/*'
-  - 'server/*'
-  - 'api/*'
-  - 'database/*'
+GitHub-Issue-Templates:
+  paths:
+    - '.github/ISSUE_TEMPLATE/**'
 
-frontend:
-  - 'frontend/*'
-  - 'client/*'
-  - 'ui/*'
-  - 'components/*'
 
-user-interface:
-  - 'ui/*'
-  - 'styles/*'
-  - '*.ui'
+# ————— Major areas —————
+APIs:
+  paths:
+    - 'apis/**'
 
-user-experience:
-  - 'ux/*'
-  - '*.ux'
-  - 'feedback/*'
+User-Interfaces:
+  paths:
+    - 'user-interfaces/**'
 
-cli:
-  - 'cli/*'
-  - 'tooling/cli/*'
+Docker:
+  paths:
+    - 'docker/**'
 
-api:
-  - 'api/*'
-  - 'routes/*'
-  - 'services/api/*'
+Libs:
+  paths:
+    - 'libs/**'
 
-graphql:
-  - 'graphql/*'
-  - '*.gql'
 
-# ========== AI & ML ==========
-ai:
-  - 'ai/*'
-  - 'ml/*'
-  - 'models/*'
-  - '*.ai'
+# ————— Sample sub-areas —————
+Authentication:
+  paths:
+    - 'apis/auth/**'
 
-nlp:
-  - 'nlp/*'
-  - 'language/*'
+Discord-Bot:
+  paths:
+    - 'apis/discord-bot/**'
 
-prompts:
-  - 'prompts/*'
+Frontend:
+  paths:
+    - 'user-interfaces/frontend/**'
 
-training:
-  - 'training/*'
-  - 'data/*'
 
-# ========== Integrations ==========
-discord-bot:
-  - 'discord-bot/*'
+# ————— Documentation & tests —————
+Documentation:
+  paths:
+    - '**/*.md'
+    - 'docs/**'
 
-github-actions:
-  - '.github/actions/*'
+Testing:
+  paths:
+    - 'tests/**'
+    - 'test/**'
+    - '**/*.test.*'
+    - '**/*.spec.*'
 
-slack:
-  - 'integrations/slack/*'
 
-cloudflare:
-  - 'cloudflare/*'
-
-openai:
-  - 'integrations/openai/*'
-
-stripe:
-  - 'payments/stripe/*'
-
-# ========== Infrastructure ==========
-infrastructure:
-  - 'infra/*'
-  - 'infrastructure/*'
-
-kubernetes:
-  - 'k8s/*'
-  - '*.k8s'
-
-docker:
-  - 'docker/*'
-  - 'Dockerfile'
-
-terraform:
-  - 'terraform/*'
-  - '*.tf'
-
-ansible:
-  - 'ansible/*'
-  - 'provisioning/*'
-
-monitoring:
-  - 'monitoring/*'
-  - 'grafana/*'
-  - 'prometheus/*'
-
-logging:
-  - 'logging/*'
-  - 'loki/*'
-  - 'fluentd/*'
-
-# ========== Security ==========
-security:
-  - 'security/*'
-  - 'auth/*'
-  - 'permissions/*'
-
-secrets:
-  - 'secrets/*'
-  - 'vault/*'
-
-compliance:
-  - 'compliance/*'
-  - 'policy/*'
-  - 'hipaa/*'
-
-# ========== Misc & Meta ==========
-discussion:
-  - 'discussion/*'
-  - '*.talk'
-
-question:
-  - 'question/*'
-  - 'qna/*'
-
-roadmap:
-  - 'roadmap/*'
-  - '*.plan'
-
-wip:
-  - 'wip/*'
-  - '*.draft'
-
-deprecated:
-  - 'legacy/*'
-  - 'deprecated/*'
+# ————— Dependency files —————
+Dependencies:
+  paths:
+    - 'requirements.txt'
+    - '**/requirements.txt'
+    - 'package.json'
+    - '**/package.json'
+    - 'package-lock.json'
+    - 'yarn.lock'
+    - 'pnpm-lock.yaml'
+    - 'Gemfile'
+    - 'Gemfile.lock'
+    - 'Pipfile'
+    - 'Pipfile.lock'
