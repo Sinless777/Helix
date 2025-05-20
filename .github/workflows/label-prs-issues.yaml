@@ -1,43 +1,41 @@
 name: Labeler
 
 on:
-  workflow_dispatch:
   pull_request:
-  issues:
+  workflow_dispatch:
   schedule:
-    - cron: '0 18 * * *' # Runs every day at 6 PM UTC
-
-env:
-  PR_EXISTS: false
+    - cron: '0 18 * * *' # schedule still defined, but labeler will skip if not a PR
 
 permissions:
   contents: read       # to checkout and scan files
   pull-requests: write # to add labels on PRs
-  issues: write        # <— needed to create labels if they don’t exist
+  issues: write        # needed to create labels if they don’t exist
+
+env:
+  IS_PR: false
 
 jobs:
   labeler:
-    name: Labeler
+    name: Apply Labels
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4 # v4
-        with:
-          repository: ${{ github.repository }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Check if Pull Request exists
-        id: pr_exists
+      - name: Detect pull request
+        id: detect_pr
         run: |
-          if [ "${{ github.event.pull_request }}" != "" ]; then
-            echo "PR_EXISTS=true" >> $GITHUB_ENV
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "IS_PR=true" >> $GITHUB_ENV
           else
-            echo "PR_EXISTS=false" >> $GITHUB_ENV
+            echo "IS_PR=false" >> $GITHUB_ENV
           fi
 
       - name: Run Labeler
-        # if: env.PR_EXISTS == 'false'
-        uses: actions/labeler@v5 # v5
+        if: env.IS_PR == 'true'
+        uses: actions/labeler@v5
         with:
           configuration-path: .github/labeler.yaml
           sync-labels: true
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
