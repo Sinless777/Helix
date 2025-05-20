@@ -2,6 +2,8 @@ name: Labeler
 
 on:
   pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
   schedule:
     - cron: '0 18 * * *' # schedule still defined, but labeler will skip if not a PR
