@@ -10,13 +10,16 @@ on:
 env:
   PR_EXISTS: false
 
+permissions:
+  contents: read       # to checkout and scan files
+  pull-requests: write # to add labels on PRs
+  issues: write        # <— needed to create labels if they don’t exist
+
 jobs:
   labeler:
     name: Labeler
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4 # v4
