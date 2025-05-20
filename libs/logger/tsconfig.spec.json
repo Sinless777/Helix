@@ -1,14 +1,21 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
-    "module": "commonjs",
-    "types": ["jest", "node"]
+    "outDir": "../../../dist/libs/logger/spec",
+    "types": ["jest", "node"],
+    "esModuleInterop": true,
+    "allowJs": true,
+    "sourceMap": true
   },
   "include": [
-    "jest.config.ts",
-    "src/**/*.test.ts",
+    "jest.config.js",
     "src/**/*.spec.ts",
+    "src/**/*.test.ts",
     "src/**/*.d.ts"
+    ],
+  "exclude": [
+    "src/**/*.ts",
+    "!src/**/*.spec.ts",
+    "!src/**/*.test.ts"
   ]
 }

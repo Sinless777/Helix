@@ -20,6 +20,7 @@ export default function HeroWaitlist() {
       }, 5000)
       return () => clearTimeout(timer)
     }
+    return undefined
   }, [status])
 
   const handleSubmit = async () => {
