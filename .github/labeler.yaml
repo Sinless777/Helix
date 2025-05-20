@@ -2,97 +2,80 @@
 
 # ————— Branch-based labels —————
 Bugfix:
-  branches:
-    - 'bugfix/*'
-
+  - head-branch:
+      - '^bugfix/.*'
 Hotfix:
-  branches:
-    - 'hotfix/*'
-
+  - head-branch:
+      - '^hotfix/.*'
 Feature:
-  branches:
-    - 'feature/*'
-
+  - head-branch:
+      - '^feature/.*'
 Release:
-  branches:
-    - 'release/*'
-
+  - head-branch:
+      - '^release/.*'
 Support:
-  branches:
-    - 'support/*'
-
+  - head-branch:
+      - '^support/.*'
 
 # ————— GitHub meta —————
 GitHub:
-  paths:
-    - '.github/**'
-
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'
 GitHub-Workflows:
-  paths:
-    - '.github/workflows/**'
-
+  - changed-files:
+      - any-glob-to-any-file: '.github/workflows/**'
 GitHub-Issue-Templates:
-  paths:
-    - '.github/ISSUE_TEMPLATE/**'
-
+  - changed-files:
+      - any-glob-to-any-file: '.github/ISSUE_TEMPLATE/**'
 
 # ————— Major areas —————
 APIs:
-  paths:
-    - 'apis/**'
-
+  - changed-files:
+      - any-glob-to-any-file: 'apis/**'
 User-Interfaces:
-  paths:
-    - 'user-interfaces/**'
-
+  - changed-files:
+      - any-glob-to-any-file: 'user-interfaces/**'
 Docker:
-  paths:
-    - 'docker/**'
-
+  - changed-files:
+      - any-glob-to-any-file: 'docker/**'
 Libs:
-  paths:
-    - 'libs/**'
-
+  - changed-files:
+      - any-glob-to-any-file: 'libs/**'
 
 # ————— Sample sub-areas —————
 Authentication:
-  paths:
-    - 'apis/auth/**'
-
+  - changed-files:
+      - any-glob-to-any-file: 'apis/auth/**'
 Discord-Bot:
-  paths:
-    - 'apis/discord-bot/**'
-
+  - changed-files:
+      - any-glob-to-any-file: 'apis/discord-bot/**'
 Frontend:
-  paths:
-    - 'user-interfaces/frontend/**'
-
+  - changed-files:
+      - any-glob-to-any-file: 'user-interfaces/frontend/**'
 
 # ————— Documentation & tests —————
 Documentation:
-  paths:
-    - '**/*.md'
-    - 'docs/**'
-
+  - changed-files:
+      - any-glob-to-any-file: '**/*.md'
+      - any-glob-to-any-file: 'docs/**'
 Testing:
-  paths:
-    - 'tests/**'
-    - 'test/**'
-    - '**/*.test.*'
-    - '**/*.spec.*'
-
+  - changed-files:
+      - any-glob-to-any-file: 'tests/**'
+      - any-glob-to-any-file: 'test/**'
+      - any-glob-to-any-file: '**/*.test.*'
+      - any-glob-to-any-file: '**/*.spec.*'
 
 # ————— Dependency files —————
 Dependencies:
-  paths:
-    - 'requirements.txt'
-    - '**/requirements.txt'
-    - 'package.json'
-    - '**/package.json'
-    - 'package-lock.json'
-    - 'yarn.lock'
-    - 'pnpm-lock.yaml'
-    - 'Gemfile'
-    - 'Gemfile.lock'
-    - 'Pipfile'
-    - 'Pipfile.lock'
+  - changed-files:
+      - any-glob-to-any-file: 'requirements.txt'
+      - any-glob-to-any-file: '**/requirements.txt'
+      - any-glob-to-any-file: 'package.json'
+      - any-glob-to-any-file: '**/package.json'
+      - any-glob-to-any-file: 'package-lock.json'
+      - any-glob-to-any-file: 'yarn.lock'
+      - any-glob-to-any-file: 'pnpm-lock.yaml'
+      - any-glob-to-any-file: 'Gemfile'
+      - any-glob-to-any-file: 'Gemfile.lock'
+      - any-glob-to-any-file: 'Pipfile'
+      - any-glob-to-any-file: 'Pipfile.lock'
