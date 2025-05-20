@@ -2,7 +2,8 @@ name: Labeler
 
 on:
   workflow_dispatch:
-  pull_request_target:
+  pull_request:
+  issues:
   schedule:
     - cron: '0 18 * * *' # Runs every day at 6 PM UTC
 
