@@ -7,6 +7,7 @@
     "@nestjs/common": "^11.1.0",
     "@opentelemetry/instrumentation-winston": "^0.46.0",
     "@opentelemetry/winston-transport": "^0.12.0",
+    "chalk": "^5.4.1",
     "express-winston": "^4.2.0",
     "fluent-logger": "^3.4.1",
     "ioredis": "^5.6.1",
