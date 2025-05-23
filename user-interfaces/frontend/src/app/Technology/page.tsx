@@ -79,11 +79,11 @@ export default function Technology() {
           to accelerate innovation but to deliver a seamless, responsive, and
           intelligent experience to our users. Transparency is a core value at
           Helix; that&apos;s why we proudly share the technologies we rely on
-          and link directly to their official documentation. Whether you&apos;re a
-          developer, researcher, or simply curious, we invite you to explore the
-          systems that power Helix. Behind every feature is a stack engineered
-          to evolve, scale, and serve—because great technology should never be
-          invisible, just intuitive.
+          and link directly to their official documentation. Whether you&apos;re
+          a developer, researcher, or simply curious, we invite you to explore
+          the systems that power Helix. Behind every feature is a stack
+          engineered to evolve, scale, and serve—because great technology should
+          never be invisible, just intuitive.
         </Typography>
       </Box>
 

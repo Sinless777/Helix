@@ -35,19 +35,21 @@ export default function RootLayout({
             src="https://snippet.meticulous.ai/v1/meticulous.js"
           />
         )}
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-EXCL6FMDHY"></Script>
-      <Script
-        id="google-analytics"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-EXCL6FMDHY');
-          `,
-        }}
-      />
-
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-EXCL6FMDHY"
+        ></Script>
+        <Script
+          id="google-analytics-init"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-EXCL6FMDHY');
+            `,
+          }}
+        />
       </head>
       <body>
         <Analytics />

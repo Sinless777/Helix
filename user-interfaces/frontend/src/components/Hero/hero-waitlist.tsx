@@ -19,6 +19,16 @@ export default function HeroWaitlist() {
         setStatus('idle')
       }, 5000)
       return () => clearTimeout(timer)
+    } else if (status === 'error') {
+      const timer = setTimeout(() => {
+        setStatus('idle')
+      }, 5000)
+      return () => clearTimeout(timer)
+    } else if (status === 'sending') {
+      const timer = setTimeout(() => {
+        setStatus('idle')
+      }, 5000)
+      return () => clearTimeout(timer)
     }
     return undefined
   }, [status])
