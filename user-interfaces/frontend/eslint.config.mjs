@@ -72,7 +72,7 @@ export default [
       'prettier/prettier': ['error'],
 
       // enforce EditorConfig charsets & indent styles
-      'editorconfig/charset': ['error'],
+      'editorconfig/charset': 'off',
       'editorconfig/indent': ['error'],
     },
   },
