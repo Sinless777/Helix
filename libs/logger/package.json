@@ -20,6 +20,6 @@
     "@types/node": "18.19.49",
     "eslint": "8.57.0",
     "prettier": "2.8.8",
-    "typescript": "5.5.4"
+    "typescript": "5.8.3"
   }
 }
