@@ -4,6 +4,7 @@ import { SystemColors } from '@/constants/system'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import Script from 'next/script'
 
 export const metadata = {
   title: 'Helix AI',
@@ -28,15 +29,15 @@ export default function RootLayout({
       <head>
         {(process.env.NODE_ENV === 'development' ||
           process.env.VERCEL_ENV === 'preview') && (
-          // eslint-disable-next-line @next/next/no-sync-scripts
-          <script
+          <Script
             data-recording-token="mxGHRESvuU68b8edOcewbT25c8mElDmQWedof3QS"
             data-is-production-environment="false"
             src="https://snippet.meticulous.ai/v1/meticulous.js"
           />
         )}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXCL6FMDHY"></script>
-      <script
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-EXCL6FMDHY"></Script>
+      <Script
+        id="google-analytics"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];

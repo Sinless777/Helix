@@ -3,7 +3,7 @@
 import React from 'react'
 import Script from 'next/script'
 import Grid from '@mui/material/Grid'
-import { Box, Container, Typography, useTheme } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import { Header } from '@/components/Header'
 import { headerProps } from '@/constants/header'
 import { AboutContent } from '@/constants/about'
@@ -11,7 +11,6 @@ import { motion } from 'framer-motion'
 import styles from './about.module.scss'
 
 export default function AboutPage() {
-  const theme = useTheme()
 
   return (
     <Box sx={{ position: 'relative', minHeight: '100vh' }}>

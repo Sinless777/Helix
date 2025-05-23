@@ -1,6 +1,6 @@
 // src/constants/about/index.ts
 import React from 'react'
-import { Typography, Link as MuiLink } from '@mui/material'
+import { Typography } from '@mui/material'
 
 export interface AboutSection {
   title: string

@@ -39,7 +39,6 @@ export const HelixCard: React.FC<CardProps> = ({
   link,
   buttonText = 'Read more',
   quote,
-  aspectRatio = '56.25%',
   sx,
 }) => {
   const theme = useTheme()

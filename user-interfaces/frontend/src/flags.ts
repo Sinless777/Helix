@@ -10,7 +10,7 @@ import {
 } from "../generated/hypertune";
 
 const identify: Identify<Context> = dedupe(
-  async ({ headers, cookies }) => {
+  async ({}) => {
     return {
       environment: process.env.NODE_ENV,
       user: { id: "1", name: "Test User", email: "hi@test.com" },

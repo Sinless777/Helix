@@ -5,13 +5,14 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { describe, it, expect, jest } from '@jest/globals'
+import Image from 'next/image'
 
 // Mock Next.js Image component before importing the component under test
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
-    const { src, alt, ...rest } = props
-    return <img src={src} alt={alt} {...rest} />
+  default: (props: unknown) => {
+    const { src, alt, ...rest } = props as { src?: string; alt?: string; [key: string]: unknown }
+    return <Image src={src as string} alt={alt as string} width={500} height={300} {...rest} />
   },
 }))
 
