@@ -46,9 +46,7 @@ describe('UserService', () => {
       mockEntityManager.findOne.mockResolvedValue(null)
       mockEntityManager.persistAndFlush.mockResolvedValue(undefined)
 
-      jest
-        .spyOn(bcrypt, 'hash')
-        .mockResolvedValue('hashed-password' as never)
+      jest.spyOn(bcrypt, 'hash').mockResolvedValue('hashed-password' as never)
 
       const result = await service.create('user@example.com', 'Password123!')
       expect(result.email).toBe('user@example.com')
@@ -116,9 +114,7 @@ describe('UserService', () => {
 
   describe('checkPassword', () => {
     it('should return true for matching password', async () => {
-      jest
-        .spyOn(bcrypt, 'compare')
-        .mockResolvedValue(true as never)
+      jest.spyOn(bcrypt, 'compare').mockResolvedValue(true as never)
 
       const result = await service.checkPassword(mockUser, 'Password123!')
       expect(result).toBe(true)
