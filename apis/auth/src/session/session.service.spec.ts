@@ -80,9 +80,9 @@ describe('SessionService', () => {
     })
 
     it('should throw on invalid IP', async () => {
-      await expect(
-        service.fetchGeoIPInformation('invalid-ip'),
-      ).rejects.toThrow('Invalid IP address format.')
+      await expect(service.fetchGeoIPInformation('invalid-ip')).rejects.toThrow(
+        'Invalid IP address format.',
+      )
     })
   })
 
