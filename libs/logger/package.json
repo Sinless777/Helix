@@ -4,8 +4,8 @@
   "dependencies": {
     "@fluent-org/logger": "^1.0.10",
     "@nestjs/common": "^11.1.0",
-    "@opentelemetry/instrumentation-winston": "^0.45.0",
-    "@opentelemetry/winston-transport": "^0.11.0",
+    "@opentelemetry/instrumentation-winston": "^0.46.0",
+    "@opentelemetry/winston-transport": "^0.12.0",
     "express-winston": "^4.2.0",
     "nest-winston": "^1.10.2",
     "winston": "^3.17.0",
@@ -17,9 +17,9 @@
   "main": "./index.cjs",
   "module": "./index.js",
   "devDependencies": {
-    "@types/node": "18.19.49",
-    "eslint": "9.27.0",
+    "@types/node": "18.19.103",
+    "eslint": "8.57.1",
     "prettier": "2.8.8",
-    "typescript": "5.5.4"
+    "typescript": "5.8.3"
   }
 }
