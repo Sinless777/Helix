@@ -74,6 +74,7 @@ export default [
       // enforce EditorConfig charsets & indent styles
       'editorconfig/charset': 'off',
       'editorconfig/indent': ['error'],
+      'editorconfig/line-ending-style': 'off',
     },
   },
 ]
