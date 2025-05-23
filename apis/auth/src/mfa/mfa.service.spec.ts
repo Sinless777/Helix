@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { MfaService } from './mfa.service';
+import { Test, TestingModule } from '@nestjs/testing'
+import { MfaService } from './mfa.service'
 
 describe('MfaService', () => {
-  let service: MfaService;
+  let service: MfaService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [MfaService],
-    }).compile();
+    }).compile()
 
-    service = module.get<MfaService>(MfaService);
-  });
+    service = module.get<MfaService>(MfaService)
+  })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+    expect(service).toBeDefined()
+  })
+})
