@@ -5,7 +5,7 @@
     "build": "next build",
     "dev": "next dev --turbopack",
     "serve": "next start",
-    "lint": "nx lint",
+    "lint": "next lint --fix",
     "test": "jest",
     "test-watch": "jest --watch"
   },

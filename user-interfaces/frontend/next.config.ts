@@ -27,10 +27,10 @@ const baseConfig: NextConfig = {
     config.plugins.push(new webpack.HotModuleReplacementPlugin())
 
     // NOTE: Next.js doesn't expose `devServer` here—remove this if you see errors.
-    // if (!isServer) {
-    //   (config.devServer ??= {}).hot = true;
-    //   config.devServer.open = true;
-    // }
+    if (!isServer) {
+      (config.devServer ??= {}).hot = true;
+      config.devServer.open = true;
+    }
 
     return config
   },
