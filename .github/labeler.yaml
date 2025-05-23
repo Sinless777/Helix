@@ -1,181 +1,81 @@
 # .github/labeler.yaml
 
-# ========== General Maintenance ==========
-bug:
-  - '*.bug'
-  - 'fix/*'
-  - 'hotfix/*'
+# ————— Branch-based labels —————
+Bugfix:
+  - head-branch:
+      - '^bugfix/.*'
+Hotfix:
+  - head-branch:
+      - '^hotfix/.*'
+Feature:
+  - head-branch:
+      - '^feature/.*'
+Release:
+  - head-branch:
+      - '^release/.*'
+Support:
+  - head-branch:
+      - '^support/.*'
 
-enhancement:
-  - '*.enhancement'
-  - 'improve/*'
-  - 'refactor/*'
+# ————— GitHub meta —————
+GitHub:
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'
+GitHub-Workflows:
+  - changed-files:
+      - any-glob-to-any-file: '.github/workflows/**'
+GitHub-Issue-Templates:
+  - changed-files:
+      - any-glob-to-any-file: '.github/ISSUE_TEMPLATE/**'
 
-chore:
-  - 'chore/*'
-  - '*.chore'
+# ————— Major areas —————
+APIs:
+  - changed-files:
+      - any-glob-to-any-file: 'apis/**'
+User-Interfaces:
+  - changed-files:
+      - any-glob-to-any-file: 'user-interfaces/**'
+Docker:
+  - changed-files:
+      - any-glob-to-any-file: 'docker/**'
+Libs:
+  - changed-files:
+      - any-glob-to-any-file: 'libs/**'
 
-documentation:
-  - '*.docs'
-  - 'docs/*'
-  - 'readme/*'
+# ————— Sample sub-areas —————
+Authentication:
+  - changed-files:
+      - any-glob-to-any-file: 'apis/auth/**'
+Discord-Bot:
+  - changed-files:
+      - any-glob-to-any-file: 'apis/discord-bot/**'
+Frontend:
+  - changed-files:
+      - any-glob-to-any-file: 'user-interfaces/frontend/**'
 
-tests:
-  - 'tests/*'
-  - '*.test'
-  - 'e2e/*'
-  - 'unit/*'
+# ————— Documentation & tests —————
+Documentation:
+  - changed-files:
+      - any-glob-to-any-file: '**/*.md'
+      - any-glob-to-any-file: 'docs/**'
+Testing:
+  - changed-files:
+      - any-glob-to-any-file: 'tests/**'
+      - any-glob-to-any-file: 'test/**'
+      - any-glob-to-any-file: '**/*.test.*'
+      - any-glob-to-any-file: '**/*.spec.*'
 
-dependencies:
-  - 'deps/*'
-  - 'renovate/*'
-
-ci-cd:
-  - '.github/workflows/*'
-  - 'ci/*'
-  - 'cd/*'
-  - 'pipeline/*'
-
-# ========== Feature Development ==========
-feature:
-  - '*.feature'
-  - 'feat/*'
-
-backend:
-  - 'backend/*'
-  - 'server/*'
-  - 'api/*'
-  - 'database/*'
-
-frontend:
-  - 'frontend/*'
-  - 'client/*'
-  - 'ui/*'
-  - 'components/*'
-
-user-interface:
-  - 'ui/*'
-  - 'styles/*'
-  - '*.ui'
-
-user-experience:
-  - 'ux/*'
-  - '*.ux'
-  - 'feedback/*'
-
-cli:
-  - 'cli/*'
-  - 'tooling/cli/*'
-
-api:
-  - 'api/*'
-  - 'routes/*'
-  - 'services/api/*'
-
-graphql:
-  - 'graphql/*'
-  - '*.gql'
-
-# ========== AI & ML ==========
-ai:
-  - 'ai/*'
-  - 'ml/*'
-  - 'models/*'
-  - '*.ai'
-
-nlp:
-  - 'nlp/*'
-  - 'language/*'
-
-prompts:
-  - 'prompts/*'
-
-training:
-  - 'training/*'
-  - 'data/*'
-
-# ========== Integrations ==========
-discord-bot:
-  - 'discord-bot/*'
-
-github-actions:
-  - '.github/actions/*'
-
-slack:
-  - 'integrations/slack/*'
-
-cloudflare:
-  - 'cloudflare/*'
-
-openai:
-  - 'integrations/openai/*'
-
-stripe:
-  - 'payments/stripe/*'
-
-# ========== Infrastructure ==========
-infrastructure:
-  - 'infra/*'
-  - 'infrastructure/*'
-
-kubernetes:
-  - 'k8s/*'
-  - '*.k8s'
-
-docker:
-  - 'docker/*'
-  - 'Dockerfile'
-
-terraform:
-  - 'terraform/*'
-  - '*.tf'
-
-ansible:
-  - 'ansible/*'
-  - 'provisioning/*'
-
-monitoring:
-  - 'monitoring/*'
-  - 'grafana/*'
-  - 'prometheus/*'
-
-logging:
-  - 'logging/*'
-  - 'loki/*'
-  - 'fluentd/*'
-
-# ========== Security ==========
-security:
-  - 'security/*'
-  - 'auth/*'
-  - 'permissions/*'
-
-secrets:
-  - 'secrets/*'
-  - 'vault/*'
-
-compliance:
-  - 'compliance/*'
-  - 'policy/*'
-  - 'hipaa/*'
-
-# ========== Misc & Meta ==========
-discussion:
-  - 'discussion/*'
-  - '*.talk'
-
-question:
-  - 'question/*'
-  - 'qna/*'
-
-roadmap:
-  - 'roadmap/*'
-  - '*.plan'
-
-wip:
-  - 'wip/*'
-  - '*.draft'
-
-deprecated:
-  - 'legacy/*'
-  - 'deprecated/*'
+# ————— Dependency files —————
+Dependencies:
+  - changed-files:
+      - any-glob-to-any-file: 'requirements.txt'
+      - any-glob-to-any-file: '**/requirements.txt'
+      - any-glob-to-any-file: 'package.json'
+      - any-glob-to-any-file: '**/package.json'
+      - any-glob-to-any-file: 'package-lock.json'
+      - any-glob-to-any-file: 'yarn.lock'
+      - any-glob-to-any-file: 'pnpm-lock.yaml'
+      - any-glob-to-any-file: 'Gemfile'
+      - any-glob-to-any-file: 'Gemfile.lock'
+      - any-glob-to-any-file: 'Pipfile'
+      - any-glob-to-any-file: 'Pipfile.lock'

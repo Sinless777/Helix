@@ -21,12 +21,12 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4 # Updated to the latest version
 
       - name: Set up Node.js
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4 # Ensure Node.js is set up, required by many GitHub Actions
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4 # Ensure Node.js is set up, required by many GitHub Actions
         with:
           node-version: '16' # Set a specific Node.js version for consistency
 
       - name: Cache Node.js Modules
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
+        uses: actions/cache@v4.2.3
         with:
           path: ~/.npm # Caches the npm dependencies
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Cache key based on OS and package-lock.json
