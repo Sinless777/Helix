@@ -69,7 +69,12 @@ export default [
       'react/react-in-jsx-scope': 'off',
 
       // ensure Prettier errors surface as ESLint errors
-      'prettier/prettier': ['error'],
+      'prettier/prettier': ['error',
+        // turn off end of line
+        {
+          endOfLine: 'auto',
+        }
+      ],
 
       // enforce EditorConfig charsets & indent styles
       'editorconfig/charset': 'off',
