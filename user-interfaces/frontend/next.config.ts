@@ -28,8 +28,8 @@ const baseConfig: NextConfig = {
 
     // NOTE: Next.js doesn't expose `devServer` here—remove this if you see errors.
     if (!isServer) {
-      (config.devServer ??= {}).hot = true;
-      config.devServer.open = true;
+      ;(config.devServer ??= {}).hot = true
+      config.devServer.open = true
     }
 
     return config

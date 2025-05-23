@@ -26,8 +26,7 @@
     "test:coverage:report": "pnpm run test:all -- --coverage --coverageReporters=html",
     "test:coverage:check": "pnpm run test:all -- --coverage --coverageReporters=text-lcov | coveralls",
     "test:watch": "pnpm run test:all -- --watch",
-    "format:write": "pnpm run lint:all -- --fix",
-    "format:check": "pnpm run lint:all -- --check"
+    "format:frontend": "pnpm --filter @helix/frontend format"
   },
   "dependencies": {
     "next": "^15.3.2"
@@ -59,7 +58,6 @@
     "@swc/jest": "^0.2.38",
     "@testing-library/react": "^16.3.0",
     "@types/express": "^4.17.21",
-    "@types/express-winston": "^4.0.2",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.31.0",
     "axios": "^1.9.0",
