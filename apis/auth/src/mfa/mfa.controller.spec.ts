@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { MfaController } from './mfa.controller';
+import { Test, TestingModule } from '@nestjs/testing'
+import { MfaController } from './mfa.controller'
 
 describe('MfaController', () => {
-  let controller: MfaController;
+  let controller: MfaController
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MfaController],
-    }).compile();
+    }).compile()
 
-    controller = module.get<MfaController>(MfaController);
-  });
+    controller = module.get<MfaController>(MfaController)
+  })
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-});
+    expect(controller).toBeDefined()
+  })
+})
