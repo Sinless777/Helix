@@ -12,7 +12,6 @@ import { SessionModule } from './session/session.module'
 import { MfaModule } from './mfa/mfa.module'
 import { DeviceModule } from './device/device.module'
 
-
 @Module({
   imports: [
     // Global .env config
