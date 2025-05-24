@@ -3,15 +3,15 @@
  * Includes standard fields and allows arbitrary extra keys.
  */
 export interface LogMetadata {
-  traceId?: string;
-  spanId?: string;
-  userId?: string;
-  version?: string;
-  host?: string;
-  pid?: number;
-  env?: string;
-  otelSpan?: string;
-  [key: string]: any;
+  traceId?: string
+  spanId?: string
+  userId?: string
+  version?: string
+  host?: string
+  pid?: number
+  env?: string
+  otelSpan?: string
+  [key: string]: any
 }
 
 /**
@@ -24,17 +24,17 @@ export type LogLevel =
   | 'debug'
   | 'trace'
   | 'fatal'
-  | 'success';
+  | 'success'
 
 /**
  * A single log entry, with timestamp, level, message,
  * optional context, and structured metadata.
  */
 export interface LogRecord {
-  timestamp: string;
-  level: LogLevel;
-  service: string;
-  message: string;
-  context?: string;
-  metadata?: LogMetadata;
+  timestamp: string
+  level: LogLevel
+  service: string
+  message: string
+  context?: string
+  metadata?: LogMetadata
 }

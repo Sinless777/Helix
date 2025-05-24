@@ -8,13 +8,13 @@
  */
 export interface BackoffOptions {
   /** Initial delay in milliseconds (default: 100ms) */
-  baseDelay?: number;
+  baseDelay?: number
   /** Multiplier per attempt (default: 2) */
-  factor?: number;
+  factor?: number
   /** Maximum delay cap in milliseconds (default: 10000ms) */
-  maxDelay?: number;
+  maxDelay?: number
   /** Apply full jitter by randomizing delay between 0 and the calculated delay (default: true) */
-  jitter?: boolean;
+  jitter?: boolean
 }
 
 /**
@@ -25,24 +25,24 @@ export interface BackoffOptions {
  */
 export function calculateBackoff(
   attempt: number,
-  options: BackoffOptions = {}
+  options: BackoffOptions = {},
 ): number {
   const {
     baseDelay = 100,
     factor = 2,
     maxDelay = 10000,
     jitter = true,
-  } = options;
+  } = options
 
   // Exponential growth
-  let delay = Math.min(baseDelay * Math.pow(factor, attempt - 1), maxDelay);
+  let delay = Math.min(baseDelay * Math.pow(factor, attempt - 1), maxDelay)
 
   if (jitter) {
     // Randomize between 0 and delay
-    delay = Math.random() * delay;
+    delay = Math.random() * delay
   }
 
-  return delay;
+  return delay
 }
 
 /**
@@ -52,8 +52,8 @@ export function calculateBackoff(
  */
 export async function backoff(
   attempt: number,
-  options: BackoffOptions = {}
+  options: BackoffOptions = {},
 ): Promise<void> {
-  const delay = calculateBackoff(attempt, options);
-  return new Promise((resolve) => setTimeout(resolve, delay));
+  const delay = calculateBackoff(attempt, options)
+  return new Promise((resolve) => setTimeout(resolve, delay))
 }

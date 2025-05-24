@@ -5,16 +5,9 @@ import tsPlugin from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-})
 
 export default [
   // 1) bring in base monorepo rules
@@ -47,6 +40,7 @@ export default [
     },
     rules: {
       // your TS-specific rules here…
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
 

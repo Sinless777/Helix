@@ -7,16 +7,17 @@
  */
 export function globToRegExp(pattern: string): RegExp {
   // Escape special regex characters: . ^ $ + ( ) [ ] { } | \
-  const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&');
+  const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&')
 
   // Replace glob wildcards with regex equivalents
-  const regexString = '^'
-    + escaped
-        .replace(/\*/g, '.*')  // '*' => '.*'
-        .replace(/\?/g, '.')  // '?' => '.'
-    + '$';
+  const regexString =
+    '^' +
+    escaped
+      .replace(/\*/g, '.*') // '*' => '.*'
+      .replace(/\?/g, '.') + // '?' => '.'
+    '$'
 
-  return new RegExp(regexString);
+  return new RegExp(regexString)
 }
 
 /**
@@ -26,6 +27,6 @@ export function globToRegExp(pattern: string): RegExp {
  * @returns true if value matches pattern
  */
 export function matchGlob(pattern: string, value: string): boolean {
-  const regex = globToRegExp(pattern);
-  return regex.test(value);
+  const regex = globToRegExp(pattern)
+  return regex.test(value)
 }
