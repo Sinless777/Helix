@@ -10,11 +10,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*.ts",
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ],
+  "include": ["src/**/*.ts", "**/*.spec.ts", "**/*.d.ts"],
   "exclude": ["**/*.spec.ts", "dist", "node_modules"],
   "references": [
     { "path": "./tsconfig.lib.json" },

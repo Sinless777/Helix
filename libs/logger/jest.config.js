@@ -4,7 +4,7 @@ const path = require('path')
 
 // Load local .swcrc config manually (Jest doesn't auto-read it)
 const { exclude, ...swcConfig } = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '.swcrc'), 'utf-8')
+  fs.readFileSync(path.join(__dirname, '.swcrc'), 'utf-8'),
 )
 
 module.exports = {
@@ -17,4 +17,3 @@ module.exports = {
   testEnvironment: 'node',
   coverageDirectory: '../../coverage/libs/logger',
 }
-

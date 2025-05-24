@@ -1,6 +1,13 @@
 {
   "name": "@helix/logger",
   "version": "0.0.1",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint . --fix",
+    "format": "prettier --write .",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watchAll"
+  },
   "dependencies": {
     "@elastic/elasticsearch": "^9.0.1",
     "@fluent-org/logger": "^1.0.10",
@@ -24,6 +31,8 @@
   "devDependencies": {
     "@types/node": "18.19.103",
     "eslint": "8.57.1",
+    "eslint-plugin-editorconfig": "^4.0.3",
+    "eslint-plugin-react": "^7.37.5",
     "prettier": "2.8.8",
     "typescript": "5.8.3"
   }
