@@ -1,214 +1,275 @@
 /* eslint-disable */
 
-import * as sdk from "hypertune";
+import * as sdk from 'hypertune'
 
-export const queryCode = `query FullQuery{root{discordBot authenticationSystem}}`;
+export const queryCode = `query FullQuery{root{discordBot authenticationSystem}}`
 
-export const query: sdk.Query<sdk.ObjectValueWithVariables> = {"variableDefinitions":{},"fragmentDefinitions":{},"fieldQuery":{"Query":{"type":"InlineFragment","objectTypeName":"Query","selection":{"root":{"fieldArguments":{"__isPartialObject__":true},"fieldQuery":{"Root":{"type":"InlineFragment","objectTypeName":"Root","selection":{"discordBot":{"fieldArguments":{},"fieldQuery":null},"authenticationSystem":{"fieldArguments":{},"fieldQuery":null}}}}}}}}};
+export const query: sdk.Query<sdk.ObjectValueWithVariables> = {
+  variableDefinitions: {},
+  fragmentDefinitions: {},
+  fieldQuery: {
+    Query: {
+      type: 'InlineFragment',
+      objectTypeName: 'Query',
+      selection: {
+        root: {
+          fieldArguments: { __isPartialObject__: true },
+          fieldQuery: {
+            Root: {
+              type: 'InlineFragment',
+              objectTypeName: 'Root',
+              selection: {
+                discordBot: { fieldArguments: {}, fieldQuery: null },
+                authenticationSystem: { fieldArguments: {}, fieldQuery: null },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+}
 
-export const vercelFlagDefinitions = {"discordBot":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4624/main/draft/logic?selected_field_path=root%3EdiscordBot"},"authenticationSystem":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4624/main/draft/logic?selected_field_path=root%3EauthenticationSystem"}};
+export const vercelFlagDefinitions = {
+  discordBot: {
+    options: [
+      { label: 'Off', value: false },
+      { label: 'On', value: true },
+    ],
+    origin:
+      'https://app.hypertune.com/projects/4624/main/draft/logic?selected_field_path=root%3EdiscordBot',
+  },
+  authenticationSystem: {
+    options: [
+      { label: 'Off', value: false },
+      { label: 'On', value: true },
+    ],
+    origin:
+      'https://app.hypertune.com/projects/4624/main/draft/logic?selected_field_path=root%3EauthenticationSystem',
+  },
+}
 
 export type RootFlagValues = {
-  "discordBot": boolean;
-  "authenticationSystem": boolean;
+  discordBot: boolean
+  authenticationSystem: boolean
 }
 
 export type FlagValues = {
-  "discordBot": boolean;
-  "authenticationSystem": boolean;
+  discordBot: boolean
+  authenticationSystem: boolean
 }
 
-export type FlagPaths = keyof FlagValues & string;
+export type FlagPaths = keyof FlagValues & string
 
 export const flagFallbacks: FlagValues = {
-  "discordBot": false,
-  "authenticationSystem": false,
+  discordBot: false,
+  authenticationSystem: false,
 }
 
 export function decodeFlagValues<TFlagPaths extends keyof FlagValues & string>(
   encodedValues: string,
-  flagPaths: TFlagPaths[]
+  flagPaths: TFlagPaths[],
 ): Pick<FlagValues, TFlagPaths> {
   return sdk.decodeFlagValues({ flagPaths, encodedValues })
 }
 
-export type VariableValues = {};
+export type VariableValues = {}
 
 export type User = {
-  id: string;
-  name: string;
-  email: string;
+  id: string
+  name: string
+  email: string
 }
 
 export const EnvironmentEnumValues = [
-  "development",
-  "production",
-  "test"
-] as const;
-export type Environment = typeof EnvironmentEnumValues[number];
+  'development',
+  'production',
+  'test',
+] as const
+export type Environment = (typeof EnvironmentEnumValues)[number]
 
 /**
  * This `Context` input type is used for the `context` argument on your root field.
  * It contains details of the current `user` and `environment`.
- * 
- * You can define other custom input types with fields that are primitives, enums 
+ *
+ * You can define other custom input types with fields that are primitives, enums
  * or other input types.
  */
 export type Context = {
-  user: User;
-  environment: Environment;
+  user: User
+  environment: Environment
 }
 
 export type RootArgs = {
-  context: Context;
+  context: Context
 }
 
-export type EmptyObject = {};
+export type EmptyObject = {}
 
 export type Root = {
-  discordBot: boolean;
-  authenticationSystem: boolean;
+  discordBot: boolean
+  authenticationSystem: boolean
 }
 
-const rootFallback = {discordBot:false,authenticationSystem:false};
+const rootFallback = { discordBot: false, authenticationSystem: false }
 
 export class RootNode extends sdk.Node {
-  override typeName = "Root" as const;
+  override typeName = 'Root' as const
 
   getRootArgs(): RootArgs {
-    const { step } = this.props;
-    return (step?.type === 'GetFieldStep' ? step.fieldArguments : {}) as RootArgs;
+    const { step } = this.props
+    return (
+      step?.type === 'GetFieldStep' ? step.fieldArguments : {}
+    ) as RootArgs
   }
 
-  get({ fallback = rootFallback as Root}: { fallback?: Root } = {}): Root {
-    const getQuery = null;
-    return this.getValue({ query: getQuery, fallback }) as Root;
+  get({ fallback = rootFallback as Root }: { fallback?: Root } = {}): Root {
+    const getQuery = null
+    return this.getValue({ query: getQuery, fallback }) as Root
   }
 
   /**
    * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4624/main/draft/logic?selected_field_path=root%3EdiscordBot})
    */
-  discordBot({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
-    const props0 = this.getFieldNodeProps("discordBot", { fieldArguments: args });
-    const expression0 = props0.expression;
+  discordBot({
+    args = {},
+    fallback,
+  }: {
+    args?: EmptyObject
+    fallback: boolean
+  }): boolean {
+    const props0 = this.getFieldNodeProps('discordBot', {
+      fieldArguments: args,
+    })
+    const expression0 = props0.expression
 
-    if (
-      expression0 &&
-      expression0.type === "BooleanExpression"
-    ) {
-      const node = new sdk.BooleanNode(props0);
-      return node.get({ fallback });
+    if (expression0 && expression0.type === 'BooleanExpression') {
+      const node = new sdk.BooleanNode(props0)
+      return node.get({ fallback })
     }
 
-    const node = new sdk.BooleanNode(props0);
-    node._logUnexpectedTypeError();
-    return node.get({ fallback });
+    const node = new sdk.BooleanNode(props0)
+    node._logUnexpectedTypeError()
+    return node.get({ fallback })
   }
 
   /**
    * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4624/main/draft/logic?selected_field_path=root%3EauthenticationSystem})
    */
-  authenticationSystem({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
-    const props0 = this.getFieldNodeProps("authenticationSystem", { fieldArguments: args });
-    const expression0 = props0.expression;
+  authenticationSystem({
+    args = {},
+    fallback,
+  }: {
+    args?: EmptyObject
+    fallback: boolean
+  }): boolean {
+    const props0 = this.getFieldNodeProps('authenticationSystem', {
+      fieldArguments: args,
+    })
+    const expression0 = props0.expression
 
-    if (
-      expression0 &&
-      expression0.type === "BooleanExpression"
-    ) {
-      const node = new sdk.BooleanNode(props0);
-      return node.get({ fallback });
+    if (expression0 && expression0.type === 'BooleanExpression') {
+      const node = new sdk.BooleanNode(props0)
+      return node.get({ fallback })
     }
 
-    const node = new sdk.BooleanNode(props0);
-    node._logUnexpectedTypeError();
-    return node.get({ fallback });
+    const node = new sdk.BooleanNode(props0)
+    node._logUnexpectedTypeError()
+    return node.get({ fallback })
   }
 }
 
 /**
  * This is your project schema expressed in GraphQL.
- * 
- * Define `Boolean` fields for feature flags, custom `enum` fields for flags with 
- * more than two states, `Int` fields for numeric flags like timeouts and limits, 
- * `String` fields to manage in-app copy, `Void` fields for analytics events, and 
- * fields with custom object and list types for more complex app configuration, 
+ *
+ * Define `Boolean` fields for feature flags, custom `enum` fields for flags with
+ * more than two states, `Int` fields for numeric flags like timeouts and limits,
+ * `String` fields to manage in-app copy, `Void` fields for analytics events, and
+ * fields with custom object and list types for more complex app configuration,
  * e.g. to use Hypertune as a CMS.
- * 
+ *
  * Once you've changed your schema, set your flag logic in the Logic view.
  */
 export type Source = {
   /**
    * You can add arguments to any field in your schema, which you can then use when
-   * setting its logic, including the logic of any nested fields. Your root field 
-   * already has a `context` argument. Since all flags are nested under the root 
+   * setting its logic, including the logic of any nested fields. Your root field
+   * already has a `context` argument. Since all flags are nested under the root
    * field, this context will be available to all of them.
    */
-  root: Root;
+  root: Root
 }
 
-const sourceFallback = {root:{discordBot:false,authenticationSystem:false}};
+const sourceFallback = {
+  root: { discordBot: false, authenticationSystem: false },
+}
 
 export type GetQueryRootArgs = {
-  args: RootArgs;
+  args: RootArgs
 }
 
 export type GetQueryArgs = {
-  root: GetQueryRootArgs;
+  root: GetQueryRootArgs
 }
 
 /**
  * This is your project schema expressed in GraphQL.
- * 
- * Define `Boolean` fields for feature flags, custom `enum` fields for flags with 
- * more than two states, `Int` fields for numeric flags like timeouts and limits, 
- * `String` fields to manage in-app copy, `Void` fields for analytics events, and 
- * fields with custom object and list types for more complex app configuration, 
+ *
+ * Define `Boolean` fields for feature flags, custom `enum` fields for flags with
+ * more than two states, `Int` fields for numeric flags like timeouts and limits,
+ * `String` fields to manage in-app copy, `Void` fields for analytics events, and
+ * fields with custom object and list types for more complex app configuration,
  * e.g. to use Hypertune as a CMS.
- * 
+ *
  * Once you've changed your schema, set your flag logic in the Logic view.
  */
 export class SourceNode extends sdk.Node {
-  override typeName = "Query" as const;
+  override typeName = 'Query' as const
 
-  get({ args, fallback = sourceFallback as Source}: { args: GetQueryArgs; fallback?: Source }): Source {
+  get({
+    args,
+    fallback = sourceFallback as Source,
+  }: {
+    args: GetQueryArgs
+    fallback?: Source
+  }): Source {
     const getQuery = sdk.mergeFieldQueryAndArgs(
       query.fragmentDefinitions,
-      sdk.getFieldQueryForPath(query.fragmentDefinitions, query.fieldQuery, []), 
+      sdk.getFieldQueryForPath(query.fragmentDefinitions, query.fieldQuery, []),
       args,
-    );
-    return this.getValue({ query: getQuery, fallback }) as Source;
+    )
+    return this.getValue({ query: getQuery, fallback }) as Source
   }
 
   /**
    * You can add arguments to any field in your schema, which you can then use when
-   * setting its logic, including the logic of any nested fields. Your root field 
-   * already has a `context` argument. Since all flags are nested under the root 
+   * setting its logic, including the logic of any nested fields. Your root field
+   * already has a `context` argument. Since all flags are nested under the root
    * field, this context will be available to all of them.
    */
-  root({ args }: { args: RootArgs; }): RootNode {
-    const props0 = this.getFieldNodeProps("root", { fieldArguments: args });
-    const expression0 = props0.expression;
+  root({ args }: { args: RootArgs }): RootNode {
+    const props0 = this.getFieldNodeProps('root', { fieldArguments: args })
+    const expression0 = props0.expression
 
     if (
       expression0 &&
-      expression0.type === "ObjectExpression" &&
-      expression0.objectTypeName === "Root"
+      expression0.type === 'ObjectExpression' &&
+      expression0.objectTypeName === 'Root'
     ) {
-      return new RootNode(props0);
+      return new RootNode(props0)
     }
 
-    const node = new RootNode(props0);
-    node._logUnexpectedTypeError();
-    return node;
+    const node = new RootNode(props0)
+    node._logUnexpectedTypeError()
+    return node
   }
 }
 
 export type DehydratedState = sdk.DehydratedState<Source, VariableValues>
-export type CreateSourceOptions = { 
-  token: string; 
-  variableValues?: VariableValues;
-  override?: sdk.DeepPartial<Source> | null;
+export type CreateSourceOptions = {
+  token: string
+  variableValues?: VariableValues
+  override?: sdk.DeepPartial<Source> | null
 } & sdk.CreateOptions
 
 export function createSource({
@@ -225,7 +286,7 @@ export function createSource({
     variableValues,
     override,
     options,
-  });
+  })
 }
 
 export const emptySource = new SourceNode({
@@ -235,7 +296,7 @@ export const emptySource = new SourceNode({
   step: null,
   expression: null,
   initDataHash: null,
-});
+})
 
 export function createSourceForServerOnly({
   token,
@@ -243,9 +304,9 @@ export function createSourceForServerOnly({
   override,
   ...options
 }: CreateSourceOptions): SourceNode {
-  return typeof window === "undefined"
+  return typeof window === 'undefined'
     ? createSource({ token, variableValues, override, ...options })
-    : emptySource;
+    : emptySource
 }
 
 /**
@@ -255,8 +316,8 @@ export const initHypertune = createSource
 /**
  * @deprecated use SourceNode instead.
  */
-export type QueryNode = SourceNode;
+export type QueryNode = SourceNode
 /**
  * @deprecated use Source instead.
  */
-export type Query = Source;
+export type Query = Source

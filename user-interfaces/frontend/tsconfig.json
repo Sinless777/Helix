@@ -8,10 +8,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strictPropertyInitialization": false,
@@ -31,27 +28,14 @@
         "name": "next"
       }
     ],
-    "types": [
-      "jest",
-      "node"
-    ],
+    "types": ["jest", "node"],
     "baseUrl": "",
     "paths": {
-      "@/components/*": [
-        "src/components/*"
-      ],
-      "@/constants/*": [
-        "src/constants/*"
-      ],
-      "@middlewares/*": [
-        "src/middlewares/*"
-      ],
-      "@/hooks/*": [
-        "src/hooks/*"
-      ],
-      "@/lib/*": [
-        "src/lib/*"
-      ]
+      "@/components/*": ["src/components/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/lib/*": ["src/lib/*"]
     }
   },
   "include": [
@@ -69,6 +53,6 @@
     "**/*.spec.ts",
     "**/*.test.ts",
     "../../dist",
-    "../../dist/apps/frontend/types/**/*.ts",
+    "../../dist/apps/frontend/types/**/*.ts"
   ]
 }

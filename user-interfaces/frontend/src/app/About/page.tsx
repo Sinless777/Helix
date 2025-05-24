@@ -11,7 +11,6 @@ import { motion } from 'framer-motion'
 import styles from './about.module.scss'
 
 export default function AboutPage() {
-
   return (
     <Box sx={{ position: 'relative', minHeight: '100vh' }}>
       {/* Google Ads Init */}

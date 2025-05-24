@@ -13,7 +13,13 @@ interface Props {
   onRetry?: () => void
 }
 
-export function ErrorPage({ title, message, showRetry, error, onRetry }: Props) {
+export function ErrorPage({
+  title,
+  message,
+  showRetry,
+  error,
+  onRetry,
+}: Props) {
   const router = useRouter()
 
   return (
