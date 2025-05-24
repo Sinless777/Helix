@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 // user-interfaces/frontend/eslint.config.mjs
 /**
  * ESLint flat config for the frontend package
@@ -11,7 +12,7 @@ import { FlatCompat } from '@eslint/eslintrc'
 import rootConfig from '../../eslint.config.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
-const __dirname  = dirname(__filename)
+const __dirname = dirname(__filename)
 
 // point compat at this folder so it resolves plugins/shareables locally
 const compat = new FlatCompat({

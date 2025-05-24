@@ -1,19 +1,19 @@
-const base = require('../../jest.config.base')
-const fs = require('fs')
-const path = require('path')
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
 // Load local .swcrc config manually (Jest doesn't auto-read it)
 const { exclude, ...swcConfig } = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '.swcrc'), 'utf-8'),
+  readFileSync(join(__dirname, '.swcrc'), 'utf-8'),
 )
 
-module.exports = {
-  displayName: '@helix/logger',
-  rootDir: '.',
-  transform: {
-    '^.+\\.[tj]s$': ['@swc/jest', { ...swcConfig, swcrc: false }],
-  },
-  moduleFileExtensions: ['ts', 'js', 'json'],
-  testEnvironment: 'node',
-  coverageDirectory: '../../coverage/libs/logger',
+export const displayName = '@helix/logger'
+export const rootDir = '.'
+export const transform = {
+  '^.+\\.[tj]s$': [
+    '@swc/jest',
+    { ...swcConfig, swcrc: false, tsconfig: false },
+  ],
 }
+export const moduleFileExtensions = ['ts', 'js', 'json']
+export const testEnvironment = 'node'
+export const coverageDirectory = '../../coverage/libs/logger'

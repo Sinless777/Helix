@@ -41,20 +41,7 @@ export default [
     rules: {
       // your TS-specific rules here…
       '@typescript-eslint/no-unused-vars': 'off',
-    },
-  },
-
-  // 5) JS override remains unchanged
-  {
-    files: ['**/*.js', '**/*.jsx'],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
-    },
-    rules: {
-      // JS-specific rules…
+      'editorconfig/indent': 'off', // disable editorconfig indent rule for TS
     },
   },
 ]

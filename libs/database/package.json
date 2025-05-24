@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.787.0",
-    "@mikro-orm/core": "^6.4.13",
+    "@mikro-orm/core": "^6.4.15",
     "@mikro-orm/reflection": "^6.4.13",
     "@opentelemetry/winston-transport": "^0.12.0",
     "cloudflare": "^4.2.0",

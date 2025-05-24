@@ -1,76 +1,101 @@
-import ElasticsearchTransport from 'winston-elasticsearch'
+import {
+  ElasticsearchTransport,
+  ElasticsearchTransportOptions,
+} from 'winston-elasticsearch'
 import { DriverBase } from '../DriverBase'
 import type { LogRecord } from '../../types/LogRecord'
-import type { ElasticsearchTransportOptions } from 'winston-elasticsearch'
+import { emitDriverError } from '../events'
 
 /**
- * Options for ElasticsearchDriver, extending winston-elasticsearch options.
+ * Options for ElasticsearchDriver, passed to winston-elasticsearch transport.
  */
 export interface ElasticsearchDriverOptions
-  extends ElasticsearchTransportOptions {
-  /**
-   * Optional index prefix (default: 'logs-')
-   */
-  indexPrefix?: string
+  extends Partial<ElasticsearchTransportOptions> {
+  /** Minimum log level to send (e.g. 'info') */
+  level?: string
 }
 
 /**
- * ElasticsearchDriver pushes structured logs into Elasticsearch via winston-elasticsearch.
+ * ElasticsearchDriver pushes logs into Elasticsearch using winston-elasticsearch.
  */
 export class ElasticsearchDriver extends DriverBase {
-  private transport?: typeof ElasticsearchTransport
-  private options: ElasticsearchDriverOptions
+  /** Underlying winston-elasticsearch transport instance */
+  private transport?: ElasticsearchTransport
 
-  constructor(opts: ElasticsearchDriverOptions) {
+  /** Identifier for error events */
+  private driverName = 'elasticsearch'
+
+  constructor(private options: ElasticsearchDriverOptions) {
     super()
-    this.options = opts
   }
 
   /**
-   * Initialize the Elasticsearch transport and start processing.
+   * Initialize the transport and begin processing.
    */
   public async initialize(): Promise<void> {
-    // Setup transport with index prefix and provided options
-    this.transport = new ElasticsearchTransport({
-      indexPrefix: this.options.indexPrefix || 'logs-',
-      ...this.options,
+    this.transport = new ElasticsearchTransport(
+      this.options as ElasticsearchTransportOptions,
+    )
+    // Report internal transport errors
+    this.transport.on('error', (err: Error) => {
+      emitDriverError(this.driverName, err)
     })
     this.enable()
     await this.start()
   }
 
-  /** Mark the driver as running. */
+  /**
+   * Mark the driver as running.
+   */
   public async start(): Promise<void> {
     this.setRunning(true)
   }
 
-  /** Send a log record to Elasticsearch. */
+  /**
+   * Send a log record to Elasticsearch.
+   * @param record The log entry
+   */
   public async log(record: LogRecord): Promise<void> {
-    if (!this.isEnabled() || !this.isRunning() || !this.transport) return
-
-    // Compose log entry merging metadata into the body
+    if (!this.isEnabled() || !this.isRunning() || !this.transport) {
+      return
+    }
     const entry = {
-      '@timestamp': record.timestamp,
-      level: record.level,
+      level: record.level as string,
       message: record.message,
+      timestamp: record.timestamp,
       ...record.metadata,
     }
-
-    await new Promise<void>((resolve, reject) => {
-      this.transport!.log(entry, (err?: Error) =>
-        err ? reject(err) : resolve(),
-      )
+    return new Promise<void>((resolve, reject) => {
+      if (this.transport && this.transport.log) {
+        this.transport.log(entry, (err?: Error) => {
+          if (err) {
+            emitDriverError(this.driverName, err)
+            return reject(err)
+          }
+          resolve()
+        })
+      } else {
+        const error = new Error('Transport not initialized')
+        emitDriverError(this.driverName, error)
+        return reject(error)
+      }
     })
   }
 
-  /** Stop the driver. */
+  /**
+   * Stop accepting new logs.
+   */
   public async stop(): Promise<void> {
     this.setRunning(false)
   }
 
-  /** Shutdown the driver and release resources. */
+  /**
+   * Flush buffered logs (if any) and clean up.
+   */
   public async shutdown(): Promise<void> {
     await this.stop()
+    // Flush any pending logs if supported
+    this.transport?.flush()
     this.transport = undefined
   }
 }

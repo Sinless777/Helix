@@ -26,7 +26,7 @@ export function globToRegExp(pattern: string): RegExp {
  * @param value - String to test
  * @returns true if value matches pattern
  */
-export function matchGlob(pattern: string, value: string): boolean {
+export function globMatch(pattern: string, value: string): boolean {
   const regex = globToRegExp(pattern)
   return regex.test(value)
 }
