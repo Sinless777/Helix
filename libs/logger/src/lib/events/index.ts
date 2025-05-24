@@ -22,10 +22,7 @@ export function onDriverError(handler: DriverErrorHandler): void {
 /**
  * Emit a driver error: logs immediately and notifies subscribers.
  */
-export function emitDriverError(
-  driverName: string,
-  error: Error
-): void {
+export function emitDriverError(driverName: string, error: Error): void {
   // Emit to console immediately
   console.error(`[driver.error] [${driverName}]`, error)
   eventBus.emit('driverError', driverName, error)
@@ -36,7 +33,7 @@ export function emitDriverError(
  */
 export type RouteFallbackHandler = (
   driverName: string,
-  recordLocation: string
+  recordLocation: string,
 ) => void
 
 /**
@@ -51,7 +48,7 @@ export function onRouteFallback(handler: RouteFallbackHandler): void {
  */
 export function emitRouteFallback(
   driverName: string,
-  recordLocation: string
+  recordLocation: string,
 ): void {
   eventBus.emit('routeFallback', driverName, recordLocation)
 }
@@ -66,7 +63,7 @@ export async function withRetry<T>(
   options: {
     retries?: number
     backoffOpts?: BackoffOptions
-  } = {}
+  } = {},
 ): Promise<T> {
   const { retries = 3, backoffOpts } = options
   let attempt = 0
@@ -77,7 +74,10 @@ export async function withRetry<T>(
       attempt++
       if (attempt > retries) {
         // Emit error after exhausting retries
-        emitDriverError(driverName, error instanceof Error ? error : new Error(String(error)))
+        emitDriverError(
+          driverName,
+          error instanceof Error ? error : new Error(String(error)),
+        )
         throw error
       }
       const delay = calculateBackoff(attempt, backoffOpts)

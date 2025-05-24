@@ -11,13 +11,13 @@ export interface RedisDriverOptions extends RedisOptions {
    * Prefix for Redis stream keys. Actual key: `${streamKeyPrefix}${category}`
    * Defaults to 'logs:'.
    */
-  streamKeyPrefix?: string;
+  streamKeyPrefix?: string
 
   /**
    * Time-to-live for each stream key, in seconds.
    * Defaults to 86400 (24 hours).
    */
-  ttlSeconds?: number;
+  ttlSeconds?: number
 }
 
 /**
@@ -27,7 +27,9 @@ export interface RedisDriverOptions extends RedisOptions {
 export class RedisDriver extends DriverBase {
   private client: Redis | null = null
   private formatter = new JSONFormatter()
-  private options: Required<Pick<RedisDriverOptions, 'streamKeyPrefix' | 'ttlSeconds'>>
+  private options: Required<
+    Pick<RedisDriverOptions, 'streamKeyPrefix' | 'ttlSeconds'>
+  >
 
   constructor(private redisOptions: RedisDriverOptions) {
     super()

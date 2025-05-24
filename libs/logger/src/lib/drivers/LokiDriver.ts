@@ -51,12 +51,17 @@ export class LokiDriver extends DriverBase {
     // Winston-loki expects an object with 'message', 'labels', and optional 'timestamp'
     const payload = {
       message: record.message,
-      labels: { ...(record.metadata as Record<string, string>), ...this.options.labels },
+      labels: {
+        ...(record.metadata as Record<string, string>),
+        ...this.options.labels,
+      },
       timestamp: record.timestamp,
     }
 
     await new Promise<void>((resolve, reject) => {
-      this.transport.log(payload, (err: Error) => (err ? reject(err) : resolve()))
+      this.transport.log(payload, (err: Error) =>
+        err ? reject(err) : resolve(),
+      )
     })
   }
 
