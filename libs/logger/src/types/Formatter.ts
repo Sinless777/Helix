@@ -1,14 +1,27 @@
+// libs/logger/src/types/Formatter.ts
+
 /**
- * Formatter interface for converting LogRecord into formatted output.
- * Used by drivers to render logs in specific formats (text, JSON, colors, etc.).
+ * @packageDocumentation
+ * @module Formatter
+ *
+ * Defines the base interface for all log output formatters.
  */
+
 import type { LogRecord } from './LogRecord'
 
+/**
+ * Formatter interface for converting a `LogRecord` into a string.
+ * Drivers use implementations of this interface to render logs
+ * in various formats (plain text, JSON, colored console output, etc.).
+ *
+ * @public
+ */
 export interface Formatter {
   /**
-   * Convert a LogRecord into a string for output.
-   * @param record - the log record to format
-   * @returns formatted string
+   * Format a log record into a string representation.
+   *
+   * @param record - The log record to format.
+   * @returns A formatted string ready for output.
    */
   format(record: LogRecord): string
 }

@@ -1,3 +1,5 @@
+// libs/logger/src/integrations/nestjs/logger.interceptor.ts
+
 import {
   Injectable,
   NestInterceptor,
@@ -10,97 +12,142 @@ import { logger } from '../../lib/Logger'
 import type { LogRecord } from '../../types/LogRecord'
 
 /**
- * Interceptor to log each HTTP request and response in NestJS applications.
- * Captures entry, exit, and errors with context and metadata.
+ * @class LoggerInterceptor
+ * @implements {NestInterceptor}
+ *
+ * @description
+ * Intercepts all incoming HTTP requests and outgoing responses (or errors) in a NestJS application.
+ * Logs detailed structured records at three key points:
+ *  1. Request entry (trace level)
+ *  2. Successful response (info level)
+ *  3. Error response (error level)
+ *
+ * @remarks
+ * - Includes context (`HTTP`) and metadata such as trace IDs, user IDs, handler name, timing, environment, etc.
+ * - Uses the shared `logger` singleton for dispatching records to configured drivers.
+ * - Respects asynchronous pipeline by tapping into the response observable.
+ *
+ * @example
+ * ```ts
+ * // In your module:
+ * @UseInterceptors(LoggerInterceptor)
+ * @Controller('cats')
+ * export class CatsController { … }
+ * ```
+ *
+ * @public
  */
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {
   /**
-   * Intercept the request, logging before and after the handler.
-   * @param context Execution context of the request
-   * @param next Call handler for the request pipeline
-   * @returns Observable of the response stream
+   * Intercepts the request/response cycle.
+   *
+   * @param context - NestJS execution context, provides access to request and handler metadata.
+   * @param next - Call handler to continue the request pipeline.
+   * @returns An observable stream of the handler's result, with side-effect logging.
    */
   public intercept(
     context: ExecutionContext,
     next: CallHandler<any>,
-  ): Observable<any> | Promise<Observable<any>> {
+  ): Observable<any> {
+    // Extract HTTP request info
     const req = context.switchToHttp().getRequest()
     const method = req.method
     const url = req.url
     const handlerName = context.getHandler().name
     const startTime = Date.now()
 
-    // Log request entry
+    /**
+     * @type {LogRecord}
+     * @description Log entry record capturing request arrival.
+     */
     const entryRecord: LogRecord = {
       timestamp: new Date().toISOString(),
       level: 'trace',
-      message: `${method} ${url} -> ${handlerName}`,
+      message: `→ ${method} ${url} → ${handlerName}`,
       context: 'HTTP',
-      // Top-level service for routing and driver metadata
-      service: process.env['SERVICE_NAME'] || 'unknown',
+      service: process.env['SERVICE_NAME'] ?? 'unknown-service',
       metadata: {
-        traceId: req.headers['x-trace-id'],
-        spanId: req.headers['x-span-id'],
-        userId: req.headers['user-id'],
-        version: process.env['APP_VERSION'],
-        host: req.headers['host'],
+        traceId: req.headers['x-trace-id'] as string | undefined,
+        spanId: req.headers['x-span-id'] as string | undefined,
+        userId: req.headers['user-id'] as string | undefined,
+        version: process.env['APP_VERSION'] ?? undefined,
+        host: req.headers['host'] as string | undefined,
         pid: process.pid,
-        env: process.env['NODE_ENV'],
+        env: process.env['NODE_ENV'] ?? 'development',
       },
     }
-    logger.log(entryRecord)
 
+    // Dispatch entry log (fire-and-forget)
+    void logger.log(entryRecord)
+
+    // Continue pipeline and tap into result for exit logs
     return next.handle().pipe(
       tap(
-        // On successful response
+        /**
+         * @param data - Handler response payload
+         */
         (data) => {
           const durationMs = Date.now() - startTime
+
+          /**
+           * @type {LogRecord}
+           * @description Log record for successful response.
+           */
           const successRecord: LogRecord = {
             timestamp: new Date().toISOString(),
             level: 'info',
-            message: `${method} ${url} <- ${handlerName}`,
+            message: `← ${method} ${url} ← ${handlerName}`,
             context: 'HTTP',
-            service: process.env['SERVICE_NAME'] || 'unknown',
+            service: process.env['SERVICE_NAME'] ?? 'unknown-service',
             metadata: {
-              traceId: req.headers['x-trace-id'],
-              spanId: req.headers['x-span-id'],
-              userId: req.headers['user-id'],
-              version: process.env['APP_VERSION'],
-              host: req.headers['host'],
+              traceId: req.headers['x-trace-id'] as string | undefined,
+              spanId: req.headers['x-span-id'] as string | undefined,
+              userId: req.headers['user-id'] as string | undefined,
+              version: process.env['APP_VERSION'] ?? undefined,
+              host: req.headers['host'] as string | undefined,
               pid: process.pid,
-              env: process.env['NODE_ENV'],
+              env: process.env['NODE_ENV'] ?? 'development',
               durationMs,
               response: data,
             },
           }
-          logger.log(successRecord)
+
+          void logger.log(successRecord)
         },
-        // On error
+        /**
+         * @param error - Thrown error from handler
+         */
         (error) => {
           const durationMs = Date.now() - startTime
+
+          /**
+           * @type {LogRecord}
+           * @description Log record for error response.
+           */
           const errorRecord: LogRecord = {
             timestamp: new Date().toISOString(),
             level: 'error',
-            message: `${method} ${url} !> ${handlerName}`,
+            message: `‼ ${method} ${url} ‼ ${handlerName}`,
             context: 'HTTP',
-            service: process.env['SERVICE_NAME'] || 'unknown',
+            service: process.env['SERVICE_NAME'] ?? 'unknown-service',
             metadata: {
-              traceId: req.headers['x-trace-id'],
-              spanId: req.headers['x-span-id'],
-              userId: req.headers['user-id'],
-              version: process.env['APP_VERSION'],
-              host: req.headers['host'],
+              traceId: req.headers['x-trace-id'] as string | undefined,
+              spanId: req.headers['x-span-id'] as string | undefined,
+              userId: req.headers['user-id'] as string | undefined,
+              version: process.env['APP_VERSION'] ?? undefined,
+              host: req.headers['host'] as string | undefined,
               pid: process.pid,
-              env: process.env['NODE_ENV'],
+              env: process.env['NODE_ENV'] ?? 'development',
               durationMs,
               exception: {
-                message: error.message,
-                stack: error.stack,
+                message: error?.message,
+                stack: error?.stack,
               },
             },
           }
-          logger.log(errorRecord)
+
+          void logger.log(errorRecord)
         },
       ),
     )

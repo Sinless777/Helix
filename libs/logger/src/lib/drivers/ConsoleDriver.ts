@@ -1,19 +1,31 @@
+// libs/logger/src/lib/drivers/ConsoleDriver.ts
+
 import chalk from 'chalk'
 import { DriverBase } from '../DriverBase'
 import type { LogRecord } from '../../types/LogRecord'
 
 /**
  * ConsoleDriver writes human-readable logs to the terminal using Chalk.
- * Always enabled and cannot be disabled.
+ * It is always enabled and cannot be disabled.
+ *
+ * @class
+ * @extends DriverBase
  */
 export class ConsoleDriver extends DriverBase {
+  /**
+   * Create a new ConsoleDriver instance.
+   * Ensures the driver is enabled by default.
+   */
   constructor() {
     super()
-    this.enable() // Console should always be enabled
+    this.enable()
   }
 
   /**
-   * Initialize and start the console driver.
+   * Initialize the ConsoleDriver.
+   * For console, this simply ensures it is enabled and running.
+   *
+   * @returns Promise<void>
    */
   public async initialize(): Promise<void> {
     this.enable()
@@ -21,7 +33,10 @@ export class ConsoleDriver extends DriverBase {
   }
 
   /**
-   * Mark the driver as running.
+   * Start the ConsoleDriver’s processing.
+   * Marks the driver as running.
+   *
+   * @returns Promise<void>
    */
   public async start(): Promise<void> {
     this.setRunning(true)
@@ -29,31 +44,42 @@ export class ConsoleDriver extends DriverBase {
 
   /**
    * Log a record to the console in human-readable form.
+   *
+   * @param record - The log entry to output
+   * @returns Promise<void>
+   *
+   * @remarks
    * Format: [LEVEL] | message <record object>
+   * Level tag is colorized based on the log level.
    */
   public async log(record: LogRecord): Promise<void> {
-    // Always output since console is non-disableable after initialization
     if (!this.isRunning()) return
 
-    // Choose color based on level
-    const level = record.level
-    const levelTag = (levelColorMap[level] || chalk.white)(
-      `[${level.toUpperCase()}]`,
-    )
+    const { level, message } = record
 
-    // Output tag, message, and full record object
-    console.log(`[${levelTag}] | ${record.message}`, record)
+    // Colorize the level tag
+    const tagFn = levelColorMap[level] || chalk.white
+    const levelTag = tagFn(`[${level.toUpperCase()}]`)
+
+    // Output to console
+    console.log(`${levelTag} | ${message}`, record)
   }
 
   /**
-   * Stop the console driver.
+   * Stop the ConsoleDriver.
+   * Marks the driver as not running.
+   *
+   * @returns Promise<void>
    */
   public async stop(): Promise<void> {
     this.setRunning(false)
   }
 
   /**
-   * Shutdown simply stops the driver.
+   * Shutdown the ConsoleDriver.
+   * For console, shutdown is equivalent to stop.
+   *
+   * @returns Promise<void>
    */
   public async shutdown(): Promise<void> {
     await this.stop()
@@ -62,6 +88,9 @@ export class ConsoleDriver extends DriverBase {
 
 /**
  * Mapping of log levels to Chalk color functions.
+ *
+ * @constant
+ * @private
  */
 const levelColorMap: Record<string, typeof chalk.red> = {
   fatal: chalk.redBright,

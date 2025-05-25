@@ -1,3 +1,5 @@
+// libs/logger/src/lib/batching/BatchQueue.ts
+
 import crypto from 'crypto'
 import { EventEmitter } from 'events'
 import { calculateBackoff, backoff, BackoffOptions } from '../utils/backoff'
@@ -7,39 +9,52 @@ const ALGORITHM = 'aes-256-gcm'
 const KEY = Buffer.from(process.env['LOGGER_ENCRYPTION_KEY'] || '', 'hex')
 
 /**
- * Configuration options for the BatchQueue.
+ * @interface BatchQueueOptions
+ * @description Configuration options for {@link BatchQueue}.
  */
 export interface BatchQueueOptions {
   /** Maximum records per batch before auto-flush (default: 100) */
   maxBatchSize?: number
-  /** Time window in ms to auto-flush (default: 5000) */
+  /** Time window in milliseconds to auto-flush (default: 5000ms) */
   flushInterval?: number
-  /** Backoff configuration for retries */
+  /** Backoff configuration for retry delays */
   backoffOptions?: BackoffOptions
   /** Maximum retry attempts on failure (default: 5) */
   maxRetries?: number
 }
 
 /**
- * Handles batching of log records with optional encryption, retry/backoff, and graceful shutdown.
- * @class
+ * @class BatchQueue
+ * @extends EventEmitter
+ * @description
+ *   Handles batching of `LogRecord`s with optional AES-256-GCM encryption,
+ *   retry/backoff on failure, and graceful shutdown behavior.
+ *
+ * @fires BatchQueue#flushed - Emitted after a successful flush
+ * @fires BatchQueue#error   - Emitted on each retryable error
+ * @fires BatchQueue#failed  - Emitted after exhausting retries
+ * @fires BatchQueue#shutdown - Emitted once shutdown completes
  */
 export class BatchQueue extends EventEmitter {
-  /** Pending records in the current batch */
+  /** @property {LogRecord[]} Pending records in the current batch */
   private queue: LogRecord[] = []
-  /** Timer reference for scheduled flush */
+
+  /** @property {NodeJS.Timeout | undefined} Timer for scheduled flush */
   private timer?: NodeJS.Timeout
-  /** Configuration */
+
+  /** @property {Required<BatchQueueOptions>} Resolved configuration */
   private readonly opts: Required<BatchQueueOptions>
-  /** Flag indicating shutdown in progress */
+
+  /** @property {boolean} Indicates whether a shutdown is in progress */
   private shuttingDown = false
 
   /**
-   * @param sendFn Function to handle sending encrypted batch payload
-   * @param options BatchQueueOptions to customize behavior
+   * @constructor
+   * @param sendFn - Callback to handle sending the encrypted batch payload
+   * @param options - Customization options for batch behavior
    */
   constructor(
-    private sendFn: (encryptedPayload: string) => Promise<void>,
+    private readonly sendFn: (encryptedPayload: string) => Promise<void>,
     options: BatchQueueOptions = {},
   ) {
     super()
@@ -54,25 +69,31 @@ export class BatchQueue extends EventEmitter {
   }
 
   /**
-   * Add a record to the batch queue.
-   * @method
-   * @param record LogRecord to enqueue
+   * @method enqueue
+   * @description Add a `LogRecord` to the batch. Automatically flushes
+   *   when `maxBatchSize` is reached.
+   * @param record - The record to enqueue
    */
   public enqueue(record: LogRecord): void {
     if (this.shuttingDown) return
     this.queue.push(record)
     if (this.queue.length >= this.opts.maxBatchSize) {
-      this.flush()
+      void this.flush()
     }
   }
 
   /**
-   * Flush the current batch: encrypt and send with retries.
-   * @method
-   * @returns Promise resolving when flush completes
+   * @method flush
+   * @description Flushes the current batch: encrypts and sends with retries.
+   * @returns Promise that resolves once the batch is sent or retries are exhausted
+   * @fires BatchQueue#flushed
+   * @fires BatchQueue#error
+   * @fires BatchQueue#failed
    */
   public async flush(): Promise<void> {
     if (this.queue.length === 0) return
+
+    // Extract and clear the batch
     const batch = this.queue.splice(0, this.queue.length)
     const payload = this.encryptBatch(batch)
 
@@ -86,21 +107,24 @@ export class BatchQueue extends EventEmitter {
         await backoff(attempt, this.opts.backoffOptions)
       }
     }
-    // After max retries, emit failure
+
+    // All retries exhausted
     this.emit('failed', batch)
   }
 
   /**
-   * Start the periodic flush timer.
    * @private
+   * @method startTimer
+   * @description Begins the periodic flush timer based on `flushInterval`.
    */
   private startTimer(): void {
-    this.timer = setInterval(() => this.flush(), this.opts.flushInterval)
+    this.timer = setInterval(() => void this.flush(), this.opts.flushInterval)
   }
 
   /**
-   * Stop the periodic flush timer.
    * @private
+   * @method stopTimer
+   * @description Stops the periodic flush timer.
    */
   private stopTimer(): void {
     if (this.timer) {
@@ -110,25 +134,27 @@ export class BatchQueue extends EventEmitter {
   }
 
   /**
-   * Encrypt a batch of records into a Base64 string using AES-256-GCM.
    * @private
-   * @param batch Array of LogRecord
-   * @returns Encrypted payload as base64 string
+   * @method encryptBatch
+   * @description Encrypts a batch of log records into a Base64 string
+   *   using AES-256-GCM and the configured `LOGGER_ENCRYPTION_KEY`.
+   * @param batch - Array of `LogRecord` to encrypt
+   * @returns Encrypted payload as a base64-encoded string
    */
   private encryptBatch(batch: LogRecord[]): string {
     const iv = crypto.randomBytes(12)
     const cipher = crypto.createCipheriv(ALGORITHM, KEY, iv)
-    const data = Buffer.concat([
-      cipher.update(JSON.stringify(batch), 'utf8'),
-      cipher.final(),
-    ])
+    const plaintext = Buffer.from(JSON.stringify(batch), 'utf8')
+    const ciphertext = Buffer.concat([cipher.update(plaintext), cipher.final()])
     const tag = cipher.getAuthTag()
-    return Buffer.concat([iv, tag, data]).toString('base64')
+    return Buffer.concat([iv, tag, ciphertext]).toString('base64')
   }
 
   /**
-   * Gracefully shutdown: stop timer and flush remaining records.
-   * @method
+   * @method shutdown
+   * @description Gracefully stops the timer and flushes any remaining records.
+   * @returns Promise that resolves once shutdown is complete
+   * @fires BatchQueue#shutdown
    */
   public async shutdown(): Promise<void> {
     this.shuttingDown = true
@@ -137,3 +163,5 @@ export class BatchQueue extends EventEmitter {
     this.emit('shutdown')
   }
 }
+
+export default BatchQueue

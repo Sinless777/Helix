@@ -1,27 +1,48 @@
-/**
- * Exponential backoff with optional jitter.
- * Computes a delay based on the attempt number and waits that duration.
- */
+// libs/logger/src/lib/utils/backoff.ts
 
 /**
- * Configuration for backoff calculation.
+ * Configuration options for exponential backoff calculation.
+ *
+ * @interface
  */
 export interface BackoffOptions {
-  /** Initial delay in milliseconds (default: 100ms) */
+  /**
+   * Initial delay in milliseconds.
+   * @default 100
+   */
   baseDelay?: number
-  /** Multiplier per attempt (default: 2) */
+
+  /**
+   * Multiplicative factor applied per attempt.
+   * @default 2
+   */
   factor?: number
-  /** Maximum delay cap in milliseconds (default: 10000ms) */
+
+  /**
+   * Maximum delay cap in milliseconds.
+   * @default 10000
+   */
   maxDelay?: number
-  /** Apply full jitter by randomizing delay between 0 and the calculated delay (default: true) */
+
+  /**
+   * Whether to apply full jitter (random between 0 and computed delay).
+   * @default true
+   */
   jitter?: boolean
 }
 
 /**
- * Calculate the backoff delay for a given attempt.
- * @param attempt - The retry attempt count (1-based)
- * @param options - Optional backoff configuration
- * @returns delay in milliseconds
+ * Calculate the exponential backoff delay for a given retry attempt.
+ *
+ * @param attempt - The retry attempt count (1-based).
+ * @param options - Optional backoff configuration.
+ * @returns The computed delay in milliseconds.
+ *
+ * @example
+ * ```ts
+ * const delay = calculateBackoff(3, { baseDelay: 200, factor: 2, maxDelay: 5000 })
+ * // delay will be between 0 and min(200 * 2^(3-1), 5000)
+ * ```
  */
 export function calculateBackoff(
   attempt: number,
@@ -34,11 +55,11 @@ export function calculateBackoff(
     jitter = true,
   } = options
 
-  // Exponential growth
+  // Calculate exponential growth and cap to maxDelay
   let delay = Math.min(baseDelay * Math.pow(factor, attempt - 1), maxDelay)
 
   if (jitter) {
-    // Randomize between 0 and delay
+    // Apply full jitter: random between 0 and computed delay
     delay = Math.random() * delay
   }
 
@@ -46,9 +67,18 @@ export function calculateBackoff(
 }
 
 /**
- * Sleep for the calculated backoff delay based on attempt.
- * @param attempt - The retry attempt count (1-based)
- * @param options - Optional backoff configuration
+ * Pause execution for a duration determined by exponential backoff.
+ *
+ * @param attempt - The retry attempt count (1-based).
+ * @param options - Optional backoff configuration.
+ * @returns A promise that resolves after the backoff delay.
+ *
+ * @example
+ * ```ts
+ * // Wait with backoff before retrying an operation
+ * await backoff(2, { baseDelay: 50, factor: 3 })
+ * // proceeds after computed delay
+ * ```
  */
 export async function backoff(
   attempt: number,

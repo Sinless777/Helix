@@ -5,19 +5,28 @@ import { FileDriver } from './lib/drivers/FileDriver'
 import { DriverBase } from './lib/DriverBase'
 
 /**
+ * @module LoggerRegistry
+ * @description
+ * Maintains the global registry of all logger drivers within Helix.
+ * Provides APIs to register, retrieve, enable/disable, reload, and remove drivers.
+ */
+
+/**
  * A map of all registered logger drivers.
  * Keys are the unique driver names, values are the driver instances.
  * @internal
+ * @type {Map<string, DriverBase>}
  */
 const drivers = new Map<string, DriverBase>()
 
 /**
- * Registers a new driver under the given name.
- * If a driver with the same name already exists, an error is thrown.
+ * Register a driver under a unique name.
  *
- * @param name - Unique identifier for the driver.
- * @param instance - Instance of a DriverBase subclass.
- * @throws Will throw if a driver with the same name is already registered.
+ * @function registerDriver
+ * @param {string} name - Unique identifier for the driver.
+ * @param {DriverBase} instance - Instance of a DriverBase subclass.
+ * @throws {Error} If a driver with the same name is already registered.
+ * @returns {void}
  */
 export function registerDriver(name: string, instance: DriverBase): void {
   if (drivers.has(name)) {
@@ -25,24 +34,26 @@ export function registerDriver(name: string, instance: DriverBase): void {
   }
   drivers.set(name, instance)
   instance.enable()
-  // Note: initialize() and start() happen lazily on first log (or can be invoked manually)
+  // Note: initialize() and start() are deferred until first use or manual invocation.
 }
 
 /**
- * Retrieves a registered driver by its name.
+ * Retrieve a registered driver by its name.
  *
- * @param name - Identifier of the driver to retrieve.
- * @returns The driver instance, or `undefined` if no driver is registered under that name.
+ * @function getDriver
+ * @param {string} name - Identifier of the driver to retrieve.
+ * @returns {(DriverBase | undefined)} The driver instance, or undefined if not found.
  */
 export function getDriver(name: string): DriverBase | undefined {
   return drivers.get(name)
 }
 
 /**
- * Unregisters (removes) a driver and performs its shutdown procedure.
+ * Unregister (remove) a driver and perform its shutdown procedure.
  *
- * @param name - Identifier of the driver to remove.
- * @returns A promise that resolves once the driver has been shut down.
+ * @function removeDriver
+ * @param {string} name - Identifier of the driver to remove.
+ * @returns {Promise<void>} Resolves once the driver has been shut down.
  */
 export async function removeDriver(name: string): Promise<void> {
   const drv = drivers.get(name)
@@ -52,10 +63,12 @@ export async function removeDriver(name: string): Promise<void> {
 }
 
 /**
- * Enables an already-registered driver so it will start processing log records.
+ * Enable an existing driver so it will accept incoming log records.
  *
- * @param name - Identifier of the driver to enable.
- * @throws Will throw if no driver exists under the given name.
+ * @function enableDriver
+ * @param {string} name - Identifier of the driver to enable.
+ * @throws {Error} If no driver exists under the given name.
+ * @returns {void}
  */
 export function enableDriver(name: string): void {
   const drv = drivers.get(name)
@@ -64,10 +77,12 @@ export function enableDriver(name: string): void {
 }
 
 /**
- * Disables an already-registered driver so it will ignore incoming log records.
+ * Disable an existing driver so it will ignore incoming log records.
  *
- * @param name - Identifier of the driver to disable.
- * @throws Will throw if no driver exists under the given name.
+ * @function disableDriver
+ * @param {string} name - Identifier of the driver to disable.
+ * @throws {Error} If no driver exists under the given name.
+ * @returns {void}
  */
 export function disableDriver(name: string): void {
   const drv = drivers.get(name)
@@ -76,12 +91,12 @@ export function disableDriver(name: string): void {
 }
 
 /**
- * Completely reloads the specified driver by shutting it down
- * and then re-initializing and restarting it.
+ * Reload (re-initialize and restart) a driver by name.
  *
- * @param name - Identifier of the driver to reload.
- * @returns A promise that resolves once the driver has been reloaded.
- * @throws Will throw if no driver exists under the given name.
+ * @function reloadDriver
+ * @param {string} name - Identifier of the driver to reload.
+ * @throws {Error} If no driver exists under the given name.
+ * @returns {Promise<void>} Resolves once the driver has been shut down and restarted.
  */
 export async function reloadDriver(name: string): Promise<void> {
   const drv = drivers.get(name)
@@ -92,10 +107,12 @@ export async function reloadDriver(name: string): Promise<void> {
 }
 
 /**
- * Bootstraps the default set of drivers (Console and File).
- * Called automatically on module load.
+ * Initialize the default set of drivers (Console and File).
  *
- * @internal
+ * @async
+ * @function initDefaults
+ * @private
+ * @returns {Promise<void>} Resolves once both default drivers are initialized and started.
  */
 async function initDefaults(): Promise<void> {
   const consoleDrv = new ConsoleDriver()
@@ -111,16 +128,17 @@ async function initDefaults(): Promise<void> {
   await fileDrv.start()
 }
 
-// Immediately initialize defaults on import
+// Eagerly bootstrap defaults on module import
 initDefaults().catch((err) => {
-  // If initialization fails, we fallback to stderr
+  // If default driver initialization fails, log the error to stderr
   console.error('Failed to init default log drivers', err)
 })
 
 /**
- * Returns the list of all registered driver names.
+ * List all currently registered driver names.
  *
- * @returns An array of driver names.
+ * @function listDrivers
+ * @returns {string[]} Array of driver identifiers.
  */
 export function listDrivers(): string[] {
   return Array.from(drivers.keys())
