@@ -25,9 +25,16 @@ export async function POST(request: NextRequest) {
       { status: 'error', message: `Sheets API error ${res.status}: ${text}` },
       { status: 502 },
     )
-  } catch (err: any) {
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return NextResponse.json(
+        { status: 'error', message: err.message || 'Unknown proxy error' },
+        { status: 500 },
+      )
+    }
+    // Handle non-Error exceptions
     return NextResponse.json(
-      { status: 'error', message: err.message || 'Unknown proxy error' },
+      { status: 'error', message: 'Unknown error occurred' },
       { status: 500 },
     )
   }

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "../../docs/system/Logger",
+  "plugin": [
+    "typedoc-plugin-markdown"
+  ],
+  "theme": "markdown",
+  "readme": "../../docs/system/Logger/README.md",
+  "includeVersion": true,
+  "hideGenerator": false,
+  "exclude": [
+    "**/__tests__/**",
+    "**/*.spec.ts",
+    "**/node_modules/**"
+  ],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "markdown": {
+    "generateToc": true,
+    "frontmatter": {
+      "title": "@helix/logger",
+      "sidebar_label": "Logger"
+    },
+    "useCodeBlocks": true
+  }
+}
