@@ -5,10 +5,8 @@ import type { Formatter } from '../../types/Formatter'
 import type { LogRecord, LogLevel } from '../../types/LogRecord'
 
 /**
- * Mapping from LogLevel to Chalk color functions.
- * Ensures consistent colorization for each log level.
- *
- * @private
+ * Mapping from log levels to Chalk color functions.
+ * Ensures consistent colorization for each level.
  */
 const levelColor: Record<LogLevel, (text: string) => string> = {
   fatal: chalk.redBright,
@@ -21,64 +19,57 @@ const levelColor: Record<LogLevel, (text: string) => string> = {
 }
 
 /**
- * Formatter that outputs colored, human-readable log messages to the console.
+ * Formatter that renders structured log records as colored, human-readable strings
+ * for console output.
  *
- * Uses:
- * - Timestamp in gray
- * - Level label in color per level
- * - Italicized, dim context (if provided)
- * - Pretty-printed metadata JSON in gray
+ * - Timestamp is shown in gray.
+ * - Level label is colorized per level.
+ * - Optional context is italicized and dimmed.
+ * - Optional metadata is pretty-printed in gray JSON.
  *
- * @public
- * @class
- * @implements {Formatter}
  */
 export class ConsoleFormatter implements Formatter {
   /**
-   * Convert a LogRecord into a colored string.
+   * Format a log record for console output.
    *
-   * @param record - The structured log record to format.
-   * @returns A single-line string, colorized and human-readable.
+   * @param record - The log record to format.
+   * @returns A single-line, colorized string.
    *
    * @example
    * ```ts
-   * const formatter = new ConsoleFormatter()
-   * const msg = formatter.format({
+   * const fmt = new ConsoleFormatter()
+   * console.log(fmt.format({
    *   timestamp: new Date().toISOString(),
    *   level: 'info',
-   *   service: 'auth',
-   *   message: 'User login successful',
+   *   message: 'User signed in',
    *   context: 'AuthService.login',
-   *   metadata: { userId: '123', ip: '127.0.0.1' }
-   * })
-   * console.log(msg)
-   * // Outputs: "[2025-05-24T12:00:00.000Z] [INFO] User login successful (AuthService.login) { ... }"
+   *   metadata: { userId: '42' },
+   * }))
    * ```
    */
   public format(record: LogRecord): string {
     const { timestamp, level, message, context, metadata } = record
 
-    // 1. Colorize the level label (e.g. "[INFO]" in green)
+    // Colorize level tag, e.g. "[INFO]" in green
     const coloredLevel = levelColor[level](`[${level.toUpperCase()}]`)
 
-    // 2. Gray out the timestamp for secondary emphasis
+    // Gray timestamp
     const ts = chalk.gray(timestamp)
 
-    // 3. Build the main log line
+    // Build the main line
     let output = `${ts} ${coloredLevel} ${message}`
 
-    // 4. Append context in italicized dim font, if provided
+    // Add context if present
     if (context) {
       output += ` ${chalk.italic.dim(`(${context})`)}`
     }
 
-    // 5. Append metadata as JSON (pretty-printed), if provided
+    // Add metadata if present
     if (metadata) {
       try {
         const metaStr = JSON.stringify(metadata, null, 2)
         output += ` ${chalk.gray(metaStr)}`
       } catch {
-        // Fallback: stringify directly on failure
         output += ` ${chalk.gray(String(metadata))}`
       }
     }

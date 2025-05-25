@@ -38,11 +38,14 @@
   "main": "./index.cjs",
   "module": "./index.js",
   "devDependencies": {
+    "@terwer/typedoc-plugin-markdown": "4.0.0-next.11",
     "@types/node": "18.19.103",
     "eslint": "^9.27.0",
     "eslint-plugin-editorconfig": "^4.0.3",
     "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-tsdoc": "^0.4.0",
     "prettier": "2.8.8",
+    "typedoc-plugin-markdown": "^4.6.3",
     "typescript": "5.8.3"
   }
 }

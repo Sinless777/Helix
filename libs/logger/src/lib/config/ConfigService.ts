@@ -9,26 +9,19 @@ const ALGORITHM = 'aes-256-gcm'
 const KEY = process.env['LOGGER_ENCRYPTION_KEY'] || ''
 
 /**
- * @class ConfigService
- * @extends EventEmitter
- * @description
  * Manages the lifecycle of routing rules: loading from the database,
  * adding/updating/removing rules, and emitting events on changes.
  * Rules are stored encrypted in the database using AES-256-GCM.
  */
 export class ConfigService extends EventEmitter {
-  /** @private Underlying MikroORM instance */
   private readonly orm: MikroORM
-
-  /** @private Entity manager for DB operations */
   private readonly em: EntityManager
-
-  /** @private In-memory cache of decrypted routing rules */
   private rules: RouteRule[] = []
 
   /**
-   * @constructor
-   * @param {MikroORM} orm - Initialized MikroORM instance configured for LoggerConfig entity
+   * Construct the service with a configured MikroORM instance.
+   *
+   * @param orm - Initialized MikroORM instance for the LoggerConfig table
    */
   constructor(orm: MikroORM) {
     super()
@@ -37,15 +30,11 @@ export class ConfigService extends EventEmitter {
   }
 
   /**
-   * @method loadConfig
-   * @async
-   * @description
-   * Fetches all encrypted rule entries from the `LoggerConfig` table,
-   * decrypts each payload into a {@link RouteRule}, stores them in-memory,
-   * and emits a `configLoaded` event with the full list.
+   * Load all encrypted rules from the `LoggerConfig` table,
+   * decrypt them into `RouteRule` objects, cache in memory,
+   * and emit a `configLoaded` event with the full list.
    *
-   * @emits ConfigService#configLoaded
-   * @returns {Promise<void>}
+   * @returns Promise that resolves once loading and decryption are complete
    */
   public async loadConfig(): Promise<void> {
     const entries = await this.em.find('LoggerConfig', {})
@@ -54,49 +43,38 @@ export class ConfigService extends EventEmitter {
   }
 
   /**
-   * @method getRules
-   * @description
-   * Returns a shallow copy of the current in-memory routing rules.
+   * Get a shallow copy of the current in-memory routing rules.
    *
-   * @returns {RouteRule[]}
+   * @returns Array of decrypted `RouteRule` objects
    */
   public getRules(): RouteRule[] {
     return [...this.rules]
   }
 
   /**
-   * @method addRule
-   * @async
-   * @param {RouteRule} rule - New routing rule to persist
-   * @description
-   * Encrypts and stores a new rule in the database, updates the in-memory list,
-   * and emits a `ruleAdded` event with the added rule.
+   * Encrypt and persist a new routing rule.
+   * Updates the in-memory cache and emits `ruleAdded`.
    *
-   * @emits ConfigService#ruleAdded
-   * @returns {Promise<void>}
+   * @param rule - The new routing rule to add
+   * @returns Promise that resolves once the rule is saved
    */
   public async addRule(rule: RouteRule): Promise<void> {
     const payload = this.encrypt(rule)
-    const configEntry = this.em.create('LoggerConfig', {
-      encryptedPayload: payload,
-    })
-    await this.em.persistAndFlush(configEntry)
+    const entry = this.em.create('LoggerConfig', { encryptedPayload: payload })
+    await this.em.persistAndFlush(entry)
     this.rules.push(rule)
     this.emit('ruleAdded', rule)
   }
 
   /**
-   * @method updateRule
-   * @async
-   * @param {string} id - Identifier of the rule to update
-   * @param {Partial<RouteRule>} updates - Fields to merge into the existing rule
-   * @description
-   * Finds the rule by `id`, merges updates, re-encrypts and persists the change,
-   * updates in-memory cache, and emits a `ruleUpdated` event.
+   * Apply partial updates to an existing rule by ID.
+   * Re-encrypts and persists the updated rule, updates cache,
+   * and emits `ruleUpdated`.
    *
-   * @throws {Error} If rule with given `id` does not exist
-   * @emits ConfigService#ruleUpdated
-   * @returns {Promise<void>}
+   * @param id - Identifier of the rule to update
+   * @param updates - Fields to merge into the existing rule
+   * @throws Error if no rule with the given ID exists
+   * @returns Promise that resolves once the update is saved
    */
   public async updateRule(
     id: string,
@@ -118,15 +96,11 @@ export class ConfigService extends EventEmitter {
   }
 
   /**
-   * @method removeRule
-   * @async
-   * @param {string} id - Identifier of the rule to remove
-   * @description
-   * Deletes the rule entry from the database, removes it from in-memory cache,
-   * and emits a `ruleRemoved` event with the removed rule ID.
+   * Delete a rule by ID from both the database and in-memory cache,
+   * then emits `ruleRemoved`.
    *
-   * @emits ConfigService#ruleRemoved
-   * @returns {Promise<void>}
+   * @param id - Identifier of the rule to remove
+   * @returns Promise that resolves once deletion is complete
    */
   public async removeRule(id: string): Promise<void> {
     await this.em.nativeDelete('LoggerConfig', { id })
@@ -135,15 +109,11 @@ export class ConfigService extends EventEmitter {
   }
 
   /**
-   * @method replaceAll
-   * @async
-   * @param {RouteRule[]} newRules - Array of new routing rules to persist
-   * @description
-   * Atomically replaces all existing rules: clears the DB table, persists each rule encrypted,
-   * refreshes in-memory cache, and emits a `configReplaced` event with the full new list.
+   * Atomically replace all rules: clears the table, saves each new rule,
+   * updates cache, and emits `configReplaced`.
    *
-   * @emits ConfigService#configReplaced
-   * @returns {Promise<void>}
+   * @param newRules - Array of new routing rules to persist
+   * @returns Promise that resolves once replacement is done
    */
   public async replaceAll(newRules: RouteRule[]): Promise<void> {
     await this.em.nativeDelete('LoggerConfig', {})
@@ -159,14 +129,10 @@ export class ConfigService extends EventEmitter {
   }
 
   /**
-   * @method encrypt
-   * @private
-   * @param {RouteRule} rule - Rule object to encrypt
-   * @description
-   * Serializes the rule to JSON, encrypts with AES-256-GCM using `LOGGER_ENCRYPTION_KEY`,
-   * and returns a Base64-encoded string containing IV, auth tag, and ciphertext.
+   * Encrypt a RouteRule into a Base64 string using AES-256-GCM.
    *
-   * @returns {string} Base64-encoded encrypted payload
+   * @param rule - The routing rule to encrypt
+   * @returns Base64-encoded payload containing IV, tag, and ciphertext
    */
   private encrypt(rule: RouteRule): string {
     const iv = crypto.randomBytes(12)
@@ -180,14 +146,10 @@ export class ConfigService extends EventEmitter {
   }
 
   /**
-   * @method decrypt
-   * @private
-   * @param {string} payload - Base64-encoded encrypted payload
-   * @description
-   * Decodes Base64, extracts IV, auth tag, and ciphertext, decrypts using AES-256-GCM,
-   * and parses the plaintext JSON back into a {@link RouteRule}.
+   * Decrypt a Base64-encoded payload back into a RouteRule.
    *
-   * @returns {RouteRule} Decrypted routing rule
+   * @param payload - Base64 string with IV, tag, and ciphertext
+   * @returns The decrypted `RouteRule` object
    */
   private decrypt(payload: string): RouteRule {
     const buf = Buffer.from(payload, 'base64')
@@ -200,10 +162,10 @@ export class ConfigService extends EventEmitter {
       iv,
     )
     decipher.setAuthTag(tag)
-    const plaintext = Buffer.concat([
+    const json = Buffer.concat([
       decipher.update(data),
       decipher.final(),
     ]).toString('utf8')
-    return JSON.parse(plaintext) as RouteRule
+    return JSON.parse(json) as RouteRule
   }
 }

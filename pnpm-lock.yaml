@@ -549,6 +549,9 @@ importers:
         specifier: ^3.25.28
         version: 3.25.28
     devDependencies:
+      '@terwer/typedoc-plugin-markdown':
+        specifier: 4.0.0-next.11
+        version: 4.0.0-next.11(prettier@2.8.8)(typedoc@0.28.4(typescript@5.8.3))
       '@types/node':
         specifier: 18.19.103
         version: 18.19.103
@@ -561,9 +564,15 @@ importers:
       eslint-plugin-react:
         specifier: ^7.37.5
         version: 7.37.5(eslint@9.27.0(jiti@2.4.2))
+      eslint-plugin-tsdoc:
+        specifier: ^0.4.0
+        version: 0.4.0
       prettier:
         specifier: 2.8.8
         version: 2.8.8
+      typedoc-plugin-markdown:
+        specifier: ^4.6.3
+        version: 4.6.3(typedoc@0.28.4(typescript@5.8.3))
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -2537,6 +2546,9 @@ packages:
   '@malept/flatpak-bundler@0.4.0':
     resolution: {integrity: sha512-9QOtNffcOF/c1seMCDnjckb3R9WHcG34tky+FHpNKKCW0wc/scYLwMtO+ptyGUfMW0/b/n4qRiALlaFHc9Oj7Q==}
     engines: {node: '>= 10.0.0'}
+
+  '@microsoft/tsdoc-config@0.17.1':
+    resolution: {integrity: sha512-UtjIFe0C6oYgTnad4q1QP4qXwLhe6tIpNTRStJ2RZEPIkqQPREAwE5spzVxsdn9UaEMUqhh0AqSx3X4nWAKXWw==}
 
   '@microsoft/tsdoc@0.15.1':
     resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
@@ -4807,6 +4819,12 @@ packages:
   '@tailwindcss/postcss@4.1.7':
     resolution: {integrity: sha512-88g3qmNZn7jDgrrcp3ZXEQfp9CVox7xjP1HN2TFKI03CltPVd/c61ydn5qJJL8FYunn0OqBaW5HNUga0kmPVvw==}
 
+  '@terwer/typedoc-plugin-markdown@4.0.0-next.11':
+    resolution: {integrity: sha512-YX4VqVSIBHB21Wh5fALNhiErJf35Uvcbd8eMoB6fOpmLLZMnU63BKYssNfVtv8mm5oywC6gqPFBflFg4H9iuOg==}
+    peerDependencies:
+      prettier: '>=1.8.0'
+      typedoc: '>=0.24.0'
+
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
     engines: {node: '>=18'}
@@ -5572,6 +5590,9 @@ packages:
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
+
+  ajv@8.12.0:
+    resolution: {integrity: sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==}
 
   ajv@8.17.1:
     resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
@@ -7274,6 +7295,9 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
+  eslint-plugin-tsdoc@0.4.0:
+    resolution: {integrity: sha512-MT/8b4aKLdDClnS8mP3R/JNjg29i0Oyqd/0ym6NnQf+gfKbJJ4ZcSh2Bs1H0YiUMTBwww5JwXGTWot/RwyJ7aQ==}
+
   eslint-scope@5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
     engines: {node: '>=8.0.0'}
@@ -8781,6 +8805,9 @@ packages:
   jiti@2.4.2:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
+
+  jju@1.4.0:
+    resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
 
   jose@5.10.0:
     resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
@@ -11908,6 +11935,12 @@ packages:
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
+  typedoc-plugin-markdown@4.6.3:
+    resolution: {integrity: sha512-86oODyM2zajXwLs4Wok2mwVEfCwCnp756QyhLGX2IfsdRYr1DXLCgJgnLndaMUjJD7FBhnLk2okbNE9PdLxYRw==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      typedoc: 0.28.x
+
   typedoc-plugin-rename-defaults@0.7.3:
     resolution: {integrity: sha512-fDtrWZ9NcDfdGdlL865GW7uIGQXlthPscURPOhDkKUe4DBQSRRFUf33fhWw41FLlsz8ZTeSxzvvuNmh54MynFA==}
     peerDependencies:
@@ -14954,6 +14987,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@microsoft/tsdoc-config@0.17.1':
+    dependencies:
+      '@microsoft/tsdoc': 0.15.1
+      ajv: 8.12.0
+      jju: 1.4.0
+      resolve: 1.22.10
+
   '@microsoft/tsdoc@0.15.1': {}
 
   '@mikro-orm/core@6.4.15':
@@ -17835,6 +17875,11 @@ snapshots:
       postcss: 8.5.3
       tailwindcss: 4.1.7
 
+  '@terwer/typedoc-plugin-markdown@4.0.0-next.11(prettier@2.8.8)(typedoc@0.28.4(typescript@5.8.3))':
+    dependencies:
+      prettier: 2.8.8
+      typedoc: 0.28.4(typescript@5.8.3)
+
   '@testing-library/dom@10.4.0':
     dependencies:
       '@babel/code-frame': 7.27.1
@@ -18662,6 +18707,13 @@ snapshots:
       fast-deep-equal: 3.1.3
       fast-json-stable-stringify: 2.1.0
       json-schema-traverse: 0.4.1
+      uri-js: 4.4.1
+
+  ajv@8.12.0:
+    dependencies:
+      fast-deep-equal: 3.1.3
+      json-schema-traverse: 1.0.0
+      require-from-string: 2.0.2
       uri-js: 4.4.1
 
   ajv@8.17.1:
@@ -20770,6 +20822,11 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
+  eslint-plugin-tsdoc@0.4.0:
+    dependencies:
+      '@microsoft/tsdoc': 0.15.1
+      '@microsoft/tsdoc-config': 0.17.1
+
   eslint-scope@5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -22803,6 +22860,8 @@ snapshots:
       - ts-node
 
   jiti@2.4.2: {}
+
+  jju@1.4.0: {}
 
   jose@5.10.0: {}
 
@@ -26174,6 +26233,10 @@ snapshots:
   typed-assert@1.0.9: {}
 
   typedarray@0.0.6: {}
+
+  typedoc-plugin-markdown@4.6.3(typedoc@0.28.4(typescript@5.8.3)):
+    dependencies:
+      typedoc: 0.28.4(typescript@5.8.3)
 
   typedoc-plugin-rename-defaults@0.7.3(typedoc@0.28.4(typescript@5.8.3)):
     dependencies:

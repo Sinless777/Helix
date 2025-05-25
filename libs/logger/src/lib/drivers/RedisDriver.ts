@@ -6,15 +6,10 @@ import { JSONFormatter } from '../formatters/JSONFormatter'
 import type { LogRecord } from '../../types/LogRecord'
 
 /**
- * @interface RedisDriverOptions
- * @extends RedisOptions
- * @description
- * Configuration options for {@link RedisDriver}.
+ * Configuration options for RedisDriver.
  *
- * @property {string} [streamKeyPrefix='logs:']
- *   Prefix for Redis stream keys. The full key used is `${streamKeyPrefix}${category}`.
- * @property {number} [ttlSeconds=86400]
- *   Time-to-live for each stream key in seconds (default is 24 hours).
+ * streamKeyPrefix: Prefix for Redis stream keys; actual key is `${streamKeyPrefix}${category}`.
+ * ttlSeconds: Time-to-live for each stream key, in seconds.
  */
 export interface RedisDriverOptions extends RedisOptions {
   streamKeyPrefix?: string
@@ -22,27 +17,18 @@ export interface RedisDriverOptions extends RedisOptions {
 }
 
 /**
- * @class RedisDriver
- * @extends DriverBase
- * @description
- * Writes log records into Redis streams, one per category, with optional TTL eviction.
- * Utilizes `ioredis` for Redis interaction and {@link JSONFormatter} to serialize log records.
+ * Writes log records into per-category Redis streams.
+ * Uses JSONFormatter to serialize each record, sets TTL on stream keys.
  */
 export class RedisDriver extends DriverBase {
-  /** @private Redis client instance */
   private client: Redis | null = null
-
-  /** @private Formatter used to serialize records to JSON */
   private readonly formatter = new JSONFormatter()
-
-  /** @private Resolved configuration */
   private readonly options: Required<
     Pick<RedisDriverOptions, 'streamKeyPrefix' | 'ttlSeconds'>
   >
 
   /**
-   * @constructor
-   * @param {RedisDriverOptions} redisOptions - Connection and behavior settings for Redis
+   * @param redisOptions - Connection and behavior settings for Redis driver.
    */
   constructor(private readonly redisOptions: RedisDriverOptions) {
     super()
@@ -53,13 +39,7 @@ export class RedisDriver extends DriverBase {
   }
 
   /**
-   * @method initialize
-   * @async
-   * @description
-   * - Establishes the Redis connection
-   * - Enables the driver and marks it running
-   *
-   * @returns {Promise<void>}
+   * Establish the Redis connection and mark the driver as running.
    */
   public async initialize(): Promise<void> {
     this.enable()
@@ -68,64 +48,45 @@ export class RedisDriver extends DriverBase {
   }
 
   /**
-   * @method start
-   * @async
-   * @description
-   * Marks the driver as actively processing logs.
-   *
-   * @returns {Promise<void>}
+   * Mark the driver as ready to process log records.
    */
   public async start(): Promise<void> {
     this.setRunning(true)
   }
 
   /**
-   * @method log
-   * @async
-   * @param {LogRecord} record - The structured log entry to store
-   * @description
-   * - Determines the Redis stream key by combining `streamKeyPrefix` and `metadata.category` or `'default'`.
-   * - Uses {@link JSONFormatter} to serialize the record.
-   * - Appends the JSON under field `'data'` to the Redis stream.
-   * - Resets the TTL on the stream key to ensure eviction after `ttlSeconds`.
+   * Add a log record to the Redis stream.
    *
-   * If the driver is disabled, not running, or Redis is unavailable, this is a no-op.
+   * If metadata.category is provided, it is appended to the streamKeyPrefix.
+   * Otherwise the 'default' category is used.
    *
-   * @returns {Promise<void>}
-   * @throws {Error} Propagates Redis errors to be handled by external retry/fallback logic
+   * @param record - The structured log record to enqueue.
+   * @throws Error if Redis operations fail.
    */
   public async log(record: LogRecord): Promise<void> {
-    if (!this.isEnabled() || !this.isRunning() || !this.client) return
+    if (!this.isEnabled() || !this.isRunning() || !this.client) {
+      return
+    }
 
     const category = record.metadata?.['category'] ?? 'default'
     const key = `${this.options.streamKeyPrefix}${category}`
     const data = this.formatter.format(record)
 
+    // Append JSON payload under "data" field
     await this.client.xadd(key, '*', 'data', data)
+    // Reset TTL to ensure eviction after ttlSeconds
     await this.client.expire(key, this.options.ttlSeconds)
   }
 
   /**
-   * @method stop
-   * @async
-   * @description
-   * Prevents further log records from being processed.
-   *
-   * @returns {Promise<void>}
+   * Stop processing new log records.
    */
   public async stop(): Promise<void> {
     this.setRunning(false)
   }
 
   /**
-   * @method shutdown
-   * @async
-   * @description
-   * - Stops the driver
-   * - Closes the Redis connection gracefully
-   * - Clears the client reference
-   *
-   * @returns {Promise<void>}
+   * Gracefully shut down the driver and close the Redis connection.
    */
   public async shutdown(): Promise<void> {
     await this.stop()

@@ -2,7 +2,6 @@
 
 /**
  * @packageDocumentation
- * @module LogRecord
  *
  * Defines the core types for structured log records and their metadata.
  */
@@ -13,6 +12,8 @@
  * and allows arbitrary extra keys for extensibility.
  *
  * @public
+ * @remarks
+ * Drivers may attach additional context-specific metadata via extra fields.
  */
 export interface LogMetadata {
   /** OpenTelemetry trace identifier */
@@ -31,11 +32,7 @@ export interface LogMetadata {
   env?: string
   /** Optional OTEL span context reference */
   otelSpan?: string
-  /**
-   * Arbitrary extra fields for diagnosis.
-   * @remarks
-   * Drivers may attach additional context-specific metadata here.
-   */
+  /** Arbitrary extra fields for diagnosis */
   [key: string]: any
 }
 

@@ -12,10 +12,6 @@ import { logger } from '../../lib/Logger'
 import type { LogRecord } from '../../types/LogRecord'
 
 /**
- * @class LoggerInterceptor
- * @implements {NestInterceptor}
- *
- * @description
  * Intercepts all incoming HTTP requests and outgoing responses (or errors) in a NestJS application.
  * Logs detailed structured records at three key points:
  *  1. Request entry (trace level)
@@ -58,8 +54,7 @@ export class LoggerInterceptor implements NestInterceptor {
     const startTime = Date.now()
 
     /**
-     * @type {LogRecord}
-     * @description Log entry record capturing request arrival.
+     * Log entry record capturing request arrival.
      */
     const entryRecord: LogRecord = {
       timestamp: new Date().toISOString(),
@@ -91,11 +86,10 @@ export class LoggerInterceptor implements NestInterceptor {
           const durationMs = Date.now() - startTime
 
           /**
-           * @type {LogRecord}
-           * @description Log record for successful response.
+          /**
+           * Log record for successful response.
            */
           const successRecord: LogRecord = {
-            timestamp: new Date().toISOString(),
             level: 'info',
             message: `← ${method} ${url} ← ${handlerName}`,
             context: 'HTTP',
@@ -111,6 +105,7 @@ export class LoggerInterceptor implements NestInterceptor {
               durationMs,
               response: data,
             },
+            timestamp: new Date().toISOString(),
           }
 
           void logger.log(successRecord)
@@ -122,8 +117,7 @@ export class LoggerInterceptor implements NestInterceptor {
           const durationMs = Date.now() - startTime
 
           /**
-           * @type {LogRecord}
-           * @description Log record for error response.
+           * Log record for error response.
            */
           const errorRecord: LogRecord = {
             timestamp: new Date().toISOString(),

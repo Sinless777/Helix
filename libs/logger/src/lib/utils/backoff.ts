@@ -2,31 +2,25 @@
 
 /**
  * Configuration options for exponential backoff calculation.
- *
- * @interface
  */
 export interface BackoffOptions {
   /**
    * Initial delay in milliseconds.
-   * @default 100
    */
   baseDelay?: number
 
   /**
    * Multiplicative factor applied per attempt.
-   * @default 2
    */
   factor?: number
 
   /**
    * Maximum delay cap in milliseconds.
-   * @default 10000
    */
   maxDelay?: number
 
   /**
    * Whether to apply full jitter (random between 0 and computed delay).
-   * @default true
    */
   jitter?: boolean
 }
@@ -41,7 +35,7 @@ export interface BackoffOptions {
  * @example
  * ```ts
  * const delay = calculateBackoff(3, { baseDelay: 200, factor: 2, maxDelay: 5000 })
- * // delay will be between 0 and min(200 * 2^(3-1), 5000)
+ * // delay is between 0 and min(200 * 2^(3-1), 5000)
  * ```
  */
 export function calculateBackoff(

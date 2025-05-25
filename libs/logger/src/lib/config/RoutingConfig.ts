@@ -7,17 +7,15 @@ import { ConfigService } from './ConfigService'
 import { globMatch } from '../utils/globMatcher'
 
 /**
- * @class RoutingConfig
- * @extends EventEmitter
- * @description
- * Manages runtime routing rules for log records. Uses {@link ConfigService}
- * to load and persist encrypted {@link RouteRule}s, and determines which
- * drivers should receive each log record.
+ * Manages runtime routing rules for log records.
+ *
+ * Uses `ConfigService` to load and persist encrypted `RouteRule`s,
+ * and determines which drivers should receive each log record.
  *
  * Features:
- * - Loads encrypted rules from DB via {@link ConfigService}
+ * - Loads encrypted rules from DB via `ConfigService`
  * - Matches records by glob pattern and level (first-match wins)
- * - Falls back to default console+file drivers if no rule matches
+ * - Falls back to console+file drivers if no rule matches
  * - Exposes API to update or reload config and to trigger driver reloads
  */
 export class RoutingConfig extends EventEmitter {
@@ -32,7 +30,7 @@ export class RoutingConfig extends EventEmitter {
    */
   constructor(private configService: ConfigService) {
     super()
-    // Subscribe to config service events to keep in-memory rules in sync
+    // Keep in-memory rules in sync with persistence events
     this.configService.on('configLoaded', (rules: RouteRule[]) =>
       this.setRules(rules),
     )
@@ -52,7 +50,7 @@ export class RoutingConfig extends EventEmitter {
   }
 
   /**
-   * Load routing rules from database into memory.
+   * Load routing rules from the database into memory.
    * @returns Promise that resolves when rules are loaded.
    */
   public async init(): Promise<void> {
@@ -61,7 +59,7 @@ export class RoutingConfig extends EventEmitter {
 
   /**
    * Replace the in-memory rules and emit a 'rulesUpdated' event.
-   * @param rules - New array of {@link RouteRule}
+   * @param rules - New array of RouteRule
    */
   private setRules(rules: RouteRule[]): void {
     this.rules = rules
@@ -73,7 +71,7 @@ export class RoutingConfig extends EventEmitter {
    * Applies rules in order; returns the drivers of the first matching rule.
    * Falls back to default drivers if no enabled rule matches.
    *
-   * @param record - The {@link LogRecord} to route
+   * @param record - The LogRecord to route
    * @returns Array of driver names to receive the record
    */
   public matchDrivers(record: LogRecord): string[] {
@@ -84,19 +82,17 @@ export class RoutingConfig extends EventEmitter {
       if (!rule.enabled) continue
       if (rule.levels && !rule.levels.includes(level)) continue
       if (rule.pattern && !globMatch(rule.pattern, category)) continue
-      // First-match wins
       return rule.drivers
     }
 
-    // No rule matched → default drivers
     return this.defaultDrivers
   }
 
   /**
    * Atomically replace all routing rules with a new set.
-   * Persists changes via {@link ConfigService} and triggers 'rulesUpdated'.
+   * Persists changes via ConfigService and triggers 'rulesUpdated'.
    *
-   * @param newRules - Array of new {@link RouteRule}
+   * @param newRules - Array of new RouteRule
    * @returns Promise that resolves once replacement is complete
    */
   public async updateConfig(newRules: RouteRule[]): Promise<void> {
@@ -105,8 +101,6 @@ export class RoutingConfig extends EventEmitter {
 
   /**
    * Reload the routing rules from persistent storage.
-   * Triggers a fresh load via {@link ConfigService}.
-   *
    * @returns Promise that resolves once reload is done
    */
   public async reloadConfig(): Promise<void> {

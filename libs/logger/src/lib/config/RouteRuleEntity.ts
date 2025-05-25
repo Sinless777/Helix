@@ -4,43 +4,35 @@ import { Entity, PrimaryKey, Property } from '@mikro-orm/core'
 import crypto from 'crypto'
 
 /**
- * @class RouteRuleEntity
- * @description
- * MikroORM entity representing an encrypted routing rule in the database.
- * Stores the AES-256-GCM encrypted payload of a {@link RouteRule}, along with
- * timestamps for creation and last update.
+ * MikroORM entity representing an encrypted routing rule.
+ * Stores the AES-256-GCM encrypted payload, plus creation and update timestamps.
  */
 @Entity({ tableName: 'logger_config' })
 export class RouteRuleEntity {
   /**
-   * @property {string} id
-   * @description
-   * Primary key (UUID) for the rule entry. Automatically generated via Node.js crypto.
+   * Primary key (UUID) for this rule entry.
+   * Automatically generated via Node.js crypto.
    */
   @PrimaryKey()
   public id: string = crypto.randomUUID()
 
   /**
-   * @property {string} encryptedPayload
-   * @description
-   * Base64-encoded AES-256-GCM encrypted JSON payload of the {@link RouteRule}.
-   * This field holds the ciphertext, IV, and auth tag.
+   * Base64-encoded AES-256-GCM encrypted JSON payload of the RouteRule.
+   * Contains IV, auth tag, and ciphertext.
    */
   @Property({ type: 'text' })
   public encryptedPayload!: string
 
   /**
-   * @property {Date} createdAt
-   * @description
-   * Timestamp when this entry was first persisted. Automatically set on create.
+   * Timestamp when this entry was created.
+   * Automatically set on insert.
    */
   @Property({ type: Date, onCreate: () => new Date() })
   public createdAt: Date = new Date()
 
   /**
-   * @property {Date} updatedAt
-   * @description
-   * Timestamp when this entry was last updated. Automatically set on update and create.
+   * Timestamp when this entry was last updated.
+   * Automatically updated on insert and update.
    */
   @Property({
     type: Date,

@@ -6,25 +6,17 @@ import type { LogRecord } from '../../types/LogRecord'
 import { FileFormatter } from '../formatters/FileFormatter'
 
 /**
- * @interface FileDriverOptions
- * @description
- * Configuration options for {@link FileDriver}.
- *
- * @property {string} filename - Path to the log file.
+ * Configuration options for FileDriver.
  */
 export interface FileDriverOptions {
+  /** Path to the log file */
   filename: string
 }
 
 /**
- * @class FileDriver
- * @extends DriverBase
- * @description
- * Writes human-readable log messages to disk.
- * Utilizes {@link FileFormatter} to format each record before appending it.
+ * Writes human-readable log messages to disk using FileFormatter.
  */
 export class FileDriver extends DriverBase {
-  /** @private */
   private readonly formatter = new FileFormatter()
 
   /**
@@ -35,71 +27,44 @@ export class FileDriver extends DriverBase {
   }
 
   /**
-   * @method initialize
-   * @async
-   * @description
-   * - Enables the driver
-   * - Ensures the log file exists (creates if missing)
-   * - Marks the driver as running
-   *
-   * @returns {Promise<void>}
+   * Enables the driver, ensures the file exists, and marks it running.
    */
   public async initialize(): Promise<void> {
     this.enable()
     await this.start()
-    // Ensure the log file exists by appending an empty string
+    // Create the file if it doesn't exist
     await fs.promises.appendFile(this.options.filename, '')
   }
 
   /**
-   * @method start
-   * @async
-   * @description
    * Marks the driver as ready to accept log records.
-   *
-   * @returns {Promise<void>}
    */
   public async start(): Promise<void> {
     this.setRunning(true)
   }
 
   /**
-   * @method log
-   * @async
-   * @param {LogRecord} record - Structured log record to write.
-   * @description
-   * Formats the record into a human-readable line and appends it to the file.
-   * No-ops if the driver is disabled or not running.
+   * Formats and appends a log record to the file.
    *
-   * @returns {Promise<void>}
+   * @param record - The log entry to write.
+   * @remarks
+   * No-op if the driver is disabled or not running.
    */
   public async log(record: LogRecord): Promise<void> {
     if (!this.isEnabled() || !this.isRunning()) return
-
     const line = this.formatter.format(record) + '\n'
     await fs.promises.appendFile(this.options.filename, line, 'utf8')
   }
 
   /**
-   * @method stop
-   * @async
-   * @description
-   * Stops the driver from processing further log records.
-   *
-   * @returns {Promise<void>}
+   * Stops the driver from accepting further log records.
    */
   public async stop(): Promise<void> {
     this.setRunning(false)
   }
 
   /**
-   * @method shutdown
-   * @async
-   * @description
-   * Gracefully shuts down the driver by stopping it.
-   * Does not delete or rotate the log file.
-   *
-   * @returns {Promise<void>}
+   * Performs a graceful shutdown by stopping the driver.
    */
   public async shutdown(): Promise<void> {
     await this.stop()

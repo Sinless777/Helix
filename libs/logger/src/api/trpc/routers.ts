@@ -10,261 +10,195 @@ const t = initTRPC.context<Context>().create()
 
 /**
  * tRPC router for logger configuration and driver management.
- * Exposes a set of procedures to query and mutate routing rules and drivers.
- *
- * @module routers
  */
 export const loggerRouter = t.router({
   /**
-   * **getAllRules**
+   * Retrieve all routing rules.
    *
-   * Retrieves the full list of routing rules from the configuration service.
-   *
-   * @procedure
-   * @name getAllRules
-   * @returns {Promise<RouteRule[]>} Resolves with an array of all `RouteRule` objects.
+   * @returns An array of all RouteRule objects.
    */
-  getAllRules: t.procedure
-    .meta({ description: 'Fetch all routing rules' })
-    .query(async (): Promise<RouteRule[]> => {
-      return handlers.getAllRules()
-    }),
+  getAllRules: t.procedure.query(async (): Promise<RouteRule[]> => {
+    return handlers.getAllRules()
+  }),
 
   /**
-   * **getRule**
+   * Retrieve a routing rule by its ID.
    *
-   * Fetches a single routing rule by its unique identifier.
-   *
-   * @procedure
-   * @name getRule
-   * @input {string} id - The unique identifier of the rule.
-   * @returns {Promise<RouteRule | undefined>} Resolves with the found `RouteRule`, or `undefined` if not found.
+   * @param input - The ID of the rule to retrieve.
+   * @returns The matching RouteRule, or undefined if not found.
    */
   getRule: t.procedure
-    .meta({ description: 'Fetch a routing rule by ID' })
-    .input(z.string().describe('Rule ID to retrieve'))
-    .query(async ({ input: id }): Promise<RouteRule | undefined> => {
-      return handlers.getRule(id)
+    .input(z.string())
+    .query(async ({ input }): Promise<RouteRule | undefined> => {
+      return handlers.getRule(input)
     }),
 
   /**
-   * **addRule**
+   * Create a new routing rule.
    *
-   * Adds a new routing rule to the configuration.
-   *
-   * @procedure
-   * @name addRule
-   * @input {RouteRule} rule - The `RouteRule` object to add.
-   * @returns {Promise<void>} Resolves when the rule has been persisted.
+   * @param input - The RouteRule to add.
    */
   addRule: t.procedure
-    .meta({ description: 'Create a new routing rule' })
     .input(
-      z
-        .object({
-          id: z.string().uuid().describe('Unique UUID for the new rule'),
-          enabled: z.boolean().describe('Whether the rule is active'),
-          description: z.string().describe('Human-readable rule description'),
-          pattern: z.string().optional().describe('Glob pattern for matching category'),
-          levels: z.array(z.enum(['info','warn','error','debug','trace','fatal','success'])).optional().describe('Applicable log levels'),
-          drivers: z.array(z.string()).describe('Target driver names to route to'),
-        })
-        .describe('RouteRule object to add'),
+      z.object({
+        id: z.string().uuid(),
+        enabled: z.boolean(),
+        description: z.string(),
+        pattern: z.string().optional(),
+        levels: z
+          .array(
+            z.enum([
+              'info',
+              'warn',
+              'error',
+              'debug',
+              'trace',
+              'fatal',
+              'success',
+            ]),
+          )
+          .optional(),
+        drivers: z.array(z.string()),
+      }),
     )
-    .mutation(async ({ input: rule }): Promise<void> => {
-      await handlers.addRule(rule)
+    .mutation(async ({ input }) => {
+      await handlers.addRule(input)
     }),
 
   /**
-   * **updateRule**
+   * Update fields on an existing routing rule.
    *
-   * Applies partial updates to an existing routing rule.
-   *
-   * @procedure
-   * @name updateRule
-   * @input {{ id: string; updates: Partial<RouteRule> }} args
-   * @param {string} args.id - Identifier of the rule to update.
-   * @param {Partial<RouteRule>} args.updates - Fields to update on the rule.
-   * @returns {Promise<void>} Resolves when update is complete.
+   * @param input - Object containing the rule ID and updates.
    */
   updateRule: t.procedure
-    .meta({ description: 'Modify an existing routing rule' })
     .input(
-      z
-        .object({
-          id: z.string().uuid().describe('ID of the rule to modify'),
-          updates: z
-            .object({
-              enabled: z.boolean().optional(),
-              description: z.string().optional(),
-              pattern: z.string().optional(),
-              levels: z.array(z.enum(['info','warn','error','debug','trace','fatal','success'])).optional(),
-              drivers: z.array(z.string()).optional(),
-            })
-            .partial()
-            .describe('Fields to update on the rule'),
-        })
-        .describe('Update arguments'),
+      z.object({
+        id: z.string().uuid(),
+        updates: z
+          .object({
+            enabled: z.boolean().optional(),
+            description: z.string().optional(),
+            pattern: z.string().optional(),
+            levels: z
+              .array(
+                z.enum([
+                  'info',
+                  'warn',
+                  'error',
+                  'debug',
+                  'trace',
+                  'fatal',
+                  'success',
+                ]),
+              )
+              .optional(),
+            drivers: z.array(z.string()).optional(),
+          })
+          .partial(),
+      }),
     )
-    .mutation(async ({ input: { id, updates } }): Promise<void> => {
+    .mutation(async ({ input: { id, updates } }) => {
       await handlers.updateRule(id, updates)
     }),
 
   /**
-   * **removeRule**
+   * Delete a routing rule by ID.
    *
-   * Deletes a routing rule by its ID.
-   *
-   * @procedure
-   * @name removeRule
-   * @input {string} id - The identifier of the rule to remove.
-   * @returns {Promise<void>} Resolves when deletion is complete.
+   * @param input - The ID of the rule to remove.
    */
   removeRule: t.procedure
-    .meta({ description: 'Delete a routing rule by ID' })
-    .input(z.string().uuid().describe('ID of the rule to delete'))
-    .mutation(async ({ input: id }): Promise<void> => {
-      await handlers.removeRule(id)
+    .input(z.string().uuid())
+    .mutation(async ({ input }) => {
+      await handlers.removeRule(input)
     }),
 
   /**
-   * **updateConfig**
+   * Overwrite the entire routing configuration.
    *
-   * Atomically replaces the entire routing configuration with a new set.
-   *
-   * @procedure
-   * @name updateConfig
-   * @input {RouteRule[]} newRules - Array of new routing rules to apply.
-   * @returns {Promise<void>} Resolves when replacement is complete.
+   * @param input - Array of new RouteRule objects.
    */
   updateConfig: t.procedure
-    .meta({ description: 'Overwrite routing configuration' })
     .input(
-      z
-        .array(
-          z.object({
-            id: z.string().uuid(),
-            enabled: z.boolean(),
-            description: z.string(),
-            pattern: z.string().optional(),
-            levels: z
-              .array(z.enum(['info','warn','error','debug','trace','fatal','success']))
-              .optional(),
-            drivers: z.array(z.string()),
-          }),
-        )
-        .describe('New array of RouteRule objects'),
+      z.array(
+        z.object({
+          id: z.string().uuid(),
+          enabled: z.boolean(),
+          description: z.string(),
+          pattern: z.string().optional(),
+          levels: z
+            .array(
+              z.enum([
+                'info',
+                'warn',
+                'error',
+                'debug',
+                'trace',
+                'fatal',
+                'success',
+              ]),
+            )
+            .optional(),
+          drivers: z.array(z.string()),
+        }),
+      ),
     )
-    .mutation(async ({ input: newRules }): Promise<void> => {
-      await handlers.updateConfig(newRules)
+    .mutation(async ({ input }) => {
+      await handlers.updateConfig(input)
     }),
 
   /**
-   * **reloadConfig**
-   *
-   * Reloads the routing rules from persistent storage (database).
-   *
-   * @procedure
-   * @name reloadConfig
-   * @returns {Promise<void>} Resolves when the rules have been reloaded.
+   * Reload routing rules from the database.
    */
-  reloadConfig: t.procedure
-    .meta({ description: 'Reload routing rules from DB' })
-    .mutation(async (): Promise<void> => {
-      await handlers.reloadConfig()
-    }),
+  reloadConfig: t.procedure.mutation(async () => {
+    await handlers.reloadConfig()
+  }),
 
   /**
-   * **reloadDriver**
+   * Trigger a hot-reload of a driver by name.
    *
-   * Triggers a hot-reload of a specific driver instance by name.
-   *
-   * @procedure
-   * @name reloadDriver
-   * @input {string} name - The name of the driver to reload.
-   * @returns {Promise<void>} Resolves once reload command is issued.
+   * @param input - The driver name.
    */
-  reloadDriver: t.procedure
-    .meta({ description: 'Reload a specific driver' })
-    .input(z.string().describe('Driver name to reload'))
-    .mutation(async ({ input: name }): Promise<void> => {
-      await handlers.reloadDriver(name)
-    }),
+  reloadDriver: t.procedure.input(z.string()).mutation(async ({ input }) => {
+    handlers.reloadDriver(input)
+  }),
 
   /**
-   * **addDriver**
+   * Register a new driver instance.
    *
-   * Registers a brand-new driver instance under the given name.
-   *
-   * @procedure
-   * @name addDriver
-   * @input {{ name: string; instance: unknown }} payload
-   * @param {string} payload.name - Identifier under which to register the instance.
-   * @param {unknown} payload.instance - The driver instance object (must extend DriverBase).
-   * @returns {Promise<void>} Resolves when registration is complete.
+   * @param input - Object containing:
+   *   - name: Unique driver name.
+   *   - instance: DriverBase instance.
    */
   addDriver: t.procedure
-    .meta({ description: 'Register a new logger driver' })
-    .input(
-      z
-        .object({
-          name: z.string().describe('Unique name for the new driver'),
-          instance: z.any().describe('Driver instance (DriverBase subclass)'),
-        })
-        .describe('Driver registration payload'),
-    )
-    .mutation(async ({ input: { name, instance } }): Promise<void> => {
-      handlers.addDriver(name, instance as any)
+    .input(z.object({ name: z.string(), instance: z.any() }))
+    .mutation(async ({ input: { name, instance } }) => {
+      handlers.addDriver(name, instance)
     }),
 
   /**
-   * **enableDriver**
+   * Enable a registered driver.
    *
-   * Enables an existing registered driver so it begins accepting log records.
-   *
-   * @procedure
-   * @name enableDriver
-   * @input {string} name - The identifier of the driver to enable.
-   * @returns {Promise<void>} Resolves once the driver is enabled.
+   * @param input - The driver name.
    */
-  enableDriver: t.procedure
-    .meta({ description: 'Enable a registered driver' })
-    .input(z.string().describe('Driver name to enable'))
-    .mutation(async ({ input: name }): Promise<void> => {
-      handlers.enableDriver(name)
-    }),
+  enableDriver: t.procedure.input(z.string()).mutation(({ input }) => {
+    handlers.enableDriver(input)
+  }),
 
   /**
-   * **disableDriver**
+   * Disable a registered driver.
    *
-   * Disables an existing driver so it ignores incoming log records.
-   *
-   * @procedure
-   * @name disableDriver
-   * @input {string} name - The identifier of the driver to disable.
-   * @returns {Promise<void>} Resolves once the driver is disabled.
+   * @param input - The driver name.
    */
-  disableDriver: t.procedure
-    .meta({ description: 'Disable a registered driver' })
-    .input(z.string().describe('Driver name to disable'))
-    .mutation(async ({ input: name }): Promise<void> => {
-      handlers.disableDriver(name)
-    }),
+  disableDriver: t.procedure.input(z.string()).mutation(({ input }) => {
+    handlers.disableDriver(input)
+  }),
 
   /**
-   * **removeDriver**
+   * Unregister (and shut down) a driver.
    *
-   * Unregisters (and shuts down) a driver by name.
-   *
-   * @procedure
-   * @name removeDriver
-   * @input {string} name - The identifier of the driver to remove.
-   * @returns {Promise<void>} Resolves once removal is complete.
+   * @param input - The driver name.
    */
-  removeDriver: t.procedure
-    .meta({ description: 'Unregister a driver and shut it down' })
-    .input(z.string().describe('Driver name to remove'))
-    .mutation(async ({ input: name }): Promise<void> => {
-      handlers.removeDriver(name)
-    }),
+  removeDriver: t.procedure.input(z.string()).mutation(({ input }) => {
+    handlers.removeDriver(input)
+  }),
 })

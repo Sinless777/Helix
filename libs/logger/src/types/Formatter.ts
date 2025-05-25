@@ -2,7 +2,6 @@
 
 /**
  * @packageDocumentation
- * @module Formatter
  *
  * Defines the base interface for all log output formatters.
  */

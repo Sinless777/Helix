@@ -9,90 +9,64 @@ import type { LogRecord } from '../../types/LogRecord'
 import { emitDriverError } from '../events'
 
 /**
- * @interface ElasticsearchDriverOptions
- * @extends Partial<ElasticsearchTransportOptions>
- * @description
- * Configuration options for the {@link ElasticsearchDriver}.
- * Inherits all transport options from `winston-elasticsearch` and
- * allows overriding the minimum log level.
- *
- * @property {string} [level] - Minimum log level to send (e.g. 'info')
- * @property {string} [indexPrefix] - Prefix for Elasticsearch indices
- * @property {object} [clientOpts] - Custom Elasticsearch client options
+ * Configuration options for ElasticsearchDriver.
+ * Inherits from Winston’s ElasticsearchTransportOptions, with an optional
+ * `level` override to set the minimum log level.
  */
 export interface ElasticsearchDriverOptions
   extends Partial<ElasticsearchTransportOptions> {
+  /** Minimum log level to send (e.g. 'info') */
   level?: string
 }
 
 /**
- * @class ElasticsearchDriver
- * @extends DriverBase
- * @description
- * Driver that sends log records to Elasticsearch using the
- * `winston-elasticsearch` transport.
- * Handles initialization, error forwarding, and graceful shutdown.
+ * Sends structured log records to Elasticsearch via the Winston Elasticsearch transport.
+ * Manages initialization, error forwarding, and shutdown.
  */
 export class ElasticsearchDriver extends DriverBase {
-  /** @private */
   private transport?: ElasticsearchTransport
-
-  /** @private */
   private readonly driverName = 'elasticsearch'
 
   /**
-   * @param options - Transport configuration for ElasticsearchDriver
+   * @param options - Configuration for the underlying Elasticsearch transport
    */
   constructor(private readonly options: ElasticsearchDriverOptions) {
     super()
   }
 
   /**
-   * @method initialize
-   * @async
-   * @description
-   * - Instantiates the ElasticsearchTransport
-   * - Subscribes to transport 'error' events to re-emit via {@link emitDriverError}
-   * - Enables and starts the driver
-   *
-   * @returns {Promise<void>}
+   * Initializes the Elasticsearch transport, hooks up error forwarding,
+   * enables this driver, and marks it running.
    */
   public async initialize(): Promise<void> {
     this.transport = new ElasticsearchTransport(
       this.options as ElasticsearchTransportOptions,
     )
-    this.transport.on('error', (err: Error) =>
-      emitDriverError(this.driverName, err),
-    )
+    this.transport.on('error', (err: Error) => {
+      emitDriverError(this.driverName, err)
+    })
     this.enable()
     await this.start()
   }
 
   /**
-   * @method start
-   * @async
-   * @description Marks the driver as running.
-   *
-   * @returns {Promise<void>}
+   * Marks this driver as running.
    */
   public async start(): Promise<void> {
     this.setRunning(true)
   }
 
   /**
-   * @method log
-   * @async
-   * @param {LogRecord} record - The structured log record to send
-   * @description
-   * Sends the record to Elasticsearch. Builds a flat payload
-   * from `record.level`, `record.message`, `record.timestamp`,
-   * and `record.metadata`. On failure, emits a driver error.
+   * Sends a single log record to Elasticsearch.
    *
-   * @returns {Promise<void>}
-   * @throws Will reject if the transport is not initialized or logging fails.
+   * @param record - The log record to index
+   * @returns A promise that resolves once the record is sent
+   * @throws If the transport is not initialized or indexing fails
    */
   public async log(record: LogRecord): Promise<void> {
-    if (!this.isEnabled() || !this.isRunning() || !this.transport) return
+    if (!this.isEnabled() || !this.isRunning() || !this.transport) {
+      return
+    }
 
     const entry = {
       level: record.level,
@@ -106,38 +80,29 @@ export class ElasticsearchDriver extends DriverBase {
         this.transport!.log(entry, (err?: Error) => {
           if (err) {
             emitDriverError(this.driverName, err)
-            return reject(err)
+            reject(err)
+          } else {
+            resolve()
           }
-          resolve()
         })
       } else {
-        const error = new Error('Elasticsearch transport not initialized')
-        emitDriverError(this.driverName, error)
-        reject(error)
+        const err = new Error('Elasticsearch transport not initialized')
+        emitDriverError(this.driverName, err)
+        reject(err)
       }
     })
   }
 
   /**
-   * @method stop
-   * @async
-   * @description Stops accepting new log records.
-   *
-   * @returns {Promise<void>}
+   * Stops accepting new log records.
    */
   public async stop(): Promise<void> {
     this.setRunning(false)
   }
 
   /**
-   * @method shutdown
-   * @async
-   * @description
-   * - Stops the driver
-   * - Flushes any buffered logs if supported
-   * - Cleans up the transport instance
-   *
-   * @returns {Promise<void>}
+   * Shuts down the transport:
+   * stops the driver, flushes any buffered logs if supported, and cleans up.
    */
   public async shutdown(): Promise<void> {
     await this.stop()

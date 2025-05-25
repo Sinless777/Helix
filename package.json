@@ -31,7 +31,8 @@
     "format:core": "pnpm --filter @helix/core run format",
     "format:logger": "pnpm --filter @helix/logger run format",
     "format:database": "pnpm --filter @helix/database run format",
-    "format:all": "pnpm run format:core && pnpm run format:logger && pnpm run format:database && pnpm run format:auth && pnpm run format:frontend"
+    "format:all": "pnpm run format:core && pnpm run format:logger && pnpm run format:database && pnpm run format:auth && pnpm run format:frontend",
+    "docs:logger": "pnpm --filter @helix/logger run docs"
   },
   "dependencies": {
     "next": "^15.3.2"

@@ -3,6 +3,7 @@ import rootConfig from '../../eslint.config.mjs'
 import editorconfigPlugin from 'eslint-plugin-editorconfig'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
+import tsdocPlugin from 'eslint-plugin-tsdoc'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -37,11 +38,16 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
+      tsdoc: tsdocPlugin,
     },
     rules: {
-      // your TS-specific rules here…
+      // TypeScript-specific rules
       '@typescript-eslint/no-unused-vars': 'off',
-      'editorconfig/indent': 'off', // disable editorconfig indent rule for TS
+      // EditorConfig indent rule is too strict for TS AST formatting
+      'editorconfig/indent': 'off',
+
+      // Enable TSDoc syntax rule to enforce comment correctness
+      'tsdoc/syntax': 'error',
     },
   },
 ]

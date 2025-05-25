@@ -3,44 +3,40 @@
 import type { LogRecord } from '../types/LogRecord'
 
 /**
- * Base abstract class for all HelixLogger drivers.
- * Defines lifecycle methods, enable/disable controls, and a static registry for driver instances.
+ * Abstract base for all Helix Logger drivers.
  *
- * @class
+ * Provides lifecycle hooks (initialize, start, log, stop, shutdown)
+ * and enable/disable controls. Also maintains a static registry of
+ * all named driver instances.
+ *
+ * @internal
  */
 export abstract class DriverBase {
   /**
-   * Called when the driver encounters an error during operation.
-   * Subclasses may override to implement custom error handling.
+   * Invoked when the driver encounters an error.
+   * Subclasses can override to customize handling.
    *
-   * @param error - The Error instance thrown by the driver.
+   * @param error - The error thrown by driver operations.
    */
   public onError(error: Error): void {
     throw new Error('Method not implemented.')
   }
 
-  /** Whether this driver is enabled (accepts new logs). */
   private enabled = false
-
-  /** Whether this driver is actively running (started but not stopped). */
   private running = false
 
   /**
-   * Static registry mapping driver names to instances.
-   *
-   * @internal
-   * @static
-   * @property
+   * Static map of registered driver instances.
+   * Keys are unique driver names.
    */
   private static registry: Record<string, DriverBase> = {}
 
   /**
-   * Register a driver instance under a unique name.
+   * Registers a driver under a unique name.
    *
-   * @static
-   * @method
-   * @param name - Unique identifier for the driver
-   * @param instance - Instance of DriverBase
+   * @param name - Unique identifier for this driver.
+   * @param instance - The DriverBase instance to register.
+   * @throws If a driver with the same name already exists.
    */
   public static registerDriver(name: string, instance: DriverBase): void {
     if (DriverBase.registry[name]) {
@@ -50,110 +46,92 @@ export abstract class DriverBase {
   }
 
   /**
-   * Retrieve a previously registered driver by name.
+   * Retrieves a registered driver by name.
    *
-   * @static
-   * @method
-   * @param name - Identifier of the driver
-   * @returns The driver instance or undefined if not found
+   * @param name - Identifier of the driver.
+   * @returns The driver instance, or undefined if not found.
    */
   public static getDriver(name: string): DriverBase | undefined {
     return DriverBase.registry[name]
   }
 
   /**
-   * Retrieve all registered drivers.
+   * Returns all registered drivers.
    *
-   * @static
-   * @method
-   * @returns A shallow copy of the driver registry
+   * @returns A shallow copy of the registry.
    */
   public static getAllDrivers(): Record<string, DriverBase> {
     return { ...DriverBase.registry }
   }
 
   /**
-   * Initialize resources (e.g., connections, buffers).
-   * Called once before any logs are processed.
+   * Prepare the driver (e.g., open connections, allocate resources).
    *
-   * @abstract
-   * @method
-   * @returns A promise that resolves when initialization is complete.
+   * @returns Resolves when initialization is complete.
    */
   public abstract initialize(): Promise<void>
 
   /**
-   * Start the driver's active processing (e.g., begin flushing batches).
-   * After calling, {@link isRunning} should return true.
+   * Begin processing (e.g., start flush intervals, listeners).
    *
-   * @abstract
-   * @method
-   * @returns A promise that resolves when the driver has started.
+   * After this, `isRunning()` must return true.
+   *
+   * @returns Resolves when the driver is actively running.
    */
   public abstract start(): Promise<void>
 
   /**
-   * Process a single structured log record.
+   * Handle a single log record.
    *
-   * @abstract
-   * @method
-   * @param record - The log entry with metadata and context
-   * @returns A promise that resolves when the log has been handled.
+   * @param record - The structured log entry.
+   * @returns Resolves when this record has been written or dispatched.
    */
   public abstract log(record: LogRecord): Promise<void>
 
   /**
-   * Stop active processing (e.g., pause batch flushing).
-   * After calling, {@link isRunning} should return false.
+   * Pause active processing (e.g., stop timers or listeners).
    *
-   * @abstract
-   * @method
-   * @returns A promise that resolves when the driver has stopped.
+   * After this, `isRunning()` must return false.
+   *
+   * @returns Resolves when processing has stopped.
    */
   public abstract stop(): Promise<void>
 
   /**
-   * Shutdown the driver, flush pending logs, and release resources.
+   * Fully shut down the driver, flushing any remaining data
+   * and releasing resources.
    *
-   * @abstract
-   * @method
-   * @returns A promise that resolves when shutdown is complete.
+   * @returns Resolves once shutdown is complete.
    */
   public abstract shutdown(): Promise<void>
 
   /**
-   * Enable this driver so it will accept new log records.
-   *
-   * @method
+   * Enable this driver to accept new records.
    */
   public enable(): void {
     this.enabled = true
   }
 
   /**
-   * Disable this driver; incoming logs will be ignored.
-   *
-   * @method
+   * Disable this driver so incoming records are ignored.
    */
   public disable(): void {
     this.enabled = false
   }
 
   /**
-   * Check whether this driver is enabled.
+   * Check if this driver is enabled.
    *
-   * @method
-   * @returns True if enabled, false otherwise.
+   * @returns True if enabled.
    */
   public isEnabled(): boolean {
     return this.enabled
   }
 
   /**
-   * Check whether the driver is currently running.
+   * Check if this driver is actively running.
    *
-   * @method
-   * @returns True if started and not stopped.
+   * @returns True if `start()` has been called without a subsequent `stop()`.
    */
   public isRunning(): boolean {
     return this.running
@@ -161,11 +139,9 @@ export abstract class DriverBase {
 
   /**
    * Update the internal running state.
-   * Subclasses should call this when they start/stop processing.
+   * Subclasses should call this when they begin or end processing.
    *
-   * @protected
-   * @method
-   * @param state - True if running, false if stopped.
+   * @param state - True to mark as running; false to mark as stopped.
    */
   protected setRunning(state: boolean): void {
     this.running = state

@@ -25,7 +25,6 @@ import type { LogRecord } from '../../types/LogRecord'
  * @param res - The Express Response object
  * @param next - Next middleware function in the chain
  *
- * @category Middleware
  * @public
  */
 export function loggerMiddleware(
@@ -38,7 +37,6 @@ export function loggerMiddleware(
 
   /**
    * Initial log record for the incoming request.
-   * @type {LogRecord}
    */
   const reqRecord: LogRecord = {
     /** ISO timestamp when the request was received */
@@ -75,11 +73,10 @@ export function loggerMiddleware(
     const durationMs = Date.now() - startTime
 
     /**
+    /**
      * Log record for the completed response.
-     * @type {LogRecord}
      */
     const resRecord: LogRecord = {
-      /** ISO timestamp when the response finished */
       timestamp: new Date().toISOString(),
       /** Level 'error' for 5xx, otherwise 'info' */
       level: res.statusCode >= 500 ? 'error' : 'info',

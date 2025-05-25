@@ -5,43 +5,32 @@ import { DriverBase } from '../DriverBase'
 import type { LogRecord } from '../../types/LogRecord'
 
 /**
- * @interface LokiDriverOptions
- * @description
- * Configuration options for {@link LokiDriver}, passed to the winston-loki transport.
- *
- * @property {string} host - URL of the Loki server (e.g. 'http://localhost:3100').
- * @property {Record<string,string>} [labels] - Default labels to attach to every log entry (e.g. `{ app: "myapp" }`).
- * @property {number} [batchSize] - Maximum number of log entries to batch before sending.
- * @property {number} [timeout] - Maximum wait time in milliseconds before flushing a partial batch.
- * @property {boolean} [json] - Whether to send logs as JSON payloads.
- * @property {Record<string, any>} [key: string] - Any additional options supported by winston-loki.
+ * Options for LokiDriver.
  */
 export interface LokiDriverOptions {
+  /** Loki server URL (e.g. 'http://localhost:3100') */
   host: string
+  /** Default labels applied to every log (e.g. `{ app: "myapp" }`) */
   labels?: Record<string, string>
+  /** Batch size for sending logs */
   batchSize?: number
+  /** Maximum wait time before flushing batch (ms) */
   timeout?: number
+  /** Send logs as JSON payload */
   json?: boolean
+  /** Any additional options supported by winston-loki */
   [key: string]: any
 }
 
 /**
- * @class LokiDriver
- * @extends DriverBase
- * @description
- * Sends structured log records into Grafana Loki using the `winston-loki` transport.
- * Handles batching, labeling, and timestamp formatting.
+ * Sends structured log records into Grafana Loki via winston-loki.
  */
 export class LokiDriver extends DriverBase {
-  /** @private The underlying winston-loki transport instance */
   private transport?: any
-
-  /** @private Configuration for this driver */
   private readonly options: LokiDriverOptions
 
   /**
-   * @constructor
-   * @param {LokiDriverOptions} opts - Initialization options for LokiDriver
+   * @param opts - Initialization options for this driver
    */
   constructor(opts: LokiDriverOptions) {
     super()
@@ -49,13 +38,7 @@ export class LokiDriver extends DriverBase {
   }
 
   /**
-   * @method initialize
-   * @async
-   * @description
-   * - Instantiates the {@link LokiTransport} with provided options
-   * - Enables and starts the driver so it begins accepting logs
-   *
-   * @returns {Promise<void>}
+   * Instantiate the Loki transport and start processing.
    */
   public async initialize(): Promise<void> {
     this.transport = new LokiTransport(this.options)
@@ -64,30 +47,21 @@ export class LokiDriver extends DriverBase {
   }
 
   /**
-   * @method start
-   * @async
-   * @description
-   * Marks the driver as running, allowing `log()` calls to dispatch to Loki.
-   *
-   * @returns {Promise<void>}
+   * Mark the driver as running.
    */
   public async start(): Promise<void> {
     this.setRunning(true)
   }
 
   /**
-   * @method log
-   * @async
-   * @param {LogRecord} record - The structured log record to send to Loki.
-   * @description
-   * Transforms the {@link LogRecord} into the payload shape expected by `winston-loki`:
-   * - `message`: the log message
-   * - `labels`: merged from record.metadata and configured defaults
-   * - `timestamp`: ISO string
+   * Send a log record to Loki.
    *
-   * No-op if the driver is disabled, not running, or transport is uninitialized.
-   *
-   * @returns {Promise<void>} resolves when the entry has been enqueued or sent
+   * @param record - The structured log record to send.
+   * @remarks
+   * Transforms the record into the shape expected by winston-loki:
+   * - message: record.message
+   * - labels: merge of record.metadata and configured labels
+   * - timestamp: record.timestamp
    */
   public async log(record: LogRecord): Promise<void> {
     if (!this.isEnabled() || !this.isRunning() || !this.transport) return
@@ -110,26 +84,17 @@ export class LokiDriver extends DriverBase {
   }
 
   /**
-   * @method stop
-   * @async
-   * @description
-   * Stops the driver from processing further log records.
-   *
-   * @returns {Promise<void>}
+   * Stop accepting new log records.
    */
   public async stop(): Promise<void> {
     this.setRunning(false)
   }
 
   /**
-   * @method shutdown
-   * @async
-   * @description
-   * Gracefully shuts down the driver:
-   * - Stops accepting new logs
-   * - Releases the transport reference for garbage collection
+   * Gracefully shut down the driver.
    *
-   * @returns {Promise<void>}
+   * @remarks
+   * Stops the driver and releases the transport reference.
    */
   public async shutdown(): Promise<void> {
     await this.stop()

@@ -9,7 +9,6 @@ import type { RouteRule } from '../types/RouteRule'
 
 /**
  * @packageDocumentation
- * @module Logger
  *
  * Central orchestrator for logging within Helix.
  * Manages driver registration, dynamic routing rules,

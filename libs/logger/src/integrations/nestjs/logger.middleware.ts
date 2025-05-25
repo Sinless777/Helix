@@ -6,30 +6,23 @@ import { logger } from '../../lib/Logger'
 import type { LogRecord } from '../../types/LogRecord'
 
 /**
- * @class LoggerMiddleware
- * @implements NestMiddleware
- *
- * @description
- * NestJS middleware that logs each incoming HTTP request and corresponding response.
+ * NestJS middleware that logs each incoming HTTP request and the corresponding response.
  * Captures method, URL, headers, parameters, query, user information, timing,
  * status codes, and environment, then emits structured `LogRecord`s to the global logger.
  *
+ * @public
  * @example
  * ```ts
- * // In your module:
+ * // In your AppModule:
  * @Module({
  *   providers: [LoggerMiddleware],
  * })
  * export class AppModule implements NestModule {
  *   configure(consumer: MiddlewareConsumer) {
- *     consumer
- *       .apply(LoggerMiddleware)
- *       .forRoutes('*')
+ *     consumer.apply(LoggerMiddleware).forRoutes('*')
  *   }
  * }
  * ```
- *
- * @public
  */
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
@@ -38,26 +31,13 @@ export class LoggerMiddleware implements NestMiddleware {
    *
    * @param req - Express request object
    * @param res - Express response object
-   * @param next - Next function to pass control to the following middleware
-   *
-   * @method
+   * @param next - Next middleware function
    * @returns void
    */
   public use(req: Request, res: Response, next: NextFunction): void {
-    // Record start time for latency measurement
     const startTime = Date.now()
 
-    /**
-     * Base record template for both request and response logs.
-     * Omits timestamp since it is generated at log time.
-     *
-     * @type {Omit<LogRecord, 'timestamp'>}
-     * @property {string} level - Log severity level
-     * @property {string} service - Identifier for this middleware/service
-     * @property {string} message - Descriptive message
-     * @property {string} context - Context string (HTTP method + URL)
-     * @property {Record<string, any>} metadata - Key/value metadata
-     */
+    // Base record template (without timestamp)
     const baseRecord: Omit<LogRecord, 'timestamp'> = {
       level: 'info',
       service: process.env['SERVICE_NAME'] ?? 'nestjs-logger-middleware',
@@ -76,21 +56,16 @@ export class LoggerMiddleware implements NestMiddleware {
       },
     }
 
-    // Log the incoming request record immediately
+    // Log incoming request
     void logger.log({
       timestamp: new Date().toISOString(),
       ...baseRecord,
     })
 
-    // After response is finished, log the response with status and duration
+    // After response, log status and duration
     res.on('finish', () => {
-      const duration = Date.now() - startTime
+      const durationMs = Date.now() - startTime
 
-      /**
-       * @type {LogRecord}
-       * @description Record capturing the HTTP response details.
-       * Extends baseRecord with updated level, message, and additional metadata.
-       */
       const responseRecord: LogRecord = {
         timestamp: new Date().toISOString(),
         ...baseRecord,
@@ -99,14 +74,13 @@ export class LoggerMiddleware implements NestMiddleware {
         metadata: {
           ...baseRecord.metadata!,
           statusCode: res.statusCode,
-          durationMs: duration,
+          durationMs,
         },
       }
 
       void logger.log(responseRecord)
     })
 
-    // Proceed to the next middleware or route handler
     next()
   }
 }

@@ -9,8 +9,7 @@ const ALGORITHM = 'aes-256-gcm'
 const KEY = Buffer.from(process.env['LOGGER_ENCRYPTION_KEY'] || '', 'hex')
 
 /**
- * @interface BatchQueueOptions
- * @description Configuration options for {@link BatchQueue}.
+ * Configuration options for BatchQueue.
  */
 export interface BatchQueueOptions {
   /** Maximum records per batch before auto-flush (default: 100) */
@@ -24,34 +23,19 @@ export interface BatchQueueOptions {
 }
 
 /**
- * @class BatchQueue
- * @extends EventEmitter
- * @description
- *   Handles batching of `LogRecord`s with optional AES-256-GCM encryption,
- *   retry/backoff on failure, and graceful shutdown behavior.
- *
- * @fires BatchQueue#flushed - Emitted after a successful flush
- * @fires BatchQueue#error   - Emitted on each retryable error
- * @fires BatchQueue#failed  - Emitted after exhausting retries
- * @fires BatchQueue#shutdown - Emitted once shutdown completes
+ * Handles batching of LogRecord entries with optional
+ * AES-256-GCM encryption, retry/backoff on failure,
+ * and graceful shutdown.
  */
 export class BatchQueue extends EventEmitter {
-  /** @property {LogRecord[]} Pending records in the current batch */
   private queue: LogRecord[] = []
-
-  /** @property {NodeJS.Timeout | undefined} Timer for scheduled flush */
   private timer?: NodeJS.Timeout
-
-  /** @property {Required<BatchQueueOptions>} Resolved configuration */
   private readonly opts: Required<BatchQueueOptions>
-
-  /** @property {boolean} Indicates whether a shutdown is in progress */
   private shuttingDown = false
 
   /**
-   * @constructor
-   * @param sendFn - Callback to handle sending the encrypted batch payload
-   * @param options - Customization options for batch behavior
+   * @param sendFn - Function that sends an encrypted batch payload
+   * @param options - Optional batch queue settings
    */
   constructor(
     private readonly sendFn: (encryptedPayload: string) => Promise<void>,
@@ -69,10 +53,10 @@ export class BatchQueue extends EventEmitter {
   }
 
   /**
-   * @method enqueue
-   * @description Add a `LogRecord` to the batch. Automatically flushes
-   *   when `maxBatchSize` is reached.
-   * @param record - The record to enqueue
+   * Add a record to the queue. If the queue size
+   * reaches maxBatchSize, triggers a flush.
+   *
+   * @param record - The LogRecord to enqueue
    */
   public enqueue(record: LogRecord): void {
     if (this.shuttingDown) return
@@ -83,18 +67,15 @@ export class BatchQueue extends EventEmitter {
   }
 
   /**
-   * @method flush
-   * @description Flushes the current batch: encrypts and sends with retries.
-   * @returns Promise that resolves once the batch is sent or retries are exhausted
-   * @fires BatchQueue#flushed
-   * @fires BatchQueue#error
-   * @fires BatchQueue#failed
+   * Flushes the current batch: encrypts the batch and
+   * attempts to send it, retrying with backoff on error.
+   *
+   * @returns Promise<void> once flushed or retries exhausted
    */
   public async flush(): Promise<void> {
     if (this.queue.length === 0) return
 
-    // Extract and clear the batch
-    const batch = this.queue.splice(0, this.queue.length)
+    const batch = this.queue.splice(0)
     const payload = this.encryptBatch(batch)
 
     for (let attempt = 1; attempt <= this.opts.maxRetries; attempt++) {
@@ -108,23 +89,11 @@ export class BatchQueue extends EventEmitter {
       }
     }
 
-    // All retries exhausted
     this.emit('failed', batch)
   }
 
   /**
-   * @private
-   * @method startTimer
-   * @description Begins the periodic flush timer based on `flushInterval`.
-   */
-  private startTimer(): void {
-    this.timer = setInterval(() => void this.flush(), this.opts.flushInterval)
-  }
-
-  /**
-   * @private
-   * @method stopTimer
-   * @description Stops the periodic flush timer.
+   * Stops the periodic flush timer.
    */
   private stopTimer(): void {
     if (this.timer) {
@@ -134,27 +103,35 @@ export class BatchQueue extends EventEmitter {
   }
 
   /**
-   * @private
-   * @method encryptBatch
-   * @description Encrypts a batch of log records into a Base64 string
-   *   using AES-256-GCM and the configured `LOGGER_ENCRYPTION_KEY`.
-   * @param batch - Array of `LogRecord` to encrypt
-   * @returns Encrypted payload as a base64-encoded string
+   * Starts the periodic flush timer based on flushInterval.
+   */
+  private startTimer(): void {
+    this.timer = setInterval(() => void this.flush(), this.opts.flushInterval)
+  }
+
+  /**
+   * Encrypts a batch of log records into a Base64 string
+   * using AES-256-GCM with the configured key.
+   *
+   * @param batch - Array of LogRecord entries
+   * @returns Base64-encoded encrypted payload
    */
   private encryptBatch(batch: LogRecord[]): string {
     const iv = crypto.randomBytes(12)
     const cipher = crypto.createCipheriv(ALGORITHM, KEY, iv)
-    const plaintext = Buffer.from(JSON.stringify(batch), 'utf8')
-    const ciphertext = Buffer.concat([cipher.update(plaintext), cipher.final()])
+    const data = Buffer.concat([
+      cipher.update(JSON.stringify(batch), 'utf8'),
+      cipher.final(),
+    ])
     const tag = cipher.getAuthTag()
-    return Buffer.concat([iv, tag, ciphertext]).toString('base64')
+    return Buffer.concat([iv, tag, data]).toString('base64')
   }
 
   /**
-   * @method shutdown
-   * @description Gracefully stops the timer and flushes any remaining records.
-   * @returns Promise that resolves once shutdown is complete
-   * @fires BatchQueue#shutdown
+   * Gracefully shuts down the queue: stops the timer,
+   * flushes remaining records, and emits a shutdown event.
+   *
+   * @returns Promise<void> once shutdown is complete
    */
   public async shutdown(): Promise<void> {
     this.shuttingDown = true

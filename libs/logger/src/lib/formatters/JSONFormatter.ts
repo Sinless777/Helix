@@ -4,46 +4,37 @@ import type { Formatter } from '../../types/Formatter'
 import type { LogRecord } from '../../types/LogRecord'
 
 /**
- * Formatter that outputs a fully structured JSON string for log records.
+ * Outputs a structured JSON string for a log record.
  *
- * Serializes the entire LogRecord, preserving timestamp, level, service,
- * message, context, and metadata. Falls back to safe partial serialization
- * if the full record cannot be stringified.
+ * Attempts to stringify the entire record for maximum fidelity; if that fails
+ * (e.g. due to circular references), falls back to serializing core fields only.
  *
- * @public
- * @class
- * @implements {Formatter}
+ * @example
+ * ```ts
+ * const fmt = new JSONFormatter()
+ * console.log(fmt.format({
+ *   timestamp: new Date().toISOString(),
+ *   level: 'info',
+ *   service: 'auth',
+ *   message: 'User login',
+ *   context: 'AuthController.login',
+ *   metadata: { userId: 'u123', ip: '127.0.0.1' }
+ * }))
+ * // => '{"timestamp":"2025-05-24T12:00:00.000Z","level":"info","service":"auth",...}'
+ * ```
  */
 export class JSONFormatter implements Formatter {
   /**
-   * Convert a LogRecord into a JSON string.
+   * Convert a LogRecord into its JSON string representation.
    *
-   * Attempts to directly stringify the full record for maximum fidelity.
-   * On error (e.g., circular references), falls back to a safe subset.
-   *
-   * @param record - The structured log record to format.
-   * @returns The JSON string representation of the record.
-   *
-   * @example
-   * ```ts
-   * const formatter = new JSONFormatter()
-   * const json = formatter.format({
-   *   timestamp: new Date().toISOString(),
-   *   level: 'info',
-   *   service: 'auth',
-   *   message: 'User login',
-   *   context: 'AuthController.login',
-   *   metadata: { userId: 'u123', ip: '127.0.0.1' }
-   * })
-   * // '{"timestamp":"2025-05-24T12:00:00.000Z","level":"info","service":"auth",...}'
-   * ```
+   * @param record - The structured log record
+   * @returns The JSON string
    */
   public format(record: LogRecord): string {
     try {
-      // Primary: serialize entire record
       return JSON.stringify(record)
-    } catch (err) {
-      // Fallback: serialize core fields only
+    } catch {
+      // Fallback: serialize only safe fields
       const safeRecord = {
         timestamp: record.timestamp,
         level: record.level,

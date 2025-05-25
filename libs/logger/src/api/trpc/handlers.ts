@@ -6,66 +6,50 @@ import { RoutingConfig } from '../../lib/config/RoutingConfig'
 import { DriverBase } from '../../lib/DriverBase'
 
 /**
- * Singleton instance of ConfigService managing encrypted persistence of RouteRule entities.
+ * Singleton service that persists encrypted routing rules.
  * Initialized elsewhere and imported here.
- * @internal
  */
 const configService = new ConfigService({} as any)
 
 /**
- * Singleton instance of RoutingConfig that applies loaded RouteRule objects
- * to incoming LogRecord streams and emits driver reload events.
- * @internal
+ * In-memory router that applies rules to log streams
+ * and emits driver reload events.
  */
 const routingConfig = new RoutingConfig(configService)
 
 /**
- * tRPC handler module for logger configuration and driver lifecycle management.
- * @module handlers
- */
-
-/**
- * Fetches all routing rules currently stored in the configuration service.
- * @async
- * @function getAllRules
- * @returns {Promise<RouteRule[]>} Array of all `RouteRule` objects.
+ * Retrieve all routing rules.
+ *
+ * @returns Array of all configured RouteRule objects
  */
 export async function getAllRules(): Promise<RouteRule[]> {
   return configService.getRules()
 }
 
 /**
- * Retrieves a single routing rule by its unique identifier.
- * @async
- * @function getRule
- * @param {string} id - The unique ID of the rule to look up.
- * @returns {Promise<RouteRule | undefined>} The matching `RouteRule`, or `undefined` if not found.
+ * Find a routing rule by its ID.
+ *
+ * @param id - The unique identifier of the rule
+ * @returns The matching RouteRule, or undefined if not found
  */
 export async function getRule(id: string): Promise<RouteRule | undefined> {
   return configService.getRules().find((r) => r.id === id)
 }
 
 /**
- * Adds a new routing rule into the persistent configuration.
- * Emits a `ruleAdded` event on success.
- * @async
- * @function addRule
- * @param {RouteRule} rule - The new routing rule to persist.
- * @returns {Promise<void>}
+ * Add a new routing rule to the configuration.
+ *
+ * @param rule - The RouteRule to add
  */
 export async function addRule(rule: RouteRule): Promise<void> {
   await configService.addRule(rule)
 }
 
 /**
- * Applies partial updates to an existing routing rule, identified by ID.
- * Emits a `ruleUpdated` event with the merged rule.
- * @async
- * @function updateRule
- * @param {string} id - Unique identifier of the rule to update.
- * @param {Partial<RouteRule>} updates - Fields to merge into the existing rule.
- * @returns {Promise<void>}
- * @throws {Error} if no rule with the given `id` exists.
+ * Update fields on an existing routing rule.
+ *
+ * @param id - The ID of the rule to update
+ * @param updates - Partial fields to merge into the rule
  */
 export async function updateRule(
   id: string,
@@ -75,65 +59,53 @@ export async function updateRule(
 }
 
 /**
- * Deletes a routing rule from the configuration by its ID.
- * Emits a `ruleRemoved` event on removal.
- * @async
- * @function removeRule
- * @param {string} id - Unique identifier of the rule to delete.
- * @returns {Promise<void>}
+ * Remove a routing rule by its ID.
+ *
+ * @param id - The ID of the rule to remove
  */
 export async function removeRule(id: string): Promise<void> {
   await configService.removeRule(id)
 }
 
 /**
- * Forces a reload of routing rules from the underlying database,
- * updating the in-memory set and emitting `rulesUpdated`.
- * @async
- * @function reloadConfig
- * @returns {Promise<void>}
+ * Reload routing rules from persistent storage.
  */
 export async function reloadConfig(): Promise<void> {
   await routingConfig.reloadConfig()
 }
 
 /**
- * Replaces the entire routing configuration atomically.
- * Deletes all existing rules, persists the given `newRules`, and emits `configReplaced`.
- * @async
- * @function updateConfig
- * @param {RouteRule[]} newRules - The complete set of routing rules to apply.
- * @returns {Promise<void>}
+ * Replace the entire routing configuration.
+ *
+ * @param newRules - The complete new set of RouteRule objects
  */
 export async function updateConfig(newRules: RouteRule[]): Promise<void> {
   await routingConfig.updateConfig(newRules)
 }
 
 /**
- * Triggers a reload (shutdown & re-init) of the named driver instance.
- * Emits a `driverReload` event for external hooks (e.g., reconnect).
- * @function reloadDriver
- * @param {string} name - The identifier of the driver to reload.
+ * Trigger a reload (shutdown & re-init) of the named driver.
+ *
+ * @param name - The driver identifier to reload
  */
 export function reloadDriver(name: string): void {
   routingConfig.reloadDriver(name)
 }
 
 /**
- * Registers a new driver instance under a unique name in the global registry.
- * @function addDriver
- * @param {string} name - Unique identifier for the driver.
- * @param {DriverBase} instance - DriverBase subclass instance to register.
+ * Register a new driver instance by name.
+ *
+ * @param name - Unique identifier for the driver
+ * @param instance - DriverBase subclass instance
  */
 export function addDriver(name: string, instance: DriverBase): void {
   DriverBase.registerDriver(name, instance)
 }
 
 /**
- * Enables a named driver so it will accept and process incoming log records.
- * @function enableDriver
- * @param {string} name - The driver’s unique identifier.
- * @throws {Error} if no driver with the given name is registered.
+ * Enable a registered driver so it starts accepting log records.
+ *
+ * @param name - The driver identifier to enable
  */
 export function enableDriver(name: string): void {
   const driver = DriverBase.getDriver(name)
@@ -142,10 +114,9 @@ export function enableDriver(name: string): void {
 }
 
 /**
- * Disables a named driver so it will ignore any future log records.
- * @function disableDriver
- * @param {string} name - The driver’s unique identifier.
- * @throws {Error} if no driver with the given name is registered.
+ * Disable a registered driver so it ignores log records.
+ *
+ * @param name - The driver identifier to disable
  */
 export function disableDriver(name: string): void {
   const driver = DriverBase.getDriver(name)
@@ -154,16 +125,14 @@ export function disableDriver(name: string): void {
 }
 
 /**
- * Unregisters (and shuts down) a named driver instance.
- * Calls `shutdown()` on the instance before removal.
- * @function removeDriver
- * @param {string} name - The driver’s unique identifier.
+ * Unregister and shut down a driver instance by name.
+ *
+ * @param name - The driver identifier to remove
  */
 export function removeDriver(name: string): void {
   const driver = DriverBase.getDriver(name)
   if (driver) {
     driver.shutdown().catch((err) => {
-      // swallow errors on shutdown
       console.error(`Error shutting down driver "${name}":`, err)
     })
   }

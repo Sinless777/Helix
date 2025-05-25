@@ -1,60 +1,49 @@
+// libs/logger/src/api/trpc/context.ts
+
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { DriverBase } from '../../lib/DriverBase'
 import type { RouteRule } from '../../types/RouteRule'
 
 /**
- * Context interface for all tRPC procedure invocations within Helix Logger.
- * Encapsulates HTTP request/response objects and logger-specific internals,
- * enabling resolvers to access driver instances and routing rules.
+ * Execution context for all tRPC procedures within Helix Logger.
  *
- * @interface Context
+ * Provides access to:
+ * - the raw HTTP request and response,
+ * - the registry of logger drivers,
+ * - and the active routing rules.
  */
 export interface Context {
   /**
-   * Raw HTTP request object from Node.js server.
-   * Contains headers, URL, method, and other request metadata.
-   *
-   * @type {IncomingMessage}
+   * The Node.js HTTP request object containing headers, URL, method, etc.
    */
   req: IncomingMessage
 
   /**
-   * Raw HTTP response object from Node.js server.
-   * Allows mutation of status codes, headers, and response body.
-   *
-   * @type {ServerResponse}
+   * The Node.js HTTP response object, used to set status, headers, body, etc.
    */
   res: ServerResponse
 
   /**
-   * Map of all registered logger driver instances, keyed by unique name.
-   * Drivers implement the lifecycle and log-handling interface.
-   *
-   * @type {Record<string, DriverBase>}
+   * Registered logger driver instances by name.
    */
   drivers: Record<string, DriverBase>
 
   /**
-   * Current in-memory list of routing rules determining driver targets
-   * based on log record category patterns and levels.
-   *
-   * @type {RouteRule[]}
+   * In-memory list of routing rules used to determine which drivers
+   * receive each LogRecord.
    */
   rules: RouteRule[]
 }
 
 /**
- * Factory to construct a tRPC execution context per incoming request.
- * Merges raw HTTP objects with Helix Logger internals for handlers.
+ * Build a new tRPC {@link Context} for each incoming request.
  *
- * @async
- * @function createContext
- * @param {Object} opts - Options for building the context
- * @param {IncomingMessage} opts.req - The Node.js HTTP request
- * @param {ServerResponse} opts.res - The Node.js HTTP response
- * @param {Record<string, DriverBase>} opts.drivers - Registered driver map
- * @param {RouteRule[]} opts.rules - Routing rules array
- * @returns {Promise<Context>} Resolves to a fully-populated Context object
+ * @param opts - Initialization options containing:
+ *   - req: The incoming HTTP request
+ *   - res: The outgoing HTTP response
+ *   - drivers: Map of registered DriverBase instances
+ *   - rules: Array of active RouteRule definitions
+ * @returns A Promise that resolves to a populated Context
  */
 export async function createContext(opts: {
   req: IncomingMessage
