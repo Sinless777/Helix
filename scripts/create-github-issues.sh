@@ -16,6 +16,15 @@ if ! command -v gh >/dev/null; then
   exit 1
 fi
 
+# If GH_TOKEN is not set, fall back to common PAT variables
+if [[ -z "${GH_TOKEN:-}" ]]; then
+  if [[ -n "${GITHUB_PAT:-}" ]]; then
+    export GH_TOKEN="$GITHUB_PAT"
+  elif [[ -n "${GITHUB_PAT_GITHUB_COM:-}" ]]; then
+    export GH_TOKEN="$GITHUB_PAT_GITHUB_COM"
+  fi
+fi
+
 DIR="generated-issues"
 for file in "$DIR"/issue*.md; do
   if [[ -f "$file" ]]; then
