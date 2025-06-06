@@ -8,4 +8,12 @@ This directory contains markdown files describing potential issues detected whil
 - [issue4_changelogs.md](issue4_changelogs.md) — Empty changelogs in packages
 - [issue5_root_scripts.md](issue5_root_scripts.md) — Missing root lint/test scripts
 
-Feel free to convert these notes into GitHub issues.
+## Converting to GitHub issues
+
+Use `scripts/create-github-issues.sh` with the [GitHub CLI](https://cli.github.com/) to open these files as issues:
+
+```bash
+./scripts/create-github-issues.sh <owner/repo>
+```
+
+Authentication via `gh auth login` or the `GH_TOKEN` environment variable is required.
