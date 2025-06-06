@@ -17,9 +17,9 @@
   "main": "./index.cjs",
   "module": "./index.js",
   "devDependencies": {
-    "@types/node": "18.19.103",
-    "eslint": "8.57.1",
-    "prettier": "2.8.8",
+    "@types/node": "22.15.30",
+    "eslint": "9.28.0",
+    "prettier": "3.5.3",
     "typescript": "5.8.3"
   }
 }

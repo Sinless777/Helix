@@ -51,7 +51,7 @@
     "@next/third-parties": "^15.3.2",
     "@opentelemetry/api-logs": "^0.201.0",
     "@opentelemetry/instrumentation": "^0.201.0",
-    "@opentelemetry/resources": "^1.19.0",
+    "@opentelemetry/resources": "^2.0.0",
     "@opentelemetry/sdk-logs": "^0.201.0",
     "@statsig/react-bindings": "^3.16.2",
     "@vercel/analytics": "^1.5.0",
