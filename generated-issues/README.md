@@ -16,5 +16,5 @@ Use `scripts/create-github-issues.sh` with the [GitHub CLI](https://cli.github.c
 ./scripts/create-github-issues.sh <owner/repo>
 ```
 
-Authentication via `gh auth login` or a token provided in `GH_TOKEN`, `GITHUB_PAT`,
+Authentication via `gh auth login` or a token provided in `GITHUB_TOKEN`, `GH_TOKEN`, `GITHUB_PAT`,
 or `GITHUB_PAT_GITHUB_COM` is required.
