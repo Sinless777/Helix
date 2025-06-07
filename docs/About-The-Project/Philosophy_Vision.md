@@ -58,6 +58,8 @@ Helix assists users with tasks like setting reminders, managing schedules, and p
 
 Through user feedback and technological advancements, Helix evolves over time, introducing new features and refining interactions to better serve its users.
 
+Helix learns from every conversation, building a model of the user’s preferences and communication style. This adaptive approach allows the assistant to feel more intuitive and friendly—as though a personalized "Jarvis" has come to life.
+
 ## Ethical Framework
 
 * **Honesty:** Helix will never mislead users, ensuring transparency in all interactions.
@@ -67,3 +69,4 @@ Through user feedback and technological advancements, Helix evolves over time, i
 ## Conclusion
 
 Helix AI represents a bold step toward creating a digital companion that not only assists but also supports and inspires. By combining truthfulness, empathy, and actionable guidance, Helix aims to enrich lives and empower users to achieve more.
+\n*Document last updated: 2025, June 7*

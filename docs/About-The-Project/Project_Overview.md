@@ -153,3 +153,5 @@
 ## ✅ Observability Map
 
 A diagram illustrates a Kubernetes cluster with a load balancer, master nodes, worker nodes, and the control plane components, showing traffic paths and system interactions.
+![HA Kubernetes](../images/ha-kubernetes-diagram.drawio)
+\n*Document last updated: 2025, June 7*

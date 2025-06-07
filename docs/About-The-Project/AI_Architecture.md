@@ -16,6 +16,15 @@ Helix uses **Open APIs** and carefully controlled web crawlers to gather informa
 
 To avoid the classic "AI uprising" scenarios, Helix AI is designed from the start as a companion. By treating the AI as a partner rather than a servant, we foster cooperation, empathy, and accountability. Although true sentience remains far off, cultivating respectful interaction patterns today lays the groundwork for responsible AI relationships in the future.
 
+## Developer Experience and Interfaces
+
+The core API layer is built with **Nest.js** and exposed through an **OpenAPI**-compliant interface. Rate limiting and authentication guard access to these endpoints while maintaining transparency for developers. User interfaces leverage **Next.js** and **Angular**, providing both flexibility and accessibility. A **Docker Compose** environment simplifies local development.
+
+## Testing and Reliability
+
+Helix AI relies on **A/B testing**, **end-to-end testing**, **code coverage with Jest**, **load testing**, and **chaos engineering** to ensure a resilient, scalable system. Continuous learning pipelines feed back user interactions so the microservice network gradually becomes an intuitive companion—much like the sci-fi assistants seen in media.
+
 ---
 
 This document offers a high-level view of Helix AI's proposed architecture and guiding principles for learning from experience.
+\n*Document last updated: 2025, June 7*
