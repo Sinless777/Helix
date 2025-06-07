@@ -7,10 +7,14 @@
 * **Design**:
   * Built as a **monorepo**: `Helix-AI`
   * Uses a **custom LLM** and integrates public models via **Hugging Face**, **APIs**, and **files**
-  * Plans for **platform integration**: Discord, Slack, Google, GitHub, Twitter, Facebook, etc.
+  * Plans for **platform integration**: Discord, Slack, Google, GitHub, Twitter, Facebook, GCP, Azure, AWS, Linode, Steam, Twitch, Stack Overflow, and more.
   * Supports **text and voice interfaces**
+  * Exposes an **OpenAPI** service layer with a growing plugin library
+  * Stores knowledge in an encrypted **vector store** for fast retrieval and citation
   * Feeds on real-time **telemetry, logs, and system events** to be self-aware of the underlying platform and its components
   * Will leverage **data streams, caches, databases, object stores** for awareness, context, and learning
+  * Focused on accessibility features to assist users with disabilities
+  * Builds a user profile during onboarding, collecting data such as gender, language, and preferences to tailor interactions
 
 ## 🛠 SinLess-Games-IaC
 
@@ -25,7 +29,6 @@
     * Observability, policies, chaos, backups, documentation, scripts, and changelogs
     * Version tracking (`versions.json5`)
     * Logging utilities (`scripts/utils/logging.sh`)
-    * Versioning scripts (`scripts/versioning/*.sh`)
 
 ---
 
@@ -37,7 +40,6 @@
 4. **Staging Deployment**: Deploy with load and e2e tests, canary deployments
 5. **Production Deployment**: Canary → Full rollout with automated rollback
 6. **Alerts**: Sent via Discord, Email, and SMS
-7. **Versioning**: Patch/Minor/Major bumps tracked in `versions.json5`
 
 ---
 
@@ -132,14 +134,9 @@
 
 ## 🧪 Cluster Environments
 
-* **Staging Cluster**: for testing, CI, chaos experiments, etc.
-* **Production Cluster**: hardened, protected, monitored
+* **Staging Cluster**: for testing, CI, chaos experiments, and canary deployments.
+* **Production Cluster**: hardened, protected, and monitored with a mix of canary and blue/green rollout strategies.
 
-## 🧩 Versioning
-
-* Stored in `versions.json5`
-* Patch bump script updates the version, creates tags, and publishes releases
-* Structured changelogs stored in `docs/changelogs/`
 
 ## 🗃 Repo Structure (Key Parts)
 
@@ -154,4 +151,5 @@
 
 A diagram illustrates a Kubernetes cluster with a load balancer, master nodes, worker nodes, and the control plane components, showing traffic paths and system interactions.
 ![HA Kubernetes](../images/ha-kubernetes-diagram.drawio)
+Helix's long-term research draws inspiration from the **Fermi Paradox** and **Kardashev Scale**, exploring how advanced AI might help humanity reach higher technological stages.
 \n*Document last updated: 2025, June 7*

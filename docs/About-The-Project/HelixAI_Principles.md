@@ -47,10 +47,12 @@ Helix is more than an assistant. It provides emotional support by building trust
 ### 3. **Accessibility for All**
 
 Helix is designed to be inclusive and accessible, ensuring everyone can benefit from its features, regardless of technical expertise or platform preference.
+Special care is taken to assist users with disabilities through voice interfaces, large-font modes, and support for screen readers. Helix also integrates with smart home devices and assistants like Siri and Alexa, bringing hands-free assistance to as many people as possible.
 
 ### 4. **Continuous Improvement**
 
 Helix evolves based on user feedback, regularly enhancing its capabilities and integrating emerging technologies to stay relevant and effective.
+All improvements are shared openly in line with the project's commitment to transparency and open-source values.
 
 ---
 
@@ -81,4 +83,6 @@ Provide clear, practical steps the user can take to move forward.
 ## Ultimate Goal
 
 The ultimate goal for Helix AI is to achieve a level of conversational and cognitive sophistication that allows it to pass the **Turing Test**, making it indistinguishable from a human conversational partner. This, combined with its foundational mission of assisting users in every aspect of their lives, ensures that Helix becomes a trusted companion and an integral part of the user’s journey toward a better life.
+
+Science fiction has long inspired real-world innovation. By exploring speculative ideas—ranging from the Fermi Paradox to futuristic human-computer symbiosis—Helix AI aims to bridge the gap between imagination and reality. We believe that without dreaming about advanced AI, society would never build it. Helix capitalizes on these visions while staying rooted in rigorous research and ethical practice.
 \n*Document last updated: 2025, June 7*

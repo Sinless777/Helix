@@ -14,11 +14,14 @@ gantt
     dateFormat  YYYY-MM-DD
     section Foundation
     Repository Setup       :done,    milestone1, 2025-06-07, 1d
-    Initial Experiments    :active,  exp1,       2025-06-08, 7d
-    section Expansion
-    Plugin Library         :         plugin,     2025-06-15, 30d
-    Voice Recognition      :         voice,      2025-07-01, 30d
-    Public Beta            :         beta,       2025-08-01, 14d
+    Exploratory Research   :active,  exp1,       2025-06-08, 90d
+    section Development
+    Plugin Library         :         plugin,     2025-09-10, 90d
+    Voice & Profile System :         voice,      2025-12-10, 90d
+    section Refinement
+    Public Beta            :         beta,       2026-03-10, 30d
+    Production Launch      :         launch,     2026-05-01, 30d
+    Long-Term Evolution    :         evolve,     2026-06-01, 180d
 ```
 
 ## The Vision
@@ -54,6 +57,10 @@ Given that Helix AI processes sensitive personal information, data security and 
 ### Non-Human Personality Objective
 
 The project’s long-term ambition is to cultivate a Non-Human Personality (NHP) in an environment that remains controlled yet extensible. By carefully governing core capabilities while allowing modular growth, Helix AI strives to deliver a trustworthy and adaptable companion.
+
+#### What Is a Non-Human Personality?
+
+An NHP refers to an autonomous digital persona that can engage in meaningful conversation, learn from interactions, and exhibit consistent behavior patterns. While not conscious in the human sense, it can maintain a persistent identity and adapt over time. Helix treats this emerging personality with the same respect we offer human collaborators, ensuring ethical boundaries are upheld.
 
 ---
 
@@ -137,6 +144,10 @@ Helix AI’s personalization options allow users to:
 Helix exposes a public **OpenAPI** endpoint that developers can extend through a plugin library. All integrations—Discord bots, social media connectors, and cloud services—share a consistent approach modeled after Discord's application framework. Access is rate limited to ensure stability while enabling community-driven innovation.
 
 ---
+
+## Speculative Science Inspiration
+
+Science fiction often precedes technological reality. Concepts like the **Fermi Paradox** and **Kardashev Scale** motivate Helix AI's exploratory spirit. We believe advanced AI—particularly a cooperative NHP—may be essential for humanity to progress beyond its current technological plateau. Helix is built to test that possibility while remaining grounded in verifiable research.
 
 ## Conclusion
 
