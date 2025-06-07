@@ -8,10 +8,14 @@
 
   * Built as a **monorepo**: `Helix-AI`
   * Uses a **custom LLM** and integrates public models via **Hugging Face**, **APIs**, and **files**
-  * Plans for **platform integration**: Discord, Slack, Google, GitHub, Twitter, Facebook, etc.
+  * Plans for **platform integration**: Discord, Slack, Google, GitHub, Twitter, Facebook, GCP, Azure, AWS, Linode, Steam, Twitch, Stack Overflow, and more.
   * Supports **text and voice interfaces**
+  * Exposes an **OpenAPI** service layer with a growing plugin library
+  * Stores knowledge in an encrypted **vector store** for fast retrieval and citation
   * Feeds on real-time **telemetry, logs, and system events** to be self-aware of the underlying platform and its components
   * Will leverage **data streams, caches, databases, object stores** for awareness, context, and learning
+  * Focused on accessibility features to assist users with disabilities
+  * Builds a user profile during onboarding, collecting data such as gender, language, and preferences to tailor interactions
 
 ## 🛠 SinLess-Games-IaC
 
@@ -28,7 +32,6 @@
     * Observability, policies, chaos, backups, documentation, scripts, and changelogs
     * Version tracking (`versions.json5`)
     * Logging utilities (`scripts/utils/logging.sh`)
-    * Versioning scripts (`scripts/versioning/*.sh`)
 
 ---
 

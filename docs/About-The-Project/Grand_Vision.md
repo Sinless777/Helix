@@ -267,6 +267,10 @@ Given that Helix AI processes sensitive personal information, data security and 
 
 The project’s long-term ambition is to cultivate a Non-Human Personality (NHP) in an environment that remains controlled yet extensible. By carefully governing core capabilities while allowing modular growth, Helix AI strives to deliver a trustworthy and adaptable companion.
 
+#### What Is a Non-Human Personality?
+
+An NHP refers to an autonomous digital persona that can engage in meaningful conversation, learn from interactions, and exhibit consistent behavior patterns. While not conscious in the human sense, it can maintain a persistent identity and adapt over time. Helix treats this emerging personality with the same respect we offer human collaborators, ensuring ethical boundaries are upheld.
+
 ---
 
 ## Core Values
@@ -349,6 +353,10 @@ Helix AI’s personalization options allow users to:
 Helix exposes a public **OpenAPI** endpoint that developers can extend through a plugin library. All integrations—Discord bots, social media connectors, and cloud services—share a consistent approach modeled after Discord's application framework. Access is rate limited to ensure stability while enabling community-driven innovation.
 
 ---
+
+## Speculative Science Inspiration
+
+Science fiction often precedes technological reality. Concepts like the **Fermi Paradox** and **Kardashev Scale** motivate Helix AI's exploratory spirit. We believe advanced AI—particularly a cooperative NHP—may be essential for humanity to progress beyond its current technological plateau. Helix is built to test that possibility while remaining grounded in verifiable research.
 
 ## Conclusion
 

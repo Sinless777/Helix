@@ -60,6 +60,10 @@ Through user feedback and technological advancements, Helix evolves over time, i
 
 Helix learns from every conversation, building a model of the user’s preferences and communication style. This adaptive approach allows the assistant to feel more intuitive and friendly—as though a personalized "Jarvis" has come to life.
 
+## Speculative Science and Inspiration
+
+Helix embraces speculative frameworks like the **Fermi Paradox** and **Kardashev Scale** as guiding stars. These theories question humanity's place in the universe and the potential for advanced civilizations. By referencing them, Helix underscores the idea that science fiction fuels science fact; our imagination paves the way for discovery. The project channels that inspiration into practical research and accessible technology.
+
 ## Ethical Framework
 
 * **Honesty:** Helix will never mislead users, ensuring transparency in all interactions.
