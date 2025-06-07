@@ -32,47 +32,111 @@
 
 ---
 
-## 🚀 DevSecOps Flow
+[![DevSecOps Pipeline - A Complete Overview | 2024](https://tse1.mm.bing.net/th/id/OIP.Qk6H8omnHl94GqmSzByHcwHaEL?pid=Api)](https://www.xenonstack.com/insights/guide-devsecops-pipeline)
+
+## DevSecOps Pipeline: Developer to Client Flow
+<!-- [MermaidChart: cacb6d48-c468-49b0-8792-864a88931b95] -->
 
 ```mermaid
-graph TD
-    %% DevSecOps Pipeline with Failure Paths and Canary Deployments
-    A[Pre-commit 🧹] -->|Pass| B[Commit & Push 📤]
-    B --> C[CI Pipeline 🔄]
-    C --> D[Staging Deployment 🎯]
-    D --> E[Production Deployment 🚀]
-    E --> F[Canary Deployment 🐤]
-    F --> G[Full Rollout 🌍]
-    G --> H[Alerts 🔔]
-    H --> I[Versioning 📦]
+---
+id: cacb6d48-c468-49b0-8792-864a88931b95
+title: "DevSecOps Pipeline: Developer to Client Flow"
+---
+%% Name of chart is "DevSecOps Pipeline: Developer to Client Flow"
+%% This chart illustrates the flow from developer commits to client-side deployment, including pre-commit checks, CI/CD processes, and canary deployments.
+
+flowchart LR
+    %% Developer Commits Code
+    A[Developer 🧑‍💻] -->|Commit & Push 📤| B[Pre-commit 🧹] 
+    %% Pre-commit checks (linting, formatting, security)
+    B -->|Pass| C[Lint-staged ⚙️]
+    %% Code passes linting, further checks
+    C -->|Pass| D[CI Pipeline 🔄]
+    %% Continuous Integration (build & test)
+    D -->|Pass| E[Staging Deployment 🎯]
+    %% Deploys to staging for further testing (load, E2E, etc.)
+    E -->|Pass| F[Canary Deployment 🐤]
+    %% Deploys to production, initially with limited users
+    F -->|Pass| G[Production Deployment 🚀]
+    %% Canary deploys to a subset of users to verify functionality
+    G -->|Success| H[Full Rollout 🌍]
+    %% Full deployment to all users if canary is successful
+    H --> I[Client-side Deployment 🌐]
+    %% Final deployment to the client-side, making the application available to all users
 
     %% Failure Paths
+    %% Any failure in the pipeline returns the process to the Developer step (A)
     B -->|Fail| A
-    C -->|Fail| B
-    D -->|Fail| C
-    E -->|Fail| D
-    F -->|Fail| E
+    C -->|Fail| A
+    D -->|Fail| A
+    E -->|Fail| A
+    F -->|Fail| A
+    G -->|Fail| A
+    H -->|Fail| A
 
-    %% Canary Deployment Logic
-    F -->|Success| G
-    F -->|Fail| E
-
-    %% Alerts and Versioning
-    H -->|Trigger| I
-    I -->|Update| B
-
-    classDef failure fill:#ffcccc,stroke:#ff0000;
-    class B,C,D,E,F failure;
+    %% Classify failure paths for clarity and process review
+    class B,C,D,E,F,G failure;
+    
+    %% Comments:
+    %% - Pre-commit checks include linting, formatting, and security scanning to ensure code quality.
+    %% - The CI pipeline involves automatic building and testing of the code to prevent breaking changes.
+    %% - Canary deployment allows the release to a small user group before full production deployment.
+    %% - Alerts and versioning are crucial for monitoring deployment success and tracking changes.
+    %% - If any stage fails, the commit is sent back to the developer (A) for fixes, ensuring quality code.
 
 ```
 
-1. **Pre-commit**: Linting, formatting, security checks, and tests
-2. **Commit & Push**: GitHub / GitLab triggers
-3. **CI**: Linting, security scanning, build tests, final build
-4. **Staging Deployment**: Deploy with load and e2e tests, canary deployments
-5. **Production Deployment**: Canary → Full rollout with automated rollback
-6. **Alerts**: Sent via Discord, Email, and SMS
-7. **Versioning**: Patch/Minor/Major bumps tracked in `versions.json5`
+## Detailed Process Breakdown
+
+### 1. Pre-commit: Linting, Formatting, Security Checks, and Tests 🧹🔒
+
+* **Purpose**: Ensures that code adheres to quality standards and is secure before being committed.
+* **Tools**: ESLint, Prettier, SonarQube, Brakeman, OWASP Dependency-Check.
+* **Failure Handling**: If any check fails, the commit is rejected, and the developer is prompted to fix the issues.
+
+### 2. Commit & Push: GitHub / GitLab Triggers 📤
+
+* **Purpose**: Developer commits and pushes code to the repository, triggering the CI pipeline.
+* **Failure Handling**: If the commit or push fails, the developer is notified to resolve the issue before proceeding.
+
+### 3. Continuous Integration (CI): Linting, Security Scanning, Build Tests 🔄
+
+* **Purpose**: Automates the integration of code changes, running tests and security scans.
+* **Tools**: Jenkins, GitLab CI, Snyk, WhiteSource, Jest, JUnit, pytest.
+* **Failure Handling**: Any failure in tests or security scans causes the pipeline to fail, and the developer is alerted to address the issue.
+
+### 4. Staging Deployment: Load Testing, E2E Tests, Canary Deployment 🎯
+
+* **Purpose**: Deploys code to a staging environment for further testing and validation.
+* **Tools**: Kubernetes, Docker, Cypress, Selenium, JMeter.
+* **Failure Handling**: If any test fails or performance thresholds are not met, the deployment is halted, and the code is returned to development.
+
+### 5. Production Deployment: Canary → Full Rollout with Automated Rollback 🚀
+
+* **Purpose**: Deploys code to production in stages, starting with a canary release.
+* **Tools**: Kubernetes, Helm, AWS CodeDeploy.
+* **Failure Handling**: If the canary deployment fails, the system automatically rolls back to the previous stable version.
+
+### 6. Alerts: Sent via Discord, Email, and SMS 🔔
+
+* **Purpose**: Notifies stakeholders of deployment status and issues.
+* **Tools**: PagerDuty, Slack, Email.
+* **Failure Handling**: If alerts fail, logs are generated for further investigation.
+
+### 7. Versioning: Patch/Minor/Major Bumps Tracked 📦
+
+* **Purpose**: Manages versioning of the application using semantic versioning.
+* **Tools**: Git tags, npm, pip, go.mod, Poetry.
+* **Failure Handling**: If versioning is incorrect, the pipeline fails, and the developer is prompted to correct the version details.
+
+## Technology Stack
+
+* **Languages**: TypeScript, Python, Rust, Lua, Go, Ruby, C++, C#.
+* **Package Management**: asdf, pnpm, Poetry, go.mod.
+* **Version Control**: GitHub, GitLab.
+* **CI/CD Tools**: Jenkins, GitLab CI, AWS CodePipeline.
+* **Deployment Tools**: Kubernetes, Docker, Helm, AWS CodeDeploy.
+* **Monitoring and Alerts**: Prometheus, Grafana, PagerDuty, Slack.
 
 ---
 
