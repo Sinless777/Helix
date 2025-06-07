@@ -1,10 +1,24 @@
+// libs/logger/tsconfig.lib.json
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
+    "outDir": "../../dist/@helix/logger",
     "declaration": true,
-    "types": ["node"]
+    "declarationMap": true,
+    "sourceMap": true,
+    "types": [
+      "node",
+      "jest"
+    ]
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "include": [
+    "src/**/*.ts",
+    "../../jest.config.base",
+    "jest.config.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "**/*.mock.ts"
+  ]
 }

@@ -1,18 +1,36 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "checkJs": false,
     "target": "ES2020",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
+    "noImplicitAny": false,
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "moduleResolution": "node",
     "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
-      "@helix/core/*": ["libs/core/src/*"],
-      "@helix/database/*": ["libs/database/src/*"],
-      "@helix/logger/*": ["libs/logger/src/*"],
-      "@helix/ui/*": ["libs/ui/src/*"],
-      "@auth/*": ["apis/auth/src/*"],
-      "@frontend/*": ["user-interfaces/frontend/src/*"]
+      "@helix/core/*": [
+        "libs/core/src/*"
+      ],
+      "@helix/database/*": [
+        "libs/database/src/*"
+      ],
+      "@helix/logger/*": [
+        "libs/logger/src/*"
+      ],
+      "@helix/ui/*": [
+        "libs/ui/src/*"
+      ],
+      "@helix/auth/*": [
+        "apis/auth/src/*"
+      ],
+      "@helix/frontend/*": [
+        "user-interfaces/frontend/src/*"
+      ]
     },
     "declaration": true,
     "declarationMap": true,
@@ -27,7 +45,10 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": false
   },
   "exclude": [
     "node_modules",
@@ -35,5 +56,8 @@
     "tmp",
     "**/*.spec.ts",
     "**/*.test.ts"
+  ],
+  "include": [
+    "./jest.config.base.ts"
   ]
 }

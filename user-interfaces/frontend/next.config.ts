@@ -21,6 +21,7 @@ const baseConfig: NextConfig = {
       },
     ],
   },
+  distDir: '../../dist/apps/frontend',
 
   webpack(config, { isServer }) {
     // Hot module replacement plugin (Next already does HMR by default in dev)

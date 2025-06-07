@@ -10,19 +10,20 @@ We’re excited that you’re interested in contributing to **Helix AI** — a f
 
 1. **Fork** the repository.
 2. **Clone** your fork:
+3. **Navigate** into the project directory:
+
    ```bash
    git clone https://github.com/your-username/helix-ai.git
    cd helix-ai
    ```
 
-````
-
-3. **Install dependencies**:
+4. **Install dependencies**:
 
    ```bash
    npm install
    ```
-4. **Create a new branch**:
+
+5. **Create a new branch**:
 
    ```bash
    git checkout -b feat/my-feature
@@ -82,22 +83,12 @@ npm run test
 
 Use this format:
 
-```
+```bash
 feat: add OAuth login for Discord
 fix: correct dashboard layout on mobile
 docs: update getting started section
-```
-
----
-
-## 🏷 Labels & Issues
-
-We use GitHub labels and `.github/labeler.yml` to automatically categorize issues and PRs.
-
-Examples:
-
-* `bug`, `enhancement`, `documentation`
 * `discord-bot/*`, `api/*`, `ux/*`, etc.
+```
 
 Refer to [`CONTRIBUTING.md`](https://github.com/SinLess-Games/Helix-AI/blob/main/.github/labeler.yaml) for conventions.
 
@@ -109,7 +100,7 @@ Contributions are accepted under the [Helix AI Custom Open License](LICENSE.md).
 
 ---
 
-## ❤️ Thank You!
+## ❤️ Thank You! For Contributing and Making Helix AI Better
 
 Your help makes Helix AI smarter, more resilient, and more human. We appreciate every suggestion, commit, and line of feedback.
 
@@ -117,5 +108,3 @@ Need help? Join us on [Discord](https://discord.gg/Za8MVstYnr).
 
 —
 **The Helix AI Team**
-
-````

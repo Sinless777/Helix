@@ -3,8 +3,9 @@
     "target": "es2017",
     "parser": {
       "syntax": "typescript",
-      "decorators": true,
-      "dynamicImport": true
+      "decorators": false,
+      "dynamicImport": true,
+      "tsx": false
     },
     "transform": {
       "decoratorMetadata": true,

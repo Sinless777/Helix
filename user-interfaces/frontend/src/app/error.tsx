@@ -15,6 +15,7 @@ export default function GlobalError({
       message="We're sorry — an unexpected error occurred."
       showRetry
       onRetry={reset}
+      error={error}
     />
   )
 }

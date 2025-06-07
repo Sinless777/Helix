@@ -5,6 +5,7 @@ export default function NotFound() {
     <ErrorPage
       title="404 - Page Not Found"
       message="The page you're looking for doesn't exist."
+      error={new Error('Page not found')}
     />
   )
 }

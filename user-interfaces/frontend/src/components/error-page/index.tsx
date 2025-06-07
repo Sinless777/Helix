@@ -9,10 +9,17 @@ interface Props {
   title: string
   message: string
   showRetry?: boolean
+  error: unknown
   onRetry?: () => void
 }
 
-export function ErrorPage({ title, message, showRetry, onRetry }: Props) {
+export function ErrorPage({
+  title,
+  message,
+  showRetry,
+  error,
+  onRetry,
+}: Props) {
   const router = useRouter()
 
   return (
@@ -46,6 +53,10 @@ export function ErrorPage({ title, message, showRetry, onRetry }: Props) {
             Try Again
           </Button>
         )}
+
+        <Typography variant="body2" sx={{ mt: 2 }}>
+          {error instanceof Error ? error.message : String(error)}
+        </Typography>
 
         <Button
           variant="outlined"

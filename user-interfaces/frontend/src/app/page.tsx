@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './page.module.scss'
-import { Header, HeaderProps } from '@/components/Header'
+import { Header } from '@/components/Header'
 import { headerProps } from '@/constants/header'
 import { Box } from '@mui/material'
 import HeroSection from '../components/Hero'

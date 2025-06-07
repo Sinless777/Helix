@@ -1,17 +1,29 @@
-// jest.config.js
-const { readFileSync } = require('fs');
-const { exclude, ...swcJestConfig } = JSON.parse(
-  readFileSync(__dirname + '/.swcrc', 'utf-8')
-);
-swcJestConfig.swcrc = swcJestConfig.swcrc ?? false;
+// libs/logger/jest.config.ts
 
-module.exports = {
-  displayName: '@helix/logger',
-  preset: '../../../jest.preset.js',
+import '@testing-library/jest-dom'
+import type { Config } from '@jest/types'
+
+const config: Config.InitialOptions = {
+  // Identify this project in multi-project runs
+  displayName: 'logger',
+
+  // Ensure Jest runs from the logger pkg root
+  rootDir: __dirname,
+
+  // Use ts-jest to compile TypeScript, pointing at your spec tsconfig
   transform: {
-    '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig],
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  testEnvironment: 'node',
-  coverageDirectory: '../../../coverage/libs/shared/logger',
-};
+
+  globals: {
+    // ⬇︎ tell ts-jest to load your tsconfig.spec.json
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+    },
+  },
+
+  // Only look for specs in this package
+  testMatch: ['<rootDir>/src/**/?(*.)+(spec|test).+(ts|tsx)'],
+}
+
+export default config
