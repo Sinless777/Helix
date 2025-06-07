@@ -25,6 +25,10 @@ if [[ -z "${GH_TOKEN:-}" ]]; then
   fi
 fi
 
+if [[ -z "${GH_TOKEN:-}" ]]; then
+  echo "Error: GH_TOKEN is not set. Please provide a GitHub token." >&2
+  exit 1
+fi
 DIR="generated-issues"
 if [[ ! -d "$DIR" || -z $(find "$DIR" -maxdepth 1 -name 'issue*.md' -type f 2>/dev/null) ]]; then
   echo "Error: Directory '$DIR' does not exist or contains no issue files." >&2
