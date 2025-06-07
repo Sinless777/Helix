@@ -89,4 +89,5 @@ The ultimate goal is for Helix AI to achieve conversational and cognitive sophis
 * Tools for users to define workflows and preferences.
 * Adaptive responses based on user behavior and feedback.
 * Extensible plugin library accessed through the OpenAPI layer, enabling community-driven enhancements.
-\n*Document last updated: 2025, June 7*
+
+*Document last updated: 2025, June 7*
