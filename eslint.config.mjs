@@ -22,7 +22,7 @@ import editorconfigPlugin from 'eslint-plugin-editorconfig'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 
 const __filename = fileURLToPath(import.meta.url)
-const __dirname  = dirname(__filename)
+const __dirname = dirname(__filename)
 
 // expose compat so children can call compat.extends(...)
 export const compat = new FlatCompat({
@@ -33,7 +33,14 @@ export const compat = new FlatCompat({
 // the shared root rules + plugin registrations
 const rootConfig = [
   // 1) ignore build output & deps everywhere
-  { ignores: ['**/dist/**', '**/coverage/**', '**/node_modules/**', '**/.next/**'] },
+  {
+    ignores: [
+      '**/dist/**',
+      '**/coverage/**',
+      '**/node_modules/**',
+      '**/.next/**',
+    ],
+  },
 
   // 2) register shared plugins
   {
@@ -73,6 +80,8 @@ const rootConfig = [
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-implicit-any': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
       'react/react-in-jsx-scope': 'off',
 
       // ensure Prettier errors surface as ESLint errors

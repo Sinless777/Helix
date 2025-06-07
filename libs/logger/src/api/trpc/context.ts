@@ -11,6 +11,11 @@ import type { RouteRule } from '../../types/RouteRule'
  * - the raw HTTP request and response,
  * - the registry of logger drivers,
  * - and the active routing rules.
+ *
+ * @param req - The incoming HTTP request object.
+ * @param res - The outgoing HTTP response object.
+ * @param drivers - Map of registered logger driver instances.
+ * @param rules - Array of active routing rules for log record dispatching.
  */
 export interface Context {
   /**

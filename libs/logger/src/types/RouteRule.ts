@@ -14,6 +14,25 @@
  * @remarks
  * Rules are evaluated in order; the first matching rule (by `pattern` and `levels`)
  * directs the log to its configured `drivers`.
+ *
+ * @param id - Unique identifier for the rule, typically a UUID.
+ * @param enabled - Whether the rule is currently active.
+ * @param description - Human-readable description of the rule's purpose.
+ * @param pattern - Glob-style pattern for matching log categories.
+ * @param levels - List of log levels to which this rule applies.
+ * @param drivers - Names of the drivers to which matching logs should be routed.
+ *
+ * @example
+ * ```typescript
+ * const rule: RouteRule = {
+ *  id: '123e4567-e89b-12d3-a456-426614174000',
+ * enabled: true,
+ * description: 'Route transaction logs to file and Elasticsearch',
+ * pattern: 'transactions.*',
+ * levels: ['error', 'warn'],
+ * drivers: ['file', 'elasticsearch'],
+ * }
+ * ```
  */
 export interface RouteRule {
   /**

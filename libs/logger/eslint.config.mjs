@@ -42,7 +42,6 @@ export default [
     },
     rules: {
       // TypeScript-specific rules
-      '@typescript-eslint/no-unused-vars': 'off',
       // EditorConfig indent rule is too strict for TS AST formatting
       'editorconfig/indent': 'off',
 
