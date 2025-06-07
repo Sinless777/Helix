@@ -12,7 +12,10 @@ This directory contains markdown files describing potential issues detected whil
 
 Use `scripts/create-github-issues.sh` with the [GitHub CLI](https://cli.github.com/) to open these files as issues:
 
+Before running the script, ensure it is executable by running:
+
 ```bash
+chmod +x scripts/create-github-issues.sh
 ./scripts/create-github-issues.sh <owner/repo>
 ```
 
