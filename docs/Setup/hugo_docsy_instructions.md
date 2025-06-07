@@ -69,4 +69,6 @@ This project uses **Hugo** with the **Docsy** theme to build and host documentat
 Docsy supports many Hugo features such as syntax highlighting, search, and taxonomy. You can further extend functionality with community plugins by updating your `config.toml` and installing any required npm packages.
 
 For detailed customization, consult the [Docsy documentation](https://www.docsy.dev/).
-\n*Document last updated: 2025, June 7*
+
+*Document last updated: 2025, June 7*
+
