@@ -12,6 +12,26 @@ Helix AI's architecture embraces a **microservice-style "hive mind"** composed o
 
 Helix uses **Open APIs** and carefully controlled web crawlers to gather information from across the internet. Data collection focuses on supporting user goals while respecting privacy and legal constraints.
 
+## Machine Learning Frameworks
+
+Helix connects to **OpenAI** for cutting-edge language models and orchestrates prompts with **LangChain**. **Ollama** supports on-device models, while **TensorFlow** powers custom training and **Matplotlib** visualizations.
+
+The reinforcement learning update rule is given by
+\[
+Q_{\text{new}} = Q_{\text{old}} + \alpha\bigl(r + \gamma \max Q_{\text{next}} - Q_{\text{old}}\bigr),
+\]
+as described by Sutton and Barto (2018).
+
+```mermaid
+graph LR
+  subgraph Models
+    A[MLP] --> B[DNN]
+    B --> C[RL Agent]
+  end
+  A -->|API| D(Helix Core)
+  C -->|feedback| D
+```
+
 ## Companion-Centric Design
 
 To avoid the classic "AI uprising" scenarios, Helix AI is designed from the start as a companion. By treating the AI as a partner rather than a servant, we foster cooperation, empathy, and accountability. Although true sentience remains far off, cultivating respectful interaction patterns today lays the groundwork for responsible AI relationships in the future.
@@ -27,4 +47,5 @@ Helix AI relies on **A/B testing**, **end-to-end testing**, **code coverage with
 ---
 
 This document offers a high-level view of Helix AI's proposed architecture and guiding principles for learning from experience.
+See [CITATIONS.md](../CITATIONS.md) for references.
 \n*Document last updated: 2025, June 7*
