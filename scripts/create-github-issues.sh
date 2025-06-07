@@ -26,6 +26,10 @@ if [[ -z "${GH_TOKEN:-}" ]]; then
 fi
 
 DIR="generated-issues"
+if [[ ! -d "$DIR" || -z $(find "$DIR" -maxdepth 1 -name 'issue*.md' -type f 2>/dev/null) ]]; then
+  echo "Error: Directory '$DIR' does not exist or contains no issue files." >&2
+  exit 1
+fi
 for file in "$DIR"/issue*.md; do
   if [[ -f "$file" ]]; then
     title=$(head -n 1 "$file" | sed 's/^# //')
