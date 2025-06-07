@@ -1,14 +1,4 @@
-Understood. I’ll begin compiling a scientifically grounded and academically formatted expansion of your reference list.
-
-This will include:
-
-* New entries under "🚀 Speculative Science and Theoretical Frameworks" related to Helix-relevant speculative physics (e.g., multiverse, Fermi paradox, simulation theory, etc.).
-* APA 7th edition citations from academic publications, science journalism (e.g., Quanta, Nature), and videos.
-* A new "⚖️ U.S. Security and Clearance Frameworks" section with proper citations.
-* YouTube videos with full APA-style entries and thematic categorization.
-
-I'll return once this comprehensive academic-style reference set is ready.
-
+# Citations
 
 ### 🔧 Software Development and Documentation
 
