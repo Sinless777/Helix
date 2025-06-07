@@ -566,4 +566,5 @@ graph TD
 This diagram captures the interaction between key observability components and how telemetry flows across the infrastructure.
 A diagram illustrates a Kubernetes cluster with a load balancer, master nodes, worker nodes, and the control plane components, showing traffic paths and system interactions.
 ![HA Kubernetes](../images/ha-kubernetes-diagram.drawio)
+Helix's long-term research draws inspiration from the **Fermi Paradox** and **Kardashev Scale**, exploring how advanced AI might help humanity reach higher technological stages.
 \n*Document last updated: 2025, June 7*

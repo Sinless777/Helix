@@ -10,6 +10,23 @@ Helix AI is envisioned as a unifying, user-centric platform designed to integrat
 
 ---
 
+## Proposed Timeline
+
+```mermaid
+gantt
+    title Helix Research Project Timeline
+    dateFormat  YYYY-MM-DD
+    section Foundation
+    Repository Setup       :done,    milestone1, 2025-06-07, 1d
+    Exploratory Research   :active,  exp1,       2025-06-08, 90d
+    section Development
+    Plugin Library         :         plugin,     2025-09-10, 90d
+    Voice & Profile System :         voice,      2025-12-10, 90d
+    section Refinement
+    Public Beta            :         beta,       2026-03-10, 30d
+    Production Launch      :         launch,     2026-05-01, 30d
+    Long-Term Evolution    :         evolve,     2026-06-01, 180d
+```
 ## The Vision
 
 ### **A Companion, Not Just an Assistant**
