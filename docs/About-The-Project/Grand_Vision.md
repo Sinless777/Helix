@@ -202,7 +202,7 @@ Helix AI prioritizes user agency, offering extensive personalization tools to ta
 * **Persona Customization:** Choose from curated archetypes (e.g., mentor, collaborator, coach, or listener) or develop a unique AI persona that evolves with ongoing use and feedback.
 * **Visual and Interaction Themes:** Select interface themes, fonts, accessibility settings, and interaction rhythms that match cognitive preferences, neurodivergent needs, or situational constraints.
 * **Privacy and Consent Protocols:** Users control data visibility, learning behaviors, and consent models. Every adaptive feature can be toggled, delayed, or audited.
-* **Parental Controls:**  Helix has a default set of of rules to prevent underaged users from accessing improper content.
+* **Parental Controls:**  Helix has a default set of rules to prevent underaged users from accessing improper content.
 
 Helix’s adaptability ensures that every user experience is not only effective, but also aligned with personal values, comfort levels, and preferences.
 
