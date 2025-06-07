@@ -1,0 +1,117 @@
+<mxfile host="65bd71144e">
+    <diagram name="Page-1" id="4M-GEQYekviF94oN4L_t">
+        <mxGraphModel dx="1949" dy="1178" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="load_balancer" value="Load Balancer" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=ing" parent="1" vertex="1">
+                    <mxGeometry x="710" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="master_node_1" value="Master Node 1" style="shape=rectangle;fillColor=#F5F5F5;strokeColor=#000000;rounded=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="150" width="400" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="api_server_1" value="API Server" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=api" parent="master_node_1" vertex="1">
+                    <mxGeometry x="20" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="scheduler_1" value="Scheduler" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=sched" parent="master_node_1" vertex="1">
+                    <mxGeometry x="120" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="controller_manager_1" value="Controller Manager" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=cm" parent="master_node_1" vertex="1">
+                    <mxGeometry x="220" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="etcd_1" value="etcd" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=etcd" parent="master_node_1" vertex="1">
+                    <mxGeometry x="320" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="master_node_3" value="Master Node 3" style="shape=rectangle;fillColor=#F5F5F5;strokeColor=#000000;rounded=1;" parent="1" vertex="1">
+                    <mxGeometry x="1090" y="160" width="400" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="api_server_3" value="API Server" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=api" parent="master_node_3" vertex="1">
+                    <mxGeometry x="20" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="scheduler_3" value="Scheduler" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=sched" parent="master_node_3" vertex="1">
+                    <mxGeometry x="120" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="controller_manager_3" value="Controller Manager" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=cm" parent="master_node_3" vertex="1">
+                    <mxGeometry x="220" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="etcd_3" value="etcd" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=etcd" parent="master_node_3" vertex="1">
+                    <mxGeometry x="320" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="worker_node_1" value="Worker Node 1" style="shape=rectangle;fillColor=#F5F5F5;strokeColor=#000000;rounded=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="500" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="worker_node_2" value="Worker Node 2" style="shape=rectangle;fillColor=#F5F5F5;strokeColor=#000000;rounded=1;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="500" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="worker_node_3" value="Worker Node 3" style="shape=rectangle;fillColor=#F5F5F5;strokeColor=#000000;rounded=1;" parent="1" vertex="1">
+                    <mxGeometry x="900" y="500" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="worker_node_4" value="Worker Node 4" style="shape=rectangle;fillColor=#F5F5F5;strokeColor=#000000;rounded=1;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="500" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="worker_node_5" value="Worker Node 5" style="shape=rectangle;fillColor=#F5F5F5;strokeColor=#000000;rounded=1;" parent="1" vertex="1">
+                    <mxGeometry x="1700" y="500" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="lb_to_master1" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;" parent="1" source="load_balancer" target="api_server_1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="lb_to_master2" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;" parent="1" source="load_balancer" target="api_server_2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="lb_to_master3" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;" parent="1" source="load_balancer" target="api_server_3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="master1_to_worker1" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;" parent="1" source="api_server_1" target="worker_node_1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="master2_to_worker2" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;" parent="1" source="api_server_2" target="worker_node_2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="master3_to_worker3" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;exitX=0.506;exitY=1.031;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="api_server_3" target="worker_node_3" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1160" y="200" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.445;exitY=0.964;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="api_server_3" target="worker_node_4">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1190" y="410" as="sourcePoint"/>
+                        <mxPoint x="1088" y="510" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="3" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.609;exitY=0.974;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="api_server_3" target="worker_node_5">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1160" y="250" as="sourcePoint"/>
+                        <mxPoint x="1098" y="520" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;exitX=0.237;exitY=0.98;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="api_server_3" target="worker_node_2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1160" y="272" as="sourcePoint"/>
+                        <mxPoint x="1090" y="510" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="" style="endArrow=block;endFill=1;strokeColor=#000000;rounded=1;exitX=0.096;exitY=0.813;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="api_server_3" target="worker_node_1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1139" y="268" as="sourcePoint"/>
+                        <mxPoint x="800" y="510" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="master_node_2" value="Master Node 2" style="shape=rectangle;fillColor=#F5F5F5;strokeColor=#000000;rounded=1;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="150" width="400" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="api_server_2" value="API Server" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=api" parent="master_node_2" vertex="1">
+                    <mxGeometry x="20" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="scheduler_2" value="Scheduler" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=sched" parent="master_node_2" vertex="1">
+                    <mxGeometry x="120" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="controller_manager_2" value="Controller Manager" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=cm" parent="master_node_2" vertex="1">
+                    <mxGeometry x="220" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="etcd_2" value="etcd" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=etcd" parent="master_node_2" vertex="1">
+                    <mxGeometry x="320" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
