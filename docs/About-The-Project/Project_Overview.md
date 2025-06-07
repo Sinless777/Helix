@@ -36,20 +36,34 @@
 
 ```mermaid
 graph TD
-    A[Pre-commit] --> B[Commit & Push]
-    B --> C[CI Pipeline]
-    C --> D[Staging Deployment]
-    D --> E[Production Deployment]
-    E --> F[Alerts]
-    F --> G[Versioning]
+    %% DevSecOps Pipeline with Failure Paths and Canary Deployments
+    A[Pre-commit 🧹] -->|Pass| B[Commit & Push 📤]
+    B --> C[CI Pipeline 🔄]
+    C --> D[Staging Deployment 🎯]
+    D --> E[Production Deployment 🚀]
+    E --> F[Canary Deployment 🐤]
+    F --> G[Full Rollout 🌍]
+    G --> H[Alerts 🔔]
+    H --> I[Versioning 📦]
 
-    subgraph "CI Pipeline"
-      C1[Linting]
-      C2[Security Scanning]
-      C3[Build Tests]
-      C4[Final Build]
-      C --> C1 --> C2 --> C3 --> C4
-    end
+    %% Failure Paths
+    B -->|Fail| A
+    C -->|Fail| B
+    D -->|Fail| C
+    E -->|Fail| D
+    F -->|Fail| E
+
+    %% Canary Deployment Logic
+    F -->|Success| G
+    F -->|Fail| E
+
+    %% Alerts and Versioning
+    H -->|Trigger| I
+    I -->|Update| B
+
+    classDef failure fill:#ffcccc,stroke:#ff0000;
+    class B,C,D,E,F failure;
+
 ```
 
 1. **Pre-commit**: Linting, formatting, security checks, and tests
@@ -206,7 +220,7 @@ Helix AI operates on a cloud-native, resilient, and scalable architecture. Below
 * **[InfluxDB Exporter](https://github.com/prometheus/influxdb-exporter)**
   Scrapes InfluxDB internal statistics (write throughput, query performance, retention stats) for TSDB monitoring.
 
-*(All exporters feed Helix’s central Prometheus for unified alerting and capacity planning.)*
+  *All exporters feed Helix’s central Prometheus for unified alerting and capacity planning.*
 
 ### ✉️ Mail & Notification
 
@@ -338,7 +352,7 @@ Helix AI enforces modern configuration and deployment methodologies to ensure co
 
 * **Security & Policy as Code**: Helix integrates both security and policy-as-code practices to enforce operational, compliance, and access controls throughout its lifecycle. Using tools like Kyverno and Open Policy Agent (OPA), security policies and compliance rules are declaratively defined and managed in version-controlled repositories. These policies enforce role-based access controls (RBAC), restrict container registries, validate resource configurations, and ensure namespace quotas are respected—automatically rejecting misconfigured resources at admission time. Integrating these rules into CI/CD pipelines ensures consistent, testable enforcement across all clusters. Secrets and certificates are centrally managed using tools like Vault (for dynamic secrets), SOPS and age (for encrypted configuration files), and GPG (for secure communications and identity verification). TLS provisioning and rotation is automated using Cert-Manager and OpenSSL. This combination forms a secure supply chain that minimizes risk exposure and maximizes compliance. This dual-pronged approach improves auditability, eliminates human error, and creates a transparent, automated security posture that adapts as infrastructure evolves.
 
-## 🥪 Cluster Environments 
+## 🥪 Cluster Environments
 
 * **Staging Cluster**: A fully-featured replica of the production environment, the staging cluster is used for rigorous validation and testing. It serves as a sandbox for:
 
@@ -443,27 +457,43 @@ By centralizing, contextualizing, and correlating telemetry across all clusters 
 
 ```mermaid
 graph TD
-    A[Edge Load Balancer] --> B[K8s Master Nodes]
-    B --> C[K8s API Server]
-    B --> D[Scheduler]
-    B --> E[Controller Manager]
-    A --> F[Worker Nodes]
-    F --> G[Helix Microservices]
-    G --> H[Sidecars & Observability Agents]
-    G --> I[Service Mesh (Istio / Cilium)]
-    G --> J[Prometheus Exporters]
-    H --> K[Log Collectors (Fluentd / Logstash)]
-    H --> L[Log Indexers (Loki / Kibana)]
-    J --> M[Prometheus - Metrics Collector]
-    M --> N[Grafana Dashboards]
-    M --> O[Alertmanager - Incident Dispatcher]
-    H --> P[Distributed Tracing (Jaeger / Tempo)]
-    G --> R[Profilers (Pyroscope)]
-    G --> S[SLO Trackers (Grafana SLO)]
-    T[Persistent Volumes & Object Stores] --> L
+    %% Observability Stack with Telemetry Flow
+    A[Edge Load Balancer 🌐] --> B[K8s Master Nodes 🧠]
+    B --> C[K8s API Server 🖥️]
+    B --> D[Scheduler 🗓️]
+    B --> E[Controller Manager 🛠️]
+    A --> F[Worker Nodes ⚙️]
+    F --> G[Helix Microservices 🤖]
+    G --> H[Sidecars & Observability Agents 🧪]
+    G --> I[Service Mesh (Istio / Cilium) 🌐]
+    G --> J[Prometheus Exporters 📊]
+    H --> K[Log Collectors (Fluentd / Logstash) 📚]
+    H --> L[Log Indexers (Loki / Kibana) 🔍]
+    J --> M[Prometheus - Metrics Collector 📈]
+    M --> N[Grafana Dashboards 📉]
+    M --> O[Alertmanager - Incident Dispatcher 🚨]
+    H --> P[Distributed Tracing (Jaeger / Tempo) 🧭]
+    G --> R[Profilers (Pyroscope) 🧬]
+    G --> S[SLO Trackers (Grafana SLO) 🎯]
+    T[Persistent Volumes & Object Stores 💾] --> L
     T --> P
     T --> M
     T --> R
+
+    %% Failure Paths
+    F -->|Fail| G
+    G -->|Fail| H
+    H -->|Fail| K
+    K -->|Fail| L
+    J -->|Fail| M
+    M -->|Fail| N
+    N -->|Fail| O
+    P -->|Fail| R
+    R -->|Fail| S
+
+    classDef failure fill:#ffcccc,stroke:#ff0000;
+    class F,G,H,K,J,M,N,O,P,R,S failure;
+
 ```
 
 This diagram captures the interaction between key observability components and how telemetry flows across the infrastructure.
