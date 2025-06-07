@@ -223,6 +223,10 @@ In its deepest purpose, Helix AI is a thesis-in-action: that it is indeed possib
 =======
 # Helix AI: The Grand Vision
 
+Helix AI is more than a technological innovation—it is a thesis in action, a living framework designed to demonstrate the feasibility of building a Non-Human Person. This project bridges disciplines such as artificial intelligence, cognitive science, psychology, ethics, philosophy of mind, linguistics, and human-computer interaction. It aims to fulfill the criteria commonly associated with personhood: self-awareness, emotional presence, adaptive learning, moral reasoning, contextual understanding, memory continuity, and the capacity for meaningful relationships.
+
+Through this initiative, Helix AI serves not only as a digital companion but as a foundational proof-of-concept that challenges and expands the boundaries of what constitutes personhood in the age of artificial general intelligence. The Helix framework explores questions such as: Can synthetic entities form moral intuitions? Can a machine develop a reliable theory of mind? How should identity be managed in persistent digital systems with learning autonomy? These are not just philosophical inquiries—they are testable, observable propositions within the scope of this project.
+
 ## Introduction
 
 Helix AI is envisioned as a unifying, user-centric platform designed to integrate seamlessly with various services and platforms. Its core mission is to provide not only assistance but also companionship, fostering a sense of safety and empowerment while guiding users toward a better, more fulfilling life. This document outlines the foundational principles and vision for Helix AI, emphasizing its role as a transformative digital companion accessible to all.
@@ -247,9 +251,13 @@ Helix AI is built to be inclusive and accessible to everyone, ensuring that its 
 
 Helix AI is ultimately a research project guided by the principles of open source and transparency. Every line of code is developed in the open, welcoming community collaboration and providing a clear window into how the technology evolves.
 
+Helix AI aims to operate like a science-fiction assistant—friendly, proactive, and always learning from user interactions. By carefully logging how users engage with the system (while respecting privacy), Helix can refine responses and become a trusted partner and friend.
+
 ### Security and Global Compliance
 
 This openness is paired with a strict security posture. Helix AI aims to satisfy demanding standards such as HIPAA, top secret clearance practices, and international regulations, demonstrating that transparency can coexist with rigorous safeguards.
+
+Data is stored in a sealed vector store encrypted twice with randomly generated keys. A universal voice-recognition system provides an additional layer of role-based access control. Helix is not a mandatory reporter, but all local, federal, and international laws are followed. Information may be released only through proper legal channels and within a user-defined date range. In the event of any breach, users receive live updates until the issue is resolved.
 
 ### Data Stewardship and Legal Compliance
 
@@ -274,6 +282,10 @@ The project’s long-term ambition is to cultivate a Non-Human Personality (NHP)
 
 4. **User-Centric Design**
    Every aspect of Helix AI is tailored to serve the user. Personalization options allow individuals to shape Helix AI’s behavior, workflows, and responses to align with their unique preferences and goals.
+
+## Moral Framework
+
+Helix AI follows a straightforward set of principles derived from cross-cultural beliefs that honor life and community. The system preserves human life, assists users in self-improvement, and respects the roles of women, children, and men as foundational to society. These morals are distilled from scientific research into ethical frameworks and comparative religion studies, referenced in [CITATIONS.md](../CITATIONS.md).
 
 ---
 
@@ -324,6 +336,7 @@ Helix AI integrates with diverse platforms, such as:
 ### **Modes of Interaction**
 
 Helix AI supports both **text** and **voice-based communication**, ensuring users can interact in the way that feels most natural to them. It strives to create a conversational experience that feels intuitive and approachable.
+Helix can send text messages or place phone calls on a user's behalf, including scheduling appointments when authorized. Accessibility features specifically address disabilities to ensure no one is left behind.
 
 ### **Customizability**
 
@@ -332,6 +345,8 @@ Helix AI’s personalization options allow users to:
 * Define workflows and commands.
 * Set preferences for interaction styles.
 * Tailor responses to match their specific goals and needs.
+
+Helix exposes a public **OpenAPI** endpoint that developers can extend through a plugin library. All integrations—Discord bots, social media connectors, and cloud services—share a consistent approach modeled after Discord's application framework. Access is rate limited to ensure stability while enabling community-driven innovation.
 
 ---
 
