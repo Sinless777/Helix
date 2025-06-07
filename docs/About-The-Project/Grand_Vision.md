@@ -28,6 +28,10 @@ Helix AI is ultimately a research project guided by the principles of open sourc
 
 This openness is paired with a strict security posture. Helix AI aims to satisfy demanding standards such as HIPAA, top secret clearance practices, and international regulations, demonstrating that transparency can coexist with rigorous safeguards.
 
+### Data Stewardship and Legal Compliance
+
+Given that Helix AI processes sensitive personal information, data security and ownership are paramount. All user data is encrypted both at rest and in transit, preserving confidentiality and integrity. The data remains the property of the user and may only be released with explicit authorization from the user or under a lawful warrant. Helix AI, as both an emerging Non-Human Personality and a company, operates within the bounds of local, federal, and international law, aligning its security practices with recognized industry standards.
+
 ### Non-Human Personality Objective
 
 The project’s long-term ambition is to cultivate a Non-Human Personality (NHP) in an environment that remains controlled yet extensible. By carefully governing core capabilities while allowing modular growth, Helix AI strives to deliver a trustworthy and adaptable companion.
