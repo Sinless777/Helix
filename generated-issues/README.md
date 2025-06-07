@@ -20,4 +20,5 @@ chmod +x scripts/create-github-issues.sh
 ```
 
 Authentication via `gh auth login` or a token provided in `GITHUB_TOKEN`, `GH_TOKEN`, `GITHUB_PAT`,
+Authentication via `gh auth login` or a token provided in `GITHUB_TOKEN`, `GH_TOKEN`, `GITHUB_PAT`,
 or `GITHUB_PAT_GITHUB_COM` is required.
