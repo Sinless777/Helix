@@ -1,6 +1,6 @@
 # Helix AI Open Source License
 
-Copyright (c) 2020–Present SinLess Games LLC
+Copyright (c) 2016–Present SinLess Games LLC
 
 Permission is hereby granted, free of charge, to any individual or organization obtaining a copy of this software and associated documentation files (the "Software"), to use, copy, modify, merge, and run the Software **solely for personal, non-commercial, academic, or research purposes**, subject to the following conditions:
 
