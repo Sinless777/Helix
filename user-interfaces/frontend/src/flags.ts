@@ -1,18 +1,32 @@
-// flags.ts
-import { statsigAdapter, type StatsigUser } from '@flags-sdk/statsig'
-import { flag, dedupe } from 'flags/next'
-import type { Identify } from 'flags'
+import { Identify } from "flags";
+import { dedupe, flag } from "flags/next";
+import { createHypertuneAdapter } from "@flags-sdk/hypertune";
+import {
+  createSource,
+  flagFallbacks,
+  vercelFlagDefinitions as flagDefinitions,
+  Context,
+  RootFlagValues,
+} from "../generated/hypertune";
 
-export const identify = dedupe((async () => ({
-  // implement the identify() function to add any additional user properties you'd like, see docs.statsig.com/concepts/user
-  userID: '1234', //for example, set userID
-})) satisfies Identify<StatsigUser>)
+const identify: Identify<Context> = dedupe(
+  async ({ headers, cookies }) => {
+    return {
+      environment: process.env.NODE_ENV,
+      user: { id: "1", name: "Test User", email: "hi@test.com" },
+    };
+  },
+);
 
-export const createFeatureGate = (key: string) =>
-  flag<boolean, StatsigUser>({
-    key,
-    adapter: statsigAdapter.featureGate((gate) => gate.value, {
-      exposureLogging: true,
-    }),
-    identify,
-  })
+const hypertuneAdapter = createHypertuneAdapter<
+  RootFlagValues,
+  Context
+>({
+  createSource,
+  flagFallbacks,
+  flagDefinitions,
+  identify,
+});
+
+export const AuthenticationFlag = flag( hypertuneAdapter.declarations.authenticationSystem);
+export const DiscordBotFlag = flag( hypertuneAdapter.declarations.discordBot);
