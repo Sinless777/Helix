@@ -8,95 +8,95 @@
  */
 export enum Sexuality {
   /** Experience romantic attraction to all genders */
-  Alloromantic = 'Alloromantic',
+  Alloromantic = "Alloromantic",
 
   /** Experience sexual attraction to all genders */
-  Allosexual = 'Allosexual',
+  Allosexual = "Allosexual",
 
   /** Attracted to masculine traits */
-  Androsexual = 'Androsexual',
+  Androsexual = "Androsexual",
 
   /** Experience romantic attraction without sexual desire */
-  Aromantic = 'Aromantic',
+  Aromantic = "Aromantic",
 
   /** Experience little or no sexual attraction */
-  Asexual = 'Asexual',
+  Asexual = "Asexual",
 
   /** Experience romantic attraction only after emotional connection */
-  Autoromantic = 'Autoromantic',
+  Autoromantic = "Autoromantic",
 
   /** Experience sexual attraction only after emotional connection */
-  Autosexual = 'Autosexual',
+  Autosexual = "Autosexual",
 
   /** Curious about bisexual experiences */
-  Bicurious = 'Bicurious',
+  Bicurious = "Bicurious",
 
   /** Experience romantic attraction to two or more genders */
-  Biromantic = 'Biromantic',
+  Biromantic = "Biromantic",
 
   /** Experience sexual attraction to two or more genders */
-  Bisexual = 'Bisexual',
+  Bisexual = "Bisexual",
 
   /** Limited romantic attraction */
-  Demiromantic = 'Demiromantic',
+  Demiromantic = "Demiromantic",
 
   /** Limited sexual attraction */
-  Demisexual = 'Demisexual',
+  Demisexual = "Demisexual",
 
   /** Experience attraction to same gender(s) */
-  Gay = 'Gay',
+  Gay = "Gay",
 
   /** Experience attraction to female traits */
-  Gynesexual = 'Gynesexual',
+  Gynesexual = "Gynesexual",
 
   /** Experience romantic attraction to a gender different from own */
-  Heteroromantic = 'Heteroromantic',
+  Heteroromantic = "Heteroromantic",
 
   /** Experience sexual attraction to a gender different from own */
-  Heterosexual = 'Heterosexual',
+  Heterosexual = "Heterosexual",
 
   /** Experience romantic attraction to one’s own gender */
-  Homoromantic = 'Homoromantic',
+  Homoromantic = "Homoromantic",
 
   /** Experience sexual attraction to one’s own gender */
-  Homosexual = 'Homosexual',
+  Homosexual = "Homosexual",
 
   /** Women attracted to women */
-  Lesbian = 'Lesbian',
+  Lesbian = "Lesbian",
 
   /** Experience attraction to only one gender */
-  Monosexual = 'Monosexual',
+  Monosexual = "Monosexual",
 
   /** Experience attraction to multiple genders */
-  Multisexual = 'Multisexual',
+  Multisexual = "Multisexual",
 
   /** Experience attraction regardless of gender */
-  Pansexual = 'Pansexual',
+  Pansexual = "Pansexual",
 
   /** Experience romantic attraction regardless of gender */
-  Panromantic = 'Panromantic',
+  Panromantic = "Panromantic",
 
   /** Experience attraction to many, but not all, genders */
-  Polysexual = 'Polysexual',
+  Polysexual = "Polysexual",
 
   /** Umbrella term for non-normative orientations */
-  Queer = 'Queer',
+  Queer = "Queer",
 
   /** Experience sexual attraction to intelligence */
-  Sapiosexual = 'Sapiosexual',
+  Sapiosexual = "Sapiosexual",
 
   /** Sexuality that shifts over time */
-  Sexualfluidity = 'Sexualfluidity',
+  Sexualfluidity = "Sexualfluidity",
 
   /** Experience attraction to non-binary or genderqueer people */
-  Skoliosexual = 'Skoliosexual',
+  Skoliosexual = "Skoliosexual",
 
   /** Common term for heterosexual */
-  Straight = 'Straight',
+  Straight = "Straight",
 
   /** Spectrum of sexual diversity */
-  Spectrasexual = 'Spectrasexual',
+  Spectrasexual = "Spectrasexual",
 
   /** User prefers not to specify */
-  PreferNotToSay = 'PreferNotToSay',
+  PreferNotToSay = "PreferNotToSay",
 }

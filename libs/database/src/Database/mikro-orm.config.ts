@@ -1,7 +1,7 @@
-import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
-import { Options, MikroORM } from '@mikro-orm/core'
-import { entities } from './entities'
-import { S3Client, S3ClientConfig } from '@aws-sdk/client-s3'
+import { TsMorphMetadataProvider } from "@mikro-orm/reflection";
+import { Options, MikroORM } from "@mikro-orm/core";
+import { entities } from "./entities";
+import { S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
 
 /**
  * MikroORM configuration options for CockroachDB.
@@ -26,15 +26,15 @@ export const mikroOrmConfig: Options = {
   },
   driverOptions: {
     connection: {
-      host: process.env.COCKROACHDB_HOST || 'localhost',
+      host: process.env.COCKROACHDB_HOST || "localhost",
       port: Number(process.env.COCKROACHDB_PORT) || 26257,
-      user: process.env.COCKROACHDB_USER || 'helix',
-      password: process.env.COCKROACHDB_PASSWORD || 'helix',
-      database: process.env.COCKROACHDB_NAME || 'helix',
+      user: process.env.COCKROACHDB_USER || "helix",
+      password: process.env.COCKROACHDB_PASSWORD || "helix",
+      database: process.env.COCKROACHDB_NAME || "helix",
       ssl: { rejectUnauthorized: false },
     },
   },
-}
+};
 
 /**
  * AWS S3 client configuration object.
@@ -48,19 +48,19 @@ export const mikroOrmConfig: Options = {
  * `forcePathStyle` is enabled when a custom endpoint is provided.
  */
 export const s3Config: S3ClientConfig = {
-  region: process.env.AWS_REGION || 'us-east-1',
+  region: process.env.AWS_REGION || "us-east-1",
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
   },
   endpoint: process.env.S3_ENDPOINT,
   forcePathStyle: Boolean(process.env.S3_ENDPOINT),
-}
+};
 
 /**
  * Preconfigured S3 client for AWS or S3-compatible object stores.
  */
-export const s3Client = new S3Client(s3Config)
+export const s3Client = new S3Client(s3Config);
 
 /**
  * Cloudflare R2 client configuration (S3-compatible).
@@ -76,18 +76,18 @@ export const r2Config: S3ClientConfig = {
   endpoint:
     process.env.CF_R2_ENDPOINT ||
     `https://${process.env.CF_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  region: process.env.CF_R2_REGION || 'auto',
+  region: process.env.CF_R2_REGION || "auto",
   credentials: {
-    accessKeyId: process.env.CF_R2_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.CF_R2_SECRET_ACCESS_KEY || '',
+    accessKeyId: process.env.CF_R2_ACCESS_KEY_ID || "",
+    secretAccessKey: process.env.CF_R2_SECRET_ACCESS_KEY || "",
   },
   forcePathStyle: true,
-}
+};
 
 /**
  * Preconfigured S3 client specifically targeting Cloudflare R2.
  */
-export const r2Client = new S3Client(r2Config)
+export const r2Client = new S3Client(r2Config);
 
 /**
  * Initialized MikroORM instance. Use this to bootstrap your application.
@@ -102,7 +102,7 @@ export const r2Client = new S3Client(r2Config)
  * }
  * ```
  */
-export const orm = MikroORM.init(mikroOrmConfig)
+export const orm = MikroORM.init(mikroOrmConfig);
 
 /**
  * Promise resolving to the MikroORM EntityManager.
@@ -112,4 +112,4 @@ export const orm = MikroORM.init(mikroOrmConfig)
  * const em = await entityManager;
  * ```
  */
-export const entityManager = orm.then((instance) => instance.em)
+export const entityManager = orm.then((instance) => instance.em);

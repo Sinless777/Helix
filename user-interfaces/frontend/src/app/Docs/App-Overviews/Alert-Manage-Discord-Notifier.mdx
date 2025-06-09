@@ -1,13 +1,18 @@
 # Alert Manager Discord Notifier Overview
 
 <!-- Logo Section -->
+
 <div style="text-align: center;">
-  <img src="../Images/Alert-Manager-Discord-Nodifier.png" alt="Alert Manager Discord Notifier Logo" style="width:300px; height:auto;" />
+  <img
+    src="../Images/Alert-Manager-Discord-Nodifier.png"
+    alt="Alert Manager Discord Notifier Logo"
+    style="width:300px; height:auto;"
+  />
 </div>
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +21,16 @@
 1. [Introduction](#introduction)
 2. [What is Alert Manager Discord Notifier?](#what-is-alert-manager-discord-notifier)
 3. [How Alert Manager Discord Notifier is Used in the Architecture](#how-alert-manager-discord-notifier-is-used-in-the-architecture)
-    - [Enhancing Alert Visibility](#enhancing-alert-visibility)
-    - [Integration with Existing Alert Workflows](#integration-with-existing-alert-workflows)
+   - [Enhancing Alert Visibility](#enhancing-alert-visibility)
+   - [Integration with Existing Alert Workflows](#integration-with-existing-alert-workflows)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration Examples](#configuration-examples)
-    - [Connecting with Alert Manager](#connecting-with-alert-manager)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration Examples](#configuration-examples)
+   - [Connecting with Alert Manager](#connecting-with-alert-manager)
 5. [Advanced Topics](#advanced-topics)
-    - [Custom Message Formatting](#custom-message-formatting)
-    - [Security and Access Control](#security-and-access-control)
-    - [Scalability Considerations](#scalability-considerations)
+   - [Custom Message Formatting](#custom-message-formatting)
+   - [Security and Access Control](#security-and-access-control)
+   - [Scalability Considerations](#scalability-considerations)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -91,10 +96,12 @@ Successfully integrating the Alert Manager Discord Notifier into your observabil
 ### Installation and Setup
 
 1. **Prerequisites:**
+
    - Ensure you have an active Discord server and the necessary permissions to create webhooks.
    - Confirm that Alert Manager is set up and operational within your monitoring environment.
 
 2. **Creating a Discord Webhook:**
+
    - In your Discord server, navigate to the channel where alerts should be posted.
    - Go to Channel Settings > Integrations > Webhooks and create a new webhook. Note the webhook URL, as it will be required for configuration.
 
@@ -111,18 +118,18 @@ global:
   resolve_timeout: 5m
 
 route:
-  group_by: ['alertname']
+  group_by: ["alertname"]
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 1h
-  receiver: 'discord-notifier'
+  receiver: "discord-notifier"
 
 receivers:
-  - name: 'discord-notifier'
+  - name: "discord-notifier"
     discord_configs:
-      - api_url: 'YOUR_DISCORD_WEBHOOK_URL'
-        username: 'AlertBot'
-        icon_url: 'https://example.com/alertbot-icon.png'
+      - api_url: "YOUR_DISCORD_WEBHOOK_URL"
+        username: "AlertBot"
+        icon_url: "https://example.com/alertbot-icon.png"
         message: |
           **Alert:** {{ .CommonLabels.alertname }}
           **Severity:** {{ .CommonLabels.severity }}
@@ -171,7 +178,11 @@ For more detailed information and updates, refer to the following resources:
 - **Tutorials and Webinars:** Look for online tutorials that detail integrating Alert Manager with Discord.
 
 <p style="text-align: center;">
-  For more resources, visit our <a href="https://docs.sinlessgames.com" target="_blank">SinLess Games Documentation Portal</a>.
+  For more resources, visit our{" "}
+  <a href="https://docs.sinlessgames.com" target="_blank">
+    SinLess Games Documentation Portal
+  </a>
+  .
 </p>
 
 ---
@@ -219,18 +230,18 @@ global:
   resolve_timeout: 5m
 
 route:
-  group_by: ['alertname']
+  group_by: ["alertname"]
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 1h
-  receiver: 'discord-notifier'
+  receiver: "discord-notifier"
 
 receivers:
-  - name: 'discord-notifier'
+  - name: "discord-notifier"
     discord_configs:
-      - api_url: 'YOUR_DISCORD_WEBHOOK_URL'
-        username: 'AlertBot'
-        icon_url: 'https://example.com/alertbot-icon.png'
+      - api_url: "YOUR_DISCORD_WEBHOOK_URL"
+        username: "AlertBot"
+        icon_url: "https://example.com/alertbot-icon.png"
         message: |
           **Alert:** {{ .CommonLabels.alertname }}
           **Severity:** {{ .CommonLabels.severity }}

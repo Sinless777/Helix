@@ -1,13 +1,18 @@
 # Grafana Agent Overview
 
 <!-- Logo Section -->
+
 <div style="text-align: center;">
-  <img src="https://observe.cyso.com/docs/img/logos/grafana-agent.png" alt="Grafana Agent Logo" style="width:300px; height:auto;" />
+  <img
+    src="https://observe.cyso.com/docs/img/logos/grafana-agent.png"
+    alt="Grafana Agent Logo"
+    style="width:300px; height:auto;"
+  />
 </div>
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +21,16 @@
 1. [Introduction](#introduction)
 2. [What is Grafana Agent?](#what-is-grafana-agent)
 3. [How Grafana Agent is Used in the Architecture](#how-grafana-agent-is-used-in-the-architecture)
-    - [Lightweight Metrics Collection](#lightweight-metrics-collection)
-    - [Integration with Grafana Ecosystem](#integration-with-grafana-ecosystem)
+   - [Lightweight Metrics Collection](#lightweight-metrics-collection)
+   - [Integration with Grafana Ecosystem](#integration-with-grafana-ecosystem)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration and Customization](#configuration-and-customization)
-    - [Data Collection and Forwarding](#data-collection-and-forwarding)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration and Customization](#configuration-and-customization)
+   - [Data Collection and Forwarding](#data-collection-and-forwarding)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
-    - [Security and Access Control](#security-and-access-control)
-    - [Extending Functionality](#extending-functionality)
+   - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
+   - [Security and Access Control](#security-and-access-control)
+   - [Extending Functionality](#extending-functionality)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -86,6 +91,7 @@ Integrating Grafana Agent into your observability architecture involves a series
 ### Installation and Setup
 
 1. **Deployment Options:**
+
    - **Docker:** Run Grafana Agent in a containerized environment.
 
      ```bash
@@ -102,6 +108,7 @@ Integrating Grafana Agent into your observability architecture involves a series
 ### Configuration and Customization
 
 1. **Configuration File:**
+
    - Grafana Agent is configured using a YAML file (commonly named `agent.yaml`). This file includes settings for metrics scraping, log collection, and trace forwarding.
    - Example configuration snippet:
 
@@ -114,9 +121,9 @@ Integrating Grafana Agent into your observability architecture involves a series
        global:
          scrape_interval: 15s
        configs:
-         - job_name: 'node'
+         - job_name: "node"
            static_configs:
-             - targets: ['localhost:9100']
+             - targets: ["localhost:9100"]
 
      logs:
        configs:
@@ -127,13 +134,14 @@ Integrating Grafana Agent into your observability architecture involves a series
            scrape_configs:
              - job_name: varlogs
                static_configs:
-                 - targets: ['localhost']
+                 - targets: ["localhost"]
                    labels:
                      job: varlogs
                      __path__: /var/log/*.log
      ```
 
 2. **Customizing Data Collection:**
+
    - Adjust scrape intervals, retention policies, and resource limits according to your environment’s requirements.
    - Modify log collection paths and labels to ensure that logs are correctly tagged and forwarded.
 
@@ -181,7 +189,11 @@ For more detailed information, refer to the following resources:
 - **Tutorials and Webinars:** Access online courses and webinars that provide step-by-step guidance on deploying and optimizing Grafana Agent.
 
 <p style="text-align: center;">
-  For more resources, visit our <a href="https://docs.sinlessgames.com" target="_blank">SinLess Games Documentation Portal</a>.
+  For more resources, visit our{" "}
+  <a href="https://docs.sinlessgames.com" target="_blank">
+    SinLess Games Documentation Portal
+  </a>
+  .
 </p>
 
 ---
@@ -233,9 +245,9 @@ prometheus:
   global:
     scrape_interval: 15s
   configs:
-    - job_name: 'node'
+    - job_name: "node"
       static_configs:
-        - targets: ['localhost:9100']
+        - targets: ["localhost:9100"]
 
 logs:
   configs:
@@ -246,7 +258,7 @@ logs:
       scrape_configs:
         - job_name: varlogs
           static_configs:
-            - targets: ['localhost']
+            - targets: ["localhost"]
               labels:
                 job: varlogs
                 __path__: /var/log/*.log
@@ -262,4 +274,4 @@ logs:
 
 ---
 
-*Document End*
+_Document End_

@@ -1,14 +1,14 @@
 // src/components/ErrorBoundary.tsx
-'use client'
+"use client";
 
-import React from 'react'
-import { Header } from '@/components/Header'
-import { headerProps } from '@/constants/header'
-import { Box, Typography, Button } from '@mui/material'
+import React from "react";
+import { Header } from "@/components/Header";
+import { headerProps } from "@/constants/header";
+import { Box, Typography, Button } from "@mui/material";
 
 interface ErrorBoundaryState {
-  hasError: boolean
-  error: Error | null
+  hasError: boolean;
+  error: Error | null;
 }
 
 export class ErrorBoundary extends React.Component<
@@ -16,37 +16,37 @@ export class ErrorBoundary extends React.Component<
   ErrorBoundaryState
 > {
   constructor(props: React.PropsWithChildren<object>) {
-    super(props)
-    this.state = { hasError: false, error: null }
+    super(props);
+    this.state = { hasError: false, error: null };
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error }
+    return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo)
+    console.error("Uncaught error:", error, errorInfo);
   }
 
   handleReset = () => {
-    this.setState({ hasError: false, error: null })
-  }
+    this.setState({ hasError: false, error: null });
+  };
 
   render() {
     if (this.state.hasError) {
       return (
         <Box
-          sx={{ minHeight: '100vh', backgroundColor: '#121212', color: '#fff' }}
+          sx={{ minHeight: "100vh", backgroundColor: "#121212", color: "#fff" }}
         >
           <Header {...headerProps} />
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 'calc(100vh - 64px)',
-              textAlign: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "calc(100vh - 64px)",
+              textAlign: "center",
               px: 2,
             }}
           >
@@ -74,9 +74,9 @@ export class ErrorBoundary extends React.Component<
             </Button>
           </Box>
         </Box>
-      )
+      );
     }
 
-    return this.props.children
+    return this.props.children;
   }
 }

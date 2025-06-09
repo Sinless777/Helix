@@ -1,10 +1,10 @@
 // frontend/tailwind.config.js
 module.exports = {
   content: [
-    './src/**/*.{js,jsx,ts,tsx}', // all your pages + components
-    './public/**/*.html', // if you have any static HTML
+    "./src/**/*.{js,jsx,ts,tsx}", // all your pages + components
+    "./public/**/*.html", // if you have any static HTML
   ],
-  darkMode: 'class',
+  darkMode: "class",
   important: true,
   corePlugins: {
     preflight: false,
@@ -13,4 +13,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};

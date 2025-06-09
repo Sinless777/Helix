@@ -1,12 +1,12 @@
-export * from './discord'
-export * from './user'
-export * from './site'
-export * from './system'
+export * from "./discord";
+export * from "./user";
+export * from "./site";
+export * from "./system";
 
-import * as discord from './discord'
-import * as user from './user'
-import * as site from './site'
-import * as system from './system'
+import * as discord from "./discord";
+import * as user from "./user";
+import * as site from "./site";
+import * as system from "./system";
 
 export const entities = [
   /**
@@ -38,4 +38,4 @@ export const entities = [
   discord.DiscordWeeklyStatistics,
   discord.DiscordMonthlyStatistics,
   discord.DiscordYearlyStatistics,
-]
+];

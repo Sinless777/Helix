@@ -3,12 +3,12 @@ packages:
   - apis/*
   - libs/*
 onlyBuiltDependencies:
-  - '@nestjs/core'
-  - '@parcel/watcher'
-  - '@scarf/scarf'
-  - '@swc/core'
-  - '@tailwindcss/oxide'
-  - '@vercel/speed-insights'
+  - "@nestjs/core"
+  - "@parcel/watcher"
+  - "@scarf/scarf"
+  - "@swc/core"
+  - "@tailwindcss/oxide"
+  - "@vercel/speed-insights"
   - bcrypt
   - core-js
   - cypress

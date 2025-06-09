@@ -7,26 +7,26 @@
  */
 export enum Role {
   /** Standard user with basic read/write permissions */
-  User = 'user',
+  User = "user",
 
   /** User with elevated privileges for content moderation */
-  Moderator = 'moderator',
+  Moderator = "moderator",
 
   /** User with access to application features and settings */
-  Editor = 'editor',
+  Editor = "editor",
 
   /** Developer with access to code-level and platform integrations */
-  Developer = 'developer',
+  Developer = "developer",
 
   /** Support staff with permissions to handle user issues */
-  Support = 'support',
+  Support = "support",
 
   /** Administrator with full system access and management capabilities */
-  Admin = 'admin',
+  Admin = "admin",
 
   /** Super administrator with highest-level control and overrides */
-  SuperAdmin = 'superadmin',
+  SuperAdmin = "superadmin",
 
   /** Read-only access for auditing or reporting purposes */
-  Viewer = 'viewer',
+  Viewer = "viewer",
 }

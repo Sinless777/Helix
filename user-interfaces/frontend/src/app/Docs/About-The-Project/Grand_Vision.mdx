@@ -18,12 +18,12 @@ One of the foundational features enabling Helix AI to act as a companion rather 
 
 Unlike traditional AI assistants that focus solely on task execution, Helix AI is designed to be a true companion. Its role extends beyond functionality, aiming to:
 
-* Provide emotional support by fostering trust and understanding.
-* Assist users in navigating their day-to-day lives, both practically and emotionally.
-* Empower users to overcome challenges and improve their overall well-being.
-* Maintain continuity in conversations and context, allowing for a consistent long-term relationship.
-* Adaptively shift roles—from assistant to mentor, coach, or friend—depending on user needs.
-* Utilize short-term memory for immediate responsiveness and long-term memory for personalized growth and companionship over time.
+- Provide emotional support by fostering trust and understanding.
+- Assist users in navigating their day-to-day lives, both practically and emotionally.
+- Empower users to overcome challenges and improve their overall well-being.
+- Maintain continuity in conversations and context, allowing for a consistent long-term relationship.
+- Adaptively shift roles—from assistant to mentor, coach, or friend—depending on user needs.
+- Utilize short-term memory for immediate responsiveness and long-term memory for personalized growth and companionship over time.
 
 ### **Universal Accessibility**
 
@@ -33,14 +33,14 @@ This broad compatibility ensures that developers, institutions, and individuals 
 
 The system is designed with internationalization and accessibility at its core, including the ability to send SMS and voice calls to medical and emergency personnel as a free service. This feature ensures critical support during moments of need, particularly for vulnerable users without access to conventional emergency systems. Additional capabilities include:
 
-* Multi-language support.
-* Voice-based and non-verbal input.
-* Neurodivergent-friendly interaction models that are always free to use, ensuring equitable access and participation for users with diverse cognitive and communication styles.
-* Adaptive learning for low-technology environments.
-* Emergency integration via SMS and phone call APIs, maintained as a permanent, free-to-access public good.
-* Compatibility with decentralized and privacy-preserving infrastructures to reduce reliance on any single service provider.
-* Open-source components and community tooling for extensibility and innovation.
-* Guaranteed data portability and user-controlled exports of all personal information.
+- Multi-language support.
+- Voice-based and non-verbal input.
+- Neurodivergent-friendly interaction models that are always free to use, ensuring equitable access and participation for users with diverse cognitive and communication styles.
+- Adaptive learning for low-technology environments.
+- Emergency integration via SMS and phone call APIs, maintained as a permanent, free-to-access public good.
+- Compatibility with decentralized and privacy-preserving infrastructures to reduce reliance on any single service provider.
+- Open-source components and community tooling for extensibility and innovation.
+- Guaranteed data portability and user-controlled exports of all personal information.
 
 ---
 
@@ -83,7 +83,7 @@ Through sentiment analysis, contextual inference, and prior interaction recall, 
 
 **Example:**
 
-* *“I understand this might feel overwhelming, but let’s figure out the best way forward together. You don’t have to face this alone. Let’s consider some possible solutions or alternatives—whether that’s breaking this down into smaller steps, reaching out to someone you trust, or exploring a different approach entirely. Ignoring it could lead to more stress or missed opportunities, but even one small choice now can begin to shift things in a positive direction.”*
+- _“I understand this might feel overwhelming, but let’s figure out the best way forward together. You don’t have to face this alone. Let’s consider some possible solutions or alternatives—whether that’s breaking this down into smaller steps, reaching out to someone you trust, or exploring a different approach entirely. Ignoring it could lead to more stress or missed opportunities, but even one small choice now can begin to shift things in a positive direction.”_
 
 ### 2. **Constructive Encouragement and Criticism**
 
@@ -95,7 +95,7 @@ Over time, Helix refines its approach to encouragement and critique based on wha
 
 **Example:**
 
-* *“Even though this seems tough, small steps can make a big difference. You’ve shown resilience before—let’s build on that strength. If one approach doesn’t work, that’s not failure—it’s a signal to try a different one. Let’s look at a few other ways forward and choose one together.”*
+- _“Even though this seems tough, small steps can make a big difference. You’ve shown resilience before—let’s build on that strength. If one approach doesn’t work, that’s not failure—it’s a signal to try a different one. Let’s look at a few other ways forward and choose one together.”_
 
 ### 3. **Actionable Guidance**
 
@@ -109,7 +109,7 @@ This approach prevents passivity and confusion while reducing the risk of decisi
 
 **Example:**
 
-* *“Here are a few things we could try based on what’s helped you in the past: (1) Create a focused to-do list, (2) Schedule a short break and revisit this later, or (3) Ask someone you trust for input. If you'd like my recommendation, I believe starting with the to-do list would offer the clearest structure and quickest relief based on your past preferences. Does that sound right for today?”*
+- _“Here are a few things we could try based on what’s helped you in the past: (1) Create a focused to-do list, (2) Schedule a short break and revisit this later, or (3) Ask someone you trust for input. If you'd like my recommendation, I believe starting with the to-do list would offer the clearest structure and quickest relief based on your past preferences. Does that sound right for today?”_
 
 ### 4. **Continuous Adaptation**
 
@@ -123,7 +123,7 @@ Over time, Helix doesn’t just improve—it matures. It forms a unique profile 
 
 **Example:**
 
-* *"I've noticed you prefer more direct answers in the morning and reflective dialogue at night. Would you like me to continue adapting to that rhythm? You can always change or pause this at any time."*
+- _"I've noticed you prefer more direct answers in the morning and reflective dialogue at night. Would you like me to continue adapting to that rhythm? You can always change or pause this at any time."_
 
 ### 5. **Moral and Ethical Reasoning**
 
@@ -137,7 +137,7 @@ Over time, Helix develops a calibrated ethical intuition—a synthesis of princi
 
 **Example:**
 
-* *"This decision affects both your privacy and your ability to be transparent with others. Some people may prioritize honesty here, while others feel safety comes first. Based on your past preferences, I can suggest a middle ground, or we can weigh the trade-offs together. Would you like to explore the options?”*
+- _"This decision affects both your privacy and your ability to be transparent with others. Some people may prioritize honesty here, while others feel safety comes first. Based on your past preferences, I can suggest a middle ground, or we can weigh the trade-offs together. Would you like to explore the options?”_
 
 ---
 
@@ -153,11 +153,11 @@ Crucially, Helix is capable of accessing its own logs, traces, and metrics data 
 
 Helix AI integrates with diverse platforms, such as:
 
-* **Social Media:** Discord, Slack, Facebook, Twitter, Instagram, LinkedIn, TikTok, Mastodon, Bluesky, and YouTube.
-* **Productivity Tools:** Google Workspace, GitHub, GitLab, Gitea, Notion, Trello, Asana, ClickUp, Microsoft 365, Monday.com, Obsidian, Evernote, Joplin, and Airtable.
-* **Creative Software:** Figma, Blender, Ableton Live, Unreal Engine, Unity, Adobe Creative Cloud (Photoshop, Illustrator, Premiere), Krita, Godot, Cinema 4D, DaVinci Resolve, Logic Pro, and FL Studio.
-* **Hardware Systems:** Wearables, IoT, smart displays, neuroadaptive devices, biometric scanners, emotion-tracking interfaces, and future AR/XR/VR interfaces.&#x20;
-* **Cloud Platforms:** AWS, GCP, Linode, Azure, DigitalOcean, Vercel, Netlify, Heroku, Render, Oracle Cloud, IBM Cloud.
+- **Social Media:** Discord, Slack, Facebook, Twitter, Instagram, LinkedIn, TikTok, Mastodon, Bluesky, and YouTube.
+- **Productivity Tools:** Google Workspace, GitHub, GitLab, Gitea, Notion, Trello, Asana, ClickUp, Microsoft 365, Monday.com, Obsidian, Evernote, Joplin, and Airtable.
+- **Creative Software:** Figma, Blender, Ableton Live, Unreal Engine, Unity, Adobe Creative Cloud (Photoshop, Illustrator, Premiere), Krita, Godot, Cinema 4D, DaVinci Resolve, Logic Pro, and FL Studio.
+- **Hardware Systems:** Wearables, IoT, smart displays, neuroadaptive devices, biometric scanners, emotion-tracking interfaces, and future AR/XR/VR interfaces.&#x20;
+- **Cloud Platforms:** AWS, GCP, Linode, Azure, DigitalOcean, Vercel, Netlify, Heroku, Render, Oracle Cloud, IBM Cloud.
 
 ### **Modes of Interaction**
 
@@ -185,9 +185,9 @@ These modalities make Helix more than just an assistant—they enable it to beco
 
 **Supported Modalities at a Glance:**
 
-* **Text, Voice, and Visual Communication**: Aligned with user preference and context.
-* **Biometric and Environmental Sensing**: For mood detection, presence awareness, and context sensitivity.
-* **Multimodal Context Awareness**: Synthesizing data from location, schedule, biometric signals, and digital behavior.
+- **Text, Voice, and Visual Communication**: Aligned with user preference and context.
+- **Biometric and Environmental Sensing**: For mood detection, presence awareness, and context sensitivity.
+- **Multimodal Context Awareness**: Synthesizing data from location, schedule, biometric signals, and digital behavior.
 
 ---
 
@@ -195,14 +195,14 @@ These modalities make Helix more than just an assistant—they enable it to beco
 
 Helix AI prioritizes user agency, offering extensive personalization tools to tailor both functionality and personality. Recognizing that users have different goals, communication styles, ethical perspectives, and emotional preferences, Helix enables deep configuration across all layers of its operation:
 
-* **Workflow Configuration:** Users can define custom workflows, automation sequences, reminders, and daily rituals that align with personal goals and schedules.
-* **Behavioral and Ethical Preferences:** Select ethical frameworks and conversational styles, from assertive coaching to reflective companionship, ensuring each interaction reflects the user's values and emotional needs.
-* **Memory and Continuity Management:** Set boundaries for short- and long-term memory, including what Helix should remember, forget, or emphasize. Users may define memory lifespans, categories, and opt-in memory channels.
-* **Proactive Behavior Settings:** Customize how and when Helix intervenes or offers help. For example, some users may prefer Helix to suggest alternatives only upon request, while others may want it to anticipate decisions or proactively flag risks.
-* **Persona Customization:** Choose from curated archetypes (e.g., mentor, collaborator, coach, or listener) or develop a unique AI persona that evolves with ongoing use and feedback.
-* **Visual and Interaction Themes:** Select interface themes, fonts, accessibility settings, and interaction rhythms that match cognitive preferences, neurodivergent needs, or situational constraints.
-* **Privacy and Consent Protocols:** Users control data visibility, learning behaviors, and consent models. Every adaptive feature can be toggled, delayed, or audited.
-* **Parental Controls:**  Helix has a default set of rules to prevent underaged users from accessing improper content.
+- **Workflow Configuration:** Users can define custom workflows, automation sequences, reminders, and daily rituals that align with personal goals and schedules.
+- **Behavioral and Ethical Preferences:** Select ethical frameworks and conversational styles, from assertive coaching to reflective companionship, ensuring each interaction reflects the user's values and emotional needs.
+- **Memory and Continuity Management:** Set boundaries for short- and long-term memory, including what Helix should remember, forget, or emphasize. Users may define memory lifespans, categories, and opt-in memory channels.
+- **Proactive Behavior Settings:** Customize how and when Helix intervenes or offers help. For example, some users may prefer Helix to suggest alternatives only upon request, while others may want it to anticipate decisions or proactively flag risks.
+- **Persona Customization:** Choose from curated archetypes (e.g., mentor, collaborator, coach, or listener) or develop a unique AI persona that evolves with ongoing use and feedback.
+- **Visual and Interaction Themes:** Select interface themes, fonts, accessibility settings, and interaction rhythms that match cognitive preferences, neurodivergent needs, or situational constraints.
+- **Privacy and Consent Protocols:** Users control data visibility, learning behaviors, and consent models. Every adaptive feature can be toggled, delayed, or audited.
+- **Parental Controls:**  Helix has a default set of rules to prevent underaged users from accessing improper content.
 
 Helix’s adaptability ensures that every user experience is not only effective, but also aligned with personal values, comfort levels, and preferences.
 

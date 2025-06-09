@@ -1,13 +1,18 @@
 # Grafana Overview
 
 <!-- Logo Section -->
+
 <div style="text-align: center;">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFARZxvkAGZYE2YbXxy2qW5UdxLoPdvbF0fQ&s" alt="Grafana Logo" style="width:300px; height:auto;" />
+  <img
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFARZxvkAGZYE2YbXxy2qW5UdxLoPdvbF0fQ&s"
+    alt="Grafana Logo"
+    style="width:300px; height:auto;"
+  />
 </div>
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +21,16 @@
 1. [Introduction](#introduction)
 2. [What is Grafana?](#what-is-grafana)
 3. [How Grafana is Used in the Architecture](#how-grafana-is-used-in-the-architecture)
-    - [Dashboard Provisioning](#dashboard-provisioning)
-    - [Visualization and Analytics](#visualization-and-analytics)
+   - [Dashboard Provisioning](#dashboard-provisioning)
+   - [Visualization and Analytics](#visualization-and-analytics)
 4. [Integration Details](#integration-details)
-    - [Installation and Configuration](#installation-and-configuration)
-    - [Provisioning Dashboards and Settings](#provisioning-dashboards-and-settings)
-    - [Data Source Integration](#data-source-integration)
+   - [Installation and Configuration](#installation-and-configuration)
+   - [Provisioning Dashboards and Settings](#provisioning-dashboards-and-settings)
+   - [Data Source Integration](#data-source-integration)
 5. [Advanced Topics](#advanced-topics)
-    - [Custom Dashboard Development](#custom-dashboard-development)
-    - [Security and Access Control](#security-and-access-control)
-    - [Performance Optimization](#performance-optimization)
+   - [Custom Dashboard Development](#custom-dashboard-development)
+   - [Security and Access Control](#security-and-access-control)
+   - [Performance Optimization](#performance-optimization)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -84,6 +89,7 @@ Successful integration of Grafana into your architecture involves several key st
 ### Installation and Configuration
 
 1. **Installation:**
+
    - Grafana is available for various platforms. Install Grafana using the official packages for your operating system (Linux, Windows, macOS) or use Docker images for containerized deployments.
    - Example (Docker):
 
@@ -92,6 +98,7 @@ Successful integration of Grafana into your architecture involves several key st
      ```
 
 2. **Initial Setup:**
+
    - After installation, access Grafana via your web browser at `http://localhost:3000`.
    - Configure the initial admin user and password as prompted during the first login.
 
@@ -111,9 +118,9 @@ Example of a dashboard provisioning configuration (YAML):
 ```yaml
 apiVersion: 1
 providers:
-  - name: 'default'
+  - name: "default"
     orgId: 1
-    folder: ''
+    folder: ""
     type: file
     disableDeletion: false
     editable: true
@@ -165,7 +172,11 @@ For further details on Grafana, refer to these resources:
 - **Training and Tutorials:** Access online courses and tutorials for in-depth learning.
 
 <p style="text-align: center;">
-  For more resources, visit our <a href="https://docs.sinlessgames.com" target="_blank">SinLess Games Documentation Portal</a>.
+  For more resources, visit our{" "}
+  <a href="https://docs.sinlessgames.com" target="_blank">
+    SinLess Games Documentation Portal
+  </a>
+  .
 </p>
 
 ---
@@ -205,9 +216,9 @@ As your monitoring needs evolve, Grafana continues to offer scalable and customi
 ```yaml
 apiVersion: 1
 providers:
-  - name: 'default'
+  - name: "default"
     orgId: 1
-    folder: ''
+    folder: ""
     type: file
     disableDeletion: false
     editable: true
@@ -225,4 +236,4 @@ providers:
 
 ---
 
-*Document End*
+_Document End_

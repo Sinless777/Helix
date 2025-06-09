@@ -1,13 +1,18 @@
 # InfluxDB Overview
 
 <!-- Logo Section -->
+
 <div style="text-align: center;">
-  <img src="https://www.niagaramarketplace.com/media/catalog/product/cache/8ec2f9f1aafbe7f04b9376f56dd1d327/m/a/marketplace_icons_13_.png" alt="InfluxDB Logo" style="width:300px; height:auto;" />
+  <img
+    src="https://www.niagaramarketplace.com/media/catalog/product/cache/8ec2f9f1aafbe7f04b9376f56dd1d327/m/a/marketplace_icons_13_.png"
+    alt="InfluxDB Logo"
+    style="width:300px; height:auto;"
+  />
 </div>
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,15 +21,15 @@
 1. [Introduction](#introduction)
 2. [What is InfluxDB?](#what-is-influxdb)
 3. [How InfluxDB is Used in the Architecture](#how-influxdb-is-used-in-the-architecture)
-    - [Collecting Metrics from Proxmox](#collecting-metrics-from-proxmox)
-    - [Integration with the Monitoring Stack](#integration-with-the-monitoring-stack)
+   - [Collecting Metrics from Proxmox](#collecting-metrics-from-proxmox)
+   - [Integration with the Monitoring Stack](#integration-with-the-monitoring-stack)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration and Data Ingestion](#configuration-and-data-ingestion)
-    - [Visualization and Querying](#visualization-and-querying)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration and Data Ingestion](#configuration-and-data-ingestion)
+   - [Visualization and Querying](#visualization-and-querying)
 5. [Advanced Topics](#advanced-topics)
-    - [Security and Access Control](#security-and-access-control)
-    - [Custom Scripting and Automation](#custom-scripting-and-automation)
+   - [Security and Access Control](#security-and-access-control)
+   - [Custom Scripting and Automation](#custom-scripting-and-automation)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -88,6 +93,7 @@ Integrating InfluxDB into your observability stack involves several steps, inclu
 ### Installation and Setup
 
 1. **Deployment Options:**
+
    - **Docker:** Deploy InfluxDB in a containerized environment for quick setup.
 
      ```bash
@@ -104,6 +110,7 @@ Integrating InfluxDB into your observability stack involves several steps, inclu
 ### Configuration and Data Ingestion
 
 1. **Proxmox Integration:**
+
    - Set up Proxmox to export metrics via tools like Telegraf or custom scripts that send data to InfluxDB.
    - Configure Telegraf with an InfluxDB output plugin to forward metrics from Proxmox:
 
@@ -158,7 +165,11 @@ For more in-depth information, consider the following resources:
 - **Tutorials and Webinars:** Access online courses and webinars for comprehensive training on InfluxDB and its integration with monitoring systems.
 
 <p style="text-align: center;">
-  For more resources, visit our <a href="https://docs.sinlessgames.com" target="_blank">SinLess Games Documentation Portal</a>.
+  For more resources, visit our{" "}
+  <a href="https://docs.sinlessgames.com" target="_blank">
+    SinLess Games Documentation Portal
+  </a>
+  .
 </p>
 
 ---
@@ -231,4 +242,4 @@ CREATE RETENTION POLICY "one_week" ON "proxmox_metrics" DURATION 7d REPLICATION 
 
 ---
 
-*Document End*
+_Document End_

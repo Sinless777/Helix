@@ -1,40 +1,40 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Script from 'next/script'
-import Grid from '@mui/material/Grid'
-import { Box, Container, Typography, useTheme } from '@mui/material'
-import { Header } from '@/components/Header'
-import { headerProps } from '@/constants/header'
-import { AboutContent } from '@/constants/about'
-import { motion } from 'framer-motion'
-import styles from './about.module.scss'
+import React from "react";
+import Script from "next/script";
+import Grid from "@mui/material/Grid";
+import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Header } from "@/components/Header";
+import { headerProps } from "@/constants/header";
+import { AboutContent } from "@/constants/about";
+import { motion } from "framer-motion";
+import styles from "./about.module.scss";
 
 export default function AboutPage() {
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
-    <Box sx={{ position: 'relative', minHeight: '100vh' }}>
+    <Box sx={{ position: "relative", minHeight: "100vh" }}>
       {/* Google Ads Init */}
       <Script id="ads-init" strategy="afterInteractive">
         {`(adsbygoogle=window.adsbygoogle||[]).push({});`}
       </Script>
 
       {/* Ad Slots */}
-      {['left', 'right'].map((side) => (
+      {["left", "right"].map((side) => (
         <Box
           key={side}
           component="ins"
           className="adsbygoogle"
           sx={{
-            position: 'fixed',
-            top: '50%',
+            position: "fixed",
+            top: "50%",
             [side]: 0,
-            transform: 'translateY(-50%)',
+            transform: "translateY(-50%)",
             width: 120,
             height: 600,
             zIndex: 1000,
-            display: { xs: 'none', lg: 'block' },
+            display: { xs: "none", lg: "block" },
           }}
           data-ad-client="ca-pub-REPLACE_WITH_YOUR_CLIENT_ID"
           data-ad-slot={`REPLACE_${side.toUpperCase()}_SLOT_ID`}
@@ -55,8 +55,8 @@ export default function AboutPage() {
           component="h1"
           align="center"
           sx={{
-            fontWeight: 'bold',
-            color: '#fff',
+            fontWeight: "bold",
+            color: "#fff",
             mb: { xs: 4, md: 6 },
           }}
         >
@@ -76,10 +76,10 @@ export default function AboutPage() {
               >
                 <Box
                   component="div"
-                  sx={{ height: 360, overflowY: 'auto', p: 2 }}
+                  sx={{ height: 360, overflowY: "auto", p: 2 }}
                 >
                   <Typography variant="h5" className={styles.cardTitle}>
-                    <span className={styles.icon}>{sec.icon || '🔹'}</span>
+                    <span className={styles.icon}>{sec.icon || "🔹"}</span>
                     {sec.title}
                   </Typography>
 
@@ -97,5 +97,5 @@ export default function AboutPage() {
         </Grid>
       </Container>
     </Box>
-  )
+  );
 }

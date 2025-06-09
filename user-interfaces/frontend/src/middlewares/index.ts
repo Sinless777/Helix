@@ -1,1 +1,1 @@
-export { cookieMiddleware } from './cookie'
+export { cookieMiddleware } from "./cookie";

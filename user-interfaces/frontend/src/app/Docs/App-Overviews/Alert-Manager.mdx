@@ -1,13 +1,18 @@
 # Alert Manager Overview
 
 <!-- Logo Section -->
+
 <div style="text-align: center;">
-  <img src="https://www.svgrepo.com/show/354219/prometheus.svg" alt="Alert Manager Logo" style="width:300px; height:auto;" />
+  <img
+    src="https://www.svgrepo.com/show/354219/prometheus.svg"
+    alt="Alert Manager Logo"
+    style="width:300px; height:auto;"
+  />
 </div>
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +21,16 @@
 1. [Introduction](#introduction)
 2. [What is Alert Manager?](#what-is-alert-manager)
 3. [How Alert Manager is Used in the Architecture](#how-alert-manager-is-used-in-the-architecture)
-    - [Centralized Alert Routing](#centralized-alert-routing)
-    - [Notification Management](#notification-management)
+   - [Centralized Alert Routing](#centralized-alert-routing)
+   - [Notification Management](#notification-management)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration Examples](#configuration-examples)
-    - [Integration with Prometheus and Other Tools](#integration-with-prometheus-and-other-tools)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration Examples](#configuration-examples)
+   - [Integration with Prometheus and Other Tools](#integration-with-prometheus-and-other-tools)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and High Availability](#scalability-and-high-availability)
-    - [Security and Access Control](#security-and-access-control)
-    - [Custom Routing and Inhibition Rules](#custom-routing-and-inhibition-rules)
+   - [Scalability and High Availability](#scalability-and-high-availability)
+   - [Security and Access Control](#security-and-access-control)
+   - [Custom Routing and Inhibition Rules](#custom-routing-and-inhibition-rules)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -90,6 +95,7 @@ Integrating Alert Manager within your infrastructure involves installation, conf
 ### Installation and Setup
 
 1. **Download and Installation:**
+
    - Alert Manager is distributed as part of the Prometheus ecosystem. You can install it using pre-built binaries, Docker images, or via Kubernetes deployments.
    - **Example (Docker):**
 
@@ -98,30 +104,32 @@ Integrating Alert Manager within your infrastructure involves installation, conf
      ```
 
 2. **Basic Configuration:**
+
    - Create a configuration file (e.g., `alertmanager.yml`) to define global settings, route definitions, and notification templates.
    - **Example Configuration:**
 
      ```yaml
      global:
-       smtp_smarthost: 'smtp.example.com:587'
-       smtp_from: 'alertmanager@example.com'
-       smtp_auth_username: 'username'
-       smtp_auth_password: 'password'
+       smtp_smarthost: "smtp.example.com:587"
+       smtp_from: "alertmanager@example.com"
+       smtp_auth_username: "username"
+       smtp_auth_password: "password"
 
      route:
-       group_by: ['alertname']
+       group_by: ["alertname"]
        group_wait: 30s
        group_interval: 5m
        repeat_interval: 1h
-       receiver: 'team-email'
+       receiver: "team-email"
 
      receivers:
-       - name: 'team-email'
+       - name: "team-email"
          email_configs:
-           - to: 'ops-team@example.com'
+           - to: "ops-team@example.com"
      ```
 
 3. **Starting Alert Manager:**
+
    - Launch Alert Manager with your configuration file.
 
      ```bash
@@ -136,19 +144,19 @@ Alert Manager's configuration is highly flexible, enabling tailored alert routin
 
 ```yaml
 route:
-  group_by: ['alertname', 'severity']
+  group_by: ["alertname", "severity"]
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 1h
-  receiver: 'default-receiver'
+  receiver: "default-receiver"
   routes:
     - match:
-        severity: 'critical'
-      receiver: 'pagerduty'
+        severity: "critical"
+      receiver: "pagerduty"
       group_interval: 2m
     - match:
-        severity: 'warning'
-      receiver: 'slack-notifications'
+        severity: "warning"
+      receiver: "slack-notifications"
 ```
 
 #### Example: Inhibition Rules
@@ -156,10 +164,10 @@ route:
 ```yaml
 inhibit_rules:
   - source_match:
-      severity: 'critical'
+      severity: "critical"
     target_match:
-      severity: 'warning'
-    equal: ['alertname', 'instance']
+      severity: "warning"
+    equal: ["alertname", "instance"]
 ```
 
 ### Integration with Prometheus and Other Tools
@@ -170,7 +178,7 @@ inhibit_rules:
   alerting:
     alertmanagers:
       - static_configs:
-          - targets: ['alertmanager:9093']
+          - targets: ["alertmanager:9093"]
   ```
 
 - **Third-Party Tools:** Alert Manager can also be integrated with incident management and chat tools via webhooks or dedicated notification integrations.
@@ -210,7 +218,11 @@ For further details on Alert Manager, consider the following resources:
 - **Training and Webinars:** Explore tutorials and webinars focused on advanced alerting strategies.
 
 <p style="text-align: center;">
-  For more resources, visit our <a href="https://docs.sinlessgames.com" target="_blank">SinLess Games Documentation Portal</a>.
+  For more resources, visit our{" "}
+  <a href="https://docs.sinlessgames.com" target="_blank">
+    SinLess Games Documentation Portal
+  </a>
+  .
 </p>
 
 ---
@@ -255,22 +267,22 @@ Implementing Alert Manager with best practices in scalability, security, and cus
 
 ```yaml
 global:
-  smtp_smarthost: 'smtp.example.com:587'
-  smtp_from: 'alertmanager@example.com'
-  smtp_auth_username: 'username'
-  smtp_auth_password: 'password'
+  smtp_smarthost: "smtp.example.com:587"
+  smtp_from: "alertmanager@example.com"
+  smtp_auth_username: "username"
+  smtp_auth_password: "password"
 
 route:
-  group_by: ['alertname']
+  group_by: ["alertname"]
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 1h
-  receiver: 'team-email'
+  receiver: "team-email"
 
 receivers:
-  - name: 'team-email'
+  - name: "team-email"
     email_configs:
-      - to: 'ops-team@example.com'
+      - to: "ops-team@example.com"
 ```
 
 #### Prometheus Alerting Configuration Example (YAML)
@@ -279,7 +291,7 @@ receivers:
 alerting:
   alertmanagers:
     - static_configs:
-        - targets: ['alertmanager:9093']
+        - targets: ["alertmanager:9093"]
 ```
 
 ### Appendix B: Glossary
@@ -292,4 +304,4 @@ alerting:
 
 ---
 
-*Document End*
+_Document End_

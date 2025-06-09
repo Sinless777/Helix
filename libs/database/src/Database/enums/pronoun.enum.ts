@@ -7,14 +7,14 @@
  */
 export enum Pronoun {
   /** He/Him pronouns */
-  HeHim = 'He/Him',
+  HeHim = "He/Him",
 
   /** She/Her pronouns */
-  SheHer = 'She/Her',
+  SheHer = "She/Her",
 
   /** They/Them pronouns */
-  TheyThem = 'They/Them',
+  TheyThem = "They/Them",
 
   /** Other or custom pronoun set */
-  Other = 'Other',
+  Other = "Other",
 }

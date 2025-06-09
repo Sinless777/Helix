@@ -4,4 +4,4 @@ Kiali provides observability for the Istio service mesh, displaying traffic flow
 
 ---
 
-*Document End*
+_Document End_
