@@ -1,4 +1,5 @@
 // next.config.ts
+import createMDX from '@next/mdx'
 import type { NextConfig } from 'next'
 import webpack from 'webpack'
 import { composePlugins, withNx } from '@nx/next'
@@ -9,9 +10,13 @@ const nxOptions: WithNxOptions = {
   svgr: false,
 }
 
+
+const withMDX = createMDX({ extension: /\.(md|mdx)$/ })
+
 const baseConfig: NextConfig = {
   nx: nxOptions,
   crossOrigin: 'anonymous',
+  pageExtensions: ['js','jsx','ts','tsx','md','mdx'],
   images: {
     remotePatterns: [
       {
@@ -36,6 +41,6 @@ const baseConfig: NextConfig = {
   },
 }
 
-const plugins = [withNx]
+const plugins = [withNx, withMDX]
 
 export default composePlugins(...plugins)(baseConfig)
