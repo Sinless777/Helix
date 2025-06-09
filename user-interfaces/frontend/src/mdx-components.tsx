@@ -1,6 +1,10 @@
 // mdx-components.tsx
 import type { MDXComponents } from 'mdx/types'
 
-export function useMDXComponents(components: MDXComponents) {
-    return { ...components }
+const defaultComponents: MDXComponents = {
+
+}
+
+export const mdxComponents: MDXComponents = {
+    ...defaultComponents
 }
