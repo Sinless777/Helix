@@ -29,12 +29,12 @@ export default function RootLayout({
       <head>
         {(process.env.NODE_ENV === 'development' ||
           process.env.VERCEL_ENV === 'preview') && (
-          <Script
-            data-recording-token="mxGHRESvuU68b8edOcewbT25c8mElDmQWedof3QS"
-            data-is-production-environment="false"
-            src="https://snippet.meticulous.ai/v1/meticulous.js"
-          />
-        )}
+            <Script
+              data-recording-token="mxGHRESvuU68b8edOcewbT25c8mElDmQWedof3QS"
+              data-is-production-environment="false"
+              src="https://snippet.meticulous.ai/v1/meticulous.js"
+            />
+          )}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-EXCL6FMDHY"
