@@ -18,7 +18,7 @@
 # Languages          #
 # -------------------#
 brew "python@3.13"          # Python 3.13
-brew "node@22.11"           # Node.js 22.11
+brew "node@22"           # Node.js 24.2.0
 brew "go@1.23"              # Go 1.23
 brew "lua@5.4"              # Lua 5.4
 brew "ruby@3.2"             # Ruby 3.2
