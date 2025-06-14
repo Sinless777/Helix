@@ -7,23 +7,23 @@
  */
 export enum Sex {
   /** Male biological sex */
-  Male = 'Male',
+  Male = "Male",
 
   /** Female biological sex */
-  Female = 'Female',
+  Female = "Female",
 
   /** Transgender: female-to-male */
-  TransgenderF2M = 'Transgender F2M',
+  TransgenderF2M = "Transgender F2M",
 
   /** Transgender: male-to-female */
-  TransgenderM2F = 'Transgender M2F',
+  TransgenderM2F = "Transgender M2F",
 
   /** Default when user prefers not to specify their sex */
-  PreferNotToSay = 'PreferNotToSay',
+  PreferNotToSay = "PreferNotToSay",
 
   /** Intersex biological sex */
-  Intersex = 'Intersex',
+  Intersex = "Intersex",
 
   /** Other or custom biological sex category */
-  Other = 'Other',
+  Other = "Other",
 }

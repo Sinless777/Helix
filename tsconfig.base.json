@@ -29,11 +29,5 @@
     "isolatedModules": true,
     "jsx": "react-jsx"
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "tmp",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "dist", "tmp", "**/*.spec.ts", "**/*.test.ts"]
 }

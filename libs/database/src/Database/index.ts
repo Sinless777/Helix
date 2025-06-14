@@ -18,7 +18,7 @@ import {
   Image,
   Health,
   BaseEntity,
-} from './entities'
+} from "./entities";
 
 /**
  * Entities export
@@ -44,7 +44,7 @@ export const entities = [
   Image,
   Health,
   BaseEntity,
-]
+];
 
 export {
   Microservice,
@@ -64,13 +64,13 @@ export {
   Pastebin,
   Image,
   Health,
-} from './entities'
+} from "./entities";
 
 // Import MikroORMConfig and DatabaseOptions from mikro-orm.config
-import { MikroORMConfig } from './mikro-orm.config'
-import type { DatabaseOptions } from './mikro-orm.config'
+import { MikroORMConfig } from "./mikro-orm.config";
+import type { DatabaseOptions } from "./mikro-orm.config";
 
-export { MikroORMConfig, DatabaseOptions }
+export { MikroORMConfig, DatabaseOptions };
 
 /**
  * Interfaces
@@ -81,7 +81,7 @@ export type {
   MicroserviceInterface,
   NewsInterface,
   TechnologyInterface,
-} from './entities'
+} from "./entities";
 
 /**
  * Enums
@@ -95,4 +95,4 @@ export {
   Sex,
   Sexuality,
   TechCategory,
-} from './enums'
+} from "./enums";

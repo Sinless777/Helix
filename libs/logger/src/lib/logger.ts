@@ -1,12 +1,12 @@
-import { createLogger, format, transports, Logger } from 'winston'
-import { WinstonModule } from 'nest-winston'
-import * as expressWinston from 'express-winston'
-import type { RequestHandler, ErrorRequestHandler } from 'express'
-import TransportStream from 'winston-transport'
-import { WinstonInstrumentation } from '@opentelemetry/instrumentation-winston'
-import { ElasticsearchTransport } from 'winston-elasticsearch'
-import LokiTransport from 'winston-loki'
-import annotate from 'winston-annotate'
+import { createLogger, format, transports, Logger } from "winston";
+import { WinstonModule } from "nest-winston";
+import * as expressWinston from "express-winston";
+import type { RequestHandler, ErrorRequestHandler } from "express";
+import TransportStream from "winston-transport";
+import { WinstonInstrumentation } from "@opentelemetry/instrumentation-winston";
+import { ElasticsearchTransport } from "winston-elasticsearch";
+import LokiTransport from "winston-loki";
+import annotate from "winston-annotate";
 
 /**
  * The shape of a single log event as it’s passed to drivers.
@@ -27,62 +27,64 @@ export interface LogRecord {
   [k: string]: unknown;
 }
 
-
 export interface ILoggerDriver {
-  configure(logger: Logger): void
+  configure(logger: Logger): void;
 }
 
-export type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'fatal'
-export type LogFormat = 'json' | 'console'
+export type LogLevel = "debug" | "info" | "warn" | "error" | "fatal";
+export type LogFormat = "json" | "console";
 
 export interface ILoggerConfig {
-  level?: LogLevel
-  format?: LogFormat
-  transports?: TransportStream[]
+  level?: LogLevel;
+  format?: LogFormat;
+  transports?: TransportStream[];
   elasticsearch?: {
-    host: string
-    index: string
-    username?: string
-    password?: string
-  }
+    host: string;
+    index: string;
+    username?: string;
+    password?: string;
+  };
   loki?: {
-    host: string
-    labels?: string
-    username?: string
-    password?: string
-  }
-  retention?: number
-  maxSize?: number
-  maxFiles?: number
+    host: string;
+    labels?: string;
+    username?: string;
+    password?: string;
+  };
+  retention?: number;
+  maxSize?: number;
+  maxFiles?: number;
 }
 
 const defaultConfig: ILoggerConfig = {
-  level: 'info',
-  format: 'json',
+  level: "info",
+  format: "json",
   transports: [],
   retention: 30,
   maxSize: 5,
   maxFiles: 5,
-}
+};
 
 export class HelixLogger {
-  private readonly logger: Logger
+  private readonly logger: Logger;
 
-  constructor(private name: string, config: ILoggerConfig = {}) {
-    const cfg = { ...defaultConfig, ...config }
+  constructor(
+    private name: string,
+    config: ILoggerConfig = {},
+  ) {
+    const cfg = { ...defaultConfig, ...config };
 
-    const formats = [format.timestamp(), format.errors({ stack: true })]
-    if (cfg.format === 'json') {
-      formats.push(format.json())
+    const formats = [format.timestamp(), format.errors({ stack: true })];
+    if (cfg.format === "json") {
+      formats.push(format.json());
     } else {
-      formats.push(format.colorize(), format.simple())
+      formats.push(format.colorize(), format.simple());
     }
-    const logFormat = format.combine(...formats)
+    const logFormat = format.combine(...formats);
 
     const allTransports: TransportStream[] = [
       ...(cfg.transports || []),
       new transports.Console(),
-    ]
+    ];
 
     if (cfg.elasticsearch) {
       allTransports.push(
@@ -100,7 +102,7 @@ export class HelixLogger {
           },
           index: cfg.elasticsearch.index,
         }),
-      )
+      );
     }
 
     if (cfg.loki) {
@@ -114,7 +116,7 @@ export class HelixLogger {
               : undefined,
           labels: cfg.loki.labels,
         }),
-      )
+      );
     }
 
     this.logger = createLogger({
@@ -122,13 +124,13 @@ export class HelixLogger {
       format: logFormat,
       defaultMeta: { service: name },
       transports: allTransports,
-    })
+    });
 
     // Auto-instrument Winston for OpenTelemetry
-    new WinstonInstrumentation()
+    new WinstonInstrumentation();
 
     // Annotate logs with the service name
-    annotate(this.logger, { prefix: `${name}:` })
+    annotate(this.logger, { prefix: `${name}:` });
   }
 
   /**
@@ -140,7 +142,7 @@ export class HelixLogger {
     message: string,
     meta: Record<string, unknown> = {},
   ): void {
-    this.logger.log(level, message, { namespace, ...meta })
+    this.logger.log(level, message, { namespace, ...meta });
   }
 
   public info(
@@ -148,7 +150,7 @@ export class HelixLogger {
     message: string,
     meta?: Record<string, unknown>,
   ): void {
-    this.log(namespace, 'info', message, meta)
+    this.log(namespace, "info", message, meta);
   }
 
   public debug(
@@ -156,7 +158,7 @@ export class HelixLogger {
     message: string,
     meta?: Record<string, unknown>,
   ): void {
-    this.log(namespace, 'debug', message, meta)
+    this.log(namespace, "debug", message, meta);
   }
 
   public warn(
@@ -164,7 +166,7 @@ export class HelixLogger {
     message: string,
     meta?: Record<string, unknown>,
   ): void {
-    this.log(namespace, 'warn', message, meta)
+    this.log(namespace, "warn", message, meta);
   }
 
   public error(
@@ -172,7 +174,7 @@ export class HelixLogger {
     message: string,
     meta?: Record<string, unknown>,
   ): void {
-    this.log(namespace, 'error', message, meta)
+    this.log(namespace, "error", message, meta);
   }
 
   public fatal(
@@ -180,14 +182,14 @@ export class HelixLogger {
     message: string,
     meta?: Record<string, unknown>,
   ): void {
-    this.log(namespace, 'fatal', message, meta)
+    this.log(namespace, "fatal", message, meta);
   }
 
   /**
    * Returns the raw Winston logger instance.
    */
   public getLogger(): Logger {
-    return this.logger
+    return this.logger;
   }
 
   /**
@@ -199,7 +201,7 @@ export class HelixLogger {
     return WinstonModule.forRoot({
       level: config.level ?? defaultConfig.level,
       transports: [new transports.Console()],
-    })
+    });
   }
 
   /**
@@ -211,7 +213,7 @@ export class HelixLogger {
     return expressWinston.logger({
       winstonInstance: createLogger({ transports: [new transports.Console()] }),
       ...options,
-    })
+    });
   }
 
   /**
@@ -223,6 +225,6 @@ export class HelixLogger {
     return expressWinston.errorLogger({
       winstonInstance: createLogger({ transports: [new transports.Console()] }),
       ...options,
-    })
+    });
   }
 }

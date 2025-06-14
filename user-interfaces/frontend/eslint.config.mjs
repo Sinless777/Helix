@@ -8,25 +8,25 @@
  * - 🛑 Ignores build output, coverage and node_modules
  */
 
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
-import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
-import reactPlugin from 'eslint-plugin-react'
-import prettierPlugin from 'eslint-plugin-prettier'
-import editorconfigPlugin from 'eslint-plugin-editorconfig'
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
+import reactPlugin from "eslint-plugin-react";
+import prettierPlugin from "eslint-plugin-prettier";
+import editorconfigPlugin from "eslint-plugin-editorconfig";
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
-})
+});
 
 export default [
   // 1) ignore build output & deps
-  { ignores: ['dist/**', 'coverage/**', 'node_modules/**', '.next/**'] },
+  { ignores: ["dist/**", "coverage/**", "node_modules/**", ".next/**"] },
 
   // 2) register plugins
   {
@@ -39,47 +39,48 @@ export default [
 
   // 3) pull in shareable configs
   ...compat.extends(
-    'next/core-web-vitals',
-    'next/typescript',
-    'plugin:react/recommended',
-    'plugin:prettier/recommended',
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
     // use the “all” preset to enforce EditorConfig rules
-    'plugin:editorconfig/all',
+    "plugin:editorconfig/all",
   ),
 
   // 4) per-file overrides
   {
-    files: ['**/*.{ts,tsx,js,jsx}'],
+    files: ["**/*.{ts,tsx,js,jsx}"],
     languageOptions: {
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: ['./tsconfig.json'],
-        sourceType: 'module',
+        project: ["./tsconfig.json"],
+        sourceType: "module",
       },
     },
     rules: {
       // let Prettier & EditorConfig handle formatting
-      indent: 'off',
-      'linebreak-style': 'off',
+      indent: "off",
+      "linebreak-style": "off",
 
       // relax TypeScript/React strictness
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
-      'react/react-in-jsx-scope': 'off',
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "react/react-in-jsx-scope": "off",
 
       // ensure Prettier errors surface as ESLint errors
-      'prettier/prettier': ['error',
+      "prettier/prettier": [
+        "error",
         // turn off end of line
         {
-          endOfLine: 'auto',
-        }
+          endOfLine: "auto",
+        },
       ],
 
       // enforce EditorConfig charsets & indent styles
-      'editorconfig/charset': 'off',
-      'editorconfig/indent': ['error'],
-      'editorconfig/linebreak-style': 'off',
+      "editorconfig/charset": "off",
+      "editorconfig/indent": ["error"],
+      "editorconfig/linebreak-style": "off",
     },
   },
-]
+];

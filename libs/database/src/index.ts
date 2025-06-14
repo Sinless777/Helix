@@ -30,7 +30,7 @@ import {
   Sex,
   Sexuality,
   TechCategory,
-} from './Database'
+} from "./Database";
 export {
   entities,
   MikroORMConfig,
@@ -62,4 +62,4 @@ export {
   Sex,
   Sexuality,
   TechCategory,
-}
+};

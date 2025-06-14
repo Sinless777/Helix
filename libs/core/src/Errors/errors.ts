@@ -1,4 +1,4 @@
-import { errCodes } from './error.type'
+import { errCodes } from "./error.type";
 
 export const ErrorCodes: errCodes = {
   // S-xxx
@@ -133,4 +133,4 @@ export const ErrorCodes: errCodes = {
     // B-3-7xx
     Youtube: null,
   },
-}
+};

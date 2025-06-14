@@ -1,16 +1,16 @@
 // src/constants/about/index.ts
-import React from 'react'
-import { Typography, Link as MuiLink } from '@mui/material'
+import React from "react";
+import { Typography, Link as MuiLink } from "@mui/material";
 
 export interface AboutSection {
-  title: string
-  content: React.ReactNode
-  icon?: string
+  title: string;
+  content: React.ReactNode;
+  icon?: string;
 }
 
 export const AboutContent: AboutSection[] = [
   {
-    title: '🌟 Who We Are',
+    title: "🌟 Who We Are",
     content: (
       <>
         <Typography paragraph>
@@ -23,7 +23,7 @@ export const AboutContent: AboutSection[] = [
         </Typography>
         <Typography paragraph>
           Built with cutting-edge technologies like machine learning, deep
-          neural networks, and reinforcement learning, <strong>Helix AI</strong>{' '}
+          neural networks, and reinforcement learning, <strong>Helix AI</strong>{" "}
           continuously learns from your preferences, infrastructure, and
           integrated platforms. Whether you&apos;re managing cloud deployments,
           tracking analytics, or seeking real-time alerts, Helix AI becomes a
@@ -38,7 +38,7 @@ export const AboutContent: AboutSection[] = [
     ),
   },
   {
-    title: '🎯 Our Mission',
+    title: "🎯 Our Mission",
     content: (
       <>
         <Typography paragraph>
@@ -67,7 +67,7 @@ export const AboutContent: AboutSection[] = [
     ),
   },
   {
-    title: '🧬 Our Story',
+    title: "🧬 Our Story",
     content: (
       <>
         <Typography paragraph>
@@ -90,7 +90,7 @@ export const AboutContent: AboutSection[] = [
     ),
   },
   {
-    title: '🧑‍💻 Meet the Team',
+    title: "🧑‍💻 Meet the Team",
     content: (
       <>
         <Typography paragraph>
@@ -102,11 +102,11 @@ export const AboutContent: AboutSection[] = [
         </Typography>
         <Typography
           paragraph
-          sx={{ fontStyle: 'italic', color: 'rgba(224,224,224,0.8)' }}
+          sx={{ fontStyle: "italic", color: "rgba(224,224,224,0.8)" }}
         >
           *(Bios, photos, and more are available in our GitHub repository.)*
         </Typography>
       </>
     ),
   },
-]
+];

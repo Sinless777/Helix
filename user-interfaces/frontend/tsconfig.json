@@ -35,7 +35,8 @@
       "@/constants/*": ["src/constants/*"],
       "@middlewares/*": ["src/middlewares/*"],
       "@/hooks/*": ["src/hooks/*"],
-      "@/lib/*": ["src/lib/*"]
+      "@/lib/*": ["src/lib/*"],
+      "@/generated/*": ["src/generated/*"]
     }
   },
   "include": [

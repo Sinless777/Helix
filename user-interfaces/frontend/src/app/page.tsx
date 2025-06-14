@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import styles from './page.module.scss'
-import { Header, HeaderProps } from '@/components/Header'
-import { headerProps } from '@/constants/header'
-import { Box } from '@mui/material'
-import HeroSection from '../components/Hero'
+import styles from "./page.module.scss";
+import { Header, HeaderProps } from "@/components/Header";
+import { headerProps } from "@/constants/header";
+import { Box } from "@mui/material";
+import HeroSection from "../components/Hero";
 
 const HeroData = {
   title:
-    'Meet Helix AI — Your Intelligent Companion for a Smarter Digital Life',
+    "Meet Helix AI — Your Intelligent Companion for a Smarter Digital Life",
   description:
-    'Seamlessly connect, automate, and analyze with an AI assistant built to simplify tasks, enhance productivity, and empower your decisions across every platform you use.',
-  imageUrl: 'https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix_Logo.png',
-}
+    "Seamlessly connect, automate, and analyze with an AI assistant built to simplify tasks, enhance productivity, and empower your decisions across every platform you use.",
+  imageUrl: "https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix_Logo.png",
+};
 
 export default function Index() {
   return (
@@ -21,7 +21,7 @@ export default function Index() {
       <Header {...headerProps} />
 
       {/* Spacer between header and hero */}
-      <Box sx={{ height: '2rem' }} />
+      <Box sx={{ height: "2rem" }} />
 
       {/* Hero Section */}
       <Box>
@@ -33,5 +33,5 @@ export default function Index() {
         />
       </Box>
     </Box>
-  )
+  );
 }

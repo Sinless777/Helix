@@ -1,7 +1,7 @@
-import React from 'react'
-import NextLink from 'next/link'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
+import React from "react";
+import NextLink from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import {
   Box,
   Stack,
@@ -10,25 +10,25 @@ import {
   List,
   ListItem,
   useTheme,
-} from '@mui/material'
+} from "@mui/material";
 
 export interface ListItemProps {
-  text: string
-  href: string
-  target?: React.HTMLAttributeAnchorTarget
-  role: string
+  text: string;
+  href: string;
+  target?: React.HTMLAttributeAnchorTarget;
+  role: string;
 }
 
 export interface CardProps {
-  title: string
-  description?: string
-  listItems?: ListItemProps[]
-  image?: string
-  link?: string
-  buttonText?: string
-  quote?: string
-  aspectRatio?: string
-  sx?: object
+  title: string;
+  description?: string;
+  listItems?: ListItemProps[];
+  image?: string;
+  link?: string;
+  buttonText?: string;
+  quote?: string;
+  aspectRatio?: string;
+  sx?: object;
 }
 
 export const HelixCard: React.FC<CardProps> = ({
@@ -37,12 +37,12 @@ export const HelixCard: React.FC<CardProps> = ({
   listItems,
   image,
   link,
-  buttonText = 'Read more',
+  buttonText = "Read more",
   quote,
-  aspectRatio = '56.25%',
+  aspectRatio = "56.25%",
   sx,
 }) => {
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
     <Box
@@ -51,14 +51,14 @@ export const HelixCard: React.FC<CardProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       sx={{
-        bgcolor: 'rgba(0,0,0,0.4)',
+        bgcolor: "rgba(0,0,0,0.4)",
         border: `1px solid ${theme.palette.secondary.main}`,
         borderRadius: theme.shape.borderRadius,
         p: 2,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
         ...sx,
       }}
     >
@@ -66,22 +66,22 @@ export const HelixCard: React.FC<CardProps> = ({
       {image && (
         <Box
           sx={{
-            position: 'relative',
-            width: '100%',
+            position: "relative",
+            width: "100%",
             height: 200,
             mb: 2,
             borderRadius: theme.shape.borderRadius,
-            overflow: 'hidden',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <Image
             src={image}
             alt={title}
             fill
-            style={{ objectFit: 'contain', padding: '1rem' }}
+            style={{ objectFit: "contain", padding: "1rem" }}
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </Box>
@@ -92,7 +92,7 @@ export const HelixCard: React.FC<CardProps> = ({
         spacing={2}
         sx={{
           flexGrow: 1,
-          overflow: 'hidden',
+          overflow: "hidden",
           border: `1px solid ${theme.palette.secondary.main}`,
           borderRadius: theme.shape.borderRadius,
           p: 2,
@@ -112,12 +112,12 @@ export const HelixCard: React.FC<CardProps> = ({
         )}
 
         {listItems && listItems.length > 0 ? (
-          <Box sx={{ maxHeight: '10.5rem', overflowY: 'auto' }}>
-            <List disablePadding sx={{ textAlign: 'center' }}>
+          <Box sx={{ maxHeight: "10.5rem", overflowY: "auto" }}>
+            <List disablePadding sx={{ textAlign: "center" }}>
               {listItems.map((item, idx) => (
                 <ListItem
                   key={idx}
-                  sx={{ display: 'list-item', justifyContent: 'center', p: 0 }}
+                  sx={{ display: "list-item", justifyContent: "center", p: 0 }}
                 >
                   <Button
                     component="a"
@@ -126,9 +126,9 @@ export const HelixCard: React.FC<CardProps> = ({
                     rel="noopener noreferrer"
                     variant="text"
                     sx={{
-                      color: 'secondary.main',
+                      color: "secondary.main",
                       fontFamily: '"Mate SC", serif',
-                      textTransform: 'none',
+                      textTransform: "none",
                     }}
                   >
                     {item.text}
@@ -156,7 +156,7 @@ export const HelixCard: React.FC<CardProps> = ({
       {/* Link/Button */}
       {link && (
         <Box textAlign="center">
-          {link.startsWith('/') ? (
+          {link.startsWith("/") ? (
             <Button
               component={NextLink}
               href={link}
@@ -175,7 +175,7 @@ export const HelixCard: React.FC<CardProps> = ({
               rel="noopener noreferrer"
               variant="contained"
               sx={{
-                bgcolor: 'secondary.main',
+                bgcolor: "secondary.main",
                 color: theme.palette.getContrastText(
                   theme.palette.secondary.main,
                 ),
@@ -189,7 +189,7 @@ export const HelixCard: React.FC<CardProps> = ({
         </Box>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default HelixCard
+export default HelixCard;
