@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
+import {
+  Box,
+  Typography,
+  List,
+  ListItemButton,
+  ListItemText,
+  ListSubheader,
+  Divider,
+} from "@mui/material";
 import { navSections } from "../../constants/Docs/navigation";
 
 export default function DocsSidebar() {
@@ -11,49 +19,44 @@ export default function DocsSidebar() {
   return (
     <Box
       sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
         width: 250,
-        height: "100vh",
+        height: '100%',
         p: 2,
-        backgroundColor: "#f5f5f5",
-        overflowY: "auto",
-        borderRight: "1px solid #ddd",
-        zIndex: 1000,
+        bgcolor: 'background.paper',
+        overflowY: 'auto',
       }}
     >
-      {navSections.map((section, i) => (
-        <Box key={i} sx={{ mb: 3 }}>
-          <Typography variant="h6" sx={{ mb: 1 }}>
-            {section.title}
-          </Typography>
-          <List dense disablePadding>
+      <List
+        component="nav"
+        subheader={
+          <ListSubheader component="div" disableSticky>
+            Documentation
+          </ListSubheader>
+        }
+      >
+        {navSections.map((section, i) => (
+          <Box key={i} sx={{ mb: 2 }}>
+            <Typography variant="subtitle1" sx={{ pl: 1, mb: 1, fontWeight: 600 }}>
+              {section.title}
+            </Typography>
             {section.items.map((item, j) => {
-              const active = pathname === item.href;
+              const selected = pathname === item.href;
               return (
-                <ListItem
+                <ListItemButton
                   key={j}
-                  sx={{
-                    pl: 2,
-                    backgroundColor: active ? "primary.main" : "transparent",
-                    "&:hover": {
-                      backgroundColor: active ? "primary.dark" : "#e0e0e0",
-                    },
-                  }}
+                  component={Link}
+                  href={item.href}
+                  selected={selected}
+                  sx={{ borderRadius: 1, mb: 0.5 }}
                 >
-                  <Link
-                    href={item.href}
-                    style={{ width: "100%", textDecoration: "none" }}
-                  >
-                    <ListItemText primary={item.label} />
-                  </Link>
-                </ListItem>
+                  <ListItemText primary={item.label} />
+                </ListItemButton>
               );
             })}
-          </List>
-        </Box>
-      ))}
+            {i < navSections.length - 1 && <Divider sx={{ my: 2 }} />}
+          </Box>
+        ))}
+      </List>
     </Box>
   );
 }
