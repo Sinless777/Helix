@@ -61,7 +61,7 @@
     "@statsig/react-bindings": "^3.16.2",
     "@statsig/web-analytics": "^3.17.2",
     "@vercel/analytics": "^1.5.0",
-    "@vercel/otel": "^1.12.0",
+    "@vercel/otel": "1.12.0",
     "@vercel/speed-insights": "^1.2.0",
     "@vercel/toolbar": "^0.1.37",
     "braces": "^3.0.3",
