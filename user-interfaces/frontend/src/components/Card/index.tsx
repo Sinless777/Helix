@@ -4,15 +4,11 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
+  Stack,
   Typography,
   Button,
   List,
   ListItem,
-  Skeleton,
   useTheme,
 } from "@mui/material";
 
@@ -20,21 +16,21 @@ export interface ListItemProps {
   text: string;
   href: string;
   target?: React.HTMLAttributeAnchorTarget;
-  role?: string;
-  detailedDescription?: string;
-  icon?: React.ReactNode;
+  role: string;
+  detailedDescription: string;
+  icon?: string;
   image?: string;
 }
 
 export interface CardProps {
   title: string;
-  description?: string;
+  description: string;
   listItems?: ListItemProps[];
-  image?: string;
-  link?: string;
+  image: string;
+  link: string;
   buttonText?: string;
   quote?: string;
-  aspectRatio?: string; // e.g. "16/9" or "4/3"
+  aspectRatio?: string;
   sx?: object;
 }
 
@@ -46,130 +42,156 @@ export const HelixCard: React.FC<CardProps> = ({
   link,
   buttonText = "Read more",
   quote,
-  aspectRatio = "16/9",
+  aspectRatio = "56.25%",
   sx,
 }) => {
   const theme = useTheme();
-  const [imgLoaded, setImgLoaded] = React.useState(false);
-
-  // Calculate padding-bottom percentage from aspect ratio
-  const [w, h] = aspectRatio.split("/").map(Number);
-  const pb = w && h ? `${(h / w) * 100}%` : "56.25%";
 
   return (
-    <Card
+    <Box
       component={motion.div}
       whileHover={{ scale: 1.02 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        bgcolor: theme.palette.background.paper,
+        bgcolor: "rgba(0,0,0,0.4)",
         border: `1px solid ${theme.palette.secondary.main}`,
         borderRadius: theme.shape.borderRadius,
-        overflow: "hidden",
+        p: 2,
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
         ...sx,
       }}
     >
-      <CardActionArea
-        component={link?.startsWith("/") ? NextLink : "a"}
-        href={link || '#'}
-        target={link && !link.startsWith("/") ? "_blank" : undefined}
-        rel={link && !link.startsWith("/") ? "noopener noreferrer" : undefined}
-        sx={{ flexGrow: 1, textDecoration: 'none' }}
+      {/* Image */}
+      {image && (
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            height: 200,
+            mb: 2,
+            borderRadius: theme.shape.borderRadius,
+            overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            src={image}
+            alt={title}
+            fill
+            style={{ objectFit: "contain", padding: "1rem" }}
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        </Box>
+      )}
+
+      {/* Scrollable content */}
+      <Stack
+        spacing={2}
+        sx={{
+          flexGrow: 1,
+          overflow: "hidden",
+          border: `1px solid ${theme.palette.secondary.main}`,
+          borderRadius: theme.shape.borderRadius,
+          p: 2,
+          mb: 2,
+        }}
       >
-        {image && (
-          <Box
-            sx={{ position: "relative", width: "100%", pb, overflow: "hidden" }}
+        {quote && (
+          <Typography
+            variant="body1"
+            align="center"
+            color="secondary.main"
+            fontStyle="italic"
+            fontFamily='"Mate SC", serif'
           >
-            {!imgLoaded && <Skeleton variant="rectangular" width="100%" height="100%" />}
-            <Image
-              src={image}
-              alt={title}
-              fill
-              sizes="(max-width:600px) 100vw, 33vw"
-              style={{ objectFit: "contain", padding: theme.spacing(2) }}
-              onLoadingComplete={() => setImgLoaded(true)}
-            />
-          </Box>
+            “{quote}”
+          </Typography>
         )}
 
-        <CardContent sx={{ p: theme.spacing(2) }}>
-          <Typography variant="h5" component="h2" gutterBottom>
-            {title}
-          </Typography>
-          {quote && (
-            <Typography
-              variant="body1"
-              align="center"
-              sx={{ fontStyle: "italic", fontFamily: theme.typography.fontFamily }}
-              color="secondary.main"
-              gutterBottom
-            >
-              “{quote}”
-            </Typography>
-          )}
-
-          {listItems && listItems.length > 0 ? (
-            <List disablePadding sx={{ maxHeight: theme.spacing(21), overflowY: "auto" }}>
+        {listItems && listItems.length > 0 ? (
+          <Box sx={{ maxHeight: "10.5rem", overflowY: "auto" }}>
+            <List disablePadding sx={{ textAlign: "center" }}>
               {listItems.map((item, idx) => (
-                <ListItem key={idx} disableGutters sx={{ display: "list-item", justifyContent: "center", py: 0 }}>
+                <ListItem
+                  key={idx}
+                  sx={{ display: "list-item", justifyContent: "center", p: 0 }}
+                >
                   <Button
                     component="a"
                     href={item.href}
-                    target={item.target || "_blank"}
+                    target="_blank"
                     rel="noopener noreferrer"
                     variant="text"
                     sx={{
                       color: "secondary.main",
+                      fontFamily: '"Mate SC", serif',
                       textTransform: "none",
-                      fontFamily: theme.typography.fontFamily,
                     }}
                   >
-                    {item.icon && <Box mr={1}>{item.icon}</Box>}
                     {item.text}
                   </Button>
                 </ListItem>
               ))}
             </List>
-          ) : description ? (
-            <Typography variant="body2" color="secondary.main" align="center">
-              {description}
-            </Typography>
-          ) : (
-            <Typography variant="body2" color="text.secondary" align="center">
-              More details coming soon.
-            </Typography>
-          )}
-        </CardContent>
-      </CardActionArea>
-
-      {link && (
-        <Box sx={{ p: theme.spacing(2), textAlign: "center" }}>
-          <Button
-            component={link.startsWith("/") ? NextLink : "a"}
-            href={link}
-            target={link.startsWith("/") ? undefined : "_blank"}
-            rel={link.startsWith("/") ? undefined : "noopener noreferrer"}
-            variant="contained"
-            color={link.startsWith("/") ? "primary" : undefined}
-            sx={
-              link.startsWith("/")
-                ? {}
-                : {
-                    bgcolor: theme.palette.secondary.main,
-                    color: theme.palette.getContrastText(theme.palette.secondary.main),
-                    fontFamily: theme.typography.fontFamily,
-                  }
-            }
+          </Box>
+        ) : description ? (
+          <Typography
+            variant="body2"
+            align="center"
+            color="secondary.main"
+            fontFamily='"Mate SC", serif'
           >
-            {buttonText}
-          </Button>
+            {description}
+          </Typography>
+        ) : (
+          <Typography variant="body2" align="center" color="text.secondary">
+            More details coming soon.
+          </Typography>
+        )}
+      </Stack>
+
+      {/* Link/Button */}
+      {link && (
+        <Box textAlign="center">
+          {link.startsWith("/") ? (
+            <Button
+              component={NextLink}
+              href={link}
+              passHref
+              variant="contained"
+              color="primary"
+              aria-label={`Learn more about ${title}`}
+            >
+              {buttonText}
+            </Button>
+          ) : (
+            <Button
+              component="a"
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="contained"
+              sx={{
+                bgcolor: "secondary.main",
+                color: theme.palette.getContrastText(
+                  theme.palette.secondary.main,
+                ),
+                fontFamily: '"Mate SC", serif',
+              }}
+              aria-label={`Learn more about ${title}`}
+            >
+              {buttonText}
+            </Button>
+          )}
         </Box>
       )}
-    </Card>
+    </Box>
   );
 };
 
