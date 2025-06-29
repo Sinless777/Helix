@@ -2,8 +2,8 @@
 "use client";
 
 import React from "react";
-import { Header } from "@/components/Header";
-import { headerProps } from "@/constants/header";
+import { Header } from "@frontend/components";
+import { headerProps } from "@frontend/constants/header";
 import { Box, Typography, Button } from "@mui/material";
 
 interface ErrorBoundaryState {

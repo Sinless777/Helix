@@ -1,8 +1,8 @@
 import React from "react";
 import "./global.css";
-import { BackgroundImage, BackgroundImageProps } from "@/components/Background";
-import { SystemColors } from "@/constants/system";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { BackgroundImage, BackgroundImageProps } from "@frontend/components/Background";
+import { SystemColors } from "@frontend/constants/system";
+import { ErrorBoundary } from "@frontend/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
@@ -51,8 +51,11 @@ export default function RootLayout({
             `,
           }}
         />
-        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9610840170359196" />
-        <meta name="google-adsense-account" content="ca-pub-9610840170359196"/>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9610840170359196"
+        />
+        <meta name="google-adsense-account" content="ca-pub-9610840170359196" />
       </head>
       <body>
         <Analytics />

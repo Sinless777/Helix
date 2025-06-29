@@ -1,8 +1,8 @@
 "use client";
 
-import { Header } from "@/components/Header";
+import { Header } from "@frontend/components";
 import { Box, Typography, Button } from "@mui/material";
-import { headerProps } from "@/constants/header";
+import { headerProps } from "@frontend/constants/header";
 import { useRouter } from "next/navigation";
 
 interface Props {

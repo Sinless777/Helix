@@ -5,8 +5,10 @@ import Grid from "@mui/material/Grid";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import styles from "./hero.module.scss";
-import { BotColors } from "@/constants/bot";
-import HeroWaitlist from "@/components/Hero/hero-waitlist";
+import { BotColors } from "@frontend/constants/bot";
+import { HeroWaitlist } from "./hero-waitlist";
+
+export * from "./hero-waitlist";
 
 type HeroSectionProps = {
   title: string;

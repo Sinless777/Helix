@@ -1,4 +1,4 @@
-import { cookieMiddleware } from "@middlewares/cookie";
+import { cookieMiddleware } from "@frontend/middlewares";
 
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";

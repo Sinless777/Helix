@@ -1,4 +1,4 @@
-import { getStableId } from "src/utils/get-stable-id";
+import { getStableId } from "@frontend/lib";
 import { statsigAdapter, Statsig, type StatsigUser } from "@flags-sdk/statsig";
 import { NextResponse } from "next/server";
 

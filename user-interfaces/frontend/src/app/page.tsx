@@ -1,8 +1,8 @@
 "use client";
 
 import styles from "./page.module.scss";
-import { Header, HeaderProps } from "@/components/Header";
-import { headerProps } from "@/constants/header";
+import { Header, HeaderProps } from "@frontend/components";
+import { headerProps } from "@frontend/constants/header";
 import { Box } from "@mui/material";
 import HeroSection from "../components/Hero";
 
@@ -16,14 +16,18 @@ const HeroData = {
 
 export default function Index() {
   return (
-    <Box className={styles.mainContent} sx={{
-      paddingTop: { xs: "4rem", // 64px for mobile
-        sm: "4rem", // 64px for small screens
-        md: "6rem", // 96px for medium screens
-        lg: "6rem", // 96px for large screens
-        xl: "6rem" // 96px for extra large screens
-      },
-    }}>
+    <Box
+      className={styles.mainContent}
+      sx={{
+        paddingTop: {
+          xs: "4rem", // 64px for mobile
+          sm: "4rem", // 64px for small screens
+          md: "6rem", // 96px for medium screens
+          lg: "6rem", // 96px for large screens
+          xl: "6rem", // 96px for extra large screens
+        },
+      }}
+    >
       {/* Header */}
       <Header {...headerProps} />
 

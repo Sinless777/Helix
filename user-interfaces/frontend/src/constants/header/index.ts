@@ -1,5 +1,5 @@
-import { HeaderProps } from "@/components/Header";
-import { pages } from "@/constants/home";
+import { HeaderProps } from "@frontend/components";
+import { pages } from "@frontend/constants/home";
 
 export const headerProps: HeaderProps = {
   logo: "https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix-Logo.webp",

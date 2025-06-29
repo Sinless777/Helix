@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Box, TextField, Button, Alert, Typography } from "@mui/material";
-import { BotColors } from "@/constants/bot";
+import { BotColors } from "@frontend/constants/bot";
 
-export default function HeroWaitlist() {
+export function HeroWaitlist() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"

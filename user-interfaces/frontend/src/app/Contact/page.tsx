@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import { Header } from "@/components/Header";
-import { headerProps } from "@/constants/header";
+import { Header } from "@frontend/components";
+import { headerProps } from "@frontend/constants/header";
 import Image from "next/image";
 import { Button, Card, CardContent } from "@mui/material";
 
@@ -64,7 +64,10 @@ export default function ContactPage() {
   return (
     <Box sx={{ minHeight: "100vh" }}>
       <Header {...headerProps} />
-      <Container maxWidth="lg" sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}>
+      <Container
+        maxWidth="lg"
+        sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}
+      >
         <Typography
           variant="h3"
           align="center"

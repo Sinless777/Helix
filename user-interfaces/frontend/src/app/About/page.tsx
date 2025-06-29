@@ -4,9 +4,9 @@ import React from "react";
 import Script from "next/script";
 import Grid from "@mui/material/Grid";
 import { Box, Container, Typography, useTheme } from "@mui/material";
-import { Header } from "@/components/Header";
-import { headerProps } from "@/constants/header";
-import { AboutContent } from "@/constants/about";
+import { Header } from "@frontend/components";
+import { headerProps } from "@frontend/constants/header";
+import { AboutContent } from "@frontend/constants/about";
 import { motion } from "framer-motion";
 import styles from "./about.module.scss";
 

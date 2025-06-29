@@ -1,6 +1,7 @@
 // Toast.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+"use client";
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface ToastMessage {
   id: number;
@@ -15,13 +16,18 @@ const ToastContext = createContext<ToastContextProps>({ addToast: () => {} });
 
 export const useToast = () => useContext(ToastContext);
 
-export const ToastContainer: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ToastContainer: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const addToast = (content: ReactNode) => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, content }]);
-    setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 3000);
+    setTimeout(
+      () => setToasts((prev) => prev.filter((t) => t.id !== id)),
+      3000,
+    );
   };
 
   return (

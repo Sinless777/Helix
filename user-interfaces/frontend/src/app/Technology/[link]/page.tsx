@@ -2,13 +2,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { technology } from "@frontend/constants";
-import {
-  Box,
-  Typography,
-  Button,
-  Container,
-  Grid,
-} from "@mui/material";
+import { Box, Typography, Button, Container, Grid } from "@mui/material";
 import Header from "@frontend/components/Header";
 import { headerProps } from "@frontend/constants/header";
 import { CardProps, ListItemProps, HelixCard } from "@frontend/components/Card";
@@ -19,13 +13,13 @@ export default function TechnologyPage() {
   const [error, setError] = useState(false);
 
   // Extract the "ai-tools" part from [...link]
-  const raw = Array.isArray(params.link) ? params.link[0] : params.link ?? "";
+  const raw = Array.isArray(params.link) ? params.link[0] : (params.link ?? "");
   const routePath = `/Technology/${raw}`;
   const normalizedRoute = routePath.toLowerCase();
 
   console.log(
     "TechnologyPage",
-    `raw link = ${raw}, routePath = ${routePath}, normalizedRoute = ${normalizedRoute}`
+    `raw link = ${raw}, routePath = ${routePath}, normalizedRoute = ${normalizedRoute}`,
   );
 
   // Load and flatten all cards
@@ -36,7 +30,7 @@ export default function TechnologyPage() {
         "TechnologyPage",
         `Loaded ${cards.length} cards. Links: ${cards
           .map((c) => c.link)
-          .join(", ")}`
+          .join(", ")}`,
       );
       return cards;
     } catch (e) {
@@ -49,13 +43,13 @@ export default function TechnologyPage() {
   // Find the matching card by full path
   const technologyCard = useMemo(() => {
     const found = technologyCards.find(
-      (card) => (card.link ?? "").toLowerCase() === normalizedRoute
+      (card) => (card.link ?? "").toLowerCase() === normalizedRoute,
     );
     console.log(
       "TechnologyPage",
       found
         ? `Found card: ${found.title}`
-        : `No card matches normalizedRoute "${normalizedRoute}"`
+        : `No card matches normalizedRoute "${normalizedRoute}"`,
     );
     if (!found) {
       setError(true);
@@ -68,7 +62,7 @@ export default function TechnologyPage() {
     if (error && !technologyCard) {
       console.warn(
         "TechnologyPage",
-        "Redirecting to /Technology in 1.5s due to missing card"
+        "Redirecting to /Technology in 1.5s due to missing card",
       );
       const timer = setTimeout(() => router.push("/Technology"), 1500);
       return () => clearTimeout(timer);
@@ -117,25 +111,25 @@ export default function TechnologyPage() {
           )}
         </Box>
 
-        <Grid 
-          container 
-          spacing={2} 
-          columns={{ xs: 1, sm: 2, md: 4 }}
-        >
+        <Grid container spacing={2} columns={{ xs: 1, sm: 2, md: 4 }}>
           {listItems?.map((item: ListItemProps, idx: number) => (
-            <Grid key={idx} size={1} sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              }}>
+            <Grid
+              key={idx}
+              size={1}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <HelixCard
                 title={item.text}
                 image={item.image ?? ""}
                 description={item.detailedDescription}
                 link={item.href ?? ""}
                 sx={{
-                  maxHeight: 400
+                  maxHeight: 400,
                 }}
               />
             </Grid>

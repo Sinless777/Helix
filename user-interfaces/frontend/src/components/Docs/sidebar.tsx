@@ -19,9 +19,9 @@ export default function DocsSidebar() {
   return (
     <Box
       sx={{
-        height: '100%',
-        bgcolor: 'background.paper',
-        overflowY: 'auto',
+        height: "100%",
+        bgcolor: "background.paper",
+        overflowY: "auto",
       }}
     >
       <List
@@ -34,7 +34,10 @@ export default function DocsSidebar() {
       >
         {navSections.map((section, i) => (
           <Box key={i} sx={{ mb: 2 }}>
-            <Typography variant="subtitle1" sx={{ pl: 1, mb: 1, fontWeight: 600 }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ pl: 1, mb: 1, fontWeight: 600 }}
+            >
               {section.title}
             </Typography>
             {section.items.map((item, j) => {

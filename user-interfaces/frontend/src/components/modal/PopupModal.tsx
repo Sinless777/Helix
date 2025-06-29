@@ -1,9 +1,9 @@
 // PopupModal.tsx
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 interface Props {
-  type: 'Notice' | 'Card' | 'Form';
+  type: "Notice" | "Card" | "Form";
   content: React.ReactNode;
   onClose: () => void;
 }

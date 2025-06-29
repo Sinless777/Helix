@@ -70,6 +70,7 @@
     "hypertune": "^2.7.2",
     "nanoid": "^5.1.5",
     "next": "^15.3.2",
+    "next-mdx-remote": "^5.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "rehype-pretty-code": "^0.14.1",

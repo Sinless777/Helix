@@ -39,67 +39,68 @@ export const NetworkingCards: CardProps[] = [
         href: "https://www.cloudflare.com/",
         role: "Global Anycast CDN",
         detailedDescription:
-          "Cloudflare’s Anycast network spans 310 PoPs (May 2025) delivering static assets, WAF, DDoS mitigation, and Zero‑Trust tunnelling while providing analytics and rate limiting at the edge."
+          "Cloudflare’s Anycast network spans 310 PoPs (May 2025) delivering static assets, WAF, DDoS mitigation, and Zero‑Trust tunnelling while providing analytics and rate limiting at the edge.",
       },
       {
         text: "Cloudflare Workers",
         href: "https://workers.cloudflare.com/",
         role: "Edge Serverless Runtime",
         detailedDescription:
-          "Workers run V8 isolates in under 5 ms cold‑start across Cloudflare’s global edge. The 2025 Smart Placement feature pushes compute closer to origin latency zones, and AI Gateway allows streamed inference with on‑PoP caching."
+          "Workers run V8 isolates in under 5 ms cold‑start across Cloudflare’s global edge. The 2025 Smart Placement feature pushes compute closer to origin latency zones, and AI Gateway allows streamed inference with on‑PoP caching.",
       },
       {
         text: "Fastly",
         href: "https://www.fastly.com/",
         role: "Programmable CDN",
         detailedDescription:
-          "Fastly’s Compute@Edge executes WebAssembly modules with <50 ms cold‑start, supports KV & object storage, and offers real‑time logging, shielding, and advanced TLS cert automation."
+          "Fastly’s Compute@Edge executes WebAssembly modules with <50 ms cold‑start, supports KV & object storage, and offers real‑time logging, shielding, and advanced TLS cert automation.",
       },
       {
         text: "NGINX Ingress Controller 3.1",
         href: "https://docs.nginx.com/nginx-ingress-controller/",
         role: "Kubernetes Ingress & Gateway",
         detailedDescription:
-          "NGINX Ingress Controller 3.1 (Mar 2025) adds Gateway API Gamma, dynamic mTLS rotation, and enhanced Prometheus metrics, acting as a high‑performance L7 load‑balancer for Kubernetes clusters."
+          "NGINX Ingress Controller 3.1 (Mar 2025) adds Gateway API Gamma, dynamic mTLS rotation, and enhanced Prometheus metrics, acting as a high‑performance L7 load‑balancer for Kubernetes clusters.",
       },
       {
         text: "Envoy Proxy 1.33",
         href: "https://www.envoyproxy.io/",
         role: "L7 Proxy / Sidecar",
         detailedDescription:
-          "Envoy 1.33 (Feb 2025) stabilises WASM filters, enables HTTP/3 HCM, and introduces adaptive concurrency controls, serving as the core data plane for meshes like Istio and Consul."
+          "Envoy 1.33 (Feb 2025) stabilises WASM filters, enables HTTP/3 HCM, and introduces adaptive concurrency controls, serving as the core data plane for meshes like Istio and Consul.",
       },
       {
         text: "Istio 1.23",
         href: "https://istio.io/",
         role: "Service Mesh",
         detailedDescription:
-          "Istio 1.23 (Apr 2025) finalises ambient sidecar‑less dataplane, halves resource footprint, and integrates Kubernetes Gateway API for unified ingress and east‑west traffic management with mTLS."
+          "Istio 1.23 (Apr 2025) finalises ambient sidecar‑less dataplane, halves resource footprint, and integrates Kubernetes Gateway API for unified ingress and east‑west traffic management with mTLS.",
       },
       {
         text: "Cilium 1.16",
         href: "https://cilium.io/",
         role: "eBPF CNI & Mesh",
         detailedDescription:
-          "Cilium 1.16 (Feb 2025) replaces kube‑proxy via eBPF, offers L7 Kafka policies, and graduates Mesh mode with Envoy‑free Hubble observability for high‑performance networking."
+          "Cilium 1.16 (Feb 2025) replaces kube‑proxy via eBPF, offers L7 Kafka policies, and graduates Mesh mode with Envoy‑free Hubble observability for high‑performance networking.",
       },
       {
         text: "Consul Service Mesh 1.18",
         href: "https://www.consul.io/",
         role: "Service Mesh & Discovery",
         detailedDescription:
-          "Consul 1.18 (Jan 2025) enhances Mesh Gateway federation, embeds wasm‑based traffic filters, and supports xDS sync, enabling zero‑trust service‑to‑service connectivity across multi‑cluster and multi‑cloud environments."
+          "Consul 1.18 (Jan 2025) enhances Mesh Gateway federation, embeds wasm‑based traffic filters, and supports xDS sync, enabling zero‑trust service‑to‑service connectivity across multi‑cluster and multi‑cloud environments.",
       },
       {
         text: "cloudflared 2025.4.0",
         href: "https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/",
         role: "Secure Tunnel Connector",
         detailedDescription:
-          "cloudflared 2025.4 adds QUIC multiplex transport, automatic token refresh, and Kubernetes sidecar mode, creating outbound Zero‑Trust tunnels that expose services without public ingress IPs."
-      }
+          "cloudflared 2025.4 adds QUIC multiplex transport, automatic token refresh, and Kubernetes sidecar mode, creating outbound Zero‑Trust tunnels that expose services without public ingress IPs.",
+      },
     ],
-    image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Networking-&-CDN.png",
+    image:
+      "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Networking-&-CDN.png",
     link: "/Technology/networking",
-    buttonText: "Explore networking"
-  }
+    buttonText: "Explore networking",
+  },
 ];

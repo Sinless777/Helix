@@ -1,5 +1,6 @@
 // not-found.tsx
-import ErrorPage from "@/components/error-page";
+import { ErrorPage } from "@frontend/components";
+
 export default function NotFound() {
   return (
     <ErrorPage

@@ -7,10 +7,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Helix_Card, { CardProps } from "@/components/Card";
-import * as Constants from "@/constants/technology";
-import Header from "@/components/Header";
-import { headerProps } from "@/constants/header";
+import Helix_Card, { CardProps } from "@frontend/components/Card";
+import * as Constants from "@frontend/constants/technology";
+import Header from "@frontend/components/Header";
+import { headerProps } from "@frontend/constants/header";
 
 export default function Technology() {
   const allCards: CardProps[] = Object.values(Constants).flat();
