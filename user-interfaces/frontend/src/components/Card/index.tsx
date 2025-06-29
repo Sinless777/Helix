@@ -17,14 +17,17 @@ export interface ListItemProps {
   href: string;
   target?: React.HTMLAttributeAnchorTarget;
   role: string;
+  detailedDescription: string;
+  icon?: string;
+  image?: string;
 }
 
 export interface CardProps {
   title: string;
-  description?: string;
+  description: string;
   listItems?: ListItemProps[];
-  image?: string;
-  link?: string;
+  image: string;
+  link: string;
   buttonText?: string;
   quote?: string;
   aspectRatio?: string;

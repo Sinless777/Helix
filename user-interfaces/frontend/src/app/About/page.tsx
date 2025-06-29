@@ -48,7 +48,7 @@ export default function AboutPage() {
       {/* Content */}
       <Container
         maxWidth="lg"
-        sx={{ pt: { xs: 4, md: 8 }, pb: { xs: 6, md: 10 } }}
+        sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}
       >
         <Typography
           variant="h3"

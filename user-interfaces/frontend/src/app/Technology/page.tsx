@@ -15,6 +15,9 @@ import { headerProps } from "@/constants/header";
 export default function Technology() {
   const allCards: CardProps[] = Object.values(Constants).flat();
 
+  // alphabetize cards by title
+  allCards.sort((a, b) => a.title.localeCompare(b.title));
+
   return (
     <Box sx={{ position: "relative", minHeight: "100vh" }}>
       {/* Load AdSense library */}
@@ -57,7 +60,7 @@ export default function Technology() {
       <Header {...headerProps} />
 
       {/* Page Title */}
-      <Box sx={{ my: { xs: 2, md: 4 } }}>
+      <Box sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}>
         <Typography
           variant="h3"
           component="h1"

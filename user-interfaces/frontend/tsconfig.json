@@ -64,7 +64,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next-env.d.ts",
-    "../../dist/user-interfaces/frontend/types/**/*.ts"
+    "../../dist/user-interfaces/frontend/types/**/*.ts",
+    "src/app/Docs/**/*.mdx"
   ],
   "exclude": [
     "node_modules",

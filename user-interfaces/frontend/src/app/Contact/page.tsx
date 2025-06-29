@@ -64,7 +64,7 @@ export default function ContactPage() {
   return (
     <Box sx={{ minHeight: "100vh" }}>
       <Header {...headerProps} />
-      <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Container maxWidth="lg" sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}>
         <Typography
           variant="h3"
           align="center"
