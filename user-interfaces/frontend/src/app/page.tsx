@@ -16,7 +16,14 @@ const HeroData = {
 
 export default function Index() {
   return (
-    <Box className={styles.mainContent}>
+    <Box className={styles.mainContent} sx={{
+      paddingTop: { xs: "4rem", // 64px for mobile
+        sm: "4rem", // 64px for small screens
+        md: "6rem", // 96px for medium screens
+        lg: "6rem", // 96px for large screens
+        xl: "6rem" // 96px for extra large screens
+      },
+    }}>
       {/* Header */}
       <Header {...headerProps} />
 

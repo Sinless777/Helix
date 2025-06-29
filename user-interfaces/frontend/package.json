@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "serve": "next start",
     "lint": "next lint --fix",
     "test": "jest",
@@ -72,6 +72,8 @@
     "next": "^15.3.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "rehype-pretty-code": "^0.14.1",
+    "remark-gfm": "^4.0.1",
     "server-only": "^0.0.1",
     "swr": "^2.3.3",
     "tailwinds": "^0.0.0",

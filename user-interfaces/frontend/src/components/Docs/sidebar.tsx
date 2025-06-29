@@ -19,9 +19,7 @@ export default function DocsSidebar() {
   return (
     <Box
       sx={{
-        width: 250,
         height: '100%',
-        p: 2,
         bgcolor: 'background.paper',
         overflowY: 'auto',
       }}

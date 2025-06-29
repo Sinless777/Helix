@@ -1,21 +1,45 @@
 // next.config.ts
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
-import webpack from "webpack";
-import { composePlugins, withNx } from "@nx/next";
-import type { WithNxOptions } from "@nx/next/plugins/with-nx";
+import remarkGfm from "remark-gfm";
+import rehypePrettyCode from "rehype-pretty-code";
 
-const nxOptions: WithNxOptions = {
-  // Enable SVGR if you like importing SVGs as React components
-  svgr: false,
+// Shared MDX compiler options
+const mdxOptions = {
+  remarkPlugins: [remarkGfm],
+  rehypePlugins: [[rehypePrettyCode, { theme: "one-dark-pro" }]],
+  providerImportSource: "@mdx-js/react",
 };
 
-const withMDX = createMDX({ extension: /\.(md|mdx)$/ });
+// `@next/mdx` handles both routing AND importing of .md/.mdx
+const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
+  options: mdxOptions,
+});
 
-const baseConfig: NextConfig = {
-  nx: nxOptions,
+/** @type {import('next').NextConfig} */
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  /**
+   * Origin Policies
+   * 
+   * This is a security feature that allows you to specify how your application
+   * handles cross-origin requests. The "anonymous" value means that the browser
+   */
   crossOrigin: "anonymous",
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  allowedDevOrigins: [
+    "http://localhost:3000", // Local development
+    "http://192.168.10.10:3000", // Local development on a specific IP
+    "192.168.10.10", // Local development on a specific IP without protocol
+  ], // Allow dev origins for local development
+
+  // Build output directory
+  // ../../dist/user-interfaces/frontend
+  distDir: "../../dist/user-interfaces/frontend",
+
+  // ── Routable file types ──
+  pageExtensions: ["ts", "tsx", "md", "mdx"],
+
   images: {
     remotePatterns: [
       {
@@ -26,20 +50,20 @@ const baseConfig: NextConfig = {
     ],
   },
 
-  webpack(config, { isServer }) {
-    // Hot module replacement plugin (Next already does HMR by default in dev)
-    config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  experimental: {
+  //   mdxRs: true,            // RSC‑aware MDX compiler (needs @mdx-js/loader installed)
+  //   scrollRestoration: true,
+  //   typedRoutes: true,
+  },
 
-    // NOTE: Next.js doesn't expose `devServer` here—remove this if you see errors.
-    if (!isServer) {
-      (config.devServer ??= {}).hot = true;
-      config.devServer.open = true;
-    }
+  compiler: {
+    styledComponents: true,
+  },
 
+  webpack(config) {
+    // No extra MDX loaders — `@next/mdx` already wires up @mdx-js/loader internally.
     return config;
   },
 };
 
-const plugins = [withNx, withMDX];
-
-export default composePlugins(...plugins)(baseConfig);
+export default withMDX(nextConfig);

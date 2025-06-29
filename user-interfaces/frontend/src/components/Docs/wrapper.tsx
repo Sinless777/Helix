@@ -13,6 +13,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import DocsSidebar from "@/components/Docs/sidebar";
+import { Header } from "@/components/Header";
+import { headerProps } from "@/constants/header";
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const theme = useTheme();
@@ -27,7 +29,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   const toggleDrawer = (open: boolean) => () => setDrawerOpen(open);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%', bgcolor: 'background.default' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%' }}>
+      {/* Header */}
+      <Header {...headerProps} />
       {/* Mobile AppBar */}
       {isMobile && (
         <AppBar position="sticky" elevation={1}>
@@ -45,7 +49,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         </AppBar>
       )}
 
-      <Box sx={{ display: 'flex', flexGrow: 1, overflow: 'hidden' }}>
+      <Box sx={{ display: 'flex', flexGrow: 1, overflow: 'hidden', flexDirection: 'row' }}>
         {/* Sidebar drawer on mobile, permanent panel on desktop */}
         {isMobile ? (
           <Drawer
@@ -61,10 +65,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         ) : (
           <Box
             sx={{
-              width: 280,
+              flex: '0 0 clamp(200px, 20%, 300px)',
               flexShrink: 0,
               bgcolor: 'rgba(35, 39, 42, 0.1)',
-              borderRight: `1px solid ${theme.palette.divider}`,
               overflowY: 'auto',
             }}
           >
@@ -74,14 +77,12 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
 
         {/* Main Markdown Content */}
         <Box
-          component="main"
           sx={{
-            flexGrow: 1,
-            p: { xs: 2, sm: 4 },
             overflowY: 'auto',
-            bgcolor: 'rgba(35, 39, 42, 0.1)',
-            color: 'rgba(0, 0, 0, 0.87)',
-            minHeight: '0',
+            p: 2,
+            bgcolor: 'rgba(16, 17, 18, 0.5)',
+            color: 'rgba(255, 255, 255, 0.87)',
+            flex: '1 1 auto',
           }}
         >
           {children}
@@ -91,11 +92,11 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         {!isMobile && (
           <Box
             sx={{
-              width: 280,
+              // Dynamic width based on screen size
+              flex: '0 0 clamp(150px, 15%, 260px)',
               flexShrink: 0,
               bgcolor: 'background.default',
               borderLeft: `1px solid ${theme.palette.divider}`,
-              p: 2,
               display: { xs: 'none', sm: 'block' },
             }}
           >

@@ -3,4 +3,5 @@ export const pages = [
   { name: "About", url: "/About" },
   { name: "Contact", url: "/Contact" },
   { name: "Tech Stack", url: "/Technology" },
+  { name: "Docs", url: "/Docs" },
 ];
