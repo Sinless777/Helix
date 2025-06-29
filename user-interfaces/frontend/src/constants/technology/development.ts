@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 export const DevelopmentCards: CardProps[] = [
   {
@@ -91,8 +91,8 @@ export const DevelopmentCards: CardProps[] = [
           "Powered by GPT‑4o (May 2025), Copilot offers contextual inline completions across 16 languages plus a code‑repair agent that opens pull requests with unit‑tested fixes. Real‑time vulnerability filtering catches OWASP Top‑10 issues before merge."
       }
     ],
-    image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/Development.png",
-    link: "/development",
+    image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Development.png",
+    link: "/Technology/development",
     buttonText: "Learn more"
   }
 ];
