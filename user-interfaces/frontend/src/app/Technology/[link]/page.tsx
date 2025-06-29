@@ -96,7 +96,7 @@ export default function TechnologyPage() {
   const { title, description, listItems } = technologyCard;
 
   return (
-    <Box sx={{ flexGrow: 1, flexDirection: "column" }}>
+    <Box sx={{ flexGrow: 1 }}>
       <Header {...headerProps} />
 
       <Container
@@ -106,26 +106,37 @@ export default function TechnologyPage() {
           pb: { xs: 6, md: 10 },
         }}
       >
-        <Box mb={4}>
-          <Typography variant="h3" component="h1" gutterBottom>
+        <Box mb={4} textAlign="center">
+          <Typography variant="h3" component="h1" sx={{ color: "white" }}>
             {title}
           </Typography>
           {description && (
-            <Typography variant="subtitle1" color="text.secondary">
+            <Typography variant="subtitle1" sx={{ color: "white" }}>
               {description}
             </Typography>
           )}
         </Box>
 
-        <Grid container spacing={4} columns={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+        <Grid 
+          container 
+          spacing={2} 
+          columns={{ xs: 1, sm: 2, md: 4 }}
+        >
           {listItems?.map((item: ListItemProps, idx: number) => (
-            <Grid key={idx} columns={{ xs: 12, sm: 6, md: 4 }}>
-              {/* Use the HelixCard component instead of raw MUI Card */}
+            <Grid key={idx} size={1} sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              }}>
               <HelixCard
                 title={item.text}
                 image={item.image ?? ""}
                 description={item.detailedDescription}
                 link={item.href ?? ""}
+                sx={{
+                  maxHeight: 400
+                }}
               />
             </Grid>
           ))}
