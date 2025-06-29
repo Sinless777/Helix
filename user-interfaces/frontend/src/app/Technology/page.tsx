@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Helix_Card, { CardProps } from "@/components/Card";
 import * as Constants from "@/constants/technology";
-import { Header } from "@/components/Header";
+import Header from "@/components/Header";
 import { headerProps } from "@/constants/header";
 
 export default function Technology() {
@@ -20,12 +20,6 @@ export default function Technology() {
 
   return (
     <Box sx={{ position: "relative", minHeight: "100vh" }}>
-      {/* Load AdSense library */}
-      <Script
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-REPLACE_WITH_YOUR_CLIENT_ID"
-        strategy="afterInteractive"
-        crossOrigin="anonymous"
-      />
       {/* Initialize AdSense slots */}
       <Script id="ads-init" strategy="afterInteractive">
         {`(adsbygoogle = window.adsbygoogle || []).push({});`}
@@ -47,10 +41,6 @@ export default function Technology() {
             zIndex: 1000,
             display: { xs: "none", lg: "block" },
           }}
-          data-ad-client="ca-pub-REPLACE_WITH_YOUR_CLIENT_ID"
-          data-ad-slot={
-            side === "left" ? "REPLACE_LEFT_SLOT_ID" : "REPLACE_RIGHT_SLOT_ID"
-          }
           data-ad-format="vertical"
           data-full-width-responsive="false"
         />
