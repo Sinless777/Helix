@@ -40,7 +40,7 @@ export const HelixCard: React.FC<CardProps> = ({
   listItems,
   image,
   link,
-  buttonText = "Read more",
+  buttonText = `Read more About ${title}`,
   quote,
   aspectRatio = "56.25%",
   sx,
@@ -65,6 +65,17 @@ export const HelixCard: React.FC<CardProps> = ({
         ...sx,
       }}
     >
+      {/* Title */}
+      <Typography
+        variant="h5"
+        component="h2"
+        align="center"
+        color="secondary.main"
+        fontFamily='"Mate SC", serif'
+        sx={{ mb: 1 }}
+      >
+        {title}
+      </Typography>
       {/* Image */}
       {image && (
         <Box
@@ -146,6 +157,7 @@ export const HelixCard: React.FC<CardProps> = ({
             align="center"
             color="secondary.main"
             fontFamily='"Mate SC", serif'
+            sx={{ overflowY: "auto", maxHeight: "10.5rem" }}
           >
             {description}
           </Typography>
