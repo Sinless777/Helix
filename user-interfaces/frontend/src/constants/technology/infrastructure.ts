@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 export const InfrastructureCards: CardProps[] = [
   {
@@ -120,7 +120,7 @@ export const InfrastructureCards: CardProps[] = [
       }
     ],
     image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Infrastructure.png",
-    link: "/infrastructure",
+    link: "/Technology/infrastructure",
     buttonText: "Learn more"
   }
 ];

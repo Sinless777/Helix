@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 /**
  * ### NetworkingCards
@@ -99,7 +99,7 @@ export const NetworkingCards: CardProps[] = [
       }
     ],
     image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Networking-&-CDN.png",
-    link: "/networking",
+    link: "/Technology/networking",
     buttonText: "Explore networking"
   }
 ];

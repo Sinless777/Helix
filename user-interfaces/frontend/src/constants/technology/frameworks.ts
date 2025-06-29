@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 export const FrameworksCards: CardProps[] = [
   {
@@ -64,7 +64,7 @@ export const FrameworksCards: CardProps[] = [
       }
     ],
     image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Frameworks.png",
-    link: "/frameworks",
+    link: "/Technology/frameworks",
     buttonText: "Explore frameworks"
   }
 ];

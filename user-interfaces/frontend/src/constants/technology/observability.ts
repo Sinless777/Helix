@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 export const ObservabilityCards: CardProps[] = [
   {
@@ -106,7 +106,7 @@ export const ObservabilityCards: CardProps[] = [
       }
     ],
     image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Observability.png",
-    link: "/observability",
+    link: "/Technology/observability",
     buttonText: "Explore suite"
   }
 ];

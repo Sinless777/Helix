@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 export const ProgrammingLanguagesCards: CardProps[] = [
   {
@@ -64,7 +64,7 @@ export const ProgrammingLanguagesCards: CardProps[] = [
       }
     ],
     image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Programming-Languages.png",
-    link: "/languages",
+    link: "/Technology/languages",
     buttonText: "Explore languages"
   }
 ];

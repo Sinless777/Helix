@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 /**
  * ### MetricsExportersCards
@@ -237,7 +237,7 @@ export const MetricsExportersCards: CardProps[] = [
       }
     ],
     image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Metrics-Exporters.png",
-    link: "/metrics-exporters",
+    link: "/Technology/metrics-exporters",
     buttonText: "Explore exporters"
   }
 ];
