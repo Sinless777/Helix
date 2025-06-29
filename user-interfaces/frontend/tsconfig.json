@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "",
     "sourceMap": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -32,43 +31,21 @@
       }
     ],
     "types": [
-      "jest",
-      "node"
-    ],
-    "baseUrl": "",
-    "paths": {
-      "@/components/*": [
-        "src/components/*"
-      ],
-      "@/constants/*": [
-        "src/constants/*"
-      ],
-      "@middlewares/*": [
-        "src/middlewares/*"
-      ],
-      "@/hooks/*": [
-        "src/hooks/*"
-      ],
-      "@/lib/*": [
-        "src/lib/*"
-      ],
-      "@/generated/*": [
-        "src/generated/*"
-      ]
-    }
+      "node",
+      "jest"
+    ]
   },
   "include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
+    "../../libs/logger/src/**/*",
     "next-env.d.ts",
-    "../../dist/user-interfaces/frontend/types/**/*.ts",
-    "src/app/Docs/**/*.mdx"
+    "src/**/*",
+    "src/app/Docs/**/*.mdx",
+    "../../dist/user-interfaces/frontend/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
+    ".next",
+    "dist",
     "jest.config.ts",
     "**/*.spec.ts",
     "**/*.test.ts"
