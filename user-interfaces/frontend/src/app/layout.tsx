@@ -51,7 +51,7 @@ export default function RootLayout({
           }}
         />
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9610840170359196" />
-        <meta name="google-adsense-account" content="ca-pub-9610840170359196"></meta>
+        <meta name="google-adsense-account" content="ca-pub-9610840170359196" />
       </head>
       <body>
         <Analytics />
