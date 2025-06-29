@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 export const DataStorageCards: CardProps[] = [
   {
@@ -78,7 +78,7 @@ export const DataStorageCards: CardProps[] = [
       }
     ],
     image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Data-&-Messaging.png",
-    link: "/data-storage",
+    link: "/Technology/data-storage",
     buttonText: "Learn more",
   },
 ];
