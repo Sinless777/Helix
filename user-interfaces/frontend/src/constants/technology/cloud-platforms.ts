@@ -1,4 +1,4 @@
-import { CardProps } from "@/components/Card";
+import { CardProps } from "@frontend/components/Card";
 
 export const CloudPlatformCards: CardProps[] = [
   {
@@ -51,7 +51,7 @@ export const CloudPlatformCards: CardProps[] = [
       }
     ],
     image: "https://cdn.sinlessgamesllc.com/Helix-AI/images/technology/Cloud-Platforms.png",
-    link: "/cloud-platforms",
+    link: "/Technology/cloud-platforms",
     buttonText: "Explore clouds"
   }
 ];
