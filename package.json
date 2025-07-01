@@ -27,7 +27,8 @@
     "test:coverage:check": "pnpm run test:all -- --coverage --coverageReporters=text-lcov | coveralls",
     "test:watch": "pnpm run test:all -- --watch",
     "dev:frontend": "pnpm --filter @helix/frontend dev",
-    "format:frontend": "pnpm --filter @helix/frontend format"
+    "format:frontend": "pnpm --filter @helix/frontend format",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "^15.3.2"
