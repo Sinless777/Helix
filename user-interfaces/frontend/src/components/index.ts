@@ -1,3 +1,4 @@
+"use client";
 export { BackgroundImage, type BackgroundImageProps } from "./Background";
 export { HelixCard } from "./Card"; // explicitly re-export the component
 export type { CardProps, ListItemProps } from "./Card";
