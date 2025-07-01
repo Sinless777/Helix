@@ -1,11 +1,9 @@
-"use client";
-
-import styles from "./page.module.scss";
 import { Header, HeaderProps } from "@frontend/components";
 import { headerProps } from "@frontend/constants/header";
 import { Box } from "@mui/material";
 import HeroSection from "../components/Hero";
-
+import { ThemeProvider } from "@mui/material/styles";
+import { MainTheme } from "@frontend/constants/themes";
 const HeroData = {
   title:
     "Meet Helix AI — Your Intelligent Companion for a Smarter Digital Life",
@@ -16,8 +14,8 @@ const HeroData = {
 
 export default function Index() {
   return (
-    <Box
-      className={styles.mainContent}
+    <ThemeProvider theme={MainTheme}>
+      <Box
       sx={{
         paddingTop: {
           xs: "4rem", // 64px for mobile
@@ -44,5 +42,6 @@ export default function Index() {
         />
       </Box>
     </Box>
+    </ThemeProvider>
   );
 }

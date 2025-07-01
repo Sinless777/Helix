@@ -1,8 +1,7 @@
 // src/app/Docs/page.tsx
-"use client";
 import { Box, Typography } from "@mui/material";
 
-export default function DocsHome() {
+export default async function DocsHome() {
   return (
     <Box sx={{ pl: 6, pr: 6, pt: 2, pb: 4 }}>
       {/* Page Title */}

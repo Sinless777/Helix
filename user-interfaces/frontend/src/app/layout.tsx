@@ -9,6 +9,8 @@ import { ErrorBoundary } from "@frontend/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
+import { ThemeProvider } from "@mui/material/styles";
+import { MainTheme } from "@frontend/constants/themes";
 
 export const metadata = {
   title: "Helix AI",

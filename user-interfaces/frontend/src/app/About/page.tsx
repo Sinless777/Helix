@@ -8,7 +8,6 @@ import { Header } from "@frontend/components";
 import { headerProps } from "@frontend/constants/header";
 import { AboutContent } from "@frontend/constants/about";
 import { motion } from "framer-motion";
-import styles from "./about.module.scss";
 
 export default function AboutPage() {
   const theme = useTheme();
@@ -72,20 +71,18 @@ export default function AboutPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: i * 0.2 }}
                 whileHover={{ scale: 1.03 }}
-                className={styles.card}
               >
                 <Box
                   component="div"
                   sx={{ height: 360, overflowY: "auto", p: 2 }}
                 >
-                  <Typography variant="h5" className={styles.cardTitle}>
-                    <span className={styles.icon}>{sec.icon || "🔹"}</span>
+                  <Typography variant="h5">
+                    <span>{sec.icon || "🔹"}</span>
                     {sec.title}
                   </Typography>
 
                   <Typography
                     variant="body1"
-                    className={styles.cardContent}
                     component="div"
                   >
                     {sec.content}
