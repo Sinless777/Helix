@@ -1,27 +1,36 @@
-'use client'
-
-import styles from './page.module.scss'
-import { Header, HeaderProps } from '@/components/Header'
-import { headerProps } from '@/constants/header'
-import { Box } from '@mui/material'
-import HeroSection from '../components/Hero'
-
+import { Header, HeaderProps } from "@frontend/components";
+import { headerProps } from "@frontend/constants/header";
+import { Box } from "@mui/material";
+import HeroSection from "../components/Hero";
+import { ThemeProvider } from "@mui/material/styles";
+import { MainTheme } from "@frontend/constants/themes";
 const HeroData = {
   title:
-    'Meet Helix AI — Your Intelligent Companion for a Smarter Digital Life',
+    "Meet Helix AI — Your Intelligent Companion for a Smarter Digital Life",
   description:
-    'Seamlessly connect, automate, and analyze with an AI assistant built to simplify tasks, enhance productivity, and empower your decisions across every platform you use.',
-  imageUrl: 'https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix_Logo.png',
-}
+    "Seamlessly connect, automate, and analyze with an AI assistant built to simplify tasks, enhance productivity, and empower your decisions across every platform you use.",
+  imageUrl: "https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix_Logo.png",
+};
 
 export default function Index() {
   return (
-    <Box className={styles.mainContent}>
+    <ThemeProvider theme={MainTheme}>
+      <Box
+      sx={{
+        paddingTop: {
+          xs: "4rem", // 64px for mobile
+          sm: "4rem", // 64px for small screens
+          md: "6rem", // 96px for medium screens
+          lg: "6rem", // 96px for large screens
+          xl: "6rem", // 96px for extra large screens
+        },
+      }}
+    >
       {/* Header */}
       <Header {...headerProps} />
 
       {/* Spacer between header and hero */}
-      <Box sx={{ height: '2rem' }} />
+      <Box sx={{ height: "2rem" }} />
 
       {/* Hero Section */}
       <Box>
@@ -33,5 +42,6 @@ export default function Index() {
         />
       </Box>
     </Box>
-  )
+    </ThemeProvider>
+  );
 }

@@ -1,41 +1,41 @@
-import RedisTransport from 'winston-redis'
-import type { LogRecord, LogLevel } from '../logger'
-import { DriverBase } from './driver.base'
+import RedisTransport from "winston-redis";
+import type { LogRecord, LogLevel } from "../logger";
+import { DriverBase } from "./driver.base";
 
 /**
  * Redis transport options for winston-redis.
  */
 export interface RedisDriverOptions {
   /** Redis server host (default: 'localhost') */
-  host?: string
+  host?: string;
   /** Redis server port (default: 6379) */
-  port?: number
+  port?: number;
   /** Redis auth password */
-  auth?: string
+  auth?: string;
   /** A redis client instance or options for node-redis client */
-  redis?: unknown
+  redis?: unknown;
   /** Number of log messages to store in the list (default: 200) */
-  length?: number
+  length?: number;
   /** Name of the Redis list/container (default: 'winston') */
-  container?: string
+  container?: string;
   /** Optional channel to publish logs to */
-  channel?: string
+  channel?: string;
   /** Custom metadata fields to add to each log (default: {}) */
-  meta?: Record<string, unknown>
+  meta?: Record<string, unknown>;
   /** Store meta at top level rather than under 'meta' key (default: false) */
-  flatMeta?: boolean
+  flatMeta?: boolean;
   /** Minimum level to log (default: logger's level) */
-  level?: LogLevel
+  level?: LogLevel;
 }
 
 /**
  * RedisDriver pushes log records into a Redis list or channel via winston-redis.
  */
 export class RedisDriver extends DriverBase {
-  private transport?: InstanceType<typeof RedisTransport>
+  private transport?: InstanceType<typeof RedisTransport>;
 
   constructor(private options: RedisDriverOptions = {}) {
-    super()
+    super();
   }
 
   /**
@@ -43,17 +43,17 @@ export class RedisDriver extends DriverBase {
    */
   public async initialize(): Promise<void> {
     const {
-      host = 'localhost',
+      host = "localhost",
       port = 6379,
       auth,
       redis,
       length = 200,
-      container = 'winston',
+      container = "winston",
       channel,
       meta = {},
       flatMeta = false,
       level,
-    } = this.options
+    } = this.options;
 
     this.transport = new RedisTransport({
       host,
@@ -66,46 +66,46 @@ export class RedisDriver extends DriverBase {
       meta,
       flatMeta,
       level,
-    })
+    });
 
-    await this.start()
+    await this.start();
   }
 
   /**
    * Start the driver and mark as running.
    */
   public async start(): Promise<void> {
-    this.setRunning(true)
+    this.setRunning(true);
   }
 
   /**
    * Log a record to Redis; delegate to transport.
    */
   public async log(record: LogRecord): Promise<void> {
-    const transport = this.transport
+    const transport = this.transport;
     if (!this.isEnabled() || !this.isRunning() || !transport) {
-      return
+      return;
     }
 
     await new Promise<void>((resolve, reject) => {
       transport.log(
         { ...record, level: record.level, message: record.message },
         (err?: Error) => (err ? reject(err) : resolve()),
-      )
-    })
+      );
+    });
   }
 
   /**
    * Stop the driver and mark as not running.
    */
   public async stop(): Promise<void> {
-    this.setRunning(false)
+    this.setRunning(false);
   }
 
   /**
    * Shutdown the driver and clean up.
    */
   public async shutdown(): Promise<void> {
-    await this.stop()
+    await this.stop();
   }
 }

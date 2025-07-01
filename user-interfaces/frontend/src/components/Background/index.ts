@@ -1,1 +1,1 @@
-export * from './Image'
+export { BackgroundImage, type BackgroundImageProps } from "./Image";

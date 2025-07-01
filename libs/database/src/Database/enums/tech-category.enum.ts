@@ -7,55 +7,55 @@
  */
 export enum TechCategory {
   /** Artificial Intelligence */
-  AI = 'AI',
+  AI = "AI",
   /** Augmented Reality */
-  AR = 'AR',
+  AR = "AR",
   /** Analytics and data analysis tools */
-  Analytics = 'Analytics',
+  Analytics = "Analytics",
   /** Backend development frameworks and services */
-  Backend = 'Backend',
+  Backend = "Backend",
   /** Blockchain technologies */
-  Blockchain = 'Blockchain',
+  Blockchain = "Blockchain",
   /** Cloud platforms and services */
-  Cloud = 'Cloud',
+  Cloud = "Cloud",
   /** Containerization tools (e.g., Docker, Kubernetes) */
-  Containerization = 'Containerization',
+  Containerization = "Containerization",
   /** Domain Name System services and libraries */
-  DNS = 'DNS',
+  DNS = "DNS",
   /** Data processing and pipeline tools */
-  Data = 'Data',
+  Data = "Data",
   /** Database systems and engines */
-  Database = 'Database',
+  Database = "Database",
   /** UI/UX and graphic design tools */
-  Design = 'Design',
+  Design = "Design",
   /** Desktop application frameworks */
-  Desktop = 'Desktop',
+  Desktop = "Desktop",
   /** DevOps and CI/CD tools */
-  DevOps = 'DevOps',
+  DevOps = "DevOps",
   /** Application frameworks */
-  Framework = 'Framework',
+  Framework = "Framework",
   /** Frontend development libraries and frameworks */
-  Frontend = 'Frontend',
+  Frontend = "Frontend",
   /** Internet of Things platforms */
-  IoT = 'IoT',
+  IoT = "IoT",
   /** Code libraries and reusable modules */
-  Library = 'Library',
+  Library = "Library",
   /** Logging and observability tools */
-  Logging = 'Logging',
+  Logging = "Logging",
   /** Project and workflow management tools */
-  Management = 'Management',
+  Management = "Management",
   /** Mobile development frameworks */
-  Mobile = 'Mobile',
+  Mobile = "Mobile",
   /** Miscellaneous or uncategorized technologies */
-  Other = 'Other',
+  Other = "Other",
   /** Productivity and office tools */
-  Productivity = 'Productivity',
+  Productivity = "Productivity",
   /** Programming languages */
-  ProgrammingLanguage = 'ProgrammingLanguage',
+  ProgrammingLanguage = "ProgrammingLanguage",
   /** Security and encryption tools */
-  Security = 'Security',
+  Security = "Security",
   /** Testing and QA tools */
-  Testing = 'Testing',
+  Testing = "Testing",
   /** Virtual Reality */
-  VR = 'VR',
+  VR = "VR",
 }

@@ -1,40 +1,39 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Script from 'next/script'
-import Grid from '@mui/material/Grid'
-import { Box, Container, Typography, useTheme } from '@mui/material'
-import { Header } from '@/components/Header'
-import { headerProps } from '@/constants/header'
-import { AboutContent } from '@/constants/about'
-import { motion } from 'framer-motion'
-import styles from './about.module.scss'
+import React from "react";
+import Script from "next/script";
+import Grid from "@mui/material/Grid";
+import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Header } from "@frontend/components";
+import { headerProps } from "@frontend/constants/header";
+import { AboutContent } from "@frontend/constants/about";
+import { motion } from "framer-motion";
 
 export default function AboutPage() {
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
-    <Box sx={{ position: 'relative', minHeight: '100vh' }}>
+    <Box sx={{ position: "relative", minHeight: "100vh" }}>
       {/* Google Ads Init */}
       <Script id="ads-init" strategy="afterInteractive">
         {`(adsbygoogle=window.adsbygoogle||[]).push({});`}
       </Script>
 
       {/* Ad Slots */}
-      {['left', 'right'].map((side) => (
+      {["left", "right"].map((side) => (
         <Box
           key={side}
           component="ins"
           className="adsbygoogle"
           sx={{
-            position: 'fixed',
-            top: '50%',
+            position: "fixed",
+            top: "50%",
             [side]: 0,
-            transform: 'translateY(-50%)',
+            transform: "translateY(-50%)",
             width: 120,
             height: 600,
             zIndex: 1000,
-            display: { xs: 'none', lg: 'block' },
+            display: { xs: "none", lg: "block" },
           }}
           data-ad-client="ca-pub-REPLACE_WITH_YOUR_CLIENT_ID"
           data-ad-slot={`REPLACE_${side.toUpperCase()}_SLOT_ID`}
@@ -48,15 +47,15 @@ export default function AboutPage() {
       {/* Content */}
       <Container
         maxWidth="lg"
-        sx={{ pt: { xs: 4, md: 8 }, pb: { xs: 6, md: 10 } }}
+        sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}
       >
         <Typography
           variant="h3"
           component="h1"
           align="center"
           sx={{
-            fontWeight: 'bold',
-            color: '#fff',
+            fontWeight: "bold",
+            color: "#fff",
             mb: { xs: 4, md: 6 },
           }}
         >
@@ -72,20 +71,18 @@ export default function AboutPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: i * 0.2 }}
                 whileHover={{ scale: 1.03 }}
-                className={styles.card}
               >
                 <Box
                   component="div"
-                  sx={{ height: 360, overflowY: 'auto', p: 2 }}
+                  sx={{ height: 360, overflowY: "auto", p: 2 }}
                 >
-                  <Typography variant="h5" className={styles.cardTitle}>
-                    <span className={styles.icon}>{sec.icon || '🔹'}</span>
+                  <Typography variant="h5">
+                    <span>{sec.icon || "🔹"}</span>
                     {sec.title}
                   </Typography>
 
                   <Typography
                     variant="body1"
-                    className={styles.cardContent}
                     component="div"
                   >
                     {sec.content}
@@ -97,5 +94,5 @@ export default function AboutPage() {
         </Grid>
       </Container>
     </Box>
-  )
+  );
 }

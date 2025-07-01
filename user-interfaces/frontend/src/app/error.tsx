@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { ErrorPage } from '@/components/error-page'
+import ErrorPage from "@frontend/components/error-page";
 
 export default function GlobalError({
   error,
   reset,
 }: {
-  error: Error
-  reset: () => void
+  error: Error;
+  reset: () => void;
 }) {
   return (
     <ErrorPage
@@ -16,5 +16,5 @@ export default function GlobalError({
       showRetry
       onRetry={reset}
     />
-  )
+  );
 }

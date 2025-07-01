@@ -1,21 +1,21 @@
-import type { LogRecord, LogLevel } from '../logger'
-import { DriverBase } from './driver.base'
-import LogstashTransport from 'winston3-logstash-transport'
+import type { LogRecord, LogLevel } from "../logger";
+import { DriverBase } from "./driver.base";
+import LogstashTransport from "winston3-logstash-transport";
 
 /**
  * Configuration options for Logstash transport.
  */
 export interface LogstashDriverOptions {
   /** Hostname or IP of the Logstash server */
-  host: string
+  host: string;
   /** Port for TCP/UDP Logstash input */
-  port: number
+  port: number;
   /** Protocol mode: TCP or UDP */
-  mode?: 'tcp' | 'udp' | 'tcp4' | 'tcp6' | 'udp4' | 'udp6'
+  mode?: "tcp" | "udp" | "tcp4" | "tcp6" | "udp4" | "udp6";
   /** Minimum log level for this driver */
-  level?: LogLevel
+  level?: LogLevel;
   /** Optional formatter to transform LogRecord before send */
-  formatter?: (record: LogRecord) => object
+  formatter?: (record: LogRecord) => object;
 }
 
 /**
@@ -23,10 +23,10 @@ export interface LogstashDriverOptions {
  * using the winston3-logstash-transport transport.
  */
 export class LogstashDriver extends DriverBase {
-  private transport?: InstanceType<typeof LogstashTransport>
+  private transport?: InstanceType<typeof LogstashTransport>;
 
   constructor(private options: LogstashDriverOptions) {
-    super()
+    super();
   }
 
   /**
@@ -36,52 +36,52 @@ export class LogstashDriver extends DriverBase {
    * Initialize the Logstash transport and start the driver.
    */
   public async initialize(): Promise<void> {
-    const { host, port, mode = 'udp', level } = this.options
+    const { host, port, mode = "udp", level } = this.options;
     this.transport = new LogstashTransport({
       host,
       port,
       mode,
       level,
-    })
-    await this.start()
+    });
+    await this.start();
   }
 
   /**
    * Mark driver as running.
    */
   public async start(): Promise<void> {
-    this.setRunning(true)
+    this.setRunning(true);
   }
 
   /**
    * Log a record to Logstash.
    */
   public async log(record: LogRecord): Promise<void> {
-    const t = this.transport
-    if (!this.isEnabled() || !this.isRunning() || !t) return
+    const t = this.transport;
+    if (!this.isEnabled() || !this.isRunning() || !t) return;
     // Apply optional formatter if provided
     const payload = this.options.formatter
       ? this.options.formatter(record)
-      : { ...record, level: record.level, message: record.message }
+      : { ...record, level: record.level, message: record.message };
     await new Promise<void>((resolve, reject) => {
-      t.log(payload, (err?: Error) => (err ? reject(err) : resolve()))
-    })
+      t.log(payload, (err?: Error) => (err ? reject(err) : resolve()));
+    });
   }
 
   /**
    * Mark driver as stopped.
    */
   public async stop(): Promise<void> {
-    this.setRunning(false)
+    this.setRunning(false);
   }
 
   /**
    * Shutdown the driver, attempt to close transport if available.
    */
   public async shutdown(): Promise<void> {
-    if (this.transport && typeof this.transport.close === 'function') {
-      await this.transport.close()
+    if (this.transport && typeof this.transport.close === "function") {
+      await this.transport.close();
     }
-    await this.stop()
+    await this.stop();
   }
 }

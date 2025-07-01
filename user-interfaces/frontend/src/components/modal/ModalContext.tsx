@@ -1,0 +1,60 @@
+// ModalContext.tsx
+"use client";
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { NotificationModal } from "./NotificationModal";
+import { PopupModal } from "./PopupModal";
+import { ImportantModal } from "./ImportantModal";
+
+type ModalType =
+  | {
+      kind: "notification";
+      variant: "info" | "error" | "success" | "warn" | "fatal";
+      message: string;
+    }
+  | { kind: "popup"; type: "Notice" | "Card" | "Form"; content: ReactNode }
+  | { kind: "important"; content: ReactNode; onAcknowledge: () => void };
+
+interface ModalContextProps {
+  showModal: (modal: ModalType) => void;
+  hideModal: () => void;
+}
+
+const ModalContext = createContext<ModalContextProps>({
+  showModal: () => {},
+  hideModal: () => {},
+});
+
+export const useModal = () => useContext(ModalContext);
+
+export const ModalProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [modal, setModal] = useState<ModalType | null>(null);
+
+  const showModal = (m: ModalType) => setModal(m);
+  const hideModal = () => setModal(null);
+
+  return (
+    <ModalContext.Provider value={{ showModal, hideModal }}>
+      {children}
+      <AnimatePresence>
+        {modal?.kind === "notification" && (
+          <NotificationModal {...modal} onClose={hideModal} />
+        )}
+        {modal?.kind === "popup" && (
+          <PopupModal {...modal} onClose={hideModal} />
+        )}
+        {modal?.kind === "important" && (
+          <ImportantModal
+            {...modal}
+            onAcknowledge={() => {
+              modal.onAcknowledge();
+              hideModal();
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </ModalContext.Provider>
+  );
+};

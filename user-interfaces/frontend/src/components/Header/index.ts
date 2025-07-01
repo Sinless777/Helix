@@ -1,5 +1,6 @@
-import { Header } from './header'
-import type { HeaderProps, Page } from './header.types'
+import { Header } from "./header";
+import type { HeaderProps, Page } from "./header.types";
 
-export { Header }
-export type { HeaderProps, Page }
+export default Header;
+export { Header };
+export type { HeaderProps, Page };

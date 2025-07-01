@@ -5,15 +5,23 @@
     "module": "ESNext",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "node",
+    "allowJs": true,
     "baseUrl": ".",
     "paths": {
+      "@helix/core": ["libs/core/src/index.ts"],
       "@helix/core/*": ["libs/core/src/*"],
+      "@helix/database": ["libs/database/src/index.ts"],
       "@helix/database/*": ["libs/database/src/*"],
+      "@helix/logger": ["libs/logger/src/index.ts"],
       "@helix/logger/*": ["libs/logger/src/*"],
+      "@helix/ui": ["libs/ui/src/index.ts"],
       "@helix/ui/*": ["libs/ui/src/*"],
+      "@auth": ["apis/auth/src/index.ts"],
       "@auth/*": ["apis/auth/src/*"],
+      "@frontend": ["user-interfaces/frontend/src/index.ts"],
       "@frontend/*": ["user-interfaces/frontend/src/*"]
     },
+    "rootDirs": ["libs", "apis", "user-interfaces"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -32,6 +40,7 @@
   "exclude": [
     "node_modules",
     "dist",
+    "build",
     "tmp",
     "**/*.spec.ts",
     "**/*.test.ts"

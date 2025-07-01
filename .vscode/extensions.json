@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "eamodio.gitlens",
+        "davidanson.vscode-markdownlint",
+        "esbenp.prettier-vscode",
+        "github.copilot",
+        "psykosoldi3r.vscode-git-flow",
+        "foxundermoon.next-js",
+        "katsute.code-background",
+        "christian-kohler.npm-intellisense",
+        "mrmlnc.vscode-json5"
+    ]
+}

@@ -7,26 +7,26 @@
  */
 export enum Gender {
   /** Male identity */
-  Male = 'Male',
+  Male = "Male",
 
   /** Female identity */
-  Female = 'Female',
+  Female = "Female",
 
   /** Non-binary identity */
-  NonBinary = 'NonBinary',
+  NonBinary = "NonBinary",
 
   /** Gender fluid identity */
-  GenderFluid = 'GenderFluid',
+  GenderFluid = "GenderFluid",
 
   /** Genderqueer identity */
-  GenderQueer = 'GenderQueer',
+  GenderQueer = "GenderQueer",
 
   /** Gender non-conforming identity */
-  GenderNonConforming = 'GenderNonConforming',
+  GenderNonConforming = "GenderNonConforming",
 
   /** Agender identity */
-  Agender = 'Agender',
+  Agender = "Agender",
 
   /** Default when no gender is specified */
-  PreferNotToSay = 'PreferNotToSay',
+  PreferNotToSay = "PreferNotToSay",
 }

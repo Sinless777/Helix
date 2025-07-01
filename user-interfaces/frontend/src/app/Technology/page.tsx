@@ -1,53 +1,46 @@
 // src/app/Technology/page.tsx
-'use client'
+"use client";
 
-import React from 'react'
-import Script from 'next/script'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
-import Grid from '@mui/material/Grid'
-import Helix_Card, { CardProps } from '@/components/Card'
-import * as Constants from '@/constants/technology'
-import { Header } from '@/components/Header'
-import { headerProps } from '@/constants/header'
+import React from "react";
+import Script from "next/script";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Helix_Card, { CardProps } from "@frontend/components/Card";
+import * as Constants from "@frontend/constants/technology";
+import Header from "@frontend/components/Header";
+import { headerProps } from "@frontend/constants/header";
 
 export default function Technology() {
-  const allCards: CardProps[] = Object.values(Constants).flat()
+  const allCards: CardProps[] = Object.values(Constants).flat();
+
+  // alphabetize cards by title
+  allCards.sort((a, b) => a.title.localeCompare(b.title));
 
   return (
-    <Box sx={{ position: 'relative', minHeight: '100vh' }}>
-      {/* Load AdSense library */}
-      <Script
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-REPLACE_WITH_YOUR_CLIENT_ID"
-        strategy="afterInteractive"
-        crossOrigin="anonymous"
-      />
+    <Box sx={{ position: "relative", minHeight: "100vh" }}>
       {/* Initialize AdSense slots */}
       <Script id="ads-init" strategy="afterInteractive">
         {`(adsbygoogle = window.adsbygoogle || []).push({});`}
       </Script>
 
       {/* Side Ad Slots */}
-      {['left', 'right'].map((side) => (
+      {["left", "right"].map((side) => (
         <Box
           key={side}
           component="ins"
           className="adsbygoogle"
           sx={{
-            position: 'fixed',
-            top: '50%',
+            position: "fixed",
+            top: "50%",
             [side]: 0,
-            transform: 'translateY(-50%)',
+            transform: "translateY(-50%)",
             width: 120,
             height: 600,
             zIndex: 1000,
-            display: { xs: 'none', lg: 'block' },
+            display: { xs: "none", lg: "block" },
           }}
-          data-ad-client="ca-pub-REPLACE_WITH_YOUR_CLIENT_ID"
-          data-ad-slot={
-            side === 'left' ? 'REPLACE_LEFT_SLOT_ID' : 'REPLACE_RIGHT_SLOT_ID'
-          }
           data-ad-format="vertical"
           data-full-width-responsive="false"
         />
@@ -57,18 +50,18 @@ export default function Technology() {
       <Header {...headerProps} />
 
       {/* Page Title */}
-      <Box sx={{ my: { xs: 2, md: 4 } }}>
+      <Box sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}>
         <Typography
           variant="h3"
           component="h1"
-          sx={{ textAlign: 'center', fontWeight: 'bold', color: '#fff' }}
+          sx={{ textAlign: "center", fontWeight: "bold", color: "#fff" }}
         >
           Technology
         </Typography>
         <Typography
           variant="h5"
           component="p"
-          sx={{ textAlign: 'center', mt: 1, color: '#fff', padding: '2rem' }}
+          sx={{ textAlign: "center", mt: 1, color: "#fff", padding: "2rem" }}
         >
           Helix AI is built on a foundation of modern, battle-tested
           technologies—each carefully chosen to ensure performance, reliability,
@@ -98,5 +91,5 @@ export default function Technology() {
         </Grid>
       </Container>
     </Box>
-  )
+  );
 }

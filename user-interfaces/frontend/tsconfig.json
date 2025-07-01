@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "",
     "sourceMap": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -28,23 +27,21 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node"],
-    "baseUrl": "",
-    "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/constants/*": ["src/constants/*"],
-      "@middlewares/*": ["src/middlewares/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/lib/*": ["src/lib/*"]
-    }
+    "types": ["node", "jest"]
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
+    "../../libs/logger/src/**/*",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+    "src/**/*",
+    "src/app/Docs/**/*.mdx",
+    "../../dist/user-interfaces/frontend/types/**/*.ts"
+, "prettier.config.ts"  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }
