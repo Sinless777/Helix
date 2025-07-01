@@ -1,12 +1,58 @@
-# Add files here to ignore them from prettier formatting
-/dist
-/coverage
-/.nx/cache
-/.nx/workspace-data
-**/.venv
-.github
-docker/**/*
-**/node_modules/
-node_modules/
+# Build outputs and runtime caches (recursively)
+**/dist/
+**/build/
 **/.next/
-.vercel/
+**/.output/
+**/.vercel/
+**/.turbo/
+**/.cache/
+**/.nx/cache/
+**/.nx/workspace-data/
+
+# Virtual environments and Python caches
+**/.venv/
+**/__pycache__/
+**/*.pyc
+
+# Dependency directories (monorepo-safe)
+**/node_modules/
+
+# Coverage data
+**/coverage/
+
+# Version control and platform-specific config
+**/.git/
+**/.github/
+**/.gitlab/
+
+# Docker-related artifacts
+**/docker/
+**/docker-compose.*
+**/Dockerfile
+
+# Local env files
+**/.env
+**/.env.*
+**/*.env.local
+
+# Editor and IDE metadata
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/*.log
+**/*.tsbuildinfo
+
+# Static storybook builds
+**/storybook-static/
+
+# Docs and markdown preview tools
+**/.docusaurus/
+**/.vitepress/
+**/*.mdx-cache
+
+# Test artifacts
+**/__snapshots__/
+
+# Ignore any Markdown build tasks
+**/.next-tasks/
