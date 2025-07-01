@@ -8,6 +8,7 @@
 **/.cache/
 **/.nx/cache/
 **/.nx/workspace-data/
+**/**/.next/**/* */ */
 
 # Virtual environments and Python caches
 **/.venv/
@@ -56,3 +57,4 @@
 
 # Ignore any Markdown build tasks
 **/.next-tasks/
+./user-interfaces/frontend/.next/**

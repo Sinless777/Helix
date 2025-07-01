@@ -1,17 +1,17 @@
 # ===================================================
 # 📦 Package Managers & Build Artifacts
 # ===================================================
-**/node_modules/
-**/dist/
-**/build/
-**/.next/
-**/.turbo/
-**/.output/
-**/.vercel/
-**/.yarn/*
-**/.pnp
-**/.pnp.*
-**/.tsbuildinfo
+**/**/node_modules/
+**/**/dist/
+**/**/build/
+**/**/.next/
+**/**/.turbo/
+**/**/.output/
+**/**/.vercel/
+**/**/.yarn/*
+**/**/.pnp
+**/**/.pnp.*
+**/**/.tsbuildinfo
 
 # Allow specific Yarn folders
 !.yarn/patches
@@ -23,18 +23,17 @@
 # ===================================================
 # ⚙️ Configuration, Secrets, and Environment Files
 # ===================================================
-**/.env
-**/.env.*
-.env
-.env*.local
+**/**/.env
+**/**/.env.*
+**/**/.env.local
 
 # ===================================================
 # 🧪 Testing, Coverage & Snapshots
 # ===================================================
-**/coverage/
-**/__snapshots__/
-**/.nyc_output/
-**/report.[0-9]*.json
+**/**/coverage/
+**/**/__snapshots__/
+**/**/.nyc_output/
+**/**/report.[0-9]*.json
 
 # ===================================================
 # 🐞 Logs & Runtime Data
