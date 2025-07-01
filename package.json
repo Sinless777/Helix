@@ -90,7 +90,7 @@
     "typedoc-plugin-rename-defaults": "^0.7.3",
     "typedoc-theme-hierarchy": "^6.0.0",
     "typescript": "5.8.3",
-    "unenv": "2.0.0-rc.17",
+    "unenv": "2.0.0-rc.18",
     "webpack": "^5.99.7",
     "ws": "^8.18.0"
   }
