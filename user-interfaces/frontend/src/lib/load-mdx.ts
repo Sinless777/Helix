@@ -1,6 +1,6 @@
-import fs from "fs";
+import * as fs from "fs";
 import path from "path";
-import { compileMDX } from "next-mdx-remote/rsc"; // for RSC support
+import { compileMDX } from "next-mdx-remote";
 
 const DOCS_DIR = path.join(process.cwd(), "Docs");
 

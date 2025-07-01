@@ -1,6 +1,9 @@
 import React from "react";
 import "./global.css";
-import { BackgroundImage, BackgroundImageProps } from "@frontend/components/Background";
+import {
+  BackgroundImage,
+  BackgroundImageProps,
+} from "@frontend/components/Background";
 import { SystemColors } from "@frontend/constants/system";
 import { ErrorBoundary } from "@frontend/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/next";

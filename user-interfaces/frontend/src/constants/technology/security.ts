@@ -38,6 +38,13 @@ export const SecurityCards: CardProps[] = [
           "Grype 0.73 (May 2025) matches CVEs across 12 ecosystems using NVD 2.0 and Chainguard edb, providing a second layer of container vulnerability detection.",
       },
       {
+        text: "CrowdsSec",
+        href: "https://crowdsec.net/",
+        role: "Collaborative IPS",
+        detailedDescription:
+          "CrowdSec 1.6 (Feb 2025) bans malicious IPs via agents and shares block‑lists, enhancing runtime security across clusters.",
+      },
+      {
         text: "Clair 4.8",
         href: "https://github.com/quay/clair",
         role: "Container CVE Scanner",

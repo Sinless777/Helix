@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   /**
    * Origin Policies
-   * 
+   *
    * This is a security feature that allows you to specify how your application
    * handles cross-origin requests. The "anonymous" value means that the browser
    */
@@ -51,9 +51,9 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
-  //   mdxRs: true,            // RSC‑aware MDX compiler (needs @mdx-js/loader installed)
-  //   scrollRestoration: true,
-  //   typedRoutes: true,
+    //   mdxRs: true,            // RSC‑aware MDX compiler (needs @mdx-js/loader installed)
+    //   scrollRestoration: true,
+    //   typedRoutes: true,
   },
 
   compiler: {

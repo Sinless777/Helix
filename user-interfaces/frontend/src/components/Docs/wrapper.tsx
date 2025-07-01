@@ -8,10 +8,10 @@ import {
   AppBar,
   Toolbar,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
 import DocsSidebar from "./sidebar";
 import { Header } from "@frontend/components";
 import { headerProps } from "@frontend/constants/header";
@@ -25,7 +25,6 @@ export default function DocsLayout({
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -35,8 +34,9 @@ export default function DocsLayout({
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       {/* Header */}
-      {/* Header */}
       <Header {...headerProps} />
+
+      {/* Main layout container */}
       <Box
         sx={{
           display: "flex",
@@ -48,7 +48,7 @@ export default function DocsLayout({
       >
         {/* Mobile AppBar */}
         {isMobile && (
-          <AppBar position="sticky" elevation={1}>
+          <AppBar position="sticky" sx={{ bgcolor: "#1A1B25" }}>
             <Toolbar>
               <IconButton
                 edge="start"
@@ -58,11 +58,14 @@ export default function DocsLayout({
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6">Docs</Typography>
+              <Typography variant="h6" color="inherit">
+                Docs
+              </Typography>
             </Toolbar>
           </AppBar>
         )}
 
+        {/* Content and sidebar */}
         <Box
           sx={{
             display: "flex",
@@ -71,16 +74,23 @@ export default function DocsLayout({
             flexDirection: "row",
           }}
         >
-          {/* Sidebar drawer on mobile, permanent panel on desktop */}
+          {/* Sidebar drawer on mobile */}
           {isMobile ? (
             <Drawer
               anchor="left"
               open={drawerOpen}
               onClose={toggleDrawer(false)}
               ModalProps={{ keepMounted: true }}
+              PaperProps={{
+                sx: {
+                  bgcolor: "#121827",
+                  color: "white",
+                  width: 280,
+                },
+              }}
             >
               <Box
-                sx={{ width: 280 }}
+                sx={{ width: "100%", height: "100%" }}
                 role="presentation"
                 onClick={toggleDrawer(false)}
               >
@@ -92,7 +102,7 @@ export default function DocsLayout({
               sx={{
                 flex: "0 0 clamp(200px, 20%, 300px)",
                 flexShrink: 0,
-                bgcolor: "rgba(35, 39, 42, 0.1)",
+                bgcolor: "#121827",
                 overflowY: "auto",
               }}
             >
@@ -100,33 +110,37 @@ export default function DocsLayout({
             </Box>
           )}
 
-          {/* Main Markdown Content */}
+          {/* Main Markdown/Content area */}
           <Box
             sx={{
               overflowY: "auto",
-              p: 2,
+              p: 3,
               bgcolor: "rgba(16, 17, 18, 0.5)",
-              color: "rgba(255, 255, 255, 0.87)",
+              color: "#FAFAFA",
               flex: "1 1 auto",
             }}
           >
             {children}
           </Box>
 
-          {/* Optional Ad or Info panel on desktop */}
+          {/* Optional Info panel */}
           {!isMobile && (
             <Box
               sx={{
-                // Dynamic width based on screen size
                 flex: "0 0 clamp(150px, 15%, 260px)",
                 flexShrink: 0,
-                bgcolor: "background.default",
-                borderLeft: `1px solid ${theme.palette.divider}`,
+                bgcolor: "#121827",
+                borderLeft: "1px solid #1F2937",
                 display: { xs: "none", sm: "block" },
+                px: 2,
+                py: 3,
               }}
             >
-              <Typography variant="subtitle2" color="text.secondary">
+              <Typography variant="subtitle2" color="#888" gutterBottom>
                 Ad / Info
+              </Typography>
+              <Typography variant="body2" color="#aaa">
+                You can place release notes, changelogs, or Discord links here.
               </Typography>
             </Box>
           )}
