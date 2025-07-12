@@ -1,0 +1,101 @@
+name: 🐞 Bug Report
+description: File a bug report with details to help us reproduce and fix it
+title: "[BUG] <short description>"
+labels:
+  - Bug
+  - Needs-Triage
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the project!
+        **Before opening a new issue**, please search existing issues to avoid duplicates.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Bug Summary
+      description: A brief title or summary (one sentence)
+      placeholder: "App crashes when saving settings"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        List the steps to reproduce this bug.
+        Use numbered list for clarity.
+      placeholder: |
+        1. Go to Settings → Profile
+        2. Change avatar
+        3. Click Save
+        4. Observe crash
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Provide key context, e.g.:
+        - OS & version
+        - Browser & version (if relevant)
+        - Application version
+      placeholder: |
+        OS: macOS 14.5
+        Browser: Chrome 115
+        App: v2.3.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots
+      description: |
+        Include console output, stack traces, or screenshots.
+        Markdown supported—attach files directly.
+      render: shell
+    validations:
+      required: false
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this occur?
+      options:
+        - Always
+        - Sometimes
+        - Rarely
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Willing to contribute?
+      description: Are you open to helping with a fix?
+      options:
+        - label: I can work on a PR
+    validations:
+      required: false
