@@ -1,2 +1,14 @@
-packages: 
-  - "packages/*"
+packages:
+  - 'packages/*'
+  - 'apps/UIs/*'
+  - 'apps/APIs/*'
+  - 'libs/core'
+  - 'libs/cls'
+  - 'libs/logger'
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - 'cypress'
+  - 'esbuild'
+  - 'nx'
+  - 'sharp'
+  - 'unrs-resolver'

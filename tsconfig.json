@@ -2,5 +2,27 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./apps/UIs/Frontend-e2e"
+    },
+    {
+      "path": "./apps/UIs/Frontend"
+    },
+    {
+      "path": "./apps/APIs/user-service-e2e"
+    },
+    {
+      "path": "./apps/APIs/user-service"
+    },
+    {
+      "path": "./libs/core"
+    },
+    {
+      "path": "./libs/cli"
+    },
+    {
+      "path": "./libs/logger"
+    }
+  ]
 }

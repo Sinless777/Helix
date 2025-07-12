@@ -48,3 +48,8 @@ Thumbs.db
 # ignore any directory (at any depth) whose name starts with “_”
 **/_*/
 
+# Next.js
+.next
+out
+
+test-output
