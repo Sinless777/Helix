@@ -1,0 +1,75 @@
+name: 📚 Docs Request
+description: Request improvements or corrections to documentation (README, guides, examples)
+title: "[DOCS] “<short description>”"
+labels: ["documentation", "awaiting-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve our documentation!  
+        **Before creating this issue**, please search existing docs or open PRs to avoid duplicates.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Issue Summary
+      description: One-sentence overview of the documentation problem
+      placeholder: "README typos and unclear example code"
+    validations:
+      required: true
+
+  - type: textarea
+    id: location
+    attributes:
+      label: Affected Section(s)
+      description: Where did you find the issue? Provide links or file paths.
+      placeholder: |
+        - `docs/intro.md`, step 3  
+        - README under "Authentication"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem Description
+      description: Explain what's wrong, missing, or confusing in current docs
+      placeholder: |
+        The example code is out of date and fails when run...
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: Propose an updated version or example
+      placeholder: |
+        Replace with this updated snippet:
+        ```js
+        const foo = await bar();
+        ```
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity of Issue
+      options:
+        - Low (typo / minor formatting)
+        - Medium (confusing instructions / broken example)
+        - High (documentation missing or critical errors)
+      default: Medium
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Willing to Contribute a Fix?
+      options:
+        - label: I can submit a PR to fix this
+    validations:
+      required: false
