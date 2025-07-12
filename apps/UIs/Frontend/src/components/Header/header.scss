@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
+
+.header {
+  /* Always pinned to the top */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 2rem;
+  color: #fff;
+
+  /* smooth pink → purple → blue blend */
+  background: linear-gradient(
+    to right,
+    rgba(246, 6, 111, 1) 0%,
+    rgba(246, 6, 111, 1) 35%,
+    rgba(129, 21, 112, 1) 50%,
+    rgba(2, 35, 113, 1) 65%,
+    rgba(2, 35, 113, 1) 100%
+  );
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 1.25rem;
+}
+
+.header__version {
+  font-size: 0.85rem;
+  color: rgb(220, 220, 220);
+  margin-top: 0.25rem;
+
+  &:hover {
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(2, 35, 113, 0.6);
+  }
+}
+
+.header__middle {
+  flex: 1;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+}
+
+.header__nav-list {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header__nav-list.hidden {
+  display: none;
+}
+
+.header__menu-button {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #fff;
+}
+
+/* Responsive menu */
+@media screen and (max-width: 768px) {
+  .header__nav-list {
+    display: none;
+  }
+  .header__nav-list.header__nav-list--open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 1.5rem;
+    top: 4.5rem;
+    background-color: #4a00e0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  .header__menu-button {
+    display: block;
+  }
+}
