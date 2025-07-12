@@ -1,0 +1,102 @@
+name: Nightly Docker Build & Test
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # Daily at 02:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: nightly-docker
+  cancel-in-progress: true
+
+jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+
+      - id: find
+        run: |
+          echo "dockerfiles<<EOF" >> $GITHUB_OUTPUT
+          find . -type f -iname Dockerfile | sed 's|^\./||' >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - id: matrix
+        run: |
+          mapfile -t files <<<"${{ steps.find.outputs.dockerfiles }}"
+          objs=()
+          for f in "${files[@]}"; do
+            dir="$(dirname "$f")"
+            name="$(basename "$dir")"
+            objs+=("{\"dockerfile\":\"$f\",\"context\":\"$dir\",\"image\":\"${{ secrets.DOCKER_NAMESPACE }}/$name\"}")
+          done
+          echo "matrix={\"include\":[${objs[*]}]}" >> $GITHUB_OUTPUT
+
+  build-test-push:
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.prepare-matrix.outputs.matrix) }}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Setup Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract version tag
+        id: version
+        run: echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
+      - name: Build (push disabled, load into daemon)
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          platforms: linux/amd64,linux/arm64
+          push: false
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          tags: |
+            ${{ matrix.image }}:nightly
+            ${{ matrix.image }}:latest
+            ${{ matrix.image }}:${{ env.VERSION }}-${{ github.run_number }}
+
+      - name: Smoke Test Container
+        run: |
+          IMG="${{ matrix.image }}:${{ github.run_number }}"
+          echo "Running smoke test for $IMG"
+          docker run --rm "$IMG" sh -c "echo 'OK' > /tmp/health && exit 0"
+        # Replace the test command with your app's actual smoke test, e.g., curl endpoint
+        # This step fails if exit code != 0, preventing bad images from being pushed
+
+      - name: Push tested images
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ matrix.image }}:nightly
+            ${{ matrix.image }}:latest
+            ${{ matrix.image }}:${{ env.VERSION }}-${{ github.run_number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

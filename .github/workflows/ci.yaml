@@ -1,0 +1,250 @@
+name: CI/CD Pipeline
+
+permissions:
+  contents: read
+  packages: write
+  statuses: write
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'hotfix/**'
+      - 'release/**'
+  pull_request:
+    branches:
+      - master
+      - develop
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PNPM_VERSION: 10.12.4
+
+jobs:
+  build-lint-test:
+    name: Build, Lint & Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      checks: write
+      packages: write
+      security-events: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        run: npm install -g pnpm@${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'pnpm'
+
+      - name: Cache build artifacts and node_modules
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+            node_modules
+            dist/**/**
+          key: ${{ runner.os }}-build-${{ hashFiles('**/pnpm-lock.yaml', '**/package.json', '**/tsconfig.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: pnpm install
+
+      - name: Lint codebase
+        run: pnpm run lint:all
+
+      - name: Check if build is needed
+        id: check_diff
+        run: |
+          echo "::group::Checking for changes in packages..."
+          if git diff --quiet origin/master -- ':!**/*.test.ts' ':!**/*.spec.ts'; then
+            echo "skip_build=true" >> $GITHUB_OUTPUT
+            echo "No buildable changes detected."
+          else
+            echo "skip_build=false" >> $GITHUB_OUTPUT
+            echo "Changes detected. Building packages."
+          fi
+          echo "::endgroup::"
+
+      - name: Rebuild changed packages
+        if: steps.check_diff.outputs.skip_build == 'false'
+        run: pnpm -r --filter ...[origin/master] build
+
+  semantic-versioning:
+    name: Semantic Versioning
+    needs: build-lint-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: write
+      actions: read
+      checks: write
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        run: npm install -g pnpm@${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install git-cliff
+        run: brew install git-cliff
+
+      - name: Detect version, decide bump, tag, and generate changelog
+        id: versioning
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HUSKY: 0
+        run: |
+          echo "Checking for latest tag..."
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          if [ -z "$LAST_TAG" ]; then
+            echo "No Git tags found. Falling back to package.json version..."
+            LAST_TAG="v$(jq -r .version package.json)"
+            FALLBACK=true
+          else
+            echo "Found Git tag: $LAST_TAG"
+            FALLBACK=false
+          fi
+
+          echo "last_tag=$LAST_TAG" >> "$GITHUB_OUTPUT"
+          echo "fallback=$FALLBACK" >> "$GITHUB_OUTPUT"
+
+          if [ "$LAST_TAG" = "v0.0.0" ] || [ "$LAST_TAG" = "v$(jq -r .version package.json)" ]; then
+            COMMITS=$(git log --pretty=format:"%s (%h)" | head -n 100)
+          else
+            COMMITS=$(git log "$LAST_TAG"..HEAD --pretty=format:"%s (%h)" | head -n 100)
+          fi
+
+          echo "commits<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$COMMITS" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          VERSION="${LAST_TAG#v}"
+
+          if [ "$FALLBACK" = false ]; then
+            echo "Asking OpenAI whether this is a patch, minor, or major..."
+
+            DECISION=$(curl https://api.openai.com/v1/chat/completions \
+              -s -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $OPENAI_API_KEY" \
+              -d @- <<EOF | jq -r '.choices[0].message.content'
+              {
+                "model": "gpt-4",
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You are a semantic versioning assistant. Only respond with 'major', 'minor' or 'patch'."
+                  },
+                  {
+                    "role": "user",
+                    "content": "Commits since $LAST_TAG:\n$COMMITS"
+                  }
+                ],
+                "temperature": 0
+              }
+              EOF
+            )
+
+            echo "OpenAI decided: $DECISION"
+
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+            if [ "$DECISION" = "major" ]; then
+              MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0
+            elif [ "$DECISION" = "minor" ]; then
+              MINOR=$((MINOR + 1)); PATCH=0
+            else
+              PATCH=$((PATCH + 1))
+            fi
+
+            NEXT_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          else
+            NEXT_VERSION="1.0.0"
+          fi
+
+          echo "version=$NEXT_VERSION" >> "$GITHUB_OUTPUT"
+          echo "should_release=true" >> "$GITHUB_OUTPUT"
+
+          jq ".version=\"$NEXT_VERSION\"" package.json > tmp.json && mv tmp.json package.json
+          pnpm install
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore(release): v$NEXT_VERSION"
+          git tag "v$NEXT_VERSION"
+          git push origin "v$NEXT_VERSION"
+          git push origin HEAD
+
+          DATE=$(date +"%m_%d_%Y")
+          mkdir -p CHANGELOGS
+          git cliff --tag "v$NEXT_VERSION" -o "CHANGELOGS/${DATE}-CHANGELOG-${NEXT_VERSION}.md"
+          echo "Generated changelog for $NEXT_VERSION"
+
+          git add CHANGELOGS/ package.json
+          git commit -m "docs(changelog): add changelog for v$NEXT_VERSION"
+          git push origin HEAD
+
+  main:
+    runs-on: ubuntu-latest
+    needs: build-lint-test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: tree:0
+          fetch-depth: 0
+
+      # This enables task distribution via Nx Cloud
+      # Run this command as early as possible, before dependencies are installed
+      # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
+      # Uncomment this line to enable task distribution
+      # - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
+
+      # Cache node_modules
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - run: npm ci --legacy-peer-deps
+      - uses: nrwl/nx-set-shas@v4
+
+      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
+      # - run: npx nx-cloud record -- echo Hello World
+      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
+      - run: npx nx affected -t lint test build
