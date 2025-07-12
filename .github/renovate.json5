@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "dependencyDashboard": true,
+  "milestone": 31,
+  "schedule": ["before 3am"],
+
+  "packageRules": [
+    {
+      "matchPaths": ["docker/**"],
+      "groupName": "docker dependencies"
+    },
+    {
+      "matchPaths": ["libs/**"],
+      "groupName": "lib packages"
+    },
+    {
+      "matchPaths": ["apps/**"],
+      "groupName": "frontend packages"
+    },
+    {
+      "matchUpdateTypes": ["patch", "minor", "major"],
+      "groupName": "all dependencies"
+    }
+  ]
+}
