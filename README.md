@@ -1,90 +1,150 @@
-# HelixAI
+<div align="center"> <h1 size="7">
+    🎉 Helix AI: A Revolutionary AI-Powered Virtual Assistant 🎉
+</h1> </div>
+<br/>
+<br/>
+<div align="center">
+    <a href="https://helixaibot.com/" target="blank">
+        <img
+            src="https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix_Logo.png"
+            width="350"
+            alt="Helix Ai Logo"
+        />
+    </a>
+</div>
+<br/>
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+---
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+#### Status
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/Sinless777/Helix/master?style=for-the-badge)
 
-## Finish your CI setup
+#### Forks and Stars
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/eRJTbYtnXj)
+![GitHub forks](https://img.shields.io/github/forks/Sinless777/Helix?style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/Sinless777/Helix?style=for-the-badge)
 
+#### Issues and Pull Requests
 
-## Generate a library
+![GitHub issues](https://img.shields.io/github/issues/Sinless777/Helix?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Sinless777/Helix?style=for-the-badge)
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
-```
+#### Contributors and Commits
 
-## Run tasks
+![GitHub contributors](https://img.shields.io/github/contributors/Sinless777/Helix?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/Sinless777/Helix?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Sinless777/Helix?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/Sinless777/Helix?style=for-the-badge)
 
-To build the library use:
+---
 
-```sh
-npx nx build pkg1
-```
+Helix AI is an innovative AI-powered virtual assistant meticulously crafted to redefine interconnectivity in the digital landscape.
+It stands as a cutting-edge solution that not only amplifies communication but also enriches user experiences by seamlessly
+integrating an array of transformative features.
 
-To run any task with Nx use:
+At its core, Helix AI is engineered to serve as a robust and versatile virtual assistant, offering an array of functionalities that
+transcend conventional boundaries. With its intelligent design, Helix AI is empowered to facilitate real-time interactions and
+augment user engagement through its distinctive Discord functionalities and chatbot capabilities. This facet of the AI ensures that
+users can effortlessly interact, command, and inquire, thereby revolutionizing the way interactions unfold in virtual environments.
 
-```sh
-npx nx <target> <project-name>
-```
+Complementing its interactive prowess is the user-friendly web dashboard that empowers users with comprehensive control and oversight.
+Through this intuitive interface, users can effortlessly monitor, customize, and optimize the AI's functionalities to align with
+their unique requirements.
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+Furthermore, Helix AI comes armed with a sophisticated analytics framework that empowers users with actionable insights derived from
+data-driven analytics. This not only facilitates enhanced decision-making but also provides an avenue for users to gain a profound
+understanding of trends, preferences, and patterns.
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+The true essence of Helix AI's power lies in its seamless integrations with a multitude of platforms. This integration prowess extends
+its reach and capabilities beyond the conventional boundaries, enabling it to interface with platforms such as Streamlabs OBS, social
+media platforms, and much more. These integrations are designed to streamline workflows, increase productivity, and amplify the
+overall effectiveness of virtual interactions.
 
-## Versioning and releasing
+In essence, Helix AI stands as a testament to technological advancement, fusing the realms of AI, interconnectivity, and user-centric
+design. It embodies the vision of a smarter, more efficient digital realm where interactions transcend limitations, and the
+possibilities of innovation are boundless.
 
-To version and release the library use
+## Table of Contents
 
-```
-npx nx release
-```
+- [About](#about)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Contributing](#contributing)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [License](LICENSE)
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+## About
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Helix AI is the brainchild of SinLess Games, a visionary endeavor aimed at introducing a versatile virtual assistant that seamlessly
+integrates with diverse platforms and services. Its overarching objective is to elevate communication, streamline automation, and
+empower data-driven decision-making through its unparalleled integration capabilities. for more information, please refer to
+[**"About the Project"**](docs/About-The-Project/Readme.md)
 
-## Keep TypeScript project references up to date
+### Where Immersion and Dreams Come True
 
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
+The journey of SinLess Games LLC commenced in February 2018, orchestrated by the visionary mind of Timothy A. Pierce. This pivotal
+moment was ignited by a transformative conversation with a close roommate, where Timothy articulated his discontentment with the lack
+of immersion in modern games. To this, his roommate responded with a profound challenge:
+<br/>
+<br/>
 
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
+> **"Well, do something about it. You've identified a need in an industry. Now you have the power to fix it."** > <br/> <br/>
+> — Anonymous
+> <br/> <br/>
+> Intrigued and inspired by this insight, Timothy took the mantle upon himself and embarked on the mission to create SinLess Games LLC.
+> This fateful roommate would not only become a cherished friend but also a guiding light during the formative stages of the company.
+> Determined, Timothy embarked on the meticulous process of completing the essential paperwork to establish an LLC. After months of
+> diligent effort, SinLess Games LLC came into being.
 
-```sh
-npx nx sync
-```
+With an unquenchable thirst for knowledge and the desire to bring his vision to life, Timothy enrolled in Full Sail University. He
+recognized the need for equipping himself with the requisite skills to thrive in this realm. As he nears the culmination of his
+academic journey, Timothy stands on the cusp of realizing his dreams.
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+### Crafting Immersive Experiences
 
-```sh
-npx nx sync:check
-```
+SinLess Games is a testament to a commitment rooted in the creation of deeply immersive gaming experiences. Our unwavering dedication
+fuels our daily pursuit to infuse the gaming industry with the vitality it craves. What lies at the core of our mission? It's simple:
+games that captivate, engage, and enthrall. We're here to rectify a contemporary shortfall—while graphics have flourished,
+storytelling has waned. Our resolve is to mend this fissure, to usher in an era where narrative brilliance coalesces with
+cutting-edge visuals.
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+Gone are the days when games were merely a product of profit motives! In the bygone era, limited graphics compelled game creators to
+weave captivating tales that retained player interest. Today, the landscape has evolved, yet the essence of storytelling has faded.
+SinLess Games steps forward to rewrite this narrative. We strive to unravel intricate narratives, amplify the allure of immersive
+gameplay, and even contribute to the very fabric of gaming technology.
 
+### A Community-Centric Approach
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+At SinLess Games, we thrive on crafting games and software that epitomize immersion and entertainment. Our ultimate aspiration is to
+create virtual worlds where players can escape the mundane and immerse themselves in extraordinary realms. Your feedback is the
+compass guiding our journey, propelling us to refine our creations. We eagerly embrace novel ideas and innovative approaches to
+elevate our games and software for you, the heart and soul of our fan base.
 
-## Install Nx Console
+We invite you to join us in a realm where immersion reigns supreme, where games are not just diversions but transformative
+experiences. Step into our world, where the pursuit of dreams becomes a reality. Welcome to the realm of SinLess Games, where
+immersion and dreams come true!
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+## Features
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [ ] Discord Bot: Interact with the virtual assistant through Discord.
+- [ ] Website: A user-friendly web dashboard that empowers users with comprehensive control and oversight.
+- **_More TBA_**
 
-## Useful links
+## Getting Started
 
-Learn more:
+In order to get started with development please go to the [Getting Started](docs/getting-started.md) guide.
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Contributing
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+We welcome contributions from the community to enhance and improve Helix AI. If you're interested in contributing, please refer to
+our [Contribution Guidelines](docs/contributing.md) for more details.
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
+
+---
+
+For detailed information about the project, its architecture, code style guidelines, and more, please refer to the relevant
+files and documentation provided in this repository.
