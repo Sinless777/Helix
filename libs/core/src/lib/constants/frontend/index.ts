@@ -43,7 +43,7 @@ export { SystemColors } from './system';
 /**
  * Technology
  */
-export { DataStorageCards, DevelopmentCards, FrameworksCards, InfrastructureCards, MetricsExportersCards, NetworkingCards, ObservabilityCards, ProgrammingLanguagesCards, SecurityCards, ToolsCards } from './technology';
+export * as technologyCards from './technology';
 
 /**
  * Themes

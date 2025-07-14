@@ -1,10 +1,10 @@
 {
-  "name": "@helixai/Frontend-e2e",
+  "name": "frontend-e2e",
   "version": "0.0.1",
   "private": true,
   "nx": {
     "implicitDependencies": [
-      "@helixai/Frontend"
+      "frontend"
     ]
   }
 }

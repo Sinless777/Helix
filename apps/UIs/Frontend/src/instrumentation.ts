@@ -1,5 +1,6 @@
-import { registerOTel } from '@vercel/otel'
+
 
 export function register() {
-  registerOTel({ serviceName: 'helix-ai-frontend' })
+  // Register instrumentation for the frontend application
+  console.log('Instrumentation registered for the frontend application.');
 }

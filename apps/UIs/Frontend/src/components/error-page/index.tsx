@@ -1,7 +1,7 @@
 'use client'
 
-import { Header } from '@helixai/frontend/components'
-import { headerProps } from '@helixai/frontend/constants/header'
+import { Header } from '../Header'
+import { headerProps } from '@helixai/core'
 import { Box, Button, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 

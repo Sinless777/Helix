@@ -1,18 +1,20 @@
 {
-  "name": "@helixai/frontend",
+  "name": "frontend",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@helixai/core": "^0.0.1",
+    "@helixai/core": "^0.0.3",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
     "@swc/helpers": "~0.5.17",
     "framer-motion": "^12.23.3",
+    "mermaid": "^11.8.1",
     "next": "~15.2.4",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
   "devDependencies": {
     "react-flow-renderer": "^10.3.17"
-  }
+  },
+  "nx": {}
 }

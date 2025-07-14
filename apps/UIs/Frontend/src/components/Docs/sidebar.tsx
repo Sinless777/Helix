@@ -20,7 +20,7 @@ import React, { useState } from 'react'
 import {
   NavItem,
   navSections,
-} from '@helixai/frontend/constants/Docs/navigation'
+} from '@helixai/core'
 
 export default function DocsSidebar() {
   const pathname = usePathname()
@@ -117,7 +117,7 @@ export default function DocsSidebar() {
 
             {hasChildren && (
               <Collapse in={isOpen} timeout="auto" unmountOnExit>
-                {renderNavItems(item.items!, level + 1)}
+                {renderNavItems(item.items ?? [], level + 1)}
               </Collapse>
             )}
           </Box>

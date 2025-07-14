@@ -3,12 +3,11 @@ import type { Metadata } from 'next'
 import type {
   CardProps,
   ListItemProps,
-} from '@helixai/frontend/components/Card'
-import Header from '@helixai/frontend/components/Header'
-import { technology } from '@helixai/frontend/constants'
-import { headerProps } from '@helixai/frontend/constants/header'
+} from '../../../components/Card'
+import Header from '../../../components/Header'
+import { headerProps, technologyCards as technology } from '@helixai/core'
 import { Box, Button, Container, Grid, Typography } from '@mui/material'
-import HelixCard from '@helixai/frontend/components/Card'
+import HelixCard from '../../../components/Card'
 
 type PageProps = {
   params: Promise<{

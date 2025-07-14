@@ -4,7 +4,7 @@ import {
   APACitation,
   CitationPageData,
   Citations,
-} from '@helixai/frontend/constants'
+} from '@helixai/core'
 import {
   Box,
   Divider,

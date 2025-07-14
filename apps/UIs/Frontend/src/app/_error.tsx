@@ -1,6 +1,6 @@
 'use client'
 
-import ErrorPage from '@helixai/frontend/components/error-page'
+import ErrorPage from '../components/error-page'
 
 interface ErrorProps {
   error: Error | Response

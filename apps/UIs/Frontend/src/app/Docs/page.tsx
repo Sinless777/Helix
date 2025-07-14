@@ -1,8 +1,6 @@
 // src/app/Docs/page.tsx
 import { Box, Typography } from '@mui/material'
 
-export const runtime = 'edge'
-
 export default async function DocsHome() {
   return (
     <Box sx={{ pl: 6, pr: 6, pt: 2, pb: 4 }}>

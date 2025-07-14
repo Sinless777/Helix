@@ -1,10 +1,7 @@
 // user-interfaces/frontend/src/app/Docs/About-The-Project/Project_Overview/page.tsx
 'use client'
 
-import { MermaidChart } from '@helixai/frontend/components'
 import { Box, Typography } from '@mui/material'
-
-export const runtime = 'edge'
 
 export default function ProjectOverview() {
   return (

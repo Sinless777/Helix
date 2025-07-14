@@ -1,6 +1,6 @@
 'use client'
 
-import { BotColors } from '@helixai/frontend/constants/bot'
+import { BotColors } from '@helixai/core'
 import { Alert, Box, Button, TextField, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 
@@ -39,7 +39,7 @@ export function HeroWaitlist() {
     setStatus('sending')
 
     try {
-      const res = await fetch('/api/waitlist', {
+      const res = await fetch('/api/V1/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

@@ -5,12 +5,11 @@ import {
   KeyValuePillars,
   Phase,
   RoadMap,
-} from '@helixai/frontend/constants'
-import { Box, Divider, Typography, useTheme } from '@mui/material'
+} from '@helixai/core'
+import { Box, Divider, Typography } from '@mui/material'
 import React from 'react'
 
 export default function IntroductionPage() {
-  const theme = useTheme()
 
   return (
     <Box

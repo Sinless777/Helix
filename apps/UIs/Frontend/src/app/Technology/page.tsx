@@ -1,16 +1,13 @@
 // src/app/Technology/page.tsx
-import Helix_Card, { CardProps } from '@helixai/frontend/components/Card'
-import Header from '@helixai/frontend/components/Header'
-import { headerProps } from '@helixai/frontend/constants/header'
-import * as Constants from '@helixai/frontend/constants/technology'
+import Helix_Card, { CardProps } from '../../components/Card'
+import Header from '../../components/Header'
+import { technologyCards as Constants, headerProps } from '@helixai/core'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import Script from 'next/script'
 import React from 'react'
-
-export const runtime = 'edge'
 
 export default function Technology() {
   const allCards: CardProps[] = Object.values(Constants).flat()

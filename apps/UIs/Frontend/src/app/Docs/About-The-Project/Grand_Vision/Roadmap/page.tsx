@@ -1,6 +1,6 @@
 'use client'
 
-import { RoadMap } from '@helixai/frontend/constants'
+import { RoadMap } from '@helixai/core'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {
   Accordion,
@@ -12,7 +12,6 @@ import {
   Divider,
   Stack,
   Typography,
-  useTheme,
 } from '@mui/material'
 import React from 'react'
 
@@ -30,7 +29,6 @@ const statusColor = (status: string) => {
 }
 
 const RoadmapPage = () => {
-  const theme = useTheme()
 
   return (
     <Container maxWidth="lg" sx={{ py: 6, color: 'white' }}>

@@ -1,8 +1,7 @@
 'use client'
 
-import { Header, HeaderProps } from '@helixai/frontend/components'
-import { headerProps } from '@helixai/frontend/constants/header'
-import { MainTheme } from '@helixai/frontend/constants/themes'
+import { Header } from '../components'
+import { headerProps, MainTheme } from '@helixai/core'
 import { Box } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import HeroSection from '../components/Hero'

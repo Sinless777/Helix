@@ -3,11 +3,9 @@ import './global.css'
 import {
   BackgroundImage,
   BackgroundImageProps,
-} from '@helixai/frontend/components/Background'
-import { ErrorBoundary } from '@helixai/frontend/components/ErrorBoundary'
-import { SystemColors } from '@helixai/frontend/constants/system'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
+} from '../components/Background'
+import { ErrorBoundary } from '../components/ErrorBoundary'
+import { SystemColors } from '@helixai/core'
 import Script from 'next/script'
 
 export const metadata = {
@@ -31,14 +29,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {(process.env.NODE_ENV === 'development' ||
-          process.env.VERCEL_ENV === 'preview') && (
-          <Script
-            data-recording-token="mxGHRESvuU68b8edOcewbT25c8mElDmQWedof3QS"
-            data-is-production-environment="false"
-            src="https://snippet.meticulous.ai/v1/meticulous.js"
-          />
-        )}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-EXCL6FMDHY"
@@ -61,13 +51,11 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-9610840170359196" />
       </head>
       <body>
-        <Analytics />
         <ErrorBoundary>
           <BackgroundImage {...backgroundImageProps}>
             {children}
           </BackgroundImage>
         </ErrorBoundary>
-        <SpeedInsights />
       </body>
     </html>
   )

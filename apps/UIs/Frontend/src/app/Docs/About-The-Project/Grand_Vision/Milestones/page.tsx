@@ -11,7 +11,6 @@ import {
   LinearProgress,
   Stack,
   Typography,
-  useTheme,
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
@@ -29,7 +28,6 @@ interface Milestone {
 export default function Page() {
   const [milestones, setMilestones] = useState<Milestone[]>([])
   const [loading, setLoading] = useState(true)
-  const theme = useTheme()
 
   useEffect(() => {
     const fetchMilestones = async () => {

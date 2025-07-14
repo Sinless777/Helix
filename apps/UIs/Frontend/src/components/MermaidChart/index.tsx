@@ -30,12 +30,12 @@ export function MermaidChart({ chart, config }: MermaidChartProps) {
     const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`
     mermaid
       .render(id, chart)
-      .then(({ svg }) => {
+      .then(({ svg }: any) => {
         if (containerRef.current) {
           containerRef.current.innerHTML = svg
         }
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error('MermaidChart render error:', err)
       })
   }, [chart, config])

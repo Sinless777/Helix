@@ -30,18 +30,9 @@ export {
   pages,
   nodes,
   edges,
-  DataStorageCards,
-  DevelopmentCards,
-  FrameworksCards,
-  InfrastructureCards,
-  MetricsExportersCards,
-  NetworkingCards,
-  ObservabilityCards,
-  ProgrammingLanguagesCards,
-  SecurityCards,
-  ToolsCards,
+  technologyCards,
   MainTheme,
-  DocsTheme
+  DocsTheme,
 } from './frontend';
 
 /**

@@ -1,8 +1,7 @@
 'use client'
 
-import Header from '@helixai/frontend/components/Header'
-import { edges, nodes } from '@helixai/frontend/constants'
-import { headerProps } from '@helixai/frontend/constants/header'
+import Header from '../../../../components/Header'
+import { edges, nodes, headerProps } from '@helixai/core'
 import { Box, Button, Container, Divider, Typography } from '@mui/material'
 import * as React from 'react'
 import ReactFlow, { ReactFlowProvider } from 'react-flow-renderer'

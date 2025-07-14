@@ -1,7 +1,7 @@
 // ModalContext.tsx
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import React, { createContext, ReactNode, useContext, useState } from 'react'
 import { ImportantModal } from './ImportantModal'
 import { NotificationModal } from './NotificationModal'
@@ -22,8 +22,12 @@ interface ModalContextProps {
 }
 
 const ModalContext = createContext<ModalContextProps>({
-  showModal: () => {},
-  hideModal: () => {},
+  showModal: () => {
+    throw new Error('showModal function must be overridden')
+  },
+  hideModal: () => {
+    throw new Error('hideModal function must be overridden')
+  },
 })
 
 export const useModal = () => useContext(ModalContext)

@@ -1,7 +1,7 @@
 'use client'
 
-import { Header } from '@helixai/frontend/components'
-import { headerProps } from '@helixai/frontend/constants/header'
+import { Header } from '../Header'
+import { headerProps } from '@helixai/core'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,

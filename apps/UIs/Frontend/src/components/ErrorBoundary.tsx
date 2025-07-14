@@ -1,8 +1,8 @@
 // src/components/ErrorBoundary.tsx
 'use client'
 
-import { Header } from '@helixai/frontend/components'
-import { headerProps } from '@helixai/frontend/constants/header'
+import { Header } from './Header'
+import { headerProps } from '@helixai/core'
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 
@@ -24,7 +24,7 @@ export class ErrorBoundary extends React.Component<
     return { hasError: true, error }
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo)
   }
 
@@ -32,7 +32,7 @@ export class ErrorBoundary extends React.Component<
     this.setState({ hasError: false, error: null })
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       return (
         <Box

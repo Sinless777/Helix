@@ -1,7 +1,7 @@
 'use client'
 
-import { Header } from '@helixai/frontend/components'
-import { headerProps } from '@helixai/frontend/constants/header'
+import { Header } from '../../components/Header'
+import { headerProps } from '@helixai/core'
 import { Button, Card, CardContent } from '@mui/material'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'

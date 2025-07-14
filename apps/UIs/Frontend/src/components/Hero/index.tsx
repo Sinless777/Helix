@@ -1,6 +1,6 @@
 'use client'
 
-import { BotColors } from '@helixai/frontend/constants/bot'
+import { BotColors } from '@helixai/core'
 import { Box, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import Image from 'next/image'

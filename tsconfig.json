@@ -19,9 +19,6 @@
       "path": "./libs/core"
     },
     {
-      "path": "./libs/cli"
-    },
-    {
       "path": "./libs/logger"
     }
   ]

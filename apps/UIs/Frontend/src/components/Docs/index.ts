@@ -1,5 +1,3 @@
-import DocsSidebar from './sidebar'
-
 export { default } from './wrapper'
 export { default as DocsLayout } from './wrapper'
 
