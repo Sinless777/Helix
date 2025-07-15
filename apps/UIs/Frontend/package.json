@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@helixai/core": "^0.0.3",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
@@ -14,7 +16,31 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "react-flow-renderer": "^10.3.17"
   },
-  "nx": {}
+  "nx": {
+    "targets": {
+      "dev": {
+        "executor": "@nx/next:server",
+        "options": {
+          "buildTarget": "frontend:build",
+          "dev": true,
+          "port": 3000,
+          "host": "localhost"
+        }
+      },
+      "container": {
+        "executor": "@nx-tools/nx-container:build",
+        "options": {
+          "imageName": "sinless777/helixai-frontend",
+          "dockerfile": "Dockerfile",
+          "buildArgs": {
+            "NX_CACHE_VERSION": "{nxCacheVersion}",
+            "NX_CACHE_URL": "{nxCacheUrl}"
+          }
+        }
+      }
+    }
+  }
 }

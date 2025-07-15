@@ -41,6 +41,7 @@
     "babel-jest": "^29.7.0",
     "commitizen": "^4.3.1",
     "cypress": "^14.5.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.31.0",
     "eslint-config-next": "^15.3.5",
     "eslint-config-prettier": "^10.1.5",
@@ -88,6 +89,11 @@
           "storage": "tmp/local-registry/storage"
         }
       }
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }

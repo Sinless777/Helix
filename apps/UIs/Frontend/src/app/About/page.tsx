@@ -1,8 +1,6 @@
 'use client'
-
 import { Header } from '../../components'
-import { AboutContent } from '@helixai/core'
-import { headerProps } from '@helixai/core'
+import { AboutContent, headerProps } from '@helixai/core'
 import { Box, Container, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { motion } from 'framer-motion'

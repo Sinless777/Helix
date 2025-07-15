@@ -1,4 +1,6 @@
 // src/app/Technology/page.tsx
+'use client'
+
 import Helix_Card, { CardProps } from '../../components/Card'
 import Header from '../../components/Header'
 import { technologyCards as Constants, headerProps } from '@helixai/core'

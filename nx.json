@@ -23,6 +23,7 @@
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "nxCloudId": "686f8c9e0c0c7b2bb31ff4ea",
+  "nxCloudAccessToken": "MTAyZDBjNDEtZDliZC00YmJjLTg3ZDktNzY1MDY3YmVjY2U0fHJlYWQtd3JpdGU=",
   "plugins": [
     {
       "plugin": "@nx/js/typescript",
@@ -68,8 +69,7 @@
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "test"
-      },
-      "exclude": ["apps/APIs/user-service-e2e/**/*"]
+      }
     },
     {
       "plugin": "@nx/webpack/plugin",

@@ -17,3 +17,16 @@ tasks:
     desc: "Create a new release with changelog, tag, GitHub release, and artifacts"
     cmd: "./scripts/repo/release.sh"
     silent: false
+    
+  kill-port-3000:
+    desc: "Kill any process running on port 3000"
+    cmds:
+      - |
+        pid=$(lsof -t -i :3000)
+        if [ -n "$pid" ]; then
+          echo "Killing process(es) on port 3000: $pid"
+          kill -9 $pid
+        else
+          echo "✅ No process running on port 3000"
+        fi
+    silent: false

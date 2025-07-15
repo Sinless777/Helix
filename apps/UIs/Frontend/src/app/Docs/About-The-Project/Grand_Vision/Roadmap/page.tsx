@@ -28,7 +28,7 @@ const statusColor = (status: string) => {
   }
 }
 
-const RoadmapPage = () => {
+export const RoadmapPage = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 6, color: 'white' }}>

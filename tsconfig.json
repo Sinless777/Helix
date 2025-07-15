@@ -16,9 +16,11 @@
       "path": "./apps/APIs/user-service"
     },
     {
+      "name": "@helixai/core",
       "path": "./libs/core"
     },
     {
+      "name": "@helixai/logger",
       "path": "./libs/logger"
     }
   ]

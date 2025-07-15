@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "module": "NodeNext",
     "rootDir": "src",
-    "outDir": "dist",
+    "outDir": "dist/",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
     "types": ["node", "react-dom"],

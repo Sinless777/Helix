@@ -1,9 +1,9 @@
 export const metadata = {
-  title: 'Helix AI Technologies',
+  title: 'Contact Helix AI',
   description: '',
 }
 
-export default function TechnologyLayout({
+export default function ContactLayout({
   children,
 }: {
   children: React.ReactNode

@@ -22,12 +22,6 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
-    "paths": {
-      "@helixai/frontend": [
-        "src/*"
-      ]
-    },
     "types": [
       "jest",
       "node"

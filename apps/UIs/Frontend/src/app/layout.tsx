@@ -13,17 +13,16 @@ export const metadata = {
   description: '',
 }
 
-const backgroundImageProps: BackgroundImageProps = {
-  imageUrl: 'https://cdn.sinlessgamesllc.com/Helix-AI/images/Background.webp',
-  altText: 'background',
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   const color = SystemColors.reset
+  const backgroundImageProps: BackgroundImageProps = {
+    imageUrl: 'https://cdn.sinlessgamesllc.com/Helix-AI/images/Background.webp',
+    altText: 'background',
+  }
 
   console.log(color)
   return (

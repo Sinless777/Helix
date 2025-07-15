@@ -2,7 +2,7 @@
 
 import { Header } from '../components'
 import { headerProps, MainTheme } from '@helixai/core'
-import { Box } from '@mui/material'
+import { Box, useMediaQuery } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import HeroSection from '../components/Hero'
 
@@ -15,8 +15,11 @@ const HeroData = {
 }
 
 export default function Index() {
+  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
+  const theme = prefersDark ? MainTheme : MainTheme;
+
   return (
-    <ThemeProvider theme={MainTheme}>
+    <ThemeProvider theme={theme}>
       <Box
         sx={{
           paddingTop: {
@@ -47,3 +50,4 @@ export default function Index() {
     </ThemeProvider>
   )
 }
+
