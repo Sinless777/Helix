@@ -151,9 +151,9 @@ Integrating Grafana Pyroscope into your infrastructure involves several key step
      ```yaml
      apiVersion: 1
      providers:
-       - name: "profiling"
+       - name: 'profiling'
          orgId: 1
-         folder: "Performance"
+         folder: 'Performance'
          type: file
          disableDeletion: false
          editable: true
@@ -257,8 +257,8 @@ server:
 storage:
   backend: s3
   s3:
-    bucket: "pyroscope-traces"
-    endpoint: "s3.amazonaws.com"
+    bucket: 'pyroscope-traces'
+    endpoint: 's3.amazonaws.com'
 ```
 
 #### Grafana Dashboard Provisioning Example (YAML)
@@ -266,9 +266,9 @@ storage:
 ```yaml
 apiVersion: 1
 providers:
-  - name: "pyroscope_dashboards"
+  - name: 'pyroscope_dashboards'
     orgId: 1
-    folder: "Profiling"
+    folder: 'Profiling'
     type: file
     disableDeletion: false
     editable: true

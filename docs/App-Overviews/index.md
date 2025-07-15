@@ -25,4 +25,4 @@ The following documents provide summaries of key tools and services leveraged by
 - [unifi-network-application.md](unifi-network-application.md)
 - [Kiali.md](Kiali.md)
 - [Wazuh.md](Wazuh.md)
-\n*Document last updated: 2025, June 7*
+  \n*Document last updated: 2025, June 7*

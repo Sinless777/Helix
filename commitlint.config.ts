@@ -1,7 +1,7 @@
 // commitlint.config.ts
 
-import type { UserConfig } from '@commitlint/types';
-import { RuleConfigSeverity } from '@commitlint/types';
+import type { UserConfig } from '@commitlint/types'
+import { RuleConfigSeverity } from '@commitlint/types'
 
 const Configuration: UserConfig = {
   extends: ['@commitlint/config-conventional'],
@@ -11,7 +11,20 @@ const Configuration: UserConfig = {
     'type-enum': [
       RuleConfigSeverity.Error,
       'always',
-      ['feat','fix','docs','style','refactor','perf','test','build','ci','chore','revert','merge'],
+      [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'build',
+        'ci',
+        'chore',
+        'revert',
+        'merge',
+      ],
     ],
     'subject-empty': [RuleConfigSeverity.Error, 'never'],
     // Disable subject-case to allow sentence-case commits
@@ -24,6 +37,6 @@ const Configuration: UserConfig = {
     'body-max-line-length': [RuleConfigSeverity.Warning, 'always', 1000],
     'header-max-length': [RuleConfigSeverity.Warning, 'always', 250],
   },
-};
+}
 
-export default Configuration;
+export default Configuration

@@ -17,26 +17,31 @@ assignees: ''
 #
 
 ## Description
+
 <!--
 1. What changed? Summarize your modifications in one or two sentences.
 2. Why? Explain why the change is necessary.
 -->
 
 ## Related Issue
+
 <!--
 Link any related issues. Format: "Closes #123" to automatically close the issue.
 If none, remove this section.
 -->
 
 ## Motivation and Context
+
 <!--
 Explain the problem this PR addresses and how your changes solve it.
 -->
 
 ## Types of Changes
+
 <!--
 Check all that apply:
 -->
+
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to change)
@@ -44,9 +49,11 @@ Check all that apply:
 - [ ] Other (please describe)
 
 ## How Has This Been Tested?
+
 <!--
 Describe the tests you ran to verify your changes. Include steps to reproduce any issues and verify fixes.
 -->
+
 - [ ] Local build passes
 - [ ] All existing tests pass
 - [ ] New tests added and passing
@@ -54,9 +61,11 @@ Describe the tests you ran to verify your changes. Include steps to reproduce an
 - [ ] Other (please describe)
 
 ## Checklist for Reviewers
+
 <!--
 Reviewers, please check the following:
 -->
+
 - [ ] Code follows the project's coding style guidelines
 - [ ] Documentation updated if necessary
 - [ ] Tests added for new features or bug fixes
@@ -73,21 +82,25 @@ Reviewers, please check the following:
 - [ ] Other (please describe)
 
 ## Reviewers
+
 <!--
 List any specific reviewers or teams that should review this PR.
 -->
 
 ## Related Issues
+
 <!--
 List any related issues or pull requests that should be reviewed together with this PR.
 -->
 
 ## Screenshots (if applicable)
+
 <!--
 Attach screenshots to illustrate visual changes or new UI components.
 -->
 
 ## Additional Notes
+
 <!--
 Add any other context or information for reviewers.
 -->

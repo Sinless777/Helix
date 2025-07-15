@@ -7,20 +7,20 @@ version: 2
 # 1. Which paths to analyze (and which to skip)
 paths:
   include:
-    - "apis/**/src/**/*.ts"
-    - "apis/**/src/**/*.tsx"
-    - "libs/**/src/**/*.ts"
-    - "user-interfaces/**/src/**/*.{ts,tsx}"
-    - ".github/codeql/**/*.yml"
+    - 'apis/**/src/**/*.ts'
+    - 'apis/**/src/**/*.tsx'
+    - 'libs/**/src/**/*.ts'
+    - 'user-interfaces/**/src/**/*.{ts,tsx}'
+    - '.github/codeql/**/*.yml'
   exclude:
-    - "**/node_modules/**"
-    - "**/{dist,build,coverage}/**"
-    - "**/.github/**"
-    - "**/__tests__/**"
-    - "**/*.spec.{ts,tsx,js,jsx}"
-    - "**/*.test.{ts,tsx,js,jsx}"
-    - "**/scripts/**"
-    - "**/*.d.ts"
+    - '**/node_modules/**'
+    - '**/{dist,build,coverage}/**'
+    - '**/.github/**'
+    - '**/__tests__/**'
+    - '**/*.spec.{ts,tsx,js,jsx}'
+    - '**/*.test.{ts,tsx,js,jsx}'
+    - '**/scripts/**'
+    - '**/*.d.ts'
 
 # 2. Query packs and custom queries
 packs:
@@ -37,7 +37,7 @@ queries:
   - codeql-javascript
   - codeql-typescript
   # Any custom queries you write
-  - ".github/codeql/queries"
+  - '.github/codeql/queries'
 
 # 4. Per-language overrides (if you ever need them)
 targets:
@@ -52,12 +52,11 @@ targets:
 
 # 5. Performance tuning
 config:
-  memory: 12000        # MB
-  threads: 0           # auto-detect
-  incremental: true    # reuse DB between runs
-  db-location: ".codeql/db"
+  memory: 12000 # MB
+  threads: 0 # auto-detect
+  incremental: true # reuse DB between runs
+  db-location: '.codeql/db'
   verbosity: info
-
 # 6. CI Integration hints (GitHub Actions will auto-detect this config)
 # If you want explicit caching in your workflow, see:
 # https://docs.github.com/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning-for-a-repository#enabling-caching

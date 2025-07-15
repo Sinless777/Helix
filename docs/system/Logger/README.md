@@ -1,10 +1,10 @@
 **@helix/logger v0.0.1**
 
-***
+---
 
 **@helix/logger v0.0.1**
 
-***
+---
 
 # @helix/logger v0.0.1
 

@@ -16,16 +16,16 @@ _**Document last updated:** *2025-3-17*_
 1. [Introduction](#introduction)
 2. [What is Ansible?](#what-is-ansible)
 3. [How Ansible is Used in the Architecture](#how-ansible-is-used-in-the-architecture)
-    - [Configuration Management and Automation](#configuration-management-and-automation)
-    - [Orchestration and Deployment](#orchestration-and-deployment)
+   - [Configuration Management and Automation](#configuration-management-and-automation)
+   - [Orchestration and Deployment](#orchestration-and-deployment)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Playbooks and Inventory](#playbooks-and-inventory)
-    - [Modules and Roles](#modules-and-roles)
+   - [Installation and Setup](#installation-and-setup)
+   - [Playbooks and Inventory](#playbooks-and-inventory)
+   - [Modules and Roles](#modules-and-roles)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
-    - [Security Best Practices](#security-best-practices)
-    - [Integration with CI/CD Pipelines](#integration-with-cicd-pipelines)
+   - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
+   - [Security Best Practices](#security-best-practices)
+   - [Integration with CI/CD Pipelines](#integration-with-cicd-pipelines)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -87,6 +87,7 @@ Integrating Ansible into our environment involves setting up the control machine
 ### Installation and Setup
 
 1. **Control Node Setup:**
+
    - Install Ansible on a dedicated control node or your local machine.
    - Use package managers such as `apt`, `yum`, or `pip` for installation:
      ```bash
@@ -255,4 +256,4 @@ db2.example.com
 
 ---
 
-*Document End*
+_Document End_

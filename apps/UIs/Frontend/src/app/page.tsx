@@ -2,7 +2,7 @@ import { Header } from '../components'
 import { headerProps, MainTheme } from '@helixai/core'
 import { Box } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
-import HeroSection from '../components/Hero'
+import { HeroSection } from '../components/Hero'
 
 export default function Index() {
   const HeroData = {

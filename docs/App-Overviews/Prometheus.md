@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +16,16 @@
 1. [Introduction](#introduction)
 2. [What is Prometheus?](#what-is-prometheus)
 3. [How Prometheus is Used in the Architecture](#how-prometheus-is-used-in-the-architecture)
-    - [Monitoring Infrastructure and Applications](#monitoring-infrastructure-and-applications)
-    - [Alerting and Automated Response](#alerting-and-automated-response)
+   - [Monitoring Infrastructure and Applications](#monitoring-infrastructure-and-applications)
+   - [Alerting and Automated Response](#alerting-and-automated-response)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration Examples](#configuration-examples)
-    - [Exporters and Instrumentation](#exporters-and-instrumentation)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration Examples](#configuration-examples)
+   - [Exporters and Instrumentation](#exporters-and-instrumentation)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and Performance](#scalability-and-performance)
-    - [Security Considerations](#security-considerations)
-    - [Integration with Visualization Tools](#integration-with-visualization-tools)
+   - [Scalability and Performance](#scalability-and-performance)
+   - [Security Considerations](#security-considerations)
+   - [Integration with Visualization Tools](#integration-with-visualization-tools)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -96,10 +96,12 @@ Effective integration of Prometheus into your infrastructure is essential to max
 ### Installation and Setup
 
 1. **Download and Installation:**
+
    - Prometheus binaries are available for multiple platforms, including Linux, Windows, and macOS. Download the latest release from the official [Prometheus website](https://prometheus.io/download/).
    - Extract the binary and move it to a directory included in your system's PATH.
 
 2. **Basic Configuration:**
+
    - Create a configuration file (`prometheus.yml`) in the root directory of your Prometheus installation. This file defines the scrape configurations, alerting rules, and other settings.
    - Example configuration snippet:
 
@@ -115,6 +117,7 @@ Effective integration of Prometheus into your infrastructure is essential to max
      ```
 
 3. **Starting Prometheus:**
+
    - Run Prometheus using the command:
 
      ```bash
@@ -149,16 +152,16 @@ Defining an alert for high CPU usage:
 
 ```yaml
 groups:
-- name: system_alerts
-  rules:
-  - alert: HighCPULoad
-    expr: node_cpu_seconds_total{mode="idle"} < 20
-    for: 5m
-    labels:
-      severity: critical
-    annotations:
-      summary: "High CPU Load Detected"
-      description: "The CPU load on {{ $labels.instance }} has dropped below the idle threshold for more than 5 minutes."
+  - name: system_alerts
+    rules:
+      - alert: HighCPULoad
+        expr: node_cpu_seconds_total{mode="idle"} < 20
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: 'High CPU Load Detected'
+          description: 'The CPU load on {{ $labels.instance }} has dropped below the idle threshold for more than 5 minutes.'
 ```
 
 ### Exporters and Instrumentation
@@ -279,7 +282,8 @@ scrape_configs:
         action: replace
         target_label: __metrics_path__
         regex: (.+)
-      - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+      - source_labels:
+          [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
         action: replace
         regex: (.+):(?:\d+);(\d+)
         replacement: $1:$2
@@ -296,4 +300,4 @@ scrape_configs:
 
 ---
 
-*Document End*
+_Document End_

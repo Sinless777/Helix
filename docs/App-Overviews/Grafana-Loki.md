@@ -5,7 +5,7 @@
   <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Grafana_loki_logo.png" alt="Grafana Loki Logo" style="width:300px; height:auto;" />
 </div>
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -14,15 +14,15 @@
 1. [Introduction](#introduction)
 2. [What is Grafana Loki?](#what-is-grafana-loki)
 3. [How Grafana Loki is Used in the Architecture](#how-grafana-loki-is-used-in-the-architecture)
-    - [Centralized Log Management](#centralized-log-management)
-    - [Integration with Monitoring Tools](#integration-with-monitoring-tools)
+   - [Centralized Log Management](#centralized-log-management)
+   - [Integration with Monitoring Tools](#integration-with-monitoring-tools)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration and Log Collection](#configuration-and-log-collection)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration and Log Collection](#configuration-and-log-collection)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
-    - [Security and Access Control](#security-and-access-control)
-    - [Extending Functionality](#extending-functionality)
+   - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
+   - [Security and Access Control](#security-and-access-control)
+   - [Extending Functionality](#extending-functionality)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -77,6 +77,7 @@ Integrating Grafana Loki into your environment involves several key steps—from
 ### Installation and Setup
 
 1. **Download and Deployment:**
+
    - Grafana Loki can be deployed using pre-built binaries, Docker images, or within Kubernetes.
    - Example using Docker:
 
@@ -91,6 +92,7 @@ Integrating Grafana Loki into your environment involves several key steps—from
 ### Configuration and Log Collection
 
 1. **Configuration File:**
+
    - Loki’s behavior is controlled by a configuration file (typically in YAML format). This file defines the storage backend, ingesters, and query frontends.
    - Basic configuration example:
 
@@ -127,6 +129,7 @@ Integrating Grafana Loki into your environment involves several key steps—from
      ```
 
 2. **Log Shipping:**
+
    - Use agents like Promtail to ship logs from various sources to Loki.
    - Example Promtail configuration snippet:
 
@@ -303,4 +306,4 @@ scrape_configs:
 
 ---
 
-*Document End*
+_Document End_

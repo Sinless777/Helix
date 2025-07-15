@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,17 +16,17 @@
 1. [Introduction](#introduction)
 2. [What is Wireguard VPN?](#what-is-wireguard-vpn)
 3. [How Wireguard VPN is Used in the Architecture](#how-wireguard-vpn-is-used-in-the-architecture)
-    - [Integration Overview](#integration-overview)
-    - [Deployment Architecture](#deployment-architecture)
-    - [Key Features and Benefits](#key-features-and-benefits)
+   - [Integration Overview](#integration-overview)
+   - [Deployment Architecture](#deployment-architecture)
+   - [Key Features and Benefits](#key-features-and-benefits)
 4. [Integration Details](#integration-details)
-    - [Configuration Examples](#configuration-examples)
-    - [Setup Instructions](#setup-instructions)
-    - [Operational Considerations](#operational-considerations)
+   - [Configuration Examples](#configuration-examples)
+   - [Setup Instructions](#setup-instructions)
+   - [Operational Considerations](#operational-considerations)
 5. [Advanced Topics](#advanced-topics)
-    - [Security and Privacy](#security-and-privacy)
-    - [Performance and Efficiency](#performance-and-efficiency)
-    - [Scalability and Future-Proofing](#scalability-and-future-proofing)
+   - [Security and Privacy](#security-and-privacy)
+   - [Performance and Efficiency](#performance-and-efficiency)
+   - [Scalability and Future-Proofing](#scalability-and-future-proofing)
 6. [Case Studies and Real-World Deployments](#case-studies-and-real-world-deployments)
 7. [Troubleshooting and Maintenance](#troubleshooting-and-maintenance)
 8. [Additional Documentation and Resources](#additional-documentation-and-resources)
@@ -224,6 +224,7 @@ This setting directs all IPv4 and IPv6 traffic through the secure tunnel, ensuri
 The following step-by-step guide will help you set up Wireguard VPN within your network:
 
 1. **Installation:**
+
    - Install Wireguard on your server and client devices. On Linux, you can typically install via your package manager:
 
      ```bash
@@ -233,6 +234,7 @@ The following step-by-step guide will help you set up Wireguard VPN within your 
    - For other operating systems, refer to the [official Wireguard installation documentation](https://www.wireguard.com/install/).
 
 2. **Key Generation:**
+
    - Generate a key pair for each device:
 
      ```bash
@@ -242,10 +244,12 @@ The following step-by-step guide will help you set up Wireguard VPN within your 
    - Securely exchange public keys between devices.
 
 3. **Configuration File Creation:**
+
    - Create a configuration file (e.g., `wg0.conf`) for each device using the examples provided above.
    - Ensure the `AllowedIPs` and `Endpoint` fields are correctly configured to match your network topology.
 
 4. **Starting the Service:**
+
    - Enable and start the Wireguard service:
 
      ```bash
@@ -259,6 +263,7 @@ The following step-by-step guide will help you set up Wireguard VPN within your 
      ```
 
 5. **Testing the Connection:**
+
    - Verify the tunnel is active by checking the interface status:
 
      ```bash
@@ -544,4 +549,4 @@ For further inquiries, detailed discussions, or updates on emerging best practic
 
 ---
 
-*Document End*
+_Document End_

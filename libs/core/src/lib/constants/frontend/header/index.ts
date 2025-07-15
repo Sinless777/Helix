@@ -13,7 +13,6 @@ export interface HeaderProps {
   style?: React.CSSProperties // Optional custom styling
 }
 
-
 export const headerProps: HeaderProps = {
   logo: 'https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix-Logo.webp',
   title: 'Helix AI',

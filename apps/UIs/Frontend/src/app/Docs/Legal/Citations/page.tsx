@@ -1,10 +1,6 @@
 'use client'
 
-import {
-  APACitation,
-  CitationPageData,
-  Citations,
-} from '@helixai/core'
+import { APACitation, CitationPageData, Citations } from '@helixai/core'
 import {
   Box,
   Divider,
@@ -27,7 +23,7 @@ export default function CitationsPage() {
       acc[key].push(cit)
       return acc
     },
-    {},
+    {}
   )
 
   return (
@@ -59,13 +55,13 @@ export default function CitationsPage() {
               parts.push(
                 <span key="author">
                   <strong>{c.author}</strong>
-                </span>,
+                </span>
               )
               parts.push(<span key="year"> ({c.year}). </span>)
               parts.push(
                 <span key="title">
                   <em>{c.title}</em>.
-                </span>,
+                </span>
               )
               parts.push(<span key="source">{c.source}</span>)
               if (c.volume)

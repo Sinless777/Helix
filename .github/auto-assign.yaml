@@ -1,22 +1,21 @@
 # Configuration for kentaro-m/auto-assign-action
 
 # ── Reviewers ───────────────────────────
-addReviewers: true            # enable adding reviewers
+addReviewers: true # enable adding reviewers
 reviewers:
-  - Sinless777               # your GitHub handle
-  - github-copilot[bot]      # GitHub Copilot app identity
+  - Sinless777 # your GitHub handle
+  - github-copilot[bot] # GitHub Copilot app identity
 
 # 0 means “add all listed reviewers”
 numberOfReviewers: 0
 
 # ── Assignees ───────────────────────────
-addAssignees: true            # enable adding assignees (on PRs & issues)
+addAssignees: true # enable adding assignees (on PRs & issues)
 assignees:
-  - Sinless777               # you’ll always be assigned
+  - Sinless777 # you’ll always be assigned
 
 # only 1 assignee from the list (in this case, just you)
 numberOfAssignees: 1
-
 # ── Draft PR Handling ───────────────────
 # If you want this to run on drafts as they’re opened too, uncomment:
 # runOnDraft: true

@@ -17,10 +17,7 @@ import {
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import {
-  NavItem,
-  navSections,
-} from '@helixai/core'
+import { NavItem, navSections } from '@helixai/core'
 
 export default function DocsSidebar() {
   const pathname = usePathname()
@@ -126,6 +123,7 @@ export default function DocsSidebar() {
     </List>
   )
 
+  // Return the sidebar component
   return (
     <Box
       sx={{

@@ -2,16 +2,16 @@ name: Sync Labels & Milestones
 
 on:
   schedule:
-    - cron: '0 0 * * *'        # nightly at midnight UTC
+    - cron: '0 0 * * *' # nightly at midnight UTC
   push:
     paths:
       - '.github/labels.yaml'
       - '.github/milestones.yaml'
   pull_request_target:
-    types: 
-    - opened 
-    - reopened
-    - synchronize
+    types:
+      - opened
+      - reopened
+      - synchronize
   workflow_dispatch:
 
 concurrency:
@@ -52,7 +52,7 @@ jobs:
 
       - name: Install deps
         run: pnpm install --frozen-lockfile
-        
+
       - name: Set outputs
         id: set-outputs
         run: |
@@ -63,7 +63,7 @@ jobs:
 
       - name: Notify on failure
         if: failure()
-        run: echo "🚨 Setup job failed—check workflow logs."  
+        run: echo "🚨 Setup job failed—check workflow logs."
 
   # ┌───────────────────────────┐
   # │ 1) Sync GitHub Labels     │
@@ -130,7 +130,7 @@ jobs:
 
   # ┌───────────────────────────────┐
   # │ 3) Sync GitHub Milestones     │
-  # └───────────────────────────────┘   
+  # └───────────────────────────────┘
   sync-milestones:
     needs: setup
     outputs:
@@ -157,7 +157,7 @@ jobs:
       - name: Sync milestones
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO:        ${{ github.repository }}
+          REPO: ${{ github.repository }}
         run: |
           python3 << 'EOF'
           import os, yaml
@@ -196,8 +196,8 @@ jobs:
       - name: Commit updated milestones.yaml
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
-          commit_message: "chore: update milestone IDs"
-          file_pattern: ".github/milestones.yaml"
+          commit_message: 'chore: update milestone IDs'
+          file_pattern: '.github/milestones.yaml'
 
   # ┌───────────────────────────────┐
   # │ 4) Auto-assign Milestones     │
@@ -229,7 +229,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number || github.event.pull_request.number }}
-          REPO:         ${{ github.repository }}
+          REPO: ${{ github.repository }}
         run: |
           python3 << 'EOF'
           import os, yaml

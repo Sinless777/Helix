@@ -4,4 +4,4 @@ Wazuh is an open-source security monitoring platform that provides intrusion det
 
 ---
 
-*Document End*
+_Document End_

@@ -5,7 +5,6 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@helixai/core": "^0.0.3",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
     "@mui/styled-engine-sc": "^7.2.0",
@@ -42,13 +41,6 @@
             "NX_CACHE_VERSION": "{nxCacheVersion}",
             "NX_CACHE_URL": "{nxCacheUrl}"
           }
-        }
-      },
-      "build": {
-        "executor": "@nx/next:build",
-        "options": {
-          "outputPath": "dist/apps/UIs/Frontend",
-          "buildLibsFromSource": true
         }
       }
     }

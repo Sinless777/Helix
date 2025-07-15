@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +16,16 @@
 1. [Introduction](#introduction)
 2. [What is Alert Manager Discord Notifier?](#what-is-alert-manager-discord-notifier)
 3. [How Alert Manager Discord Notifier is Used in the Architecture](#how-alert-manager-discord-notifier-is-used-in-the-architecture)
-    - [Enhancing Alert Visibility](#enhancing-alert-visibility)
-    - [Integration with Existing Alert Workflows](#integration-with-existing-alert-workflows)
+   - [Enhancing Alert Visibility](#enhancing-alert-visibility)
+   - [Integration with Existing Alert Workflows](#integration-with-existing-alert-workflows)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration Examples](#configuration-examples)
-    - [Connecting with Alert Manager](#connecting-with-alert-manager)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration Examples](#configuration-examples)
+   - [Connecting with Alert Manager](#connecting-with-alert-manager)
 5. [Advanced Topics](#advanced-topics)
-    - [Custom Message Formatting](#custom-message-formatting)
-    - [Security and Access Control](#security-and-access-control)
-    - [Scalability Considerations](#scalability-considerations)
+   - [Custom Message Formatting](#custom-message-formatting)
+   - [Security and Access Control](#security-and-access-control)
+   - [Scalability Considerations](#scalability-considerations)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -91,10 +91,12 @@ Successfully integrating the Alert Manager Discord Notifier into your observabil
 ### Installation and Setup
 
 1. **Prerequisites:**
+
    - Ensure you have an active Discord server and the necessary permissions to create webhooks.
    - Confirm that Alert Manager is set up and operational within your monitoring environment.
 
 2. **Creating a Discord Webhook:**
+
    - In your Discord server, navigate to the channel where alerts should be posted.
    - Go to Channel Settings > Integrations > Webhooks and create a new webhook. Note the webhook URL, as it will be required for configuration.
 
@@ -248,4 +250,4 @@ receivers:
 
 ---
 
-*Document End*
+_Document End_

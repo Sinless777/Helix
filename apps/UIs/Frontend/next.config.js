@@ -1,5 +1,5 @@
 //@ts-check
-const { composePlugins, withNx } = require('@nx/next');
+const { composePlugins, withNx } = require('@nx/next')
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -22,8 +22,8 @@ const nextConfig = {
     ],
   },
 
-  // Allowed Dev Origin 
-  allowedDevOrigins: ['10.13.13.2', "192.168.10.10"],
+  // Allowed Dev Origin
+  allowedDevOrigins: ['10.13.13.2', '192.168.10.10'],
 
   /**
    * @param {import('webpack').Configuration} config
@@ -31,9 +31,9 @@ const nextConfig = {
    * @returns {import('webpack').Configuration}
    **/
   webpack(config, { isServer }) {
-    return config;
+    return config
   },
-};
+}
 
-const plugins = [withNx];
-module.exports = composePlugins(...plugins)(nextConfig);
+const plugins = [withNx]
+module.exports = composePlugins(...plugins)(nextConfig)

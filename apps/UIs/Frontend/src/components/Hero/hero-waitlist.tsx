@@ -1,6 +1,5 @@
 'use client'
 
-import { BotColors } from '@helixai/core'
 import { Alert, Box, Button, TextField, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 
@@ -149,9 +148,9 @@ export function HeroWaitlist() {
             variant="contained"
             disabled={status === 'sending'}
             sx={{
-              backgroundColor: BotColors.bot.blue.hex,
+              backgroundColor: '#022371',
               color: '#fff',
-              '&:hover': { backgroundColor: BotColors.bot.pink.hex },
+              '&:hover': { backgroundColor: '#f6066f' },
               px: 4,
               py: 1.5,
               minWidth: '180px',

@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +16,16 @@
 1. [Introduction](#introduction)
 2. [What is Grafana Beyla?](#what-is-grafana-beyla)
 3. [How Grafana Beyla is Used in the Architecture](#how-grafana-beyla-is-used-in-the-architecture)
-    - [Unified Observability and Control](#unified-observability-and-control)
-    - [Integration with the Grafana Ecosystem](#integration-with-the-grafana-ecosystem)
+   - [Unified Observability and Control](#unified-observability-and-control)
+   - [Integration with the Grafana Ecosystem](#integration-with-the-grafana-ecosystem)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration and Customization](#configuration-and-customization)
-    - [Provisioning and Data Flow](#provisioning-and-data-flow)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration and Customization](#configuration-and-customization)
+   - [Provisioning and Data Flow](#provisioning-and-data-flow)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
-    - [Security and Access Control](#security-and-access-control)
-    - [Extending Functionality](#extending-functionality)
+   - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
+   - [Security and Access Control](#security-and-access-control)
+   - [Extending Functionality](#extending-functionality)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -92,6 +92,7 @@ Integrating Grafana Beyla into your environment involves several key steps, from
 ### Installation and Setup
 
 1. **Deployment Options:**
+
    - **Docker:** Deploy Grafana Beyla using Docker containers for quick and isolated setups.
 
      ```bash
@@ -108,10 +109,12 @@ Integrating Grafana Beyla into your environment involves several key steps, from
 ### Configuration and Customization
 
 1. **Data Source Configuration:**
+
    - Integrate with existing data sources such as Prometheus, Loki, and Tempo to consolidate observability data.
    - Configure API endpoints and access tokens as required by your security policies.
 
 2. **Dashboard Provisioning:**
+
    - Use Grafana’s dashboard provisioning capabilities to automate the deployment of Beyla-specific dashboards.
    - Example YAML snippet:
 
@@ -225,8 +228,8 @@ data_sources:
 storage:
   backend: s3
   s3:
-    bucket: "beyla-data"
-    endpoint: "s3.amazonaws.com"
+    bucket: 'beyla-data'
+    endpoint: 's3.amazonaws.com'
 ```
 
 #### Dashboard Provisioning Example (YAML)
@@ -254,4 +257,4 @@ providers:
 
 ---
 
-*Document End*
+_Document End_

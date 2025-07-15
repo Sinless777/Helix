@@ -2,8 +2,14 @@
  * Constants
  */
 export {
-  SystemColors, BotColors, HelixColors, ErrorCodes, type errCodes,
-  AboutContent, type AboutSection, KeyValuePillars,
+  SystemColors,
+  BotColors,
+  HelixColors,
+  ErrorCodes,
+  type errCodes,
+  AboutContent,
+  type AboutSection,
+  KeyValuePillars,
   RoadMap,
   InnovationCriteria,
   type Phase,
@@ -26,4 +32,4 @@ export {
   StatusUrls,
   type CardProps,
   type ListItemProps,
-} from './lib/constants';
+} from './lib/constants'

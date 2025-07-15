@@ -13,7 +13,11 @@ interface ToastContextProps {
   addToast: (content: ReactNode) => void
 }
 
-const ToastContext = createContext<ToastContextProps>({ addToast: () => { throw new Error('addToast function must be overridden') } })
+const ToastContext = createContext<ToastContextProps>({
+  addToast: () => {
+    throw new Error('addToast function must be overridden')
+  },
+})
 
 export const useToast = () => useContext(ToastContext)
 

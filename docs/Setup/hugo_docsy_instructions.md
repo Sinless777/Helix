@@ -4,9 +4,9 @@ This project uses **Hugo** with the **Docsy** theme to build and host documentat
 
 ## Prerequisites
 
-* [Hugo](https://gohugo.io/) extended version
-* `git` for cloning the Docsy theme
-* `npm` (optional) for managing additional tooling
+- [Hugo](https://gohugo.io/) extended version
+- `git` for cloning the Docsy theme
+- `npm` (optional) for managing additional tooling
 
 ## Setup Steps
 
@@ -50,7 +50,7 @@ This project uses **Hugo** with the **Docsy** theme to build and host documentat
    ```markdown
    {{< mermaid >}}
    graph TD;
-     A-->B;
+   A-->B;
    {{< /mermaid >}}
    ```
 
@@ -70,5 +70,4 @@ Docsy supports many Hugo features such as syntax highlighting, search, and taxon
 
 For detailed customization, consult the [Docsy documentation](https://www.docsy.dev/).
 
-*Document last updated: 2025, June 7*
-
+_Document last updated: 2025, June 7_

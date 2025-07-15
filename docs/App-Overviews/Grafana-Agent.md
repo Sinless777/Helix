@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +16,16 @@
 1. [Introduction](#introduction)
 2. [What is Grafana Agent?](#what-is-grafana-agent)
 3. [How Grafana Agent is Used in the Architecture](#how-grafana-agent-is-used-in-the-architecture)
-    - [Lightweight Metrics Collection](#lightweight-metrics-collection)
-    - [Integration with Grafana Ecosystem](#integration-with-grafana-ecosystem)
+   - [Lightweight Metrics Collection](#lightweight-metrics-collection)
+   - [Integration with Grafana Ecosystem](#integration-with-grafana-ecosystem)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration and Customization](#configuration-and-customization)
-    - [Data Collection and Forwarding](#data-collection-and-forwarding)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration and Customization](#configuration-and-customization)
+   - [Data Collection and Forwarding](#data-collection-and-forwarding)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
-    - [Security and Access Control](#security-and-access-control)
-    - [Extending Functionality](#extending-functionality)
+   - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
+   - [Security and Access Control](#security-and-access-control)
+   - [Extending Functionality](#extending-functionality)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -86,6 +86,7 @@ Integrating Grafana Agent into your observability architecture involves a series
 ### Installation and Setup
 
 1. **Deployment Options:**
+
    - **Docker:** Run Grafana Agent in a containerized environment.
 
      ```bash
@@ -102,6 +103,7 @@ Integrating Grafana Agent into your observability architecture involves a series
 ### Configuration and Customization
 
 1. **Configuration File:**
+
    - Grafana Agent is configured using a YAML file (commonly named `agent.yaml`). This file includes settings for metrics scraping, log collection, and trace forwarding.
    - Example configuration snippet:
 
@@ -134,6 +136,7 @@ Integrating Grafana Agent into your observability architecture involves a series
      ```
 
 2. **Customizing Data Collection:**
+
    - Adjust scrape intervals, retention policies, and resource limits according to your environment’s requirements.
    - Modify log collection paths and labels to ensure that logs are correctly tagged and forwarded.
 
@@ -262,4 +265,4 @@ logs:
 
 ---
 
-*Document End*
+_Document End_

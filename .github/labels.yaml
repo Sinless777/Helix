@@ -1,96 +1,96 @@
 # .github/labels.yaml
 
 # Core change types
-- name: "Bugfix"
-  color: "d73a4a"
-  description: "Bugfixes addressing defects in the codebase"         # default bug color :contentReference[oaicite:2]{index=2}
+- name: 'Bugfix'
+  color: 'd73a4a'
+  description: 'Bugfixes addressing defects in the codebase' # default bug color :contentReference[oaicite:2]{index=2}
 
-- name: "Hotfix"
-  color: "b60205"
-  description: "Urgent fixes for production-critical issues"
+- name: 'Hotfix'
+  color: 'b60205'
+  description: 'Urgent fixes for production-critical issues'
 
-- name: "Feature"
-  color: "a2eeef"
-  description: "New features and enhancements"
+- name: 'Feature'
+  color: 'a2eeef'
+  description: 'New features and enhancements'
 
-- name: "Release"
-  color: "5319e7"
-  description: "Release-related changes, version bumps, and changelogs"
+- name: 'Release'
+  color: '5319e7'
+  description: 'Release-related changes, version bumps, and changelogs'
 
-- name: "Support"
-  color: "f9d0c4"
-  description: "Non-code support tasks (docs, triage, community)"
+- name: 'Support'
+  color: 'f9d0c4'
+  description: 'Non-code support tasks (docs, triage, community)'
 
 # GitHub configuration and meta
-- name: "GitHub"
-  color: "6e5494"
-  description: "Repository configuration (settings, labels, topics)"
+- name: 'GitHub'
+  color: '6e5494'
+  description: 'Repository configuration (settings, labels, topics)'
 
-- name: "GitHub-Workflows"
-  color: "2084e0"
-  description: "Changes to CI/CD workflows and automation scripts"
+- name: 'GitHub-Workflows'
+  color: '2084e0'
+  description: 'Changes to CI/CD workflows and automation scripts'
 
-- name: "GitHub-Issue-Templates"
-  color: "0052cc"
-  description: "Modifications to issue and PR templates"
+- name: 'GitHub-Issue-Templates'
+  color: '0052cc'
+  description: 'Modifications to issue and PR templates'
 
 # Major project areas
-- name: "APIs"
-  color: "fbca04"
-  description: "Backend API services and endpoint changes"
+- name: 'APIs'
+  color: 'fbca04'
+  description: 'Backend API services and endpoint changes'
 
-- name: "User-Interfaces"
-  color: "1d76db"
-  description: "Frontend UI components and styles"
+- name: 'User-Interfaces'
+  color: '1d76db'
+  description: 'Frontend UI components and styles'
 
-- name: "Docker"
-  color: "0e8a16"
-  description: "Dockerfiles, container setup, and deployment configs"
+- name: 'Docker'
+  color: '0e8a16'
+  description: 'Dockerfiles, container setup, and deployment configs'
 
-- name: "Libs"
-  color: "f29513"
-  description: "Shared libraries, utilities, and modules"
+- name: 'Libs'
+  color: 'f29513'
+  description: 'Shared libraries, utilities, and modules'
 
 # Sample sub-areas
-- name: "Authentication"
-  color: "5319e7"
-  description: "Auth mechanisms, security, and user identity"
+- name: 'Authentication'
+  color: '5319e7'
+  description: 'Auth mechanisms, security, and user identity'
 
-- name: "Discord-Bot"
-  color: "6f42c1"
-  description: "Discord bot features, commands, and integrations"
+- name: 'Discord-Bot'
+  color: '6f42c1'
+  description: 'Discord bot features, commands, and integrations'
 
-- name: "Frontend"
-  color: "0366d6"
-  description: "Next.js/React code and client-side logic"
+- name: 'Frontend'
+  color: '0366d6'
+  description: 'Next.js/React code and client-side logic'
 
 # Documentation & testing
-- name: "Documentation"
-  color: "0075ca"
-  description: "Docs, markdown files, and website content"
+- name: 'Documentation'
+  color: '0075ca'
+  description: 'Docs, markdown files, and website content'
 
-- name: "Testing"
-  color: "c2e0c6"
-  description: "Test suites, CI tests, and quality checks"
+- name: 'Testing'
+  color: 'c2e0c6'
+  description: 'Test suites, CI tests, and quality checks'
 
 # Dependency management
-- name: "Dependencies"
-  color: "d4c5f9"
-  description: "Dependency upgrades and lockfile changes"
+- name: 'Dependencies'
+  color: 'd4c5f9'
+  description: 'Dependency upgrades and lockfile changes'
 
 # ————— Core change types —————
-- name: "Bug"
-  color: "d73a4a"
-  description: "Issues indicating defects in functionality."  
+- name: 'Bug'
+  color: 'd73a4a'
+  description: 'Issues indicating defects in functionality.'
 
-- name: "Needs-Triage"
-  color: "cc317c"
-  description: "Issues pending triage and labeling."
+- name: 'Needs-Triage'
+  color: 'cc317c'
+  description: 'Issues pending triage and labeling.'
 
-- name: "Enhancement"
-  color: "a2eeef"
-  description: "Proposed enhancements or new features."
+- name: 'Enhancement'
+  color: 'a2eeef'
+  description: 'Proposed enhancements or new features.'
 
-- name: "Awaiting-Triage"
-  color: "f9d0c4"
-  description: "Issues waiting for a triage review."
+- name: 'Awaiting-Triage'
+  color: 'f9d0c4'
+  description: 'Issues waiting for a triage review.'

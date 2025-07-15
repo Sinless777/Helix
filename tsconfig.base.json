@@ -19,10 +19,6 @@
     "baseUrl": ".",
     "noUnusedLocals": false,
     "rootDir": ".",
-    "outDir": "dist",
-  },
-  "paths": {
-    "@helixai/core": ["libs/core/dist/index.js", "libs/core/src/index.ts"],
-    "@helixai/core/*": ["libs/core/dist/*", "libs/core/src/*"]
+    "outDir": "dist"
   }
 }

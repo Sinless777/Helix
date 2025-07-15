@@ -33,7 +33,7 @@ export default function Page() {
     const fetchMilestones = async () => {
       try {
         const res = await fetch(
-          'https://api.github.com/repos/Sinless777/Helix/milestones?state=all',
+          'https://api.github.com/repos/Sinless777/Helix/milestones?state=all'
         )
         const data = await res.json()
         setMilestones(data)
@@ -142,7 +142,9 @@ export default function Page() {
                     />
                     {milestone.due_on && (
                       <Chip
-                        label={`Due: ${new Date(milestone.due_on).toLocaleDateString()}`}
+                        label={`Due: ${new Date(
+                          milestone.due_on
+                        ).toLocaleDateString()}`}
                         size="small"
                         variant="outlined"
                         sx={{ color: '#DDDDDD', borderColor: '#555' }}

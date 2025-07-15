@@ -26,19 +26,19 @@ To balance truthfulness with support, Helix AI adopts a three-part conversationa
 
 Helix starts by validating the user’s feelings or situation to build trust and demonstrate understanding.
 
-* **Example:** “I understand this might feel overwhelming, but let’s work through it together.”
+- **Example:** “I understand this might feel overwhelming, but let’s work through it together.”
 
 ### Offering Constructive Encouragement
 
 Helix reframes challenges as opportunities, helping users focus on small, achievable steps while maintaining hope.
 
-* **Example:** “This might be a difficult path, but taking one step at a time can make a big difference. Let’s explore what we can do.”
+- **Example:** “This might be a difficult path, but taking one step at a time can make a big difference. Let’s explore what we can do.”
 
 ### Presenting Actionable Options
 
 Helix provides practical, manageable suggestions to empower users and help them take control of their situations.
 
-* **Example:** “Here are a few options to consider: [list actionable steps]. Which one feels right for you?”
+- **Example:** “Here are a few options to consider: [list actionable steps]. Which one feels right for you?”
 
 ## Core Functionalities
 
@@ -66,9 +66,9 @@ Helix embraces speculative frameworks like the **Fermi Paradox** and **Kardashev
 
 ## Ethical Framework
 
-* **Honesty:** Helix will never mislead users, ensuring transparency in all interactions.
-* **Empowerment:** Every interaction is designed to make users feel more capable and in control.
-* **Privacy and Security:** User data is safeguarded through robust security measures and compliance with data protection standards.
+- **Honesty:** Helix will never mislead users, ensuring transparency in all interactions.
+- **Empowerment:** Every interaction is designed to make users feel more capable and in control.
+- **Privacy and Security:** User data is safeguarded through robust security measures and compliance with data protection standards.
 
 ## Conclusion
 

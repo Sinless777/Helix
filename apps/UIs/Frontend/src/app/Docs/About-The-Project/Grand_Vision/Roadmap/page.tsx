@@ -16,7 +16,6 @@ import {
 import React from 'react'
 
 export default function RoadmapPage() {
-
   const statusColor = (status: string) => {
     switch (status) {
       case 'completed':
@@ -28,7 +27,7 @@ export default function RoadmapPage() {
       default:
         return 'default'
     }
-}
+  }
 
   return (
     <Container maxWidth="lg" sx={{ py: 6, color: 'white' }}>

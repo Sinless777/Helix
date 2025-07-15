@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
       const maxInlineWidth = width / 3
       const totalLinksWidth = pages.reduce(
         (sum, p) => sum + p.name.length * 8,
-        0,
+        0
       )
       setCanDisplayInline(totalLinksWidth <= maxInlineWidth)
 
@@ -83,8 +83,8 @@ export const Header: React.FC<HeaderProps> = ({
             canDisplayInline
               ? 'header__nav-list--inline'
               : menuOpen
-                ? 'header__nav-list--open'
-                : '',
+              ? 'header__nav-list--open'
+              : '',
           ]
             .filter(Boolean)
             .join(' ')}

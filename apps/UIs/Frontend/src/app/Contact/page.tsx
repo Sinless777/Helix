@@ -28,7 +28,8 @@ export default function ContactPage() {
         'Need help? Contact our support team directly. We typically respond within 24–48 hours.',
       link: 'mailto:support@helixaibot.com',
       buttonText: 'Send Email',
-      image: 'https://cdn.sinlessgamesllc.com/Helix-AI/images/Email-Support.png',
+      image:
+        'https://cdn.sinlessgamesllc.com/Helix-AI/images/Email-Support.png',
       bgColor: '#143256',
     },
     {
@@ -56,7 +57,8 @@ export default function ContactPage() {
         'Your opinion matters. Share your thoughts on your experience with Helix AI and help us improve.',
       link: 'https://docs.google.com/forms/d/e/1FAIpQLSd8dEXyqvkMrkt4YOHqTwYw620qBXbT3R9MnWjDHEdOeX4EnA/viewform?usp=sharing', // Replace with actual form link
       buttonText: 'Leave Feedback',
-      image: 'https://cdn.sinlessgamesllc.com/Helix-AI/images/Give-Feedback.png',
+      image:
+        'https://cdn.sinlessgamesllc.com/Helix-AI/images/Give-Feedback.png',
       bgColor: '#143256',
     },
   ]

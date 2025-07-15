@@ -4,10 +4,10 @@ Helix AI's architecture embraces a **microservice-style "hive mind"** composed o
 
 ## Hive Mind of Models
 
-* **Multilayer Perceptrons (MLPs)**, multiple **deep neural networks (DNNs)**, and **reinforcement learning (RL)** agents cooperate to solve complex tasks.
-* Experience and user interactions are fed back into the models, allowing continuous learning and adaptation.
-* A **plugin library** provides modular capabilities, letting new models or data sources plug into the system seamlessly.
-* A **vector store** holds long-term knowledge, enabling each model to search past interactions and the wider web for citable sources.
+- **Multilayer Perceptrons (MLPs)**, multiple **deep neural networks (DNNs)**, and **reinforcement learning (RL)** agents cooperate to solve complex tasks.
+- Experience and user interactions are fed back into the models, allowing continuous learning and adaptation.
+- A **plugin library** provides modular capabilities, letting new models or data sources plug into the system seamlessly.
+- A **vector store** holds long-term knowledge, enabling each model to search past interactions and the wider web for citable sources.
 
 ## Open APIs and Data Gathering
 
@@ -20,7 +20,7 @@ Helix connects to **OpenAI** for cutting-edge language models and orchestrates p
 
 The reinforcement learning update rule is given by
 \[
-Q_{\text{new}} = Q_{\text{old}} + \alpha\bigl(r + \gamma \max Q_{\text{next}} - Q_{\text{old}}\bigr),
+Q*{\text{new}} = Q*{\text{old}} + \alpha\bigl(r + \gamma \max Q*{\text{next}} - Q*{\text{old}}\bigr),
 \]
 as described by Sutton and Barto (2018).
 

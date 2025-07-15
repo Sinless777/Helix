@@ -1,9 +1,9 @@
-import type { Config } from 'jest';
-import nextJest from 'next/jest.js';
+import type { Config } from 'jest'
+import nextJest from 'next/jest.js'
 
 const createJestConfig = nextJest({
   dir: './',
-});
+})
 
 const config: Config = {
   displayName: '@helixai/Frontend',
@@ -14,6 +14,6 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/apps/UIs/Frontend',
   testEnvironment: 'jsdom',
-};
+}
 
-export default createJestConfig(config);
+export default createJestConfig(config)

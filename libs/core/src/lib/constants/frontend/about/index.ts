@@ -1,15 +1,15 @@
 // libs/core/src/lib/constants/frontend/about/index.ts
-import React from 'react';
-import { Typography } from '@mui/material';
+import React from 'react'
+import { Typography } from '@mui/material'
 
 export interface AboutSection {
-  title: string;
-  content: React.ReactNode;
-  icon?: string;
+  title: string
+  content: React.ReactNode
+  icon?: string
 }
 
 function p(text: string): React.ReactElement {
-  return React.createElement(Typography, { paragraph: true }, text);
+  return React.createElement(Typography, { paragraph: true }, text)
 }
 
 export const AboutContent: AboutSection[] = [
@@ -80,4 +80,4 @@ export const AboutContent: AboutSection[] = [
     ),
     icon: '👥',
   },
-];
+]

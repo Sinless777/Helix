@@ -189,7 +189,7 @@ export const HelixCard: React.FC<CardProps> = ({
               sx={{
                 bgcolor: 'secondary.main',
                 color: theme.palette.getContrastText(
-                  theme.palette.secondary.main,
+                  theme.palette.secondary.main
                 ),
                 fontFamily: '"Mate SC", serif',
               }}

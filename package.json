@@ -2,7 +2,16 @@
   "name": "@helixai/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "postinstall": "nx postinstall",
+    "lint": "nx run-many --target lint --all",
+    "format": "nx format:write",
+    "test": "nx run-many --target test --all",
+    "test:watch": "nx run-many --target test --all --watch",
+    "build": "nx run-many --target build --all",
+    "serve": "nx serve frontend",
+    "local-registry": "nx run local-registry"
+  },
   "private": true,
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",

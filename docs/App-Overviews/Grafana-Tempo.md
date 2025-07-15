@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +16,16 @@
 1. [Introduction](#introduction)
 2. [What is Grafana Tempo?](#what-is-grafana-tempo)
 3. [How Grafana Tempo is Used in the Architecture](#how-grafana-tempo-is-used-in-the-architecture)
-    - [Tracing in a Distributed Environment](#tracing-in-a-distributed-environment)
-    - [Integration with Observability Stack](#integration-with-observability-stack)
+   - [Tracing in a Distributed Environment](#tracing-in-a-distributed-environment)
+   - [Integration with Observability Stack](#integration-with-observability-stack)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration and Instrumentation](#configuration-and-instrumentation)
-    - [Data Collection and Storage](#data-collection-and-storage)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration and Instrumentation](#configuration-and-instrumentation)
+   - [Data Collection and Storage](#data-collection-and-storage)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
-    - [Security Considerations](#security-considerations)
-    - [Integrating with Grafana Dashboards](#integrating-with-grafana-dashboards)
+   - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
+   - [Security Considerations](#security-considerations)
+   - [Integrating with Grafana Dashboards](#integrating-with-grafana-dashboards)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -91,6 +91,7 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
 ### Installation and Setup
 
 1. **Download and Installation:**
+
    - Tempo can be installed using Docker, Kubernetes, or as a standalone binary. For containerized environments, Grafana Labs provides official Docker images.
    - Example (Docker):
 
@@ -99,6 +100,7 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
      ```
 
 2. **Initial Configuration:**
+
    - Create a configuration file (e.g., `tempo-config.yaml`) that specifies the storage backend, sampling strategies, and other operational parameters.
    - Basic configuration example:
 
@@ -116,8 +118,8 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
        trace:
          backend: s3
          s3:
-           bucket: "tempo-traces"
-           endpoint: "s3.amazonaws.com"
+           bucket: 'tempo-traces'
+           endpoint: 's3.amazonaws.com'
      ```
 
 3. **Service Discovery and Deployment:**
@@ -126,6 +128,7 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
 ### Configuration and Instrumentation
 
 1. **Instrumenting Applications:**
+
    - Use OpenTelemetry client libraries to instrument your applications. This allows your services to automatically send trace data to Tempo.
    - Example (Python):
 
@@ -147,6 +150,7 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
      ```
 
 2. **Configuring Sampling:**
+
    - Adjust sampling configurations to balance between data granularity and storage cost. Tempo supports various sampling strategies, including head-based and tail-based sampling.
 
 3. **Data Collection and Storage:**
@@ -249,8 +253,8 @@ storage:
   trace:
     backend: s3
     s3:
-      bucket: "tempo-traces"
-      endpoint: "s3.amazonaws.com"
+      bucket: 'tempo-traces'
+      endpoint: 's3.amazonaws.com'
 ```
 
 ### Appendix B: Glossary
@@ -263,4 +267,4 @@ storage:
 
 ---
 
-*Document End*
+_Document End_

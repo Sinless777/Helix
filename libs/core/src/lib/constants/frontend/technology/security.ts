@@ -1,4 +1,4 @@
-import type { CardProps } from '../../types/card';
+import type { CardProps } from '../../types/card'
 
 export const SecurityCards: CardProps[] = [
   {

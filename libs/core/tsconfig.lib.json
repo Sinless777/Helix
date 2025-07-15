@@ -7,7 +7,7 @@
     "outDir": "dist/",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
-    "types": ["node", "react-dom"],
+    "types": ["node", "react-dom"]
   },
   "include": ["src/**/**/*.ts"],
   "references": [],

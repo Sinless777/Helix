@@ -1,18 +1,18 @@
 {
-    "cSpell.words": [
-        "adsbygoogle",
-        "apos",
-        "cloudflared",
-        "configuation",
-        "Fastly",
-        "helixai",
-        "hyperscale",
-        "naxodev",
-        "nodenext",
-        "reimagining",
-        "sinlessgamesllc",
-        "swcrc",
-        "waitlist"
-    ],
-    "nxConsole.generateAiAgentRules": true
+  "cSpell.words": [
+    "adsbygoogle",
+    "apos",
+    "cloudflared",
+    "configuation",
+    "Fastly",
+    "helixai",
+    "hyperscale",
+    "naxodev",
+    "nodenext",
+    "reimagining",
+    "sinlessgamesllc",
+    "swcrc",
+    "waitlist"
+  ],
+  "nxConsole.generateAiAgentRules": true
 }

@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +16,16 @@
 1. [Introduction](#introduction)
 2. [What is Alert Manager?](#what-is-alert-manager)
 3. [How Alert Manager is Used in the Architecture](#how-alert-manager-is-used-in-the-architecture)
-    - [Centralized Alert Routing](#centralized-alert-routing)
-    - [Notification Management](#notification-management)
+   - [Centralized Alert Routing](#centralized-alert-routing)
+   - [Notification Management](#notification-management)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration Examples](#configuration-examples)
-    - [Integration with Prometheus and Other Tools](#integration-with-prometheus-and-other-tools)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration Examples](#configuration-examples)
+   - [Integration with Prometheus and Other Tools](#integration-with-prometheus-and-other-tools)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and High Availability](#scalability-and-high-availability)
-    - [Security and Access Control](#security-and-access-control)
-    - [Custom Routing and Inhibition Rules](#custom-routing-and-inhibition-rules)
+   - [Scalability and High Availability](#scalability-and-high-availability)
+   - [Security and Access Control](#security-and-access-control)
+   - [Custom Routing and Inhibition Rules](#custom-routing-and-inhibition-rules)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -90,6 +90,7 @@ Integrating Alert Manager within your infrastructure involves installation, conf
 ### Installation and Setup
 
 1. **Download and Installation:**
+
    - Alert Manager is distributed as part of the Prometheus ecosystem. You can install it using pre-built binaries, Docker images, or via Kubernetes deployments.
    - **Example (Docker):**
 
@@ -98,6 +99,7 @@ Integrating Alert Manager within your infrastructure involves installation, conf
      ```
 
 2. **Basic Configuration:**
+
    - Create a configuration file (e.g., `alertmanager.yml`) to define global settings, route definitions, and notification templates.
    - **Example Configuration:**
 
@@ -122,6 +124,7 @@ Integrating Alert Manager within your infrastructure involves installation, conf
      ```
 
 3. **Starting Alert Manager:**
+
    - Launch Alert Manager with your configuration file.
 
      ```bash
@@ -292,4 +295,4 @@ alerting:
 
 ---
 
-*Document End*
+_Document End_

@@ -1,7 +1,7 @@
 name: 📚 Docs Request
 description: Request improvements or corrections to documentation (README, guides, examples)
-title: "[DOCS] “<short description>”"
-labels: ["documentation", "awaiting-triage"]
+title: '[DOCS] “<short description>”'
+labels: ['documentation', 'awaiting-triage']
 assignees: []
 body:
   - type: markdown
@@ -15,7 +15,7 @@ body:
     attributes:
       label: Issue Summary
       description: One-sentence overview of the documentation problem
-      placeholder: "README typos and unclear example code"
+      placeholder: 'README typos and unclear example code'
     validations:
       required: true
 

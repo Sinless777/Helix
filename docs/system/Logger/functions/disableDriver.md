@@ -1,6 +1,6 @@
 [**@helix/logger v0.0.1**](../README.md)
 
-***
+---
 
 [@helix/logger](../globals.md) / disableDriver
 

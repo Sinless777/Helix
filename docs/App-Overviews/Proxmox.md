@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-16*
+_Document last updated: 2025-03-16_
 
 ---
 
@@ -16,16 +16,16 @@
 1. [Introduction](#introduction)
 2. [What is Proxmox?](#what-is-proxmox)
 3. [How Proxmox is Used in the Architecture](#how-proxmox-is-used-in-the-architecture)
-    - [Role as a Hypervisor](#role-as-a-hypervisor)
-    - [Virtualization and Containerization](#virtualization-and-containerization)
+   - [Role as a Hypervisor](#role-as-a-hypervisor)
+   - [Virtualization and Containerization](#virtualization-and-containerization)
 4. [Integration Details](#integration-details)
-    - [Deployment and Setup](#deployment-and-setup)
-    - [Configuration and Management](#configuration-and-management)
-    - [Monitoring and Maintenance](#monitoring-and-maintenance)
+   - [Deployment and Setup](#deployment-and-setup)
+   - [Configuration and Management](#configuration-and-management)
+   - [Monitoring and Maintenance](#monitoring-and-maintenance)
 5. [Advanced Topics](#advanced-topics)
-    - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
-    - [Security and Access Control](#security-and-access-control)
-    - [Disaster Recovery and Backup Strategies](#disaster-recovery-and-backup-strategies)
+   - [Scalability and Performance Optimization](#scalability-and-performance-optimization)
+   - [Security and Access Control](#security-and-access-control)
+   - [Disaster Recovery and Backup Strategies](#disaster-recovery-and-backup-strategies)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -229,4 +229,4 @@ Backup Job:
 
 ---
 
-*Document End*
+_Document End_

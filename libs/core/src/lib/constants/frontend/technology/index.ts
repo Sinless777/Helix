@@ -1,4 +1,4 @@
-export { AIToolsCards} from './AI'
+export { AIToolsCards } from './AI'
 export { CloudPlatformCards } from './cloud-platforms'
 export { DataStorageCards } from './data-storage'
 export { DevelopmentCards } from './development'

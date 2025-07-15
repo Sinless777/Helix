@@ -1,9 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import type {
-  CardProps,
-  ListItemProps,
-} from '../../../components/Card'
+import type { CardProps, ListItemProps } from '../../../components/Card'
 import Header from '../../../components/Header'
 import { headerProps, technologyCards as technology } from '@helixai/core'
 import { Box, Button, Container, Grid, Typography } from '@mui/material'
@@ -42,7 +39,7 @@ export default async function Page({
 
   const allCards: CardProps[] = Object.values(technology).flat()
   const matchedCard = allCards.find(
-    (card) => (card.link ?? '').toLowerCase() === normalizedRoute,
+    (card) => (card.link ?? '').toLowerCase() === normalizedRoute
   )
 
   if (!matchedCard) {

@@ -7,7 +7,7 @@
 
 ---
 
-*Document last updated: 2025-03-17*
+_Document last updated: 2025-03-17_
 
 ---
 
@@ -16,16 +16,16 @@
 1. [Introduction](#introduction)
 2. [What is Terraform?](#what-is-terraform)
 3. [How Terraform is Used in the Architecture](#how-terraform-is-used-in-the-architecture)
-    - [Infrastructure as Code (IaC)](#infrastructure-as-code-iac)
-    - [Automation and Orchestration](#automation-and-orchestration)
+   - [Infrastructure as Code (IaC)](#infrastructure-as-code-iac)
+   - [Automation and Orchestration](#automation-and-orchestration)
 4. [Integration Details](#integration-details)
-    - [Installation and Setup](#installation-and-setup)
-    - [Configuration and Deployment](#configuration-and-deployment)
-    - [State Management and Backends](#state-management-and-backends)
+   - [Installation and Setup](#installation-and-setup)
+   - [Configuration and Deployment](#configuration-and-deployment)
+   - [State Management and Backends](#state-management-and-backends)
 5. [Advanced Topics](#advanced-topics)
-    - [Modular Design and Reusability](#modular-design-and-reusability)
-    - [Security Best Practices](#security-best-practices)
-    - [CI/CD Integration](#cicd-integration)
+   - [Modular Design and Reusability](#modular-design-and-reusability)
+   - [Security Best Practices](#security-best-practices)
+   - [CI/CD Integration](#cicd-integration)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -91,11 +91,13 @@ Successful integration of Terraform into our infrastructure involves several key
 ### Installation and Setup
 
 1. **Deployment Options:**
+
    - **Local Installation:** Install Terraform on your local machine using pre-built binaries available from the [Terraform Downloads page](https://www.terraform.io/downloads).
    - **Containerized Deployment:** Run Terraform in a Docker container for isolated, consistent environments.
    - **CI/CD Pipelines:** Integrate Terraform with continuous integration tools to automate infrastructure deployments.
 
 2. **Initial Setup:**
+
    - Download the latest Terraform binary and add it to your system’s PATH.
    - Verify the installation by running:
 
@@ -112,6 +114,7 @@ Successful integration of Terraform into our infrastructure involves several key
 ### Configuration and Deployment
 
 1. **Writing Configuration Files:**
+
    - Use HashiCorp Configuration Language (HCL) to define resources. Below is a basic example for deploying an AWS EC2 instance:
 
      ```hcl
@@ -218,6 +221,7 @@ Implementing Terraform best practices—such as modular design, secure state man
 ### Appendix A: Sample Configuration Files
 
 #### Basic Terraform Configuration (HCL)
+
 ```hcl
 provider "aws" {
   region = "us-west-2"
@@ -256,4 +260,4 @@ terraform {
 
 ---
 
-*Document End*
+_Document End_

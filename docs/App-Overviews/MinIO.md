@@ -16,16 +16,16 @@ _**Document last updated:** *2025-3-17*_
 1. [Introduction](#introduction)
 2. [What is MinIO?](#what-is-minio)
 3. [How MinIO is Used in the Architecture](#how-minio-is-used-in-the-architecture)
-    - [Object Storage for Modern Workloads](#object-storage-for-modern-workloads)
-    - [Integration with Backup and Log Systems](#integration-with-backup-and-log-systems)
+   - [Object Storage for Modern Workloads](#object-storage-for-modern-workloads)
+   - [Integration with Backup and Log Systems](#integration-with-backup-and-log-systems)
 4. [Integration Details](#integration-details)
-    - [Deployment and Setup](#deployment-and-setup)
-    - [Configuration and Scaling](#configuration-and-scaling)
-    - [Security and Data Protection](#security-and-data-protection)
+   - [Deployment and Setup](#deployment-and-setup)
+   - [Configuration and Scaling](#configuration-and-scaling)
+   - [Security and Data Protection](#security-and-data-protection)
 5. [Advanced Topics](#advanced-topics)
-    - [High Availability and Clustering](#high-availability-and-clustering)
-    - [Performance Optimization](#performance-optimization)
-    - [Disaster Recovery Strategies](#disaster-recovery-strategies)
+   - [High Availability and Clustering](#high-availability-and-clustering)
+   - [Performance Optimization](#performance-optimization)
+   - [Disaster Recovery Strategies](#disaster-recovery-strategies)
 6. [Additional Documentation and Resources](#additional-documentation-and-resources)
 7. [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)
 8. [Conclusion](#conclusion)
@@ -76,6 +76,7 @@ Integrating MinIO into your infrastructure involves careful planning and configu
 ### Deployment and Setup
 
 1. **Deployment Options:**
+
    - **Docker:** Deploy MinIO using Docker for containerized environments.
 
      ```bash
@@ -208,4 +209,4 @@ MINIO_PROMETHEUS_AUTH_TYPE=public
 
 ---
 
-*Document End*
+_Document End_

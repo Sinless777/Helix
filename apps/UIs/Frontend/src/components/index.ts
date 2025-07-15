@@ -13,5 +13,4 @@ export {
   ToastContainer,
   useToast,
 } from './modal'
-export { ErrorBoundary } from './ErrorBoundary'
 export { MermaidChart, type MermaidChartProps } from './MermaidChart'
