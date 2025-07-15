@@ -1,6 +1,4 @@
 // src/app/Docs/[...slug]/page.tsx
-'use client'
-
 import DocsLayout from '../../components/Docs'
 import { DocsTheme } from '@helixai/core'
 import { ThemeProvider } from '@mui/material/styles'

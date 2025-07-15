@@ -13,6 +13,5 @@ export {
   ToastContainer,
   useToast,
 } from './modal'
-export { ErrorPage } from './error-page'
 export { ErrorBoundary } from './ErrorBoundary'
 export { MermaidChart, type MermaidChartProps } from './MermaidChart'

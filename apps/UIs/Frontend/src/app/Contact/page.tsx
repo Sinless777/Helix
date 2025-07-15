@@ -1,3 +1,5 @@
+'use client'
+
 import { Header } from '../../components'
 import { headerProps } from '@helixai/core'
 import { Button, Card, CardContent } from '@mui/material'
@@ -8,7 +10,7 @@ import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import React from 'react'
 
-export default async function ContactPage() {
+export default function ContactPage() {
   const contactOptions = [
     {
       title: 'Join Our Discord',

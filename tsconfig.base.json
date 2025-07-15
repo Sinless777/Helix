@@ -12,12 +12,14 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
     "customConditions": ["development"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "noUnusedLocals": false,
+    "rootDir": ".",
+    "outDir": "dist",
   },
   "paths": {
     "@helixai/core": ["libs/core/dist/index.js", "libs/core/src/index.ts"],

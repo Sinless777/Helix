@@ -1,6 +1,4 @@
 // src/app/Docs/page.tsx
-'use client'
-
 import { Box, Typography } from '@mui/material'
 
 export default function DocsHome() {

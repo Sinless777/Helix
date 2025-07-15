@@ -80,6 +80,8 @@
   },
   "nx": {
     "includedScripts": [],
+    "implicitDependencies": [],
+    "explicitDependencies": [],
     "targets": {
       "local-registry": {
         "executor": "@nx/js:verdaccio",

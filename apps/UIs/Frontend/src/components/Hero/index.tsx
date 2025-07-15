@@ -6,9 +6,8 @@ import Grid from '@mui/material/Grid'
 import Image from 'next/image'
 import React from 'react'
 import { HeroWaitlist } from './hero-waitlist'
-import styles from './hero.module.scss'
 
-export * from './hero-waitlist'
+export { HeroWaitlist } from './hero-waitlist'
 
 type HeroSectionProps = {
   title: string
@@ -25,7 +24,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   return (
     <Box
-      className={styles.heroSection}
       sx={{
         px: { xs: '1.5rem', md: '4rem' },
         py: { xs: '3rem', md: '5rem' },

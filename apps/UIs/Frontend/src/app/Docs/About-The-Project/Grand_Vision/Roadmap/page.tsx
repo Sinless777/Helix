@@ -15,20 +15,20 @@ import {
 } from '@mui/material'
 import React from 'react'
 
-const statusColor = (status: string) => {
-  switch (status) {
-    case 'completed':
-      return 'success'
-    case 'in-progress':
-      return 'warning'
-    case 'not-started':
-      return 'default'
-    default:
-      return 'default'
-  }
-}
+export default function RoadmapPage() {
 
-export const RoadmapPage = () => {
+  const statusColor = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'success'
+      case 'in-progress':
+        return 'warning'
+      case 'not-started':
+        return 'default'
+      default:
+        return 'default'
+    }
+}
 
   return (
     <Container maxWidth="lg" sx={{ py: 6, color: 'white' }}>
@@ -192,5 +192,3 @@ export const RoadmapPage = () => {
     </Container>
   )
 }
-
-export default RoadmapPage

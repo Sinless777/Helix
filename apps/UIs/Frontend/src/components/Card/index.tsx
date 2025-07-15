@@ -9,7 +9,6 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import React from 'react'
@@ -51,10 +50,6 @@ export const HelixCard: React.FC<CardProps> = ({
 
   return (
     <Box
-      component={motion.div}
-      whileHover={{ scale: 1.02 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
       sx={{
         bgcolor: 'rgba(0,0,0,0.4)',
         border: `1px solid ${theme.palette.secondary.main}`,
