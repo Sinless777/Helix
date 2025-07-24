@@ -1,0 +1,71 @@
+services:
+  nats-01:
+    image: nats:2.9.20
+    container_name: nats-01
+    ports:
+      - '4222:4222'
+      - '6222:6222'
+      - '8222:8222'
+    environment:
+      - NATS_USER=helix
+      - NATS_PASSWORD=helix
+    volumes:
+      - ./.data/nats-01:/data
+    restart: always
+    command:
+      - '--name=nats-01'
+      - '--cluster_name=helix-cluster-nats'
+      - '--cluster=nats://nats-01:6222'
+      - '--routes=nats-route://nats-01:6222,nats-route://nats-02:6222,nats-route://nats-03:6222'
+      - '--http_port=8222'
+      - '--js'
+      - '--sd=/data'
+
+  nats-02:
+    image: nats:2.9.20
+    container_name: nats-02
+    ports:
+      - '4223:4222'
+      - '6223:6222'
+      - '8223:8222'
+    environment:
+      - NATS_USER=helix
+      - NATS_PASSWORD=helix
+    command:
+      - '--name=nats-02'
+      - '--cluster_name=helix-cluster-nats'
+      - '--cluster=nats://nats-02:6222'
+      - '--routes=nats-route://nats-01:6222,nats-route://nats-02:6222,nats-route://nats-03:6222'
+      - '--http_port=8223'
+      - '--js'
+      - '--sd=/data'
+    volumes:
+      - ./.data/nats-02:/data
+    restart: always
+    depends_on:
+      - nats-01
+
+  nats-03:
+    image: nats:2.9.20
+    container_name: nats-03
+    ports:
+      - '4224:4222'
+      - '6224:6222'
+      - '8224:8222'
+    environment:
+      - NATS_USER=helix
+      - NATS_PASSWORD=helix
+    command:
+      - '--name=nats-03'
+      - '--cluster_name=helix-cluster-nats'
+      - '--cluster=nats://nats-03:6222'
+      - '--routes=nats-route://nats-01:6222,nats-route://nats-02:6222,nats-route://nats-03:6222'
+      - '--http_port=8224'
+      - '--js'
+      - '--sd=/data'
+    volumes:
+      - ./.data/nats-03:/data
+    restart: always
+    depends_on:
+      - nats-01
+      - nats-02

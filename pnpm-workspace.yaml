@@ -1,0 +1,8 @@
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - cypress
+  - esbuild
+  - nx
+  - sharp
+  - unrs-resolver
