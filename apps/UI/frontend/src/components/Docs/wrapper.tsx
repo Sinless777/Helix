@@ -31,7 +31,7 @@ export default function DocsLayout({
         sx={{
           display: 'flex',
           flex: 1,
-          pt: `${headerHeight}px`,        // push below header
+          pt: `${headerHeight}px`, // push below header
           height: `calc(100vh - ${headerHeight}px)`,
         }}
       >

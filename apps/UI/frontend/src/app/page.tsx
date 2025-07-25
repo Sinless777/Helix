@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import { Header } from '../components/Header'
 import { headerProps, MainTheme } from '@helixai/core'
 import { Box } from '@mui/material'

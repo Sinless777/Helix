@@ -17,4 +17,3 @@ tasks:
     desc: 'Create a new release with changelog, tag, GitHub release, and artifacts'
     cmd: './scripts/repo/release.sh'
     silent: false
-

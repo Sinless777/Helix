@@ -1,4 +1,5 @@
 import MapIcon from '@mui/icons-material/Map'
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { ElementType } from 'react'
 
 export interface NavItem {
@@ -53,6 +54,7 @@ export const navSections: NavSection[] = [
       {
         id: 'vision',
         label: 'Grand Vision',
+        icon: VisibilityIcon,
         href: '/Docs/About-The-Project/Grand_Vision',
         badge: 'Beta',
         items: [
@@ -70,6 +72,29 @@ export const navSections: NavSection[] = [
             id: 'milestones',
             label: 'Milestones',
             href: '/Docs/About-The-Project/Grand_Vision/Milestones',
+          },
+        ],
+      },
+      {
+        id: 'The Theory',
+        label: 'The Theory',
+        href: '/Docs/About-The-Project/The_Theory',
+        icon: MapIcon,
+        items: [
+          {
+            id: 'introduction',
+            label: 'Introduction',
+            href: '/Docs/About-The-Project/The_Theory/Introduction',
+          },
+          {
+            id: 'philosophy',
+            label: 'Philosophy',
+            href: '/Docs/About-The-Project/The_Theory/Philosophy',
+          },
+          {
+            id: 'architecture',
+            label: 'Architecture',
+            href: '/Docs/About-The-Project/The_Theory/Architecture',
           },
         ],
       },

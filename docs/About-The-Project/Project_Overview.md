@@ -5,7 +5,6 @@
 - **Type**: SaaS / PaaS
 - **Goal**: An intelligent, emotionally aware virtual companion that helps users in their day-to-day tasks and life, not just as an assistant, but as a long-term partner.
 - **Design**:
-
   - Built as a **monorepo**: `Helix-AI`
   - Uses a **custom LLM** and integrates public models via **Hugging Face**, **APIs**, and **files**
   - Plans for **platform integration**: Discord, Slack, Google, GitHub, Twitter, Facebook, etc.
@@ -17,10 +16,8 @@
 
 - **Purpose**: Manages infrastructure-as-code, security, policies, and DevSecOps pipelines
 - **Structure**:
-
   - Separate Git repo: `SinLess-Games-IaC`
   - Contains:
-
     - Kubernetes (`clusters/`, `apps/`, `charts/`)
     - Terraform (`terraform/`)
     - Ansible (`ansible/`)
@@ -333,7 +330,6 @@ To ensure deep security visibility and incident response readiness, Helix AI wil
   Open-source security monitoring platform providing log analysis, file integrity monitoring, intrusion detection, and vulnerability scanning across containers, VMs, and bare-metal hosts.
 - **Elastic Stack**
   Centralized logging, enrichment, search and visualization layer already in Helix’s observability pipeline, to be extended for SIEM use cases:
-
   - **[Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)** – Scalable time-series datastore for indexed security events.
   - **[Logstash](https://www.elastic.co/guide/en/logstash/current/index.html)** – Ingests, parses, and enriches logs from multiple sources (Wazuh, Beats, cloud).
   - **[Kibana](https://www.elastic.co/guide/en/kibana/current/index.html)** – Dashboards and ad-hoc querying for security analysts.
@@ -420,7 +416,6 @@ Helix AI enforces modern configuration and deployment methodologies to ensure co
 ## 🥪 Cluster Environments
 
 - **Staging Cluster**: A fully-featured replica of the production environment, the staging cluster is used for rigorous validation and testing. It serves as a sandbox for:
-
   - End-to-end (e2e) testing
   - Load and stress testing
   - Security scanning
@@ -430,7 +425,6 @@ Helix AI enforces modern configuration and deployment methodologies to ensure co
     This environment helps prevent regressions and performance issues before they reach production.
 
 - **Production Cluster**: This is the live, customer-facing environment where Helix AI is deployed for real-world use. It is also used for controlled chaos testing to validate system resilience and recovery processes in production. This includes fault injection, resource exhaustion, and network partition simulations designed to surface weaknesses before real users experience them. It is:
-
   - Hardened with least-privilege RBAC and network policies
   - Continuously monitored for performance and security
   - Backed by high availability (HA) infrastructure

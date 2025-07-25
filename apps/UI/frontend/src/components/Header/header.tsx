@@ -84,7 +84,11 @@ export const Header: React.FC<HeaderProps> = ({
           target="_blank"
           rel="noopener noreferrer"
           className="header__version-link"
-          sx={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
+          sx={{
+            textDecoration: 'none',
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}
         >
           <Typography variant="caption" className="header__version">
             V{displayVersion}
@@ -117,8 +121,8 @@ export const Header: React.FC<HeaderProps> = ({
             canDisplayInline
               ? 'header__nav-list--inline'
               : menuOpen
-              ? 'header__nav-list--open'
-              : '',
+                ? 'header__nav-list--open'
+                : '',
           ]
             .filter(Boolean)
             .join(' ')}
