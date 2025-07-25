@@ -83,7 +83,7 @@ jobs:
 
       - name: Rebuild changed packages
         if: steps.check_diff.outputs.skip_build == 'false'
-        run: nx run-many --target=build --all --parallel --maxParallel=3
+        run: pnpx nx run-many --target=build --all --parallel --maxParallel=3
 
   # Only run on master
   semantic-versioning:
