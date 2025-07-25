@@ -33,7 +33,8 @@ export const RoadmapPhases: Phase[] = [
       {
         id: 0,
         title: 'Documentation Phase 1',
-        description: 'Initial documentation, Including Main information describing the project, its vision, and roadmap.',
+        description:
+          'Initial documentation, Including Main information describing the project, its vision, and roadmap.',
         status: 'in-progress',
         assigned_to: 'Timothy Pierce',
         due_date: '2025-08-01',
