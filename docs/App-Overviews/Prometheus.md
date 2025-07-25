@@ -96,12 +96,10 @@ Effective integration of Prometheus into your infrastructure is essential to max
 ### Installation and Setup
 
 1. **Download and Installation:**
-
    - Prometheus binaries are available for multiple platforms, including Linux, Windows, and macOS. Download the latest release from the official [Prometheus website](https://prometheus.io/download/).
    - Extract the binary and move it to a directory included in your system's PATH.
 
 2. **Basic Configuration:**
-
    - Create a configuration file (`prometheus.yml`) in the root directory of your Prometheus installation. This file defines the scrape configurations, alerting rules, and other settings.
    - Example configuration snippet:
 
@@ -117,7 +115,6 @@ Effective integration of Prometheus into your infrastructure is essential to max
      ```
 
 3. **Starting Prometheus:**
-
    - Run Prometheus using the command:
 
      ```bash

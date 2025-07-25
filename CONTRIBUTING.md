@@ -105,7 +105,6 @@ Conventional Commits enforced via CI with @commitlint/config-conventional.
 - **Renovate** - automates dependency updates by grouping PRs and auto-merging safe upgrades.
 - **Dependabot** - GitHub's security scanner that generates PRs for vulnerability fixes and lockfile updates.
 - **Husky** + **Lint-Staged** - runs pre-commit hooks to:
-
   - `eslint --fix` and `prettier --write` on staged files.
   - Prevent formatting and lint errors before push.
 
@@ -185,7 +184,6 @@ Conventional Commits enforced via CI with @commitlint/config-conventional.
 - **Renovate** - automates dependency updates by grouping PRs and auto-merging safe upgrades.
 - **Dependabot** - GitHub's security scanner that generates PRs for vulnerability fixes and lockfile updates.
 - **Husky** + **Lint-Staged** - runs pre-commit hooks to:
-
   - `eslint --fix` and `prettier --write` on staged files.
   - Prevent formatting and lint errors before push.
 

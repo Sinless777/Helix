@@ -91,12 +91,10 @@ Successfully integrating the Alert Manager Discord Notifier into your observabil
 ### Installation and Setup
 
 1. **Prerequisites:**
-
    - Ensure you have an active Discord server and the necessary permissions to create webhooks.
    - Confirm that Alert Manager is set up and operational within your monitoring environment.
 
 2. **Creating a Discord Webhook:**
-
    - In your Discord server, navigate to the channel where alerts should be posted.
    - Go to Channel Settings > Integrations > Webhooks and create a new webhook. Note the webhook URL, as it will be required for configuration.
 

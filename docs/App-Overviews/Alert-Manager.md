@@ -90,7 +90,6 @@ Integrating Alert Manager within your infrastructure involves installation, conf
 ### Installation and Setup
 
 1. **Download and Installation:**
-
    - Alert Manager is distributed as part of the Prometheus ecosystem. You can install it using pre-built binaries, Docker images, or via Kubernetes deployments.
    - **Example (Docker):**
 
@@ -99,7 +98,6 @@ Integrating Alert Manager within your infrastructure involves installation, conf
      ```
 
 2. **Basic Configuration:**
-
    - Create a configuration file (e.g., `alertmanager.yml`) to define global settings, route definitions, and notification templates.
    - **Example Configuration:**
 
@@ -124,7 +122,6 @@ Integrating Alert Manager within your infrastructure involves installation, conf
      ```
 
 3. **Starting Alert Manager:**
-
    - Launch Alert Manager with your configuration file.
 
      ```bash

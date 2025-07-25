@@ -93,7 +93,6 @@ Integrating Grafana Pyroscope into your infrastructure involves several key step
 ### Installation and Setup
 
 1. **Pyroscope Installation:**
-
    - Install Pyroscope using official binaries, Docker, or Kubernetes deployments.
    - Example (Docker):
 
@@ -102,7 +101,6 @@ Integrating Grafana Pyroscope into your infrastructure involves several key step
      ```
 
 2. **Grafana Configuration:**
-
    - Ensure Grafana is installed and accessible. Grafana can be installed using official packages, Docker, or Kubernetes.
    - Example (Docker):
 
@@ -117,7 +115,6 @@ Integrating Grafana Pyroscope into your infrastructure involves several key step
 ### Configuration and Instrumentation
 
 1. **Instrumenting Applications:**
-
    - Integrate Pyroscope’s client libraries into your application code to collect profiling data.
    - Example (Go):
 
@@ -144,7 +141,6 @@ Integrating Grafana Pyroscope into your infrastructure involves several key step
 ### Dashboard Provisioning and Data Visualization
 
 1. **Automated Dashboard Provisioning:**
-
    - Use JSON or YAML configuration files to provision Grafana dashboards that include panels for profiling data.
    - Example (YAML configuration):
 
