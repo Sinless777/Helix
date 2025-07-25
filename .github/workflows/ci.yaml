@@ -66,7 +66,7 @@ jobs:
         run: pnpm install
 
       - name: Lint codebase
-        run: pnpm run lint:all
+        run:  npx nx run-many --target=lint --all
 
       - name: Check if build is needed
         id: check_diff
@@ -85,6 +85,7 @@ jobs:
         if: steps.check_diff.outputs.skip_build == 'false'
         run: pnpm -r --filter ...[origin/master] build
 
+  # Only run on master
   semantic-versioning:
     name: Semantic Versioning
     needs: build-lint-test

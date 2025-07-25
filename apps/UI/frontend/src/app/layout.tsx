@@ -2,6 +2,8 @@ import React from 'react'
 import './global.css'
 import { BackgroundImage, type BackgroundImageProps } from '../components/Background'
 import { Metadata } from 'next'
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title:       'Helix AI | Intelligent Digital Companion',
@@ -62,6 +64,8 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body>
+        <Analytics />
+        <SpeedInsights />
         <BackgroundImage {...backgroundImageProps}>{children}</BackgroundImage>
       </body>
     </html>

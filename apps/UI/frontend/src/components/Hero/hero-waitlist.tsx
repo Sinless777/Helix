@@ -51,8 +51,10 @@ export function HeroWaitlist() {
       } else {
         throw new Error(body.message || 'Server error')
       }
-    } catch (err: any) {
-      setErrorMsg(err.message)
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error ? err.message : 'Unknown error occurred'
+      )
       setStatus('error')
     }
   }
