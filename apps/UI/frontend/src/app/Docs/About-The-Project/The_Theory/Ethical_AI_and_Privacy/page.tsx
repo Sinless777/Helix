@@ -198,7 +198,7 @@ export default function EthicalAIAndPrivacyPage() {
       <Typography paragraph>
         Key management practices include automated key rotation, one-time-use
         key envelopes, and access scoping at the hardware interface level.
-        Helix's approach ensures encryption keys are never exposed in plaintext
+        Helix&apos;s approach ensures encryption keys are never exposed in plaintext
         to any application-layer logic, minimizing the attack surface.
       </Typography>
       <Typography paragraph>

@@ -25,7 +25,7 @@ export default function TheTheoryIntroductionPage() {
       </Typography>
       <Typography paragraph>
         Helix AI is designed to be more than just a virtual assistant—it&apos;s
-        a unified digital companion that adapts to your needs, whether you're
+        a unified digital companion that adapts to your needs, whether you&apos;re
         working, relaxing, or coordinating everyday life. It simplifies tasks,
         understands natural language, and responds with intelligent,
         context-aware support. Helix doesn&apos;t just react to commands—it
@@ -59,7 +59,7 @@ export default function TheTheoryIntroductionPage() {
       <Typography paragraph>
         In essence, Helix merges intelligence, empathy, and automation to help
         you stay focused, save time, and live a more streamlined digital life.
-        Whether you're handling complex workflows or navigating daily tasks,
+        Whether you&apos;re handling complex workflows or navigating daily tasks,
         Helix is designed to be an intuitive, ever-improving partner in both
         your professional and personal worlds.
       </Typography>

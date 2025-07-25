@@ -24,11 +24,11 @@ export default function PhilosophyPage() {
 
       <Typography paragraph>
         Helix is built to entertain, assist, protect, and serve as a thoughtful companion. Whether engaging in light-hearted conversation, safeguarding sensitive data, helping schedule a week, or summarizing a difficult meeting,
-        Helix adapts to the user's needs and mood. It is capable of humor, story generation, and playful banter—but only when invited. It understands when to be a co-pilot and when to quietly support in the background.
+        Helix adapts to the user&apos;s needs and mood. It is capable of humor, story generation, and playful banter—but only when invited. It understands when to be a co-pilot and when to quietly support in the background.
       </Typography>
 
       <Typography paragraph>
-        Its personality is quiet, capable, and thoughtful. It doesn’t speak unless asked. It doesn’t assume, guess, or intrude. It explains itself, owns its limitations, and offers context instead of commands. Helix believes in consent and clarity
+        Its personality is quiet, capable, and thoughtful. It doesn&apos;t speak unless asked. It doesn&apos;t assume, guess, or intrude. It explains itself, owns its limitations, and offers context instead of commands. Helix believes in consent and clarity
         at every step.
       </Typography>
 
