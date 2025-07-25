@@ -1,3 +1,4 @@
+// src/components/Header.tsx
 'use client'
 
 import Image from 'next/image'
@@ -23,6 +24,28 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [canDisplayInline, setCanDisplayInline] = useState(false)
+  const [latestVersion, setLatestVersion] = useState<string | null>(null)
+
+  // Fetch latest GitHub release tag
+  useEffect(() => {
+    async function fetchLatestRelease() {
+      try {
+        const res = await fetch(
+          'https://api.github.com/repos/Sinless777/Helix/releases/latest'
+        )
+        if (!res.ok) throw new Error('Network response was not ok')
+        const data = await res.json()
+        const tag: string = data.tag_name || ''
+        // Remove leading 'v' if present
+        setLatestVersion(tag.replace(/^v/, ''))
+      } catch (error) {
+        console.error('Error fetching latest release:', error)
+        setLatestVersion(null)
+      }
+    }
+
+    fetchLatestRelease()
+  }, [])
 
   // Determine if there's room to show links inline
   useEffect(() => {
@@ -48,14 +71,25 @@ export const Header: React.FC<HeaderProps> = ({
 
   const toggleMenu = () => setMenuOpen((v) => !v)
 
+  const displayVersion = latestVersion ?? version
+  const releaseUrl = `https://github.com/Sinless777/Helix/releases/tag/v${displayVersion}`
+
   return (
     <Box component="header" className="header" style={style}>
       {/* Logo / Title / Version */}
       <Box className="header__left">
         <Image src={logo} alt={`${title} logo`} width={120} height={40} />
-        <Typography variant="caption" className="header__version">
-          V{version}
-        </Typography>
+        <MuiLink
+          href={releaseUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="header__version-link"
+          sx={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
+        >
+          <Typography variant="caption" className="header__version">
+            V{displayVersion}
+          </Typography>
+        </MuiLink>
       </Box>
 
       {/* Spacer */}
