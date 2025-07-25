@@ -235,7 +235,7 @@ export default function TheTheoryPage() {
       </Typography>
       <Typography paragraph>
         A <strong>policy engine</strong> defines routing rules: for example, any
-        request tagged "PHI" (protected health information) is automatically
+        request tagged &quot;PHI&quot; (protected health information) is automatically
         directed to encrypted on-premise models, whereas conversational
         chit-chat can be offloaded to public endpoints to reduce cost. Service
         level agreements (SLAs) and real-time performance metrics feed into the
@@ -283,8 +283,8 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         The inference engine leverages{' '}
         <strong>metadata-driven decisioning</strong>, incorporating factors such
-        as user-defined SLAs, content classification tags (e.g., "PHI",
-        "Financial"), and historical accuracy metrics to route each request
+        as user-defined SLAs, content classification tags (e.g., &quot;PHI&quot;,
+        &quot;Financial&quot;), and historical accuracy metrics to route each request
         optimally. Requests containing sensitive information are subject to
         privacy-preserving transformations—like token redaction and differential
         privacy—before internal model invocation.
