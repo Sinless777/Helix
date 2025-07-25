@@ -23,15 +23,15 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         Helix AI is your intelligent digital companion—designed to understand
         language, automate tasks, and adapt to both work and personal routines.
-        Whether you&apos;re managing meetings, controlling smart devices, or just
-        asking questions, Helix responds with context-aware support that fits
-        naturally into your day.
+        Whether you&apos;re managing meetings, controlling smart devices, or
+        just asking questions, Helix responds with context-aware support that
+        fits naturally into your day.
       </Typography>
       <Typography paragraph>
         It uses a blend of language processing, emotional intelligence, and
-        adaptive learning to understand not just what you&apos;re saying, but how
-        you&apos;re feeling. Over time, it learns your preferences and habits to
-        suggest actions before you even ask.
+        adaptive learning to understand not just what you&apos;re saying, but
+        how you&apos;re feeling. Over time, it learns your preferences and
+        habits to suggest actions before you even ask.
       </Typography>
       <Typography paragraph>
         Helix can summarize conversations, set reminders, optimize workflows,
@@ -140,8 +140,8 @@ export default function TheTheoryPage() {
         routines. For example, a user might say “Good morning, Helix” to trigger
         a personalized routine that opens window blinds, starts the coffee
         maker, reads out the day&apos;s schedule, and sets the thermostat to a
-        wake-up temperature. Similarly, saying “I&apos;m leaving” can instruct Helix
-        to lock doors, arm the security system, and turn off non-essential
+        wake-up temperature. Similarly, saying “I&apos;m leaving” can instruct
+        Helix to lock doors, arm the security system, and turn off non-essential
         appliances.
       </Typography>
       <Typography paragraph>
@@ -177,8 +177,8 @@ export default function TheTheoryPage() {
         NLP & Task-Specific AI Models
       </Typography>
       <Typography paragraph>
-        Helix&apos;s NLP framework employs a modular pipeline where each stage is
-        powered by a specialized model stack. •{' '}
+        Helix&apos;s NLP framework employs a modular pipeline where each stage
+        is powered by a specialized model stack. •{' '}
         <strong>Intent Classification:</strong> Supervised transformer
         classifiers (e.g., fine-tuned BERT variants) map user utterances to
         discrete actions or workflows with probabilities and confidence scores.
@@ -235,12 +235,12 @@ export default function TheTheoryPage() {
       </Typography>
       <Typography paragraph>
         A <strong>policy engine</strong> defines routing rules: for example, any
-        request tagged &quot;PHI&quot; (protected health information) is automatically
-        directed to encrypted on-premise models, whereas conversational
-        chit-chat can be offloaded to public endpoints to reduce cost. Service
-        level agreements (SLAs) and real-time performance metrics feed into the
-        policy engine, allowing it to react to latency spikes by rerouting
-        traffic to standby providers or scaled-up local models.
+        request tagged &quot;PHI&quot; (protected health information) is
+        automatically directed to encrypted on-premise models, whereas
+        conversational chit-chat can be offloaded to public endpoints to reduce
+        cost. Service level agreements (SLAs) and real-time performance metrics
+        feed into the policy engine, allowing it to react to latency spikes by
+        rerouting traffic to standby providers or scaled-up local models.
       </Typography>
       <Typography paragraph>
         To ensure resilience, each external API integration is wrapped in a{' '}
@@ -283,11 +283,11 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         The inference engine leverages{' '}
         <strong>metadata-driven decisioning</strong>, incorporating factors such
-        as user-defined SLAs, content classification tags (e.g., &quot;PHI&quot;,
-        &quot;Financial&quot;), and historical accuracy metrics to route each request
-        optimally. Requests containing sensitive information are subject to
-        privacy-preserving transformations—like token redaction and differential
-        privacy—before internal model invocation.
+        as user-defined SLAs, content classification tags (e.g.,
+        &quot;PHI&quot;, &quot;Financial&quot;), and historical accuracy metrics
+        to route each request optimally. Requests containing sensitive
+        information are subject to privacy-preserving transformations—like token
+        redaction and differential privacy—before internal model invocation.
       </Typography>
       <Typography paragraph>
         A <strong>dynamic load-balancer</strong> continually monitors model
@@ -358,8 +358,8 @@ export default function TheTheoryPage() {
         All adaptation steps are governed by policy-as-code: data retention
         rules, privacy constraints (e.g., differential privacy), and ethical
         guardrails (bias audits) are enforced at every stage. This ensures that
-        Helix&apos;s learning remains transparent, compliant, and aligned with user
-        trust.
+        Helix&apos;s learning remains transparent, compliant, and aligned with
+        user trust.
       </Typography>
 
       <Typography
@@ -378,11 +378,11 @@ export default function TheTheoryPage() {
         emotionally attuned.
       </Typography>
       <Typography paragraph>
-        Cultural sensitivity is paramount. Helix&apos;s empathy engine is trained on
-        diverse, multilingual corpora and incorporates locale-specific norms—
-        from conversational formality in Japanese to idiomatic expressions in
-        Brazilian Portuguese—so it respects regional etiquette and avoids
-        inadvertent offense.
+        Cultural sensitivity is paramount. Helix&apos;s empathy engine is
+        trained on diverse, multilingual corpora and incorporates
+        locale-specific norms— from conversational formality in Japanese to
+        idiomatic expressions in Brazilian Portuguese—so it respects regional
+        etiquette and avoids inadvertent offense.
       </Typography>
       <Typography paragraph>
         To protect user privacy, all affective computing pipelines adhere to
@@ -404,10 +404,10 @@ export default function TheTheoryPage() {
         declines to continue without explicit consent.
       </Typography>
       <Typography paragraph>
-        Continuous feedback loops drive improvement: users can rate Helix&apos;s tone
-        and suggest adjustments. These signals feed an A/B testing framework
-        that experiments with different empathetic strategies—ensuring we
-        converge on behaviors that maximize trust, clarity, and user comfort.
+        Continuous feedback loops drive improvement: users can rate Helix&apos;s
+        tone and suggest adjustments. These signals feed an A/B testing
+        framework that experiments with different empathetic strategies—ensuring
+        we converge on behaviors that maximize trust, clarity, and user comfort.
       </Typography>
 
       <Typography
@@ -460,9 +460,9 @@ export default function TheTheoryPage() {
         Multimodal Interaction
       </Typography>
       <Typography paragraph>
-        Helix&apos;s core multimodal engine seamlessly integrates text, voice, and
-        visual inputs, allowing users to interact in the most natural form for
-        the task. The text pipeline leverages contextual slicing and dynamic
+        Helix&apos;s core multimodal engine seamlessly integrates text, voice,
+        and visual inputs, allowing users to interact in the most natural form
+        for the task. The text pipeline leverages contextual slicing and dynamic
         tokenization to process both chat messages and form inputs with high
         accuracy.
       </Typography>
@@ -490,8 +490,9 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         Under the hood, Helix employs a fusion layer that aligns modalities into
         a unified embedding space, enabling cross-modal reasoning—like answering
-        queries about an image&apos;s content alongside textual context. This ensures
-        a coherent, uninterrupted experience as users switch between modes.
+        queries about an image&apos;s content alongside textual context. This
+        ensures a coherent, uninterrupted experience as users switch between
+        modes.
       </Typography>
       <Typography paragraph>
         All multimodal data flows are processed with end-to-end encryption and
@@ -545,9 +546,9 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         All proactive notifications are customizable: users set their tolerance
         levels, delivery channels, and escalation policies. Combined with
-        Helix&apos;s adaptive learning engine, this ensures that alerts evolve to
-        match each team&apos;s priorities and workflows—keeping operations smooth and
-        teams focused on high-value work.
+        Helix&apos;s adaptive learning engine, this ensures that alerts evolve
+        to match each team&apos;s priorities and workflows—keeping operations
+        smooth and teams focused on high-value work.
       </Typography>
 
       <Typography
