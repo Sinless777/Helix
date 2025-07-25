@@ -1,6 +1,6 @@
 {
-  "extends": ["plugin:cypress/recommended", "../../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
+  "extends": ["../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*", "node_modules", "dist", "build", "coverage", "tmp", "out"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
