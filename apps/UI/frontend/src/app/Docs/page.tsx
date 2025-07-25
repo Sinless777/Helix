@@ -15,12 +15,12 @@ export default function DocsPage() {
       {/* Introduction */}
       <Box component="section" sx={{ mb: 6 }}>
         <Typography variant="body1" paragraph>
-          Helix AI is an innovative, AI‑powered virtual assistant engineered to
+          Helix AI is an innovative, AI-powered virtual assistant engineered to
           break down silos and redefine the way people interact with technology.
           At its heart, Helix acts as a conversational bridge—linking diverse
           platforms, services, and devices into a unified ecosystem under a
           single, intuitive interface. Through advanced natural language
-          understanding, sentiment analysis, and real‑time context awareness,
+          understanding, sentiment analysis, and real-time context awareness,
           Helix delivers personalized recommendations and actionable insights
           that drive better decisions and streamline complex workflows.
         </Typography>
@@ -56,12 +56,12 @@ export default function DocsPage() {
           </Typography>
           <Typography variant="body1" paragraph>
             <strong>Conversational Intelligence:</strong> Leveraging
-            state‑of‑the‑art LLMs and sentiment analysis, Helix offers an
+            state-of-the-art LLMs and sentiment analysis, Helix offers an
             empathetic chat experience.
           </Typography>
           <Typography variant="body1" paragraph>
             <strong>Web Dashboard & Analytics:</strong> The companion web UI
-            offers customizable dashboards, real‑time metrics, and rich
+            offers customizable dashboards, real-time metrics, and rich
             visualizations.
           </Typography>
           <Typography variant="body1" paragraph>
@@ -84,7 +84,7 @@ export default function DocsPage() {
         </Typography>
         <Stack spacing={2}>
           <Typography variant="body1" paragraph>
-            Helix AI is powered by a microservice‑based, cloud‑native architecture
+            Helix AI is powered by a microservice-based, cloud-native architecture
             designed for maximum scalability and resilience.
           </Typography>
           <Typography variant="body1" paragraph>
@@ -96,13 +96,13 @@ export default function DocsPage() {
             for caching, and Elasticsearch for search and analytics.
           </Typography>
           <Typography variant="body1" paragraph>
-            CI/CD pipelines powered by GitHub Actions and Argo CD, together with
+            CI/CD pipelines powered by GitHub Actions and Argo CD, together with
             an Istio service mesh and OpenTelemetry tracing, ensure robust
             deployment and observability.
           </Typography>
           <Typography variant="body1" paragraph>
             Security is enforced through mutual TLS, JWT authorization,
-            AES‑256 encryption, and Vault‑managed secrets.
+            AES-256 encryption, and Vault-managed secrets.
           </Typography>
         </Stack>
       </Box>
@@ -113,7 +113,7 @@ export default function DocsPage() {
           Vision & Philosophy
         </Typography>
         <Typography variant="body1" paragraph>
-          Helix AI’s mission is user‑centric: to empower individuals and teams
+          Helix AI&apos;s mission is user-centric: to empower individuals and teams
           by providing an AI companion that listens, learns, and grows
           alongside them.
         </Typography>
