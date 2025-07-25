@@ -27,9 +27,11 @@ export async function POST(request: NextRequest) {
       { status: 'error', message: `Sheets API error ${res.status}: ${text}` },
       { status: 502 }
     )
-  } catch (err: any) {
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : 'Unknown proxy error'
     return NextResponse.json(
-      { status: 'error', message: err.message || 'Unknown proxy error' },
+      { status: 'error', message },
       { status: 500 }
     )
   }
