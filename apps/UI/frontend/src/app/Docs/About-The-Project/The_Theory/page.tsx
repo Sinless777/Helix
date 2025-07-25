@@ -23,14 +23,14 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         Helix AI is your intelligent digital companion—designed to understand
         language, automate tasks, and adapt to both work and personal routines.
-        Whether you're managing meetings, controlling smart devices, or just
+        Whether you&apos;re managing meetings, controlling smart devices, or just
         asking questions, Helix responds with context-aware support that fits
         naturally into your day.
       </Typography>
       <Typography paragraph>
         It uses a blend of language processing, emotional intelligence, and
-        adaptive learning to understand not just what you're saying, but how
-        you're feeling. Over time, it learns your preferences and habits to
+        adaptive learning to understand not just what you&apos;re saying, but how
+        you&apos;re feeling. Over time, it learns your preferences and habits to
         suggest actions before you even ask.
       </Typography>
       <Typography paragraph>
@@ -60,7 +60,7 @@ export default function TheTheoryPage() {
         Foundational Principles
       </Typography>
       <Typography paragraph>
-        Helix AI's foundational layer combines multiple machine learning
+        Helix AI&apos;s foundational layer combines multiple machine learning
         paradigms: supervised learning for classification and regression tasks,
         unsupervised learning for pattern discovery, and reinforcement learning
         for action-driven optimization. We leverage transformer-based
@@ -84,7 +84,7 @@ export default function TheTheoryPage() {
         Deep neural networks (DNNs) integrate these components—merging semantic
         understanding and emotional insight—allowing Helix to interpret complex
         inputs and generate contextually relevant guidance that aligns with each
-        user's unique workflow.
+        user&apos;s unique workflow.
       </Typography>
 
       <Typography
@@ -111,7 +111,7 @@ export default function TheTheoryPage() {
         interrupt-driven context switches.
       </Typography>
       <Typography paragraph>
-        By acting as an extension of the user's expertise, Helix reduces
+        By acting as an extension of the user&apos;s expertise, Helix reduces
         cognitive load. Users can invoke dynamic macros—like spawning a
         multi-step workflow to provision infrastructure or compiling
         cross-platform analytics dashboards—with a single command. This shift
@@ -139,8 +139,8 @@ export default function TheTheoryPage() {
         Users can issue natural language commands or set up conversational
         routines. For example, a user might say “Good morning, Helix” to trigger
         a personalized routine that opens window blinds, starts the coffee
-        maker, reads out the day's schedule, and sets the thermostat to a
-        wake-up temperature. Similarly, saying “I'm leaving” can instruct Helix
+        maker, reads out the day&apos;s schedule, and sets the thermostat to a
+        wake-up temperature. Similarly, saying “I&apos;m leaving” can instruct Helix
         to lock doors, arm the security system, and turn off non-essential
         appliances.
       </Typography>
@@ -156,7 +156,7 @@ export default function TheTheoryPage() {
         For personal productivity, Helix consolidates reminders, to-dos, and
         family calendars across platforms like Google Calendar, Apple Reminders,
         and Trello. It can suggest optimal times for meetings based on
-        participants' availability, automatically reschedule tasks when
+        participants&apos; availability, automatically reschedule tasks when
         conflicts arise, and send personalized notifications via preferred
         channels (push, email, or chat).
       </Typography>
@@ -165,7 +165,7 @@ export default function TheTheoryPage() {
         of context. A user who switches from coding to cooking can ask “How long
         until the oven reaches 350°F?” and receive an immediate answer, then
         return to their development environment without breaking workflow. This
-        seamless handoff across domains exemplifies Helix's goal: a truly
+        seamless handoff across domains exemplifies Helix&apos;s goal: a truly
         ambient AI companion that simplifies both work and life.
       </Typography>
 
@@ -177,7 +177,7 @@ export default function TheTheoryPage() {
         NLP & Task-Specific AI Models
       </Typography>
       <Typography paragraph>
-        Helix's NLP framework employs a modular pipeline where each stage is
+        Helix&apos;s NLP framework employs a modular pipeline where each stage is
         powered by a specialized model stack. •{' '}
         <strong>Intent Classification:</strong> Supervised transformer
         classifiers (e.g., fine-tuned BERT variants) map user utterances to
@@ -271,7 +271,7 @@ export default function TheTheoryPage() {
         Hybrid Inference Model
       </Typography>
       <Typography paragraph>
-        Helix's hybrid inference model orchestrates a tiered pipeline that
+        Helix&apos;s hybrid inference model orchestrates a tiered pipeline that
         dynamically selects between lightweight public endpoints and powerful
         proprietary LLMs based on real-time performance metrics, data
         sensitivity, and cost constraints. Incoming requests first pass through
@@ -318,7 +318,7 @@ export default function TheTheoryPage() {
         Adaptive Learning Engine
       </Typography>
       <Typography paragraph>
-        Helix's adaptive engine continuously ingests rich telemetry
+        Helix&apos;s adaptive engine continuously ingests rich telemetry
         streams—system metrics, user interaction events, voice transcripts,
         error logs, and contextual metadata (timestamp, channel, task type).
         This data is normalized and fed into feature stores, creating a rolling
@@ -328,7 +328,7 @@ export default function TheTheoryPage() {
         We employ reinforcement learning to close the loop: every user action
         (e.g., accepting a suggestion, correcting an automated summary, or
         dismissing a notification) generates a reward signal. These rewards
-        train policy networks that gradually refine Helix's
+        train policy networks that gradually refine Helix&apos;s
         decision-making—optimizing for objectives like relevance, timeliness,
         and user satisfaction.
       </Typography>
@@ -358,7 +358,7 @@ export default function TheTheoryPage() {
         All adaptation steps are governed by policy-as-code: data retention
         rules, privacy constraints (e.g., differential privacy), and ethical
         guardrails (bias audits) are enforced at every stage. This ensures that
-        Helix's learning remains transparent, compliant, and aligned with user
+        Helix&apos;s learning remains transparent, compliant, and aligned with user
         trust.
       </Typography>
 
@@ -378,7 +378,7 @@ export default function TheTheoryPage() {
         emotionally attuned.
       </Typography>
       <Typography paragraph>
-        Cultural sensitivity is paramount. Helix's empathy engine is trained on
+        Cultural sensitivity is paramount. Helix&apos;s empathy engine is trained on
         diverse, multilingual corpora and incorporates locale-specific norms—
         from conversational formality in Japanese to idiomatic expressions in
         Brazilian Portuguese—so it respects regional etiquette and avoids
@@ -404,7 +404,7 @@ export default function TheTheoryPage() {
         declines to continue without explicit consent.
       </Typography>
       <Typography paragraph>
-        Continuous feedback loops drive improvement: users can rate Helix's tone
+        Continuous feedback loops drive improvement: users can rate Helix&apos;s tone
         and suggest adjustments. These signals feed an A/B testing framework
         that experiments with different empathetic strategies—ensuring we
         converge on behaviors that maximize trust, clarity, and user comfort.
@@ -460,7 +460,7 @@ export default function TheTheoryPage() {
         Multimodal Interaction
       </Typography>
       <Typography paragraph>
-        Helix's core multimodal engine seamlessly integrates text, voice, and
+        Helix&apos;s core multimodal engine seamlessly integrates text, voice, and
         visual inputs, allowing users to interact in the most natural form for
         the task. The text pipeline leverages contextual slicing and dynamic
         tokenization to process both chat messages and form inputs with high
@@ -490,14 +490,14 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         Under the hood, Helix employs a fusion layer that aligns modalities into
         a unified embedding space, enabling cross-modal reasoning—like answering
-        queries about an image's content alongside textual context. This ensures
+        queries about an image&apos;s content alongside textual context. This ensures
         a coherent, uninterrupted experience as users switch between modes.
       </Typography>
       <Typography paragraph>
         All multimodal data flows are processed with end-to-end encryption and
         comply with privacy settings. Users can disable or opt out of certain
         modalities (e.g., disabling visual analysis) to maintain control over
-        their data while still benefiting from Helix's flexible interface.
+        their data while still benefiting from Helix&apos;s flexible interface.
       </Typography>
 
       <Typography
@@ -520,7 +520,7 @@ export default function TheTheoryPage() {
         autoencoders, clustering) to surface outliers in real time. When a
         metric deviates beyond dynamic thresholds, Helix generates contextual
         alerts—complete with probable root causes and suggested remediation
-        steps—directly in the user's preferred channel.
+        steps—directly in the user&apos;s preferred channel.
       </Typography>
       <Typography paragraph>
         Task recommendation engines analyze historical workflows and user
@@ -545,8 +545,8 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         All proactive notifications are customizable: users set their tolerance
         levels, delivery channels, and escalation policies. Combined with
-        Helix's adaptive learning engine, this ensures that alerts evolve to
-        match each team's priorities and workflows—keeping operations smooth and
+        Helix&apos;s adaptive learning engine, this ensures that alerts evolve to
+        match each team&apos;s priorities and workflows—keeping operations smooth and
         teams focused on high-value work.
       </Typography>
 
@@ -567,7 +567,7 @@ export default function TheTheoryPage() {
       <Typography paragraph>
         Deadman switches enforce guaranteed human oversight. Critical workflows
         are instrumented with heartbeat tokens; if a workflow does not receive a
-        periodic “I'm alive” signal within the configured interval, Helix
+        periodic “I&apos;m alive” signal within the configured interval, Helix
         automatically pauses the operation, rolls back any partial changes, and
         escalates to on-call engineers via configured channels (PagerDuty,
         Slack, email, discord, and phone).
