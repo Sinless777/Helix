@@ -1,5 +1,5 @@
 import MapIcon from '@mui/icons-material/Map'
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from '@mui/icons-material/Visibility'
 import { ElementType } from 'react'
 
 export interface NavItem {
@@ -80,6 +80,7 @@ export const navSections: NavSection[] = [
         label: 'The Theory',
         href: '/Docs/About-The-Project/The_Theory',
         icon: MapIcon,
+        badge: "NEW",
         items: [
           {
             id: 'introduction',
