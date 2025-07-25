@@ -1,0 +1,20 @@
+# Taskfile.yaml
+# $schema: "https://raw.githubusercontent.com/go-task/taskfile/master/taskfile.schema.json"
+
+version: '3'
+
+vars:
+  # Directories
+  TASKFILE_DIR: './.taskfiles'
+
+# includes:
+
+tasks:
+  default:
+    cmd: task --list-all
+
+  new-release:
+    desc: 'Create a new release with changelog, tag, GitHub release, and artifacts'
+    cmd: './scripts/repo/release.sh'
+    silent: false
+

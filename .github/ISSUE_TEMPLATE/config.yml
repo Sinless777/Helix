@@ -1,0 +1,22 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Community Support → Discussions
+    url: https://github.com/Sinless777/Helix/discussions
+    about: Ask general questions or get help in our GitHub Discussions.
+
+  - name: Security vulnerability ➤ Email
+    url: mailto:security@helixaibot.com
+    about: Report security issues privately via email.
+
+  - name: Report a bug → Issue
+    url: https://github.com/Sinless777/Helix/issues/new?template=bug_report.yaml
+    about: File a new bug report using our standardized template.
+
+  - name: Feature request → Issue
+    url: https://github.com/Sinless777/Helix/issues/new?template=feature_request.yaml
+    about: Propose a new feature or enhancement.
+
+  - name: Documentation request → Issue
+    url: https://github.com/Sinless777/Helix/issues/new?template=docs_request.yaml
+    about: Request improvements or additions to the documentation.

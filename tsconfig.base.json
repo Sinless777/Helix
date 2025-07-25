@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "lib": ["es2022"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2022",
+    "customConditions": ["development"],
+    "baseUrl": ".",
+    "noUnusedLocals": false,
+    "rootDir": ".",
+    "outDir": "dist",
+    "paths": {
+      "@helixai/core": ["libs/core/src/index.ts"],
+      "@helixai/core/*": ["libs/core/src/*"],
+      "@helixai/logger": ["libs/logger/src/index.ts"],
+      "@helixai/logger/*": ["libs/logger/src/*"]
+    }
+  },
+  "references": [
+    {
+      "path": "./libs/core/tsconfig.lib.json"
+    }
+  ]
+}

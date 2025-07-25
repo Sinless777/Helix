@@ -1,0 +1,79 @@
+name: 💡 Feature Request
+description: Suggest a new feature or enhancement
+title: '[FEATURE] <short title>'
+labels:
+  - Enhancement
+  - Awaiting-Triage
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to propose an enhancement!
+        **Please search existing issues before submitting.**
+
+  - type: input
+    id: summary
+    attributes:
+      label: Feature Title
+      description: A concise title for the feature
+      placeholder: 'Allow exporting reports as PDF'
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Detailed Description
+      description: Describe what the feature should do
+      placeholder: |
+        Explain the feature and how it will be used...
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why Is This Needed?
+      description: Describe the problem it solves or why it's important
+      placeholder: |
+        Users currently can’t share reports easily...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe workarounds or solutions you’ve considered
+      placeholder: |
+        - Export CSV + convert to PDF manually...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Estimated Impact
+      description: Who does this benefit and how big is the impact?
+      options:
+        - Low (cosmetic / niche)
+        - Medium (visible benefit to some users)
+        - High (core feature for many users)
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        > **Note:** Select the option below only if you are willing to implement this feature yourself.
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Willing to Help?
+      description: Would you like to help implement this?
+      options:
+        - label: I can help with a PR
+    validations:
+      required: false

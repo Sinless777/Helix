@@ -1,0 +1,79 @@
+# .github/labeler.yaml
+
+# ————— Branch-based labels —————
+Bugfix:
+  - head-branch: ['^bugfix/.*']
+Hotfix:
+  - head-branch: ['^hotfix/.*']
+Feature:
+  - head-branch: ['^feature/.*']
+Release:
+  - head-branch: ['^release/.*']
+Support:
+  - head-branch: ['^support/.*']
+
+# ————— GitHub meta —————
+GitHub:
+  - changed-files:
+      any-glob-to-any-file: '.github/**'
+GitHub-Workflows:
+  - changed-files:
+      any-glob-to-any-file: '.github/workflows/**'
+GitHub-Issue-Templates:
+  - changed-files:
+      any-glob-to-any-file: '.github/ISSUE_TEMPLATE/**'
+
+# ————— Major areas —————
+APIs:
+  - changed-files:
+      any-glob-to-any-file: 'apis/**'
+User-Interfaces:
+  - changed-files:
+      any-glob-to-any-file: 'user-interfaces/**'
+Docker:
+  - changed-files:
+      any-glob-to-any-file: 'docker/**'
+Libs:
+  - changed-files:
+      any-glob-to-any-file: 'libs/**'
+
+# ————— Sample sub-areas —————
+Authentication:
+  - changed-files:
+      any-glob-to-any-file: 'apis/auth/**'
+Discord-Bot:
+  - changed-files:
+      any-glob-to-any-file: 'apis/discord-bot/**'
+Frontend:
+  - changed-files:
+      any-glob-to-any-file: 'user-interfaces/frontend/**'
+
+# ————— Documentation & tests —————
+Documentation:
+  - changed-files:
+      any-glob-to-any-file:
+        - '**/*.md'
+        - 'docs/**'
+Testing:
+  - changed-files:
+      any-glob-to-any-file:
+        - 'tests/**'
+        - 'test/**'
+        - '**/*.test.*'
+        - '**/*.spec.*'
+
+# ————— Dependency files —————
+Dependencies:
+  - changed-files:
+      any-glob-to-any-file:
+        - 'requirements.txt'
+        - '**/requirements.txt'
+        - 'package.json'
+        - '**/package.json'
+        - 'package-lock.json'
+        - 'yarn.lock'
+        - 'pnpm-lock.yaml'
+        - 'Gemfile'
+        - 'Gemfile.lock'
+        - 'Pipfile'
+        - 'Pipfile.lock'
