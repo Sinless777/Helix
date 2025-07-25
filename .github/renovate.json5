@@ -6,7 +6,7 @@
   schedule: ["before 3am"],
   packageRules: [
     {
-      matchFileNames: ["docker/**"],
+      matchFileNames: ["docker/**/*"],
       groupName: "docker dependencies",
     },
     {
