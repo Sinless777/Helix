@@ -2,7 +2,6 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxImportSource": "@emotion/react",
     "strict": true,
     "noEmit": true,
     "emitDeclarationOnly": false,
@@ -38,7 +37,9 @@
     "../../../apps/UI/frontend/.next/types/**/*.ts",
     "../../../dist/apps/UI/frontend/.next/types/**/*.ts",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../../libs/core/src/**/*.ts",
+    "src/components/**/*.ts",
   ],
   "exclude": [
     "node_modules",

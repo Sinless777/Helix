@@ -22,6 +22,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@commitlint/types": "^19.8.1",
+    "@emotion/babel-plugin": "11.11.0",
     "@nestjs/schematics": "^11.0.0",
     "@next/eslint-plugin-next": "^15.2.4",
     "@nx/cypress": "^21.3.5",
@@ -35,6 +36,7 @@
     "@swc/cli": "~0.6.0",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@swc/jest": "~0.2.38",
     "@swc/plugin-emotion": "^2.5.67",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.1.0",
@@ -56,23 +58,44 @@
     "eslint-plugin-react-hooks": "5.0.0",
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
+    "jest-environment-node": "^30.0.2",
     "jest-util": "^30.0.2",
+    "jsonc-eslint-parser": "^2.1.0",
     "prettier": "^2.6.2",
     "ts-jest": "^29.4.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "verdaccio": "^6.0.5",
+    "webpack": "^5.100.2"
   },
   "dependencies": {
     "@emotion/react": "11.11.1",
     "@emotion/server": "11.11.0",
     "@emotion/styled": "11.11.0",
+    "@fontsource/pinyon-script": "^5.2.6",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
     "@mui/styled-engine-sc": "^7.2.0",
+    "framer-motion": "^12.23.7",
+    "mermaid": "^11.9.0",
     "next": "~15.2.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "sass": "^1.89.2",
     "styled-components": "^6.1.19"
+  },
+  "nx": {
+    "includedScripts": [],
+    "targets": {
+      "local-registry": {
+        "executor": "@nx/js:verdaccio",
+        "options": {
+          "port": 4873,
+          "config": ".verdaccio/config.yml",
+          "storage": "tmp/local-registry/storage"
+        }
+      }
+    }
   }
 }

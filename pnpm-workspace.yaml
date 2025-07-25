@@ -1,8 +1,10 @@
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'
-  - cypress
-  - esbuild
-  - nx
-  - sharp
-  - unrs-resolver
+  - 'cypress'
+  - 'esbuild'
+  - 'nx'
+  - 'sharp'
+  - 'unrs-resolver'
+packages:
+  - 'libs/*'

@@ -2,26 +2,5 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": [
-    {
-      "path": "./apps/UIs/Frontend-e2e"
-    },
-    {
-      "path": "./apps/UIs/Frontend"
-    },
-    {
-      "path": "./apps/APIs/user-service-e2e"
-    },
-    {
-      "path": "./apps/APIs/user-service"
-    },
-    {
-      "name": "@helixai/core",
-      "path": "./libs/core"
-    },
-    {
-      "name": "@helixai/logger",
-      "path": "./libs/logger"
-    }
-  ]
+  "references": []
 }

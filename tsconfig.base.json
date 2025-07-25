@@ -19,6 +19,17 @@
     "baseUrl": ".",
     "noUnusedLocals": false,
     "rootDir": ".",
-    "outDir": "dist"
-  }
+    "outDir": "dist",
+    "paths": {
+      "@helixai/core": ["libs/core/src/index.ts"],
+      "@helixai/core/*": ["libs/core/src/*"],
+      "@helixai/logger": ["libs/logger/src/index.ts"],
+      "@helixai/logger/*": ["libs/logger/src/*"]
+    }
+  },
+  "references": [
+    {
+      "path": "./libs/core/tsconfig.lib.json"
+    }
+  ]
 }
