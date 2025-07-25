@@ -18,7 +18,6 @@ export const metadata: Metadata = {
   authors: [
     { name: 'SinLess Games LLC', url: 'https://sinlessgamesllc.com' }
   ],
-  viewport:        'width=device-width, initial-scale=1',
   robots:          'index, follow',
   alternates: {
     canonical:   'https://helixai.com/contact',

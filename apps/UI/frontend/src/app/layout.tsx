@@ -42,7 +42,6 @@ export const metadata: Metadata = {
     site:        '@Sinless777',
     creator:     '@Sinless777',
   },
-  viewport:        'width=device-width, initial-scale=1',
   alternates: {
     canonical:   'https://helixai.com',
   },

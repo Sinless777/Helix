@@ -82,6 +82,7 @@
     "next": "~15.2.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-flow-renderer": "^10.3.17",
     "sass": "^1.89.2",
     "styled-components": "^6.1.19"
   },

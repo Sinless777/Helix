@@ -43,7 +43,6 @@ export const metadata: Metadata = {
     description: 'Learn about Helix AI: the intelligent digital companion built to unify your tools, simplify workflows, and empower decisions with real-time insights and adaptive AI.',
     images:      ['https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix_Logo.png'],
   },
-  viewport:         'width=device-width, initial-scale=1',
   alternates: {
     canonical:    'https://helixai.com/about',
   },
