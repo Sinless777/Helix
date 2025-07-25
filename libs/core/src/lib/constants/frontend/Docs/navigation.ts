@@ -87,6 +87,11 @@ export const navSections: NavSection[] = [
             href: '/Docs/About-The-Project/The_Theory/Introduction',
           },
           {
+            id: 'Ethical AI and Privacy',
+            label: 'Ethical AI and Privacy',
+            href: '/Docs/About-The-Project/The_Theory/Ethical_AI_and_Privacy',
+          },
+          {
             id: 'philosophy',
             label: 'Philosophy',
             href: '/Docs/About-The-Project/The_Theory/Philosophy',
