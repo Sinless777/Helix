@@ -157,10 +157,9 @@ jobs:
                 -d "{\"model\":\"gpt-4\",\"messages\":[{\"role\":\"system\",\"content\":\"You are a semantic versioning assistant. Only respond with 'major', 'minor', or 'patch'.\"},{\"role\":\"user\",\"content\":\"Commits since $LAST_TAG:\n$COMMITS\"}],\"temperature\":0}" \
               | jq -r '.choices[0].message.content'
             )
-
             echo "OpenAI decided: $DECISION"
-            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
 
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
             case "$DECISION" in
               major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
               minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
@@ -169,19 +168,26 @@ jobs:
             NEXT_VERSION="${MAJOR}.${MINOR}.${PATCH}"
           fi
 
-          echo "next_version=${NEXT_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "next_version=$NEXT_VERSION" >> "$GITHUB_OUTPUT"
           echo "should_release=true" >> "$GITHUB_OUTPUT"
 
-          # Update package.json, install, commit, and tag
+          # Update package.json
           jq ".version=\"$NEXT_VERSION\"" package.json > tmp.json && mv tmp.json package.json
           pnpm install
 
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore(release): v$NEXT_VERSION"
-          git tag "v$NEXT_VERSION"
-          git push origin "v$NEXT_VERSION"
-          git push origin HEAD
+          # Commit & tag only if changes exist
+          if ! git diff --quiet package.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -am "chore(release): v$NEXT_VERSION"
+            git tag "v$NEXT_VERSION"
+            git push origin "v$NEXT_VERSION"
+            git push origin HEAD
+          else
+            echo "No version change to commit; forcing tag v$NEXT_VERSION"
+            git tag -f "v$NEXT_VERSION"
+            git push origin "v$NEXT_VERSION" --force
+          fi
 
           # Generate changelog
           DATE=$(date +"%m_%d_%Y")
@@ -190,5 +196,11 @@ jobs:
           echo "Generated changelog for $NEXT_VERSION"
 
           git add CHANGELOGS/ package.json
-          git commit -m "docs(changelog): add changelog for v$NEXT_VERSION"
-          git push origin HEAD
+
+          # Commit changelog only if new file exists
+          if ! git diff --quiet; then
+            git commit -m "docs(changelog): add changelog for v$NEXT_VERSION"
+            git push origin HEAD
+          else
+            echo "No changelog changes to commit"
+          fi
