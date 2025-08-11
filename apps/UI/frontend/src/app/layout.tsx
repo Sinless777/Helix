@@ -7,6 +7,8 @@ import {
 import { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { getClientContext } from './devcycle'
+import { DevCycleClientsideProvider } from '@devcycle/nextjs-sdk'
 
 export const metadata: Metadata = {
   title: 'Helix AI | Intelligent Digital Companion',
@@ -70,7 +72,9 @@ export default function RootLayout({
       <body>
         <Analytics />
         <SpeedInsights />
-        <BackgroundImage {...backgroundImageProps}>{children}</BackgroundImage>
+        <DevCycleClientsideProvider context={getClientContext()}>
+          <BackgroundImage {...backgroundImageProps}>{children}</BackgroundImage>
+        </DevCycleClientsideProvider>
       </body>
     </html>
   )
