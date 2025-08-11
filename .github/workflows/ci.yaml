@@ -6,6 +6,9 @@ permissions:
   packages: write
   statuses: write
 
+env:
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
 on:
   push:
     branches:
@@ -249,3 +252,4 @@ jobs:
           else
             echo "No changelog changes to commit."
           fi
+
