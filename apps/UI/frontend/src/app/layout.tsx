@@ -1,10 +1,11 @@
+// app/layout.tsx
 import React from 'react'
 import './global.css'
 import {
   BackgroundImage,
   type BackgroundImageProps,
 } from '../components/Background'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getClientContext } from './devcycle'
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
   robots: 'index, follow',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -66,13 +67,16 @@ export default function RootLayout({
     altText: 'background',
   }
 
+  // Per DevCycle docs, pass the context Promise directly.
+  // If your local type is Promise<unknown>, cast to any to satisfy the prop.
+  const context = getClientContext() as any
+
   return (
     <html lang="en">
-      <head></head>
       <body>
         <Analytics />
         <SpeedInsights />
-        <DevCycleClientsideProvider context={getClientContext()}>
+        <DevCycleClientsideProvider context={context}>
           <BackgroundImage {...backgroundImageProps}>{children}</BackgroundImage>
         </DevCycleClientsideProvider>
       </body>
