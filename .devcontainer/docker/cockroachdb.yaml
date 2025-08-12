@@ -1,25 +1,25 @@
 services:
   cockroachdb:
-    image: cockroachdb/cockroach:v25.2.0
+    image: cockroachdb/cockroach:v25.2.3
     container_name: cockroachdb
     command:
       - start-single-node
       - --insecure
+      - --store=/cockroach/cockroach-data
       - --listen-addr=0.0.0.0:26257
       - --http-addr=0.0.0.0:8080
-      # dev defaults are fine; mount a volume for persistence
     ports:
       - "26257:26257"   # SQL
-      - "8080:8080"     # DB Console
+      - "8080:8080"     # Admin UI / readiness
     volumes:
       - crdb-data:/cockroach/cockroach-data
     healthcheck:
-      # Use the bundled CLI to run a trivial query against the local node
-      test: ["CMD", "/cockroach/cockroach", "sql", "--insecure", "--host=localhost:26257", "-e", "SELECT 1"]
+      # Use the built-in SQL client; no curl/wget dependency
+      test: ["CMD", "/cockroach/cockroach", "sql", "--insecure", "--host=127.0.0.1:26257", "-e", "SELECT 1"]
       interval: 5s
       timeout: 3s
       retries: 30
-      start_period: 5s
+      start_period: 10s
     restart: unless-stopped
 
   # one-shot init to create DB + user for dev
