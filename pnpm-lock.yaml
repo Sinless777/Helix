@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@devcycle/js-cloud-server-sdk':
+        specifier: ^1.33.0
+        version: 1.33.0(encoding@0.1.13)
       '@devcycle/nextjs-sdk':
         specifier: ^2.23.1
         version: 2.23.1(react@19.1.0)
