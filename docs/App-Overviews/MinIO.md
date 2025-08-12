@@ -76,7 +76,6 @@ Integrating MinIO into your infrastructure involves careful planning and configu
 ### Deployment and Setup
 
 1. **Deployment Options:**
-
    - **Docker:** Deploy MinIO using Docker for containerized environments.
 
      ```bash

@@ -24,18 +24,27 @@ export interface Phase {
 export const RoadmapPhases: Phase[] = [
   {
     phase: 1,
-    title: 'Core Architecture Bootstrapping',
+    title: 'Core Architecture Bootstrapping & Documentation',
     description:
       'Set up CI/CD, secrets management, basic service scaffolds, and observability stack.',
     time_frame: 'october 2025',
     status: 'in-progress',
     tasks: [
       {
+        id: 0,
+        title: 'Documentation Phase 1',
+        description:
+          'Initial documentation, Including Main information describing the project, its vision, and roadmap.',
+        status: 'in-progress',
+        assigned_to: 'Timothy Pierce',
+        due_date: '2025-08-01',
+      },
+      {
         id: 1,
         title: 'Initialize GitHub Actions pipeline',
         description:
           'Configure semantic version gating, test/lint/build stages.',
-        status: 'in-progress',
+        status: 'completed',
         assigned_to: 'Timothy Pierce',
         due_date: '2025-08-10',
       },

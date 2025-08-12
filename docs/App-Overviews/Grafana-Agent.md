@@ -86,7 +86,6 @@ Integrating Grafana Agent into your observability architecture involves a series
 ### Installation and Setup
 
 1. **Deployment Options:**
-
    - **Docker:** Run Grafana Agent in a containerized environment.
 
      ```bash
@@ -103,7 +102,6 @@ Integrating Grafana Agent into your observability architecture involves a series
 ### Configuration and Customization
 
 1. **Configuration File:**
-
    - Grafana Agent is configured using a YAML file (commonly named `agent.yaml`). This file includes settings for metrics scraping, log collection, and trace forwarding.
    - Example configuration snippet:
 
@@ -136,7 +134,6 @@ Integrating Grafana Agent into your observability architecture involves a series
      ```
 
 2. **Customizing Data Collection:**
-
    - Adjust scrape intervals, retention policies, and resource limits according to your environment’s requirements.
    - Modify log collection paths and labels to ensure that logs are correctly tagged and forwarded.
 

@@ -88,7 +88,6 @@ Integrating InfluxDB into your observability stack involves several steps, inclu
 ### Installation and Setup
 
 1. **Deployment Options:**
-
    - **Docker:** Deploy InfluxDB in a containerized environment for quick setup.
 
      ```bash
@@ -105,7 +104,6 @@ Integrating InfluxDB into your observability stack involves several steps, inclu
 ### Configuration and Data Ingestion
 
 1. **Proxmox Integration:**
-
    - Set up Proxmox to export metrics via tools like Telegraf or custom scripts that send data to InfluxDB.
    - Configure Telegraf with an InfluxDB output plugin to forward metrics from Proxmox:
 

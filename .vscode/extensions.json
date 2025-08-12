@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "davidanson.vscode-markdownlint",
+        "christian-kohler.npm-intellisense",
+        "dbaeumer.vscode-eslint",
+        "nrwl.angular-console",
+        "psykosoldi3r.vscode-git-flow"
+    ]
+}

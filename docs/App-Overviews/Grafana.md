@@ -84,7 +84,6 @@ Successful integration of Grafana into your architecture involves several key st
 ### Installation and Configuration
 
 1. **Installation:**
-
    - Grafana is available for various platforms. Install Grafana using the official packages for your operating system (Linux, Windows, macOS) or use Docker images for containerized deployments.
    - Example (Docker):
 
@@ -93,7 +92,6 @@ Successful integration of Grafana into your architecture involves several key st
      ```
 
 2. **Initial Setup:**
-
    - After installation, access Grafana via your web browser at `http://localhost:3000`.
    - Configure the initial admin user and password as prompted during the first login.
 
