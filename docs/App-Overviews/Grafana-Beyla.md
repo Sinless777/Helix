@@ -92,7 +92,6 @@ Integrating Grafana Beyla into your environment involves several key steps, from
 ### Installation and Setup
 
 1. **Deployment Options:**
-
    - **Docker:** Deploy Grafana Beyla using Docker containers for quick and isolated setups.
 
      ```bash
@@ -109,12 +108,10 @@ Integrating Grafana Beyla into your environment involves several key steps, from
 ### Configuration and Customization
 
 1. **Data Source Configuration:**
-
    - Integrate with existing data sources such as Prometheus, Loki, and Tempo to consolidate observability data.
    - Configure API endpoints and access tokens as required by your security policies.
 
 2. **Dashboard Provisioning:**
-
    - Use Grafana’s dashboard provisioning capabilities to automate the deployment of Beyla-specific dashboards.
    - Example YAML snippet:
 

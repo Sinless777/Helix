@@ -77,7 +77,6 @@ Integrating Grafana Loki into your environment involves several key steps—from
 ### Installation and Setup
 
 1. **Download and Deployment:**
-
    - Grafana Loki can be deployed using pre-built binaries, Docker images, or within Kubernetes.
    - Example using Docker:
 
@@ -92,7 +91,6 @@ Integrating Grafana Loki into your environment involves several key steps—from
 ### Configuration and Log Collection
 
 1. **Configuration File:**
-
    - Loki’s behavior is controlled by a configuration file (typically in YAML format). This file defines the storage backend, ingesters, and query frontends.
    - Basic configuration example:
 
@@ -129,7 +127,6 @@ Integrating Grafana Loki into your environment involves several key steps—from
      ```
 
 2. **Log Shipping:**
-
    - Use agents like Promtail to ship logs from various sources to Loki.
    - Example Promtail configuration snippet:
 

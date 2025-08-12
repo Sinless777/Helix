@@ -28,11 +28,7 @@ export async function POST(request: NextRequest) {
       { status: 502 }
     )
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : 'Unknown proxy error'
-    return NextResponse.json(
-      { status: 'error', message },
-      { status: 500 }
-    )
+    const message = err instanceof Error ? err.message : 'Unknown proxy error'
+    return NextResponse.json({ status: 'error', message }, { status: 500 })
   }
 }

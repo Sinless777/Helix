@@ -84,12 +84,12 @@ export default function DocsPage() {
         </Typography>
         <Stack spacing={2}>
           <Typography variant="body1" paragraph>
-            Helix AI is powered by a microservice-based, cloud-native architecture
-            designed for maximum scalability and resilience.
+            Helix AI is powered by a microservice-based, cloud-native
+            architecture designed for maximum scalability and resilience.
           </Typography>
           <Typography variant="body1" paragraph>
-            Services communicate via asynchronous messaging (Kafka, RabbitMQ) and
-            HTTP/2 gRPC endpoints.
+            Services communicate via asynchronous messaging (Kafka, RabbitMQ)
+            and HTTP/2 gRPC endpoints.
           </Typography>
           <Typography variant="body1" paragraph>
             Data persistence employs CockroachDB for relational storage, Redis
@@ -101,8 +101,8 @@ export default function DocsPage() {
             deployment and observability.
           </Typography>
           <Typography variant="body1" paragraph>
-            Security is enforced through mutual TLS, JWT authorization,
-            AES-256 encryption, and Vault-managed secrets.
+            Security is enforced through mutual TLS, JWT authorization, AES-256
+            encryption, and Vault-managed secrets.
           </Typography>
         </Stack>
       </Box>
@@ -113,8 +113,8 @@ export default function DocsPage() {
           Vision & Philosophy
         </Typography>
         <Typography variant="body1" paragraph>
-          Helix AI&apos;s mission is user-centric: to empower individuals and teams
-          by providing an AI companion that listens, learns, and grows
+          Helix AI&apos;s mission is user-centric: to empower individuals and
+          teams by providing an AI companion that listens, learns, and grows
           alongside them.
         </Typography>
         <Typography variant="body1" paragraph>
