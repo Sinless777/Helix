@@ -30,8 +30,6 @@ services:
       # Wait for health where available
       redis:
         condition: service_healthy
-      cockroachdb:
-        condition: service_healthy
       nginx:
         condition: service_started
       mailpit:
