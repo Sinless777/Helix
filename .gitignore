@@ -55,3 +55,5 @@ out
 
 test-output
 .nx/
+.vercel
+.env*.local

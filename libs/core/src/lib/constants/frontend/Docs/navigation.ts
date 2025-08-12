@@ -56,7 +56,6 @@ export const navSections: NavSection[] = [
         label: 'Grand Vision',
         icon: VisibilityIcon,
         href: '/Docs/About-The-Project/Grand_Vision',
-        badge: 'Beta',
         items: [
           {
             id: 'introduction',
@@ -102,19 +101,14 @@ export const navSections: NavSection[] = [
             label: 'Architecture',
             href: '/Docs/About-The-Project/The_Theory/Architecture',
           },
+          {
+            id: 'nhp',
+            label: 'Helix as a Non-Human Person (NHP)',
+            href: '/Docs/About-The-Project/The_Theory/NHP',
+          }
         ],
       },
     ],
-  },
-  {
-    id: 'setup',
-    title: 'Setup',
-    items: [],
-  },
-  {
-    id: 'apps',
-    title: 'Application Overviews',
-    items: [],
   },
   {
     id: 'dev-docs',
