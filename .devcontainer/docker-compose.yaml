@@ -19,7 +19,7 @@ services:
     volumes:
       - ..:/workspaces/helix:cached
     environment:
-      DB_URL: "postgresql://root@cockroachdb:26257/helix?sslmode=disable"
+      DB_URL: "postgresql://helix:REVEAL_PASSWORD@helix-ai-14727.j77.aws-us-east-2.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full"
       REDIS_URL: "redis://redis:6379"
       MAILPIT_SMTP_HOST: "mailpit"
       MAILPIT_SMTP_PORT: "1025"
@@ -39,4 +39,10 @@ services:
 # Create once if needed: `docker network create helix`
 networks:
   helix:
-    external: true
+    name: helix          # stable, cross-project name
+    driver: bridge
+    attachable: true
+    driver_opts:
+      com.docker.network.bridge.name: helix0
+    ipam:
+      driver: default
