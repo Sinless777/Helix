@@ -24,32 +24,6 @@
   "features": {
     "ghcr.io/devcontainers/features/node:1": { "version": "20" },
     "ghcr.io/devcontainers/features/git:1": {},
-    {
-  "name": "Helix (development)",
-  "dockerComposeFile": ["./docker-compose.yaml"],
-  "service": "dev-container",
-  "workspaceFolder": "/workspaces/helix",
-
-  "runServices": [
-    "dev-container",
-    "redis",
-    "redisinsight",
-    "cockroachdb",
-    "cockroach-init",
-    "mailpit",
-    "nginx"
-  ],
-  "shutdownAction": "stopCompose",
-
-  "initializeCommand": "bash -lc 'docker network inspect helix >/dev/null 2>&1 || docker network create helix'",
-  "overrideCommand": false,
-
-  "remoteUser": "vscode",
-  "updateRemoteUserUID": true,
-
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": { "version": "20" },
-    "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "version": "latest",
       "moby": true,
