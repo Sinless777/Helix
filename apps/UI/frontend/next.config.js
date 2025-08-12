@@ -27,7 +27,11 @@ const nextConfig = {
   // Allowed dev origins
   allowedDevOrigins: ['10.13.13.2', '192.168.10.10', '0.0.0.0/0', '127.0.0.1'],
 
-  webpack(config, { isServer }) {
+  webpack(config, { isServer, nextRuntime }) {
+     if (!isServer && nextRuntime !== 'edge') {
+      config.resolve.fallback = { fs: false, path: false, os: false, crypto: false };
+    }
+    
     // 1️⃣ Exclude SVGs from Next.js default file loader
     const assetRule = config.module.rules.find(
       (/** @type {{ test: { toString: () => string | string[]; }; }} */ rule) =>

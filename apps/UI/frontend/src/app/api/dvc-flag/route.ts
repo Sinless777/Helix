@@ -1,5 +1,5 @@
 // app/api/dvc-flag/route.ts
-export const runtime = 'edge'
+export const runtime = 'nodejs';
 
 import { NextRequest } from 'next/server'
 import { createClient as createEdgeClient } from '@vercel/edge-config'

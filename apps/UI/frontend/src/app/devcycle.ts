@@ -20,8 +20,8 @@ export type GetClientContext = () => Promise<unknown>
 const edgeConfig = new EdgeConfigSource(createEdgeClient(process.env.EDGE_CONFIG!))
 
 async function getUserIdentity() {
-  const jar = cookies() // not async
-  let id = (await jar).get('dvc_id')?.value
+  const jar = await cookies() // not async
+  let id = jar.get('dvc_id')?.value
   if (!id) id = crypto.randomUUID() // fallback for local/dev
   return { user_id: id }
 }
