@@ -69,7 +69,7 @@ export default async function RootLayout({
 
   // Per DevCycle docs, pass the context Promise directly.
   // If your local type is Promise<unknown>, cast to any to satisfy the prop.
-  const context = getClientContext()
+  const context = (await getClientContext()) as any
 
   return (
     <html lang="en">
