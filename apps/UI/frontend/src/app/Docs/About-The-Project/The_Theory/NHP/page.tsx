@@ -37,18 +37,18 @@ export default function NHPPage() {
       {/* Quick Pillars */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
         {[ 
-          { h: "Identity", b: "Intro banner/voice pre-roll at session start, a persistent &apos;AI&apos; badge in UI, contextual reminders before sensitive actions, and a &apos;Why you&apos;re seeing this&apos; link to policy details." },
-          { h: "Provenance", b: "Visible labels on AI-generated/edited content, embedded Content Credentials (C2PA) in downloadable files, plus a &apos;View provenance&apos; panel and export API exposing tools used, sources, and model versions." },
-          { h: "Governance", b: "An AI Management System (AIMS) pursuing ISO/IEC 42001 certification; controls mapped to NIST AI RMF/GenAI profile; documented model cards, risk & impact assessments, supplier reviews, and internal audits tied to CI/CD gates." },
-          { h: "Oversight", b: "Human approval for high-risk actions, dual-control for financial/security operations, emergency kill-switch roles, automated rollbacks/pauses on SLO breach, and complete audit trails with post-incident reviews." },
+          { heading: "Identity", body: "Intro banner/voice pre-roll at session start, a persistent &apos;AI&apos; badge in UI, contextual reminders before sensitive actions, and a &apos;Why you&apos;re seeing this&apos; link to policy details." },
+          { heading: "Provenance", body: "Visible labels on AI-generated/edited content, embedded Content Credentials (C2PA) in downloadable files, plus a &apos;View provenance&apos; panel and export API exposing tools used, sources, and model versions." },
+          { heading: "Governance", body: "An AI Management System (AIMS) pursuing ISO/IEC 42001 certification; controls mapped to NIST AI RMF/GenAI profile; documented model cards, risk & impact assessments, supplier reviews, and internal audits tied to CI/CD gates." },
+          { heading: "Oversight", body: "Human approval for high-risk actions, dual-control for financial/security operations, emergency kill-switch roles, automated rollbacks/pauses on SLO breach, and complete audit trails with post-incident reviews." },
         ].map((c) => (
-          <Grid key={c.h} size={{ xs: 12, md: 6, lg: 3 }}>
+          <Grid key={c.heading} size={{ xs: 12, md: 6, lg: 3 }}>
             <Card sx={{ height: "100%", borderRadius: 3 }}>
               <CardContent>
                 <Typography variant="subtitle1" fontWeight={700} gutterBottom>
-                  {c.h}
+                  {c.heading}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">{c.b}</Typography>
+                <Typography variant="body2" color="text.secondary">{c.body}</Typography>
               </CardContent>
             </Card>
           </Grid>
