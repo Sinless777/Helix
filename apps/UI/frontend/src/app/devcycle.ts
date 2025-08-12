@@ -28,4 +28,4 @@ const dvc = setupDevCycle({
 
 // Re-exports
 export const getVariableValue = dvc.getVariableValue as any
-export const getClientContext = dvc.getClientContext as any
+export const getClientContext: typeof dvc.getClientContext = dvc.getClientContext
