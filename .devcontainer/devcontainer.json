@@ -1,5 +1,5 @@
 {
-  "name": "Helix (dev)",
+  "name": "Helix (development)",
   "dockerComposeFile": ["./docker-compose.yaml"],
   "service": "dev-container",
   "workspaceFolder": "/workspaces/helix",
