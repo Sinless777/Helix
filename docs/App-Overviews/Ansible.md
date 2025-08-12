@@ -87,7 +87,6 @@ Integrating Ansible into our environment involves setting up the control machine
 ### Installation and Setup
 
 1. **Control Node Setup:**
-
    - Install Ansible on a dedicated control node or your local machine.
    - Use package managers such as `apt`, `yum`, or `pip` for installation:
      ```bash

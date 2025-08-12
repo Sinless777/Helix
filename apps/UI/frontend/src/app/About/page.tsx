@@ -6,9 +6,9 @@ import React from 'react'
 // define the visual slot for each title
 const orderMap: Record<string, number> = {
   'Meet the Team': 1,
-  'Who We Are'   : 2,
-  'Our Mission'  : 3,
-  'Our Story'    : 4,
+  'Who We Are': 2,
+  'Our Mission': 3,
+  'Our Story': 4,
 }
 
 export default function AboutPage() {
@@ -16,7 +16,10 @@ export default function AboutPage() {
     <Box sx={{ position: 'relative', minHeight: '100vh' }}>
       <Header {...headerProps} />
 
-      <Container maxWidth="lg" sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}>
+      <Container
+        maxWidth="lg"
+        sx={{ pt: { xs: 4, md: 8, lg: 14 }, pb: { xs: 6, md: 10 } }}
+      >
         <Typography
           variant="h3"
           component="h1"
@@ -27,7 +30,7 @@ export default function AboutPage() {
         </Typography>
 
         <Grid container spacing={4}>
-          {AboutContent.map(sec => (
+          {AboutContent.map((sec) => (
             <Grid
               key={sec.title}
               size={{ xs: 12, sm: 6 }}

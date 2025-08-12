@@ -91,7 +91,6 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
 ### Installation and Setup
 
 1. **Download and Installation:**
-
    - Tempo can be installed using Docker, Kubernetes, or as a standalone binary. For containerized environments, Grafana Labs provides official Docker images.
    - Example (Docker):
 
@@ -100,7 +99,6 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
      ```
 
 2. **Initial Configuration:**
-
    - Create a configuration file (e.g., `tempo-config.yaml`) that specifies the storage backend, sampling strategies, and other operational parameters.
    - Basic configuration example:
 
@@ -128,7 +126,6 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
 ### Configuration and Instrumentation
 
 1. **Instrumenting Applications:**
-
    - Use OpenTelemetry client libraries to instrument your applications. This allows your services to automatically send trace data to Tempo.
    - Example (Python):
 
@@ -150,7 +147,6 @@ Integrating Grafana Tempo into your infrastructure involves a series of steps fr
      ```
 
 2. **Configuring Sampling:**
-
    - Adjust sampling configurations to balance between data granularity and storage cost. Tempo supports various sampling strategies, including head-based and tail-based sampling.
 
 3. **Data Collection and Storage:**

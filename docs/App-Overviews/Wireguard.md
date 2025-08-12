@@ -224,7 +224,6 @@ This setting directs all IPv4 and IPv6 traffic through the secure tunnel, ensuri
 The following step-by-step guide will help you set up Wireguard VPN within your network:
 
 1. **Installation:**
-
    - Install Wireguard on your server and client devices. On Linux, you can typically install via your package manager:
 
      ```bash
@@ -234,7 +233,6 @@ The following step-by-step guide will help you set up Wireguard VPN within your 
    - For other operating systems, refer to the [official Wireguard installation documentation](https://www.wireguard.com/install/).
 
 2. **Key Generation:**
-
    - Generate a key pair for each device:
 
      ```bash
@@ -244,12 +242,10 @@ The following step-by-step guide will help you set up Wireguard VPN within your 
    - Securely exchange public keys between devices.
 
 3. **Configuration File Creation:**
-
    - Create a configuration file (e.g., `wg0.conf`) for each device using the examples provided above.
    - Ensure the `AllowedIPs` and `Endpoint` fields are correctly configured to match your network topology.
 
 4. **Starting the Service:**
-
    - Enable and start the Wireguard service:
 
      ```bash
@@ -263,7 +259,6 @@ The following step-by-step guide will help you set up Wireguard VPN within your 
      ```
 
 5. **Testing the Connection:**
-
    - Verify the tunnel is active by checking the interface status:
 
      ```bash

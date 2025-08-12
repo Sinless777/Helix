@@ -98,12 +98,10 @@ Effective integration of the Unifi Network Application into your network infrast
 ### Setup and Deployment
 
 1. **Installation:**
-
    - The Unifi Network Application can be installed on a dedicated server, a virtual machine, or even hosted in the cloud. The installation packages are available for various operating systems, including Windows, macOS, and Linux.
    - Installation involves downloading the software from Ubiquiti’s official website, executing the installer, and following the setup wizard to configure initial settings.
 
 2. **Initial Configuration:**
-
    - Once installed, the application guides you through the initial setup, including network discovery, device adoption, and the creation of administrative accounts.
    - During the adoption process, the controller automatically detects Unifi devices within the network. You can then assign them to the controller and configure them based on predefined policies.
 
@@ -114,12 +112,10 @@ Effective integration of the Unifi Network Application into your network infrast
 ### Configuration and Customization
 
 1. **Dashboard Customization:**
-
    - The Unifi controller’s dashboard is fully customizable. You can arrange widgets that display real-time statistics, device statuses, and alerts, giving you an at-a-glance view of network health.
    - Custom dashboards can be created for different roles within the organization, such as network administrators, security officers, or IT support staff.
 
 2. **Policy and Profile Management:**
-
    - Create and assign network policies that govern traffic flow, access controls, and security settings.
    - Profiles can be configured for different device types (e.g., switches, gateways, access points), ensuring that each category of device operates with optimal settings.
 
@@ -130,12 +126,10 @@ Effective integration of the Unifi Network Application into your network infrast
 ### Monitoring and Maintenance
 
 1. **Real-Time Monitoring:**
-
    - The application provides continuous monitoring of network performance, offering insights into bandwidth usage, device health, and potential security threats.
    - Alerts and notifications can be configured to inform administrators of any unusual activity or performance degradation.
 
 2. **Logging and Reporting:**
-
    - Detailed logs of network events, configuration changes, and device statuses are maintained within the controller. These logs are invaluable for troubleshooting and forensic analysis.
    - Customizable reports can be generated periodically, offering insights into long-term trends and network performance metrics.
 
