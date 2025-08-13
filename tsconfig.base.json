@@ -3,6 +3,8 @@
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "isolatedModules": true,
     "lib": ["es2022"],
@@ -24,7 +26,15 @@
       "@helixai/core": ["libs/core/src/index.ts"],
       "@helixai/core/*": ["libs/core/src/*"],
       "@helixai/logger": ["libs/logger/src/index.ts"],
-      "@helixai/logger/*": ["libs/logger/src/*"]
+      "@helixai/logger/*": ["libs/logger/src/*"],
+      "audit": ["libs/audit/src/index.ts"],
+      "auth": ["libs/auth/src/index.ts"],
+      "db": ["libs/db/src/index.ts"],
+      "email": ["libs/email/src/index.ts"],
+      "featureflags": ["libs/featureflags/src/index.ts"],
+      "rbac": ["libs/rbac/src/index.ts"],
+      "redis": ["libs/redis/src/index.ts"],
+      "sms": ["libs/sms/src/index.ts"]
     }
   },
   "references": [
