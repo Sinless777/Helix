@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
+    "module": "NodeNext",
     "declaration": true,
     "types": ["node"],
     "target": "es2021",
