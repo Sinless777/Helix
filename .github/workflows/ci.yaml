@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -111,7 +111,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           persist-credentials: true
@@ -227,7 +227,7 @@ jobs:
 
       - name: Create/Update release PR
         id: cpr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "chore(release): v${{ steps.versioning.outputs.next_version }}"
           commit-message: "chore(release): v${{ steps.versioning.outputs.next_version }}"
@@ -259,7 +259,7 @@ jobs:
 
     steps:
       - name: Checkout (with full history & tags)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
