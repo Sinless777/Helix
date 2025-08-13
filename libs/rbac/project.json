@@ -1,0 +1,9 @@
+{
+  "name": "rbac",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/rbac/src",
+  "projectType": "library",
+  "tags": ["type:lib", "scope:server", "domain:identity", "layer:rbac"],
+  "// targets": "to see all targets run: nx show project rbac --web",
+  "targets": {}
+}
