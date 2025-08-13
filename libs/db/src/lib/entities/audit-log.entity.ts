@@ -1,5 +1,5 @@
-import { Entity, PrimaryKey, Property, Index, Enum } from '@mikro-orm/core';
-import { randomUUID } from 'node:crypto';
+import { Entity, PrimaryKey, Property, Index, Enum } from '@mikro-orm/core'
+import { randomUUID } from 'node:crypto'
 
 export enum AuditAction {
   create = 'create',
@@ -8,16 +8,16 @@ export enum AuditAction {
 }
 
 export interface AuditDiff {
-  before: Record<string, unknown> | null;
-  after: Record<string, unknown> | null;
+  before: Record<string, unknown> | null
+  after: Record<string, unknown> | null
 }
 
 export interface AuditMeta {
-  ip?: string;
-  ua?: string;
-  requestId?: string;
+  ip?: string
+  ua?: string
+  requestId?: string
   // allow future fields without schema churn
-  [key: string]: unknown;
+  [key: string]: unknown
 }
 
 /**
@@ -30,38 +30,38 @@ export interface AuditMeta {
 @Index({ properties: ['actorUserId'] })
 export class AuditLog {
   @PrimaryKey({ type: 'uuid' })
-  id: string = randomUUID();
+  id: string = randomUUID()
 
   /** Optional actor (user performing the action). */
   @Property({ type: 'uuid', nullable: true })
-  actorUserId?: string | null;
+  actorUserId?: string | null
 
   /** Entity class name registered in MikroORM metadata, e.g., "User", "Organization". */
   @Property()
-  entityName!: string;
+  entityName!: string
 
   /**
    * Serialized primary key of the affected entity (usually a UUID string).
    * May be null for bulk operations or cases where PK isn’t available.
    */
   @Property({ nullable: true })
-  entityId?: string | null;
+  entityId?: string | null
 
   /** Action taken on the entity (create/update/delete). */
   @Enum({ items: () => AuditAction, type: 'string' })
-  action!: AuditAction;
+  action!: AuditAction
 
   /** JSON diff payload (before/after snapshots). */
   @Property({ type: 'json', nullable: true })
-  diff?: AuditDiff | null;
+  diff?: AuditDiff | null
 
   /** Request metadata (ip/ua/requestId/etc.). */
   @Property({ type: 'json', nullable: true })
-  meta?: AuditMeta | null;
+  meta?: AuditMeta | null
 
   /** When this audit row was written. */
   @Property({ onCreate: () => new Date() })
-  createdAt: Date = new Date();
+  createdAt: Date = new Date()
 }
 
 /*

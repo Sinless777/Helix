@@ -8,7 +8,7 @@
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "defaultBase": "master",
-  "nxCloudId": "6881c3a8e2a4712e1a020e89",
+  "nxCloudId": "689c185bb0c1aa692569d31b",
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",
@@ -32,7 +32,9 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/APIs/user-service-e2e/**/*"]
+      "exclude": [
+        "apps/APIs/user-service-e2e/**/*"
+      ]
     },
     {
       "plugin": "@nx/cypress/plugin",
@@ -65,16 +67,28 @@
   "targetDefaults": {
     "@nx/js:swc": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["default", "^default"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "default",
+        "^default"
+      ]
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "@nx/js:tsc": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["default", "^default"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "default",
+        "^default"
+      ]
     }
   },
   "release": {
