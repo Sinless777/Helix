@@ -8,8 +8,6 @@
     "dev-container",
     "redis",
     "redisinsight",
-    "cockroachdb",
-    "cockroach-init",
     "mailpit",
     "nginx"
   ],
@@ -58,8 +56,6 @@
         "3000": { "label": "NestJS (user-service)" },
         "6379": { "label": "Redis" },
         "5540": { "label": "RedisInsight" },
-        "26257":{ "label": "CockroachDB (SQL)" },
-        "8080": { "label": "Cockroach Console" },
         "8025": { "label": "Mailpit UI" }
       }
     }
