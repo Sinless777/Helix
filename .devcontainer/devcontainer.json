@@ -4,13 +4,7 @@
   "service": "dev-container",
   "workspaceFolder": "/workspaces/helix",
 
-  "runServices": [
-    "dev-container",
-    "redis",
-    "redisinsight",
-    "mailpit",
-    "nginx"
-  ],
+  "runServices": ["dev-container", "redis", "redisinsight", "mailpit", "nginx"],
   "shutdownAction": "stopCompose",
 
   "initializeCommand": "bash -lc 'docker network inspect helix >/dev/null 2>&1 || docker network create helix'",
@@ -52,7 +46,7 @@
         "terminal.integrated.defaultProfile.linux": "bash"
       },
       "portsAttributes": {
-        "80":   { "label": "NGINX (API proxy)" },
+        "80": { "label": "NGINX (API proxy)" },
         "3000": { "label": "NestJS (user-service)" },
         "6379": { "label": "Redis" },
         "5540": { "label": "RedisInsight" },
