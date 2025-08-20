@@ -32,7 +32,7 @@ export const KEY_NS = {
   refresh: 'refresh',
   jti: 'jti',
   device: 'device',
-  apiKey: 'apikey',
+  apiKey: 'apiKey',
   feature: 'feature',
   custom: 'custom',
 } as const

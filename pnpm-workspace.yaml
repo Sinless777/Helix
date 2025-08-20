@@ -11,6 +11,7 @@ onlyBuiltDependencies:
   - cypress
   - esbuild
   - nx
+  - oxc-resolver
   - protobufjs
   - sharp
   - unrs-resolver
