@@ -1,4 +1,5 @@
 import type { Milliseconds, Seconds, RedisTtls } from './redis.types'
+import type { RedisConfig } from './config/redis.config'
 
 /**
  * Nest DI tokens — keep them as strings so they’re easy to reference across packages.
@@ -80,3 +81,13 @@ export const DEFAULT_RATE_LIMITS = {
   magicLink: { limit: 5, window: seconds(60) }, // 5/min
   passwordReset: { limit: 5, window: seconds(60 * 10) }, // 5/10min
 } as const
+
+export const REDIS_CONFIG: RedisConfig = {
+  host: DEFAULT_REDIS_HOST,
+  port: DEFAULT_REDIS_PORT,
+  db: DEFAULT_REDIS_DB,
+  password: process.env.REDIS_PASSWORD,
+  keyPrefix: '',
+  maxRetriesPerRequest: 0,
+  commandTimeoutMs: 0,
+}
