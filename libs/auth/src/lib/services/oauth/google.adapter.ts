@@ -196,7 +196,8 @@ export class GoogleOAuthAdapter {
           ''),
       includeGrantedScopes:
         opts?.includeGrantedScopes ??
-        env.GOOGLE_INCLUDE_GRANTED_SCOPES != false,
+        (env.GOOGLE_INCLUDE_GRANTED_SCOPES !== 'false' &&
+          env.GOOGLE_INCLUDE_GRANTED_SCOPES !== '0'),
       loginHint: opts?.loginHint ?? env.GOOGLE_LOGIN_HINT ?? '',
       hd: opts?.hd ?? env.GOOGLE_HD ?? '',
       ephemeralTtl: (opts?.ephemeralTtl ??
