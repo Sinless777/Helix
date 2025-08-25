@@ -319,7 +319,7 @@ export class GoogleOAuthAdapter {
     if (!stash?.codeVerifier) throw new Error('google_oauth_invalid_state')
 
     // Best-effort: remove used state to prevent replay attacks
-    if (this.cache) await this.cache.del(kState(state)).catch(() => {})
+    if (this.cache) await this.cache.del(kState(state))
 
     // Prepare form-encoded body as per Google's token endpoint expectations
     const body = new URLSearchParams()

@@ -264,7 +264,7 @@ export class GitHubOAuthAdapter {
     if (!stash?.codeVerifier) throw new Error('github_oauth_invalid_state')
 
     // Best-effort: remove used state to prevent replay
-    if (this.cache) await this.cache.del(kState(state)).catch(() => {})
+    if (this.cache) await this.cache.del(kState(state))
 
     // GitHub accepts JSON with Accept: application/json
     const body: Record<string, string> = {

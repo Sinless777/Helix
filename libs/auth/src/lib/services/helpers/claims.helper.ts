@@ -269,28 +269,37 @@ export interface WithMeta<T> {
 /**
  * Mint access + meta in one call. Useful if your signer needs both payload and
  * timing info (for cookie Max-Age, logs, etc.).
+ *
+ * Note: we compute `issuedAt` & `expiresAt` locally (from options) instead of
+ * reading back `payload.iat`/`payload.exp`, which are optional in the type.
  */
 export function mintAccessWithMeta(
   opts: AccessClaimsOptions
 ): WithMeta<AccessTokenPayload> {
   const iat = toEpochSeconds(opts.issuedAtSeconds)
-  const payload = buildAccessPayload({ ...opts, issuedAtSeconds: iat })
   const ttl = Math.max(0, Math.floor(opts.ttlSeconds))
+  const expiresAt = iat + ttl
+
+  const payload = buildAccessPayload({ ...opts, issuedAtSeconds: iat })
+
   return {
     payload,
-    meta: { issuedAt: payload.iat!, expiresAt: payload.exp!, ttlSeconds: ttl }
+    meta: { issuedAt: iat, expiresAt, ttlSeconds: ttl }
   }
 }
 
-/** Same as above, for refresh tokens. */
+/** Same as above, for refresh tokens (also avoids non-null assertions). */
 export function mintRefreshWithMeta(
   opts: RefreshClaimsOptions
 ): WithMeta<RefreshTokenPayload> {
   const iat = toEpochSeconds(opts.issuedAtSeconds)
-  const payload = buildRefreshPayload({ ...opts, issuedAtSeconds: iat })
   const ttl = Math.max(0, Math.floor(opts.ttlSeconds))
+  const expiresAt = iat + ttl
+
+  const payload = buildRefreshPayload({ ...opts, issuedAtSeconds: iat })
+
   return {
     payload,
-    meta: { issuedAt: payload.iat!, expiresAt: payload.exp!, ttlSeconds: ttl }
+    meta: { issuedAt: iat, expiresAt, ttlSeconds: ttl }
   }
 }

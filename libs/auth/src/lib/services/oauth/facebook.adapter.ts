@@ -304,7 +304,7 @@ export class FacebookOAuthAdapter {
     if (!stash?.codeVerifier) throw new Error('facebook_oauth_invalid_state')
 
     // Best-effort: remove used state to prevent replay
-    if (this.cache) await this.cache.del(kState(state)).catch(() => {})
+    if (this.cache) await this.cache.del(kState(state))
 
     // Facebook token exchange expects query/form params. We'll POST form-encoded.
     const body = new URLSearchParams()

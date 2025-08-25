@@ -2,27 +2,6 @@
 // -----------------------------------------------------------------------------
 // JWKS Rotation Job
 // -----------------------------------------------------------------------------
-// What this does
-//   • On app start: ensures a valid signing key exists (by calling rotateIfDue())
-//   • On a daily schedule: checks whether rotation is due and rotates if needed
-//   • Logs succinct status so you can trace rotations in production
-//
-// Why it's decoupled
-//   We depend on a *minimal* rotator interface (see JWKS_ROTATOR) instead of a
-//   concrete service. Your auth module can bind any implementation that knows
-//   how to:
-//     - determine whether rotation is due
-//     - rotate and persist new key material
-//     - optionally report status for logging/monitoring
-//
-// Scheduling
-//   Uses @nestjs/schedule's Cron API. Default: every day at 01:00 server time.
-//   You can change the cron without touching the rotator/service logic.
-//
-// Config
-//   Pulls rotation cadence from your typed `auth` config (rotationDays).
-//   You can extend this to pass modulusLength, etc., to the rotator if needed.
-
 import {
   Inject,
   Injectable,
@@ -36,29 +15,12 @@ import { authConfig, type AuthConfig } from '../config/auth.config'
 /* -----------------------------------------------------------------------------
  * Minimal rotator contract + DI token
  * -------------------------------------------------------------------------- */
-
-/**
- * A minimal interface your JWKS/key service should implement to be usable by this job.
- * Keep it intentionally small so different implementations can be plugged in.
- */
 export interface JwksRotator {
-  /**
-   * Rotate keys if the configured window has elapsed.
-   * Implementations should be *idempotent* and safe to call frequently.
-   *
-   * @param opts.rotationDays  Number of whole days between rotations
-   * @param opts.now           Clock value to use (defaults to new Date())
-   * @returns { rotated, kid?, nextRotateAt? }  Whether a rotation occurred and basic metadata
-   */
   rotateIfDue(opts?: {
     rotationDays?: number
     now?: Date
   }): Promise<{ rotated: boolean; kid?: string; nextRotateAt?: Date }>
 
-  /**
-   * Optional status hook used only for logging/observability.
-   * Implementations may return undefined if not supported.
-   */
   getStatus?(): Promise<
     | {
         kid?: string
@@ -69,7 +31,6 @@ export interface JwksRotator {
   >
 }
 
-/** Injection token used to provide a JwksRotator implementation. */
 export const JWKS_ROTATOR = Symbol('JWKS_ROTATOR')
 
 /* -----------------------------------------------------------------------------
@@ -88,9 +49,8 @@ export class JwksRotationJob implements OnModuleInit {
   ) {}
 
   /**
-   * onModuleInit:
-   *   Run a first-time check on boot so a fresh deployment immediately has
-   *   the proper signing key, even if the scheduled cron hasn't fired yet.
+   * Run an initial rotation check on boot so a fresh deployment immediately has
+   * valid signing keys even before the first cron fires.
    */
   async onModuleInit(): Promise<void> {
     if (!this.rotator) {
@@ -103,9 +63,8 @@ export class JwksRotationJob implements OnModuleInit {
   }
 
   /**
-   * Nightly rotation check.
-   * - Uses a fixed daily cron (01:00 local time). Adjust as you like.
-   * - Calls into the rotator which handles idempotent logic and persistence.
+   * Nightly rotation check (01:00 local time by default).
+   * The rotator encapsulates idempotency and persistence.
    */
   @Cron(CronExpression.EVERY_DAY_AT_1AM)
   async nightlyRotation(): Promise<void> {
@@ -118,24 +77,28 @@ export class JwksRotationJob implements OnModuleInit {
   /* ------------------------------------------------------------------------- */
 
   /**
-   * Shared routine to invoke the rotator and log a compact, actionable line.
-   * The rotator decides if rotation is due based on its own persisted state.
+   * Shared routine to invoke the rotator and log a compact status line.
+   * Avoids non-null assertions by guarding the injected dependency locally.
    */
   private async checkAndRotate(trigger: 'startup' | 'cron'): Promise<void> {
+    // Local guard (instead of `this.rotator!`) to satisfy eslint rule.
+    const rotator = this.rotator
+    if (!rotator) return
+
     try {
       const rotationDays = this.cfg.jwks.rotationDays
       const now = new Date()
 
-      // Ask the rotator to perform an idempotent rotation if the window elapsed.
-      const result = await this.rotator!.rotateIfDue({ rotationDays, now })
+      // Perform an idempotent rotation if due.
+      const result = await rotator.rotateIfDue({ rotationDays, now })
 
-      // Build a friendly status line
-      const status = (await this.rotator!.getStatus?.()) ?? {}
+      // Get current status if the rotator provides it (optional).
+      const status = (await rotator.getStatus?.()) ?? {}
+
+      // Prefer the most precise KID/next date available.
       const kid = result.kid ?? status.kid ?? 'unknown'
-      const next =
-        (result.nextRotateAt ?? status.nextRotateAt)
-          ? (result.nextRotateAt ?? status.nextRotateAt)!.toISOString()
-          : 'unknown'
+      const nextDate = result.nextRotateAt ?? status.nextRotateAt
+      const next = nextDate ? nextDate.toISOString() : 'unknown'
 
       if (result.rotated) {
         this.log.log(
@@ -147,7 +110,7 @@ export class JwksRotationJob implements OnModuleInit {
         )
       }
     } catch (err) {
-      // Hardening: rotation failures should be visible but not crash the process.
+      // Rotation failures should be visible but not crash the process.
       this.log.error(
         `JWKS rotation check failed (${trigger}): ${String(err)}`,
         err instanceof Error && err.stack ? err.stack : undefined

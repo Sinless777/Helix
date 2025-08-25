@@ -263,7 +263,7 @@ export class DiscordOAuthAdapter {
     if (!stash?.codeVerifier) throw new Error('discord_oauth_invalid_state')
 
     // Best-effort: remove used state to prevent replay
-    if (this.cache) await this.cache.del(kState(state)).catch(() => {})
+    if (this.cache) await this.cache.del(kState(state))
 
     // Discord expects x-www-form-urlencoded
     const body = new URLSearchParams()

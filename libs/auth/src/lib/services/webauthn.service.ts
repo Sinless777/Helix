@@ -106,18 +106,36 @@ function utf8Bytes(s: string): Uint8Array {
 }
 
 /** Safe audit helper (emit → record → log), never throws. */
+type AuditFn = (event: string, data?: unknown) => unknown | Promise<unknown>
+
 type AuditLike =
-  | { emit?: Function; record?: Function; log?: Function }
+  | {
+      emit?: AuditFn
+      record?: AuditFn
+      log?: AuditFn
+    }
   | undefined
-async function audit(a: AuditService | AuditLike, event: string, data?: any) {
+
+async function audit(
+  a: AuditService | AuditLike,
+  event: string,
+  data?: unknown
+) {
   if (!a) return
-  const anyA: any = a
+  const anyA = a as
+    | {
+        emit?: AuditFn
+        record?: AuditFn
+        log?: AuditFn
+      }
+    | undefined
+
   try {
-    if (typeof anyA.emit === 'function') await anyA.emit(event, data)
-    else if (typeof anyA.record === 'function') await anyA.record(event, data)
-    else if (typeof anyA.log === 'function') await anyA.log(event, data)
+    if (typeof anyA?.emit === 'function') await anyA.emit(event, data)
+    else if (typeof anyA?.record === 'function') await anyA.record(event, data)
+    else if (typeof anyA?.log === 'function') await anyA.log(event, data)
   } catch {
-    /* ignore audit errors */
+    // ignore audit errors
   }
 }
 
