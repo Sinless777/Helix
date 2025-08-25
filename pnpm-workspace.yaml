@@ -1,14 +1,17 @@
 packages:
   - libs/*
   - apps/*
-  
 
 onlyBuiltDependencies:
+  - '@apollo/protobufjs'
+  - '@nestjs/core'
   - '@parcel/watcher'
   - '@swc/core'
   - '@vercel/speed-insights'
   - cypress
   - esbuild
   - nx
+  - oxc-resolver
+  - protobufjs
   - sharp
   - unrs-resolver

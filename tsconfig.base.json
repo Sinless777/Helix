@@ -3,11 +3,13 @@
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "isolatedModules": true,
     "lib": ["es2022"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
@@ -20,16 +22,50 @@
     "noUnusedLocals": false,
     "rootDir": ".",
     "outDir": "dist",
+
     "paths": {
       "@helixai/core": ["libs/core/src/index.ts"],
       "@helixai/core/*": ["libs/core/src/*"],
+
       "@helixai/logger": ["libs/logger/src/index.ts"],
-      "@helixai/logger/*": ["libs/logger/src/*"]
+      "@helixai/logger/*": ["libs/logger/src/*"],
+
+      "@helixai/audit": ["libs/audit/src/index.ts"],
+      "@helixai/audit/*": ["libs/audit/src/*"],
+
+      "@helixai/auth": ["libs/auth/src/index.ts"],
+      "@helixai/auth/*": ["libs/auth/src/*"],
+
+      "@helixai/db": ["libs/db/src/index.ts"],
+      "@helixai/db/*": ["libs/db/src/*"],
+
+      "@helixai/email": ["libs/email/src/index.ts"],
+      "@helixai/email/*": ["libs/email/src/*"],
+
+      "@helixai/featureflags": ["libs/featureflags/src/index.ts"],
+      "@helixai/featureflags/*": ["libs/featureflags/src/*"],
+
+      "@helixai/rbac": ["libs/rbac/src/index.ts"],
+      "@helixai/rbac/*": ["libs/rbac/src/*"],
+
+      "@helixai/redis": ["libs/redis/src/index.ts"],
+      "@helixai/redis/*": ["libs/redis/src/*"],
+
+      "@helixai/sms": ["libs/sms/src/index.ts"],
+      "@helixai/sms/*": ["libs/sms/src/*"]
     }
   },
+
   "references": [
-    {
-      "path": "./libs/core/tsconfig.lib.json"
-    }
+    { "path": "./libs/core/tsconfig.lib.json" },
+    { "path": "./libs/logger/tsconfig.lib.json" },
+    { "path": "./libs/audit/tsconfig.lib.json" },
+    { "path": "./libs/auth/tsconfig.lib.json" },
+    { "path": "./libs/db/tsconfig.lib.json" },
+    { "path": "./libs/email/tsconfig.lib.json" },
+    { "path": "./libs/featureflags/tsconfig.lib.json" },
+    { "path": "./libs/rbac/tsconfig.lib.json" },
+    { "path": "./libs/redis/tsconfig.lib.json" },
+    { "path": "./libs/sms/tsconfig.lib.json" }
   ]
 }

@@ -1,0 +1,40 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    command: ["redis-server","--appendonly","yes","--save","60","1","--loglevel","warning"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD-SHELL","redis-cli -h 127.0.0.1 -p 6379 ping | grep PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
+    restart: unless-stopped
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redisinsight
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      # Accept terms to skip the first-run prompt
+      RI_ACCEPT_TERMS_AND_CONDITIONS: "true"
+      RI_APP_PORT: "5540"
+      # Preconfigure a connection to the redis service
+      RI_REDIS_HOST: "redis"
+      RI_REDIS_PORT: "6379"
+      RI_REDIS_ALIAS: "local-redis"
+    ports:
+      - "5540:5540"
+    volumes:
+      - redisinsight-data:/data
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  redisinsight-data:

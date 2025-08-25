@@ -1,0 +1,16 @@
+{
+  "extends": ["../../.eslintrc"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": [
+          "libs/auth/tsconfig.lib.json",
+          "libs/auth/tsconfig.spec.json"
+        ]
+      },
+      "rules": {}
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "extends": ["../../.eslintrc"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": [
+          "libs/featureflags/tsconfig.lib.json",
+          "libs/featureflags/tsconfig.spec.json"
+        ]
+      },
+      "rules": {}
+    }
+  ]
+}
