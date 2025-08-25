@@ -1,0 +1,16 @@
+{
+  "extends": ["../../.eslintrc"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": [
+          "libs/rbac/tsconfig.lib.json",
+          "libs/rbac/tsconfig.spec.json"
+        ]
+      },
+      "rules": {}
+    }
+  ]
+}

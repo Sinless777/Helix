@@ -27,14 +27,14 @@
       "@helixai/core/*": ["libs/core/src/*"],
       "@helixai/logger": ["libs/logger/src/index.ts"],
       "@helixai/logger/*": ["libs/logger/src/*"],
-      "audit": ["libs/audit/src/index.ts"],
-      "auth": ["libs/auth/src/index.ts"],
-      "db": ["libs/db/src/index.ts"],
-      "email": ["libs/email/src/index.ts"],
-      "featureflags": ["libs/featureflags/src/index.ts"],
-      "rbac": ["libs/rbac/src/index.ts"],
-      "redis": ["libs/redis/src/index.ts"],
-      "sms": ["libs/sms/src/index.ts"]
+      "@helixai/audit": ["libs/audit/src/index.ts"],
+      "@helixai/auth": ["libs/auth/src/index.ts"],
+      "@helixai/db": ["libs/db/src/index.ts"],
+      "@helixai/email": ["libs/email/src/index.ts"],
+      "@helixai/featureflags": ["libs/featureflags/src/index.ts"],
+      "@helixai/rbac": ["libs/rbac/src/index.ts"],
+      "@helixai/redis": ["libs/redis/src/index.ts"],
+      "@helixai/sms": ["libs/sms/src/index.ts"]
     }
   },
   "references": [

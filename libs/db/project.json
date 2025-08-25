@@ -1,5 +1,5 @@
 {
-  "name": "db",
+  "name": "@helixai/db",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/db/src",
   "projectType": "library",

@@ -4,7 +4,7 @@ import {
   ExecutionContext,
   Injectable,
   NestInterceptor,
-  Optional,
+  Optional
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import type { Request } from 'express'
@@ -21,7 +21,7 @@ import { REDIS_CLIENT } from '../redis.constants'
 const TTL_META_KEYS = [
   'redis:cache:ttl', // preferred
   'cache:ttl', // alternates
-  'CACHE_TTL',
+  'CACHE_TTL'
 ] as const
 
 export interface CacheInterceptorOptions {
@@ -42,7 +42,7 @@ const DEFAULTS: Required<CacheInterceptorOptions> = {
   prefix: 'helix:cache:http',
   onlyGet: true,
   skipHeader: 'x-cache-skip',
-  varyByHeaders: ['accept-language'],
+  varyByHeaders: ['accept-language']
 }
 
 // Small local hasher to avoid importing additional utils.
@@ -77,7 +77,8 @@ export class RedisCacheInterceptor implements NestInterceptor {
   }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    if (!this.redis) return next.handle()
+    const redis = this.redis // <— narrow once
+    if (!redis) return next.handle() // guard
     if (context.getType() !== 'http') return next.handle()
 
     const http = context.switchToHttp()
@@ -100,24 +101,23 @@ export class RedisCacheInterceptor implements NestInterceptor {
     const ttl = (this.getRouteTtl(context) ?? this.cfg.defaultTtl) as Seconds
     const key = this.buildKey(req, ttl)
 
-    // Read-through cache
-    return from(this.redis.get(key)).pipe(
+    return from(redis.get(key)).pipe(
+      // <— use redis
       switchMap((hit: string | null) => {
         if (hit != null) {
           try {
             return of(JSON.parse(hit))
           } catch {
-            // Corrupt entry, fall through to recompute
+            /* corrupt entry, fall through */
           }
         }
         return next.handle().pipe(
           tap(async (value: unknown) => {
             try {
               const payload = JSON.stringify(value)
-              // Your RedisClient.set signature is (key, value, ttlSeconds?)
-              await this.redis!.set(key, payload, ttl)
+              await redis.set(key, payload, ttl) // <— no non-null assertion
             } catch {
-              // never block response on cache write issues
+              /* never block response on cache write issues */
             }
           })
         )
@@ -167,7 +167,7 @@ export class RedisCacheInterceptor implements NestInterceptor {
       u: url,
       h: varyParts,
       uid: userId,
-      ttl,
+      ttl
     })
     const digest = shortHash(raw)
     return `${this.cfg.prefix}:${digest}`

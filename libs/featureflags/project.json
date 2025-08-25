@@ -1,5 +1,5 @@
 {
-  "name": "featureflags",
+  "name": "@helixai/featureflags",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/featureflags/src",
   "projectType": "library",

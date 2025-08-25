@@ -51,11 +51,14 @@ export class CacheRepository {
     if (raw == null) return null
     try {
       return JSON.parse(raw) as T
-    } catch {
+    } catch (err) {
       // Corrupt/legacy value; best effort delete to avoid repeated errors
       try {
         await this.del(key)
-      } catch {}
+      } catch (err) {
+        /* ignore */
+        console.warn(`Failed to parse JSON for key "${key}": ${String(err)}`)
+      }
       return null
     }
   }
@@ -123,8 +126,9 @@ export class CacheRepository {
 
   /** Fallback multi-get using individual GET calls (no pipeline required). */
   async mget(keys: string[]): Promise<(string | null)[]> {
-    if (!this.redis || keys.length === 0) return Array(keys.length).fill(null)
-    const results = await Promise.all(keys.map((k) => this.redis!.get(k)))
+    const redis = this.redis // narrow
+    if (!redis || keys.length === 0) return Array(keys.length).fill(null)
+    const results = await Promise.all(keys.map((k) => redis.get(k)))
     return results
   }
 

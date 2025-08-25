@@ -6,22 +6,19 @@ import {
   AUDIT_MODULE_OPTIONS,
   AUDIT_ENABLED_DEFAULT,
   REDACT_REPLACEMENT,
-  MAX_DIFF_BYTES,
+  MAX_DIFF_BYTES
 } from './constants'
 import type {
   AuditAction,
   AuditContext,
   AuditResource,
-  AuditWriteOptions,
+  AuditWriteOptions
 } from './types/audit.types'
 import { makeAuditDiff } from './utils/diff.util'
 import { redact as defaultRedact } from './utils/redact.util'
 
 // Import your entity & the enum as VALUES (not just types)
-import {
-  AuditLog,
-  AuditAction as DBAuditAction,
-} from '../../../db/src/lib/entities/audit-log.entity'
+import { AuditLog, AuditAction as DBAuditAction } from '@helixai/db'
 
 export interface WriteParams {
   /** High-level action label (e.g., "auth.login.success"). Goes into meta. */
@@ -103,7 +100,7 @@ export class AuditService {
             redact: defaultRedact,
             maxBytes: maxDiffBytes,
             replacement,
-            computePatch: true,
+            computePatch: true
           })
         : undefined
 
@@ -114,7 +111,7 @@ export class AuditService {
     } | null = computed
       ? {
           before: (computed.before as Record<string, unknown>) ?? null,
-          after: (computed.after as Record<string, unknown>) ?? null,
+          after: (computed.after as Record<string, unknown>) ?? null
         }
       : null
 
@@ -153,7 +150,7 @@ export class AuditService {
       geo: ctx.geo ?? null,
 
       // custom metadata
-      ...(params.metadata ?? {}),
+      ...(params.metadata ?? {})
     }
 
     const row = this.em.create(AuditLog, {
@@ -163,7 +160,7 @@ export class AuditService {
       entityName,
       entityId,
       diff: dbDiff,
-      meta,
+      meta
     })
 
     await this.em.persistAndFlush(row)
@@ -188,7 +185,7 @@ export class AuditService {
       action,
       outcome: 'failure',
       message: message ?? null,
-      severity: args.severity ?? 'error',
+      severity: args.severity ?? 'error'
     })
   }
 

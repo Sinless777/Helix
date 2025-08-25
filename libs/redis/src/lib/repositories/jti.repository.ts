@@ -58,7 +58,7 @@ export class JtiRepository {
       aud: record?.aud ?? null,
       reason: record?.reason ?? null,
       createdAt: new Date().toISOString(),
-      meta: record?.meta ?? null,
+      meta: record?.meta ?? null
     }
 
     try {
@@ -101,7 +101,9 @@ export class JtiRepository {
       // Corrupt/legacy value; clean up to avoid repeated parse errors
       try {
         await this.redis.del(this.key(jti))
-      } catch {}
+      } catch (err) {
+        console.warn(`Failed to delete corrupted JTI "${jti}": ${String(err)}`)
+      }
       return null
     }
   }
