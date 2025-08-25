@@ -114,6 +114,6 @@
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
   ],
 
-  "postCreateCommand": "bash -lc 'corepack enable && (pnpm i -w --frozen-lockfile || npm ci)'",
+  "postCreateCommand": "bash -lc 'set -Eeuo pipefail; export CI=1; yes | corepack enable || true; corepack prepare pnpm@latest --activate || true; pnpm --version || true; if [ -f pnpm-lock.yaml ]; then pnpm i -w --frozen-lockfile; elif [ -f package-lock.json ]; then npm ci; else echo \"No lockfile found; skipping install\"; fi; pnpm -w nx reset >/dev/null 2>&1 || true'",
   "postStartCommand": "bash -lc 'pnpm -w nx reset >/dev/null 2>&1 || true'"
 }
