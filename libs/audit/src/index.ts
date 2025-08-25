@@ -1,14 +1,22 @@
+// libs/audit/src/index.ts
+// Re-export public API for @helixai/audit
+
+// Core
 export * from './lib/audit.module'
 export * from './lib/audit.service'
 export * from './lib/audit.interceptor'
+export * from './lib/constants'
 
-export { AuditAction } from './lib/decorators/audit-action.decorator'
-export { AuditResource } from './lib/decorators/audit-resource.decorator'
+// Decorators
+export * from './lib/decorators/audit-action.decorator'
+export * from './lib/decorators/audit-resource.decorator'
 
+// Providers
 export * from './lib/providers/audit-context.provider'
 
-export * from './lib/utils/diff.util'
-export * from './lib/utils/redact.util'
+// Types
+export * as AuditTypes from './lib/types/audit.types'
 
-export * from './lib/types/audit.types'
-export * from './lib/constants'
+// Utils
+export * as AuditDiff from './lib/utils/diff.util'
+export * as AuditRedact from './lib/utils/redact.util'
