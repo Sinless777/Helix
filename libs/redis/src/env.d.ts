@@ -35,6 +35,10 @@ declare global {
 
       // Common extras (optional)
       NODE_ENV?: 'development' | 'test' | 'production'
+
+      NEXT_PUBLIC_DEVCYCLE_CLIENT_SDK_KEY?: string
+      DEVCYCLE_SERVER_SDK_KEY?: string
+      EDGE_CONFIG?: string
     }
   }
 }
