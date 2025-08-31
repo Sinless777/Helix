@@ -49,7 +49,7 @@ export const navSections: NavSection[] = [
       {
         id: 'overview',
         label: 'Project Overview',
-        href: '/Docs/About-The-Project/Project_Overview',
+        href: '/Docs/About-The-Project/Project_Overview'
       },
       {
         id: 'vision',
@@ -60,55 +60,55 @@ export const navSections: NavSection[] = [
           {
             id: 'introduction',
             label: 'Introduction',
-            href: '/Docs/About-The-Project/Grand_Vision/Introduction',
+            href: '/Docs/About-The-Project/Grand_Vision/Introduction'
           },
           {
             id: 'roadmap',
             label: 'Roadmap',
-            href: '/Docs/About-The-Project/Grand_Vision/Roadmap',
+            href: '/Docs/About-The-Project/Grand_Vision/Roadmap'
           },
           {
             id: 'milestones',
             label: 'Milestones',
-            href: '/Docs/About-The-Project/Grand_Vision/Milestones',
-          },
-        ],
+            href: '/Docs/About-The-Project/Grand_Vision/Milestones'
+          }
+        ]
       },
       {
         id: 'The Theory',
         label: 'The Theory',
         href: '/Docs/About-The-Project/The_Theory',
         icon: MapIcon,
-        badge: "NEW",
+        badge: 'NEW',
         items: [
           {
             id: 'introduction',
             label: 'Introduction',
-            href: '/Docs/About-The-Project/The_Theory/Introduction',
+            href: '/Docs/About-The-Project/The_Theory/Introduction'
           },
           {
             id: 'Ethical AI and Privacy',
             label: 'Ethical AI and Privacy',
-            href: '/Docs/About-The-Project/The_Theory/Ethical_AI_and_Privacy',
+            href: '/Docs/About-The-Project/The_Theory/Ethical_AI_and_Privacy'
           },
           {
             id: 'philosophy',
             label: 'Philosophy',
-            href: '/Docs/About-The-Project/The_Theory/Philosophy',
+            href: '/Docs/About-The-Project/The_Theory/Philosophy'
           },
           {
             id: 'architecture',
             label: 'Architecture',
-            href: '/Docs/About-The-Project/The_Theory/Architecture',
+            href: '/Docs/About-The-Project/The_Theory/Architecture'
           },
           {
             id: 'nhp',
             label: 'Helix as a Non-Human Person (NHP)',
-            href: '/Docs/About-The-Project/The_Theory/NHP',
+            href: '/Docs/About-The-Project/The_Theory/NHP'
           }
-        ],
-      },
-    ],
+        ]
+      }
+    ]
   },
   {
     id: 'dev-docs',
@@ -118,9 +118,9 @@ export const navSections: NavSection[] = [
         id: 'contributing',
         label: 'Contributing',
         href: '/Docs/Developer-Documentation/Contributing',
-        icon: MapIcon,
-      },
-    ],
+        icon: MapIcon
+      }
+    ]
   },
   {
     id: 'legal',
@@ -132,7 +132,7 @@ export const navSections: NavSection[] = [
         href: '/Docs/Legal/License',
         external: true,
         target: '_blank',
-        rel: 'noopener noreferrer',
+        rel: 'noopener noreferrer'
       },
       {
         id: 'privacy-policy',
@@ -140,7 +140,7 @@ export const navSections: NavSection[] = [
         href: '/Docs/Legal/Privacy_Policy',
         external: true,
         target: '_blank',
-        rel: 'noopener noreferrer',
+        rel: 'noopener noreferrer'
       },
       {
         id: 'terms-of-service',
@@ -148,9 +148,17 @@ export const navSections: NavSection[] = [
         href: '/Docs/Legal/Terms_of_Service',
         external: true,
         target: '_blank',
-        rel: 'noopener noreferrer',
+        rel: 'noopener noreferrer'
       },
-    ],
+      {
+        id: 'credits',
+        label: 'Credits',
+        href: '/Docs/Legal/Credits',
+        external: true,
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }
+    ]
   },
   {
     id: 'refs',
@@ -162,8 +170,8 @@ export const navSections: NavSection[] = [
         href: '/Docs/Legal/Citations',
         external: true,
         target: '_blank',
-        rel: 'noopener noreferrer',
-      },
-    ],
-  },
+        rel: 'noopener noreferrer'
+      }
+    ]
+  }
 ]

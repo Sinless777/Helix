@@ -45,7 +45,7 @@ export default function ContactPage() {
     {
       title: 'Report a Bug',
       description:
-        'Found something that doesn&apos;t work quite right? Let us know and we&apos;ll investigate promptly.',
+        "Found something that doesn't work quite right? Let us know and we'll investigate promptly.",
       link: 'https://github.com/SinLess-Games/Helix-AI/issues/new?template=bug_report.md',
       buttonText: 'Report Bug',
       image: 'https://cdn.sinlessgamesllc.com/Helix-AI/images/Report-a-Bug.png',
