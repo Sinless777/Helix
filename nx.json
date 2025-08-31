@@ -1,21 +1,13 @@
 {
   "installation": {
     "version": "21.3.5",
-    "plugins": {
-      "@nx/eslint": "21.3.5",
-      "@nx/js": "21.3.5"
-    }
+    "plugins": { "@nx/eslint": "21.3.5", "@nx/js": "21.3.5" }
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "defaultBase": "master",
-  "nxCloudId": "6881c3a8e2a4712e1a020e89",
+  "nxCloudId": "68b40ec4cbaace525c9df15f",
   "plugins": [
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
+    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
     {
       "plugin": "@nx/next/plugin",
       "options": {
@@ -27,12 +19,7 @@
         "watchDepsTargetName": "watch-deps"
       }
     },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      }
-    },
+    { "plugin": "@nx/jest/plugin", "options": { "targetName": "test" } },
     {
       "plugin": "@nx/cypress/plugin",
       "options": {
@@ -45,10 +32,7 @@
   ],
   "generators": {
     "@nx/next": {
-      "application": {
-        "style": "@emotion/styled",
-        "linter": "eslint"
-      }
+      "application": { "style": "@emotion/styled", "linter": "eslint" }
     }
   },
   "targetDefaults": {
@@ -57,9 +41,7 @@
       "dependsOn": ["^build"],
       "inputs": ["default", "^default"]
     },
-    "test": {
-      "dependsOn": ["^build"]
-    },
+    "test": { "dependsOn": ["^build"] },
     "@nx/js:tsc": {
       "cache": true,
       "dependsOn": ["^build"],
@@ -67,8 +49,6 @@
     }
   },
   "release": {
-    "version": {
-      "preVersionCommand": "pnpm dlx nx run-many -t build"
-    }
+    "version": { "preVersionCommand": "pnpm dlx nx run-many -t build" }
   }
 }
