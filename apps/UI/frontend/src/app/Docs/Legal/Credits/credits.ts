@@ -69,12 +69,33 @@ export const AccreditationCards: Record<string, AccreditationCard> = {
       // { name: 'Next.js', url: 'https://nextjs.org', logo: '/images/logos/nextjs.svg', alt: 'Next.js' },
       // { name: 'Nx', url: 'https://nx.dev', logo: '/images/logos/nx.svg', alt: 'Nx' },
       // { name: 'MUI', url: 'https://mui.com', logo: '/images/logos/mui.svg', alt: 'MUI' },
+      {
+        name: 'SinLess Games LLC',
+        url: 'https://sinlessgames.com',
+        logo: 'https://cdn.sinlessgamesllc.com/Sinless-Games/images/logos/sinless-games/logo.webp',
+        alt: 'SinLess Games LLC'
+      }
     ],
     people: [
       {
         name: 'Timothy Pierce',
         handle: 'Sinless777',
         role: 'Creator, Owner, Contributor'
+      },
+      {
+        name: 'mend-bolt-for-github[bot]',
+        handle: '',
+        role: 'Automated Dependency Updates'
+      },
+      {
+        name: 'Gidhub Copilot',
+        handle: '',
+        role: 'AI Pair Programming'
+      },
+      {
+        name: 'renovate[bot]',
+        handle: '',
+        role: 'Automated Dependency Updates'
       }
     ],
     tags: ['Libraries', 'Frameworks', 'Packages']

@@ -10,7 +10,8 @@ import {
   CardContent,
   Chip,
   Stack,
-  Divider
+  Divider,
+  useTheme
 } from '@mui/material'
 import Grid from '@mui/material/Grid' // MUI v6 Grid (new API with `size`)
 import {
@@ -26,10 +27,25 @@ import {
 const money = (n?: number) =>
   typeof n === 'number' ? `$${n.toLocaleString()}` : undefined
 
-function OrgLogo({ org }: { org: Org }) {
+type OrgLogoProps = { org: Org; size?: number } // circle diameter (px)
+
+export function OrgLogo({ org, size = 96 }: OrgLogoProps) {
   if (!org.logo) return null
+  const theme = useTheme()
+  const id = React.useId() // ensure unique <path> ids per instance
+
   const src = org.logo as string | StaticImageData
   const alt = org.alt ?? org.name
+
+  // geometry
+  const r = size / 2
+  const gap = Math.max(10, Math.round(size * 0.18)) // distance from circle to arc
+  const R = r + gap // arc radius
+  const svgW = size + 16
+  const svgH = r + gap + 26 // enough room for arc + circle
+
+  // font sizing tuned to arc length
+  const fontSize = Math.max(10, Math.round(size * 0.18))
 
   return (
     <Box
@@ -37,28 +53,75 @@ function OrgLogo({ org }: { org: Org }) {
       href={org.url ?? '#'}
       target={org.url ? '_blank' : undefined}
       rel={org.url ? 'noopener noreferrer' : undefined}
+      aria-label={org.url ? `${org.name} (opens in new tab)` : org.name}
       sx={{
         display: 'inline-flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        textDecoration: 'none',
         p: 1,
         borderRadius: 2,
-        border: '1px solid',
-        borderColor: 'divider',
-        bgcolor: 'background.paper',
-        width: 140,
-        height: 56,
-        overflow: 'hidden',
-        textDecoration: 'none'
+        transition: 'transform .2s ease, box-shadow .2s ease',
+        '&:hover, &:focus-visible': {
+          transform: 'translateY(-2px)',
+          boxShadow: 6
+        },
+        outline: 'none'
       }}
     >
-      <Image
-        src={src}
-        alt={alt}
-        width={128}
-        height={40}
-        style={{ objectFit: 'contain', width: '100%', height: 'auto' }}
-      />
+      {/* CIRCULAR LOGO */}
+      <Box
+        className="orgRing"
+        sx={{
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          display: 'grid',
+          placeItems: 'center',
+          bgcolor: 'background.paper',
+          boxShadow:
+            theme.palette.mode === 'dark'
+              ? 'inset 0 0 0 1px rgba(255,255,255,0.08)'
+              : 'inset 0 0 0 1px rgba(0,0,0,0.08)',
+          position: 'relative',
+          transition: 'box-shadow .2s ease',
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            inset: 0,
+            borderRadius: '50%',
+            boxShadow: `0 0 0 2px ${theme.palette.divider} inset`,
+            pointerEvents: 'none'
+          },
+          '&:hover, :focus-visible': {
+            boxShadow: `0 0 0 2px ${theme.palette.primary.main} inset`
+          }
+        }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          width={size}
+          height={size}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block'
+          }}
+        />
+      </Box>
+
+      {/* Hover color cue for the arc label */}
+      <style jsx>{`
+        :global(a:hover .orgArcText),
+        :global(a:focus-visible .orgArcText),
+        :global(div:hover .orgArcText),
+        :global(div:focus-visible .orgArcText) {
+          fill: ${theme.palette.primary.main};
+        }
+      `}</style>
     </Box>
   )
 }
