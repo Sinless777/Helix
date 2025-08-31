@@ -1,0 +1,9 @@
+{
+  "name": "@helixai/db",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/db/src",
+  "projectType": "library",
+  "tags": ["type:lib", "scope:server", "domain:identity", "layer:data"],
+  "// targets": "to see all targets run: nx show project db --web",
+  "targets": {}
+}

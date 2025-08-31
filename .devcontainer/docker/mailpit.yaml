@@ -1,0 +1,20 @@
+services:
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mailpit
+    restart: unless-stopped
+    environment:
+      # Keep the most recent 5000 emails (0 disables pruning)
+      MP_MAX_MESSAGES: "5000"
+      # Persist Mailpit's DB so messages survive container restarts
+      MP_DATA_FILE: "/data/mailpit.db"
+      # Optional auth for the UI (uncomment & provide a bcrypt htpasswd file)
+      # MP_UI_AUTH_FILE: "/data/authfile"
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    volumes:
+      - mailpit-data:/data
+
+volumes:
+  mailpit-data:

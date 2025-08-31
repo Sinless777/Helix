@@ -1,0 +1,68 @@
+<!-- libs/email/src/lib/templates/emails/verify-email.html -->
+<!-- Content section: place inside the base layout's main content cell -->
+<h1 style="margin: 0 0 8px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; font-weight: 700; font-size: 24px; line-height: 32px; color: #0f172a;">
+  Verify your email
+</h1>
+
+<p style="margin: 0 0 16px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; font-size: 14px; line-height: 22px; color: #334155;">
+  Hi {{ userName | default('there') }},<br />
+  Please confirm your email address to finish setting up your
+  {{ companyName | default('Helix') }} account.
+</p>
+
+<!-- Primary action button -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 0 0 16px 0;">
+  <tr>
+    <td align="center" bgcolor="#2563eb" style="border-radius: 6px;">
+      <a
+        href="{{ verifyUrl | default('#') }}"
+        target="_blank"
+        style="display: inline-block; padding: 12px 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; font-weight: 600; font-size: 14px; line-height: 14px; color: #ffffff; text-decoration: none; border-radius: 6px;"
+      >
+        Confirm email
+      </a>
+    </td>
+  </tr>
+</table>
+
+<!-- Code block fallback (for apps that ask user to enter a code) -->
+<p style="margin: 0 0 6px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; font-size: 12px; line-height: 18px; color: #475569;">
+  Or enter this code:
+</p>
+<div style="margin: 0 0 16px 0; display: inline-block; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc;">
+  <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-weight: 700; font-size: 18px; letter-spacing: 6px; color: #0f172a;">
+    {{ verifyCode | default('— — — — — —') }}
+  </span>
+</div>
+
+<!-- Plain URL fallback (for clients where buttons don’t work) -->
+<p style="margin: 0 0 16px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; font-size: 12px; line-height: 20px; color: #64748b;">
+  If the button above doesn’t work, copy and paste this link into your browser:<br />
+  <a
+    href="{{ verifyUrl | default('#') }}"
+    target="_blank"
+    style="color: #2563eb; text-decoration: underline; word-break: break-all;"
+  >
+    {{ verifyUrl | default('https://example.com/verify') }}
+  </a>
+</p>
+
+<!-- Expiration / security note -->
+<p style="margin: 0 0 16px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; font-size: 12px; line-height: 20px; color: #64748b;">
+  This link and code will expire in {{ expiresMinutes | default('15') }} minutes.
+  If you didn’t request this, you can safely ignore this email or contact
+  <a
+    href="mailto:{{ supportEmail | default('support@example.com') }}"
+    style="color: #2563eb; text-decoration: none;"
+  >
+    {{ supportEmail | default('support@example.com') }}
+  </a>.
+</p>
+
+<hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 16px 0;" />
+
+<!-- Footer inline note (kept minimal; your main footer partial handles the rest) -->
+<p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; font-size: 12px; line-height: 18px; color: #94a3b8;">
+  Sent to {{ email | default('you@example.com') }} for
+  {{ companyName | default('Helix') }}.
+</p>

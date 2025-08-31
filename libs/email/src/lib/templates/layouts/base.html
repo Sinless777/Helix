@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block subject %}{{ subject | default('') }}{% endblock %}</title>
+
+    <!-- Dark mode hints for clients (meta is preferred over nonstandard CSS props) -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+
+    <!--
+      Note: Keep template tokens out of CSS values to avoid editor diagnostics.
+      Use HTML attributes (bgcolor/src/inner text) for dynamic values.
+    -->
+    <style type="text/css">
+      /* Modern clients */
+      :root {
+        color-scheme: light dark; /* standard, OK for linters */
+      }
+      /* iOS link fixes */
+      a[x-apple-data-detectors] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+      /* Generic table reset (Outlook-specific rules moved to MSO conditional) */
+      table {
+        border-spacing: 0;
+        border-collapse: separate;
+      }
+      img {
+        -ms-interpolation-mode: bicubic;
+        border: 0;
+        outline: none;
+        text-decoration: none;
+        display: block;
+      }
+      /* Mobile */
+      @media only screen and (max-width: 640px) {
+        .container {
+          width: 100% !important;
+          margin: 0 !important;
+          border-radius: 0 !important;
+        }
+        .p-24 {
+          padding: 16px !important;
+        }
+        .logo {
+          max-width: 40px !important;
+        }
+      }
+      /* Hidden preheader teaser text (Outlook-specific mso-hide is in MSO block) */
+      .preheader {
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        color: transparent;
+        height: 0;
+        width: 0;
+        overflow: hidden;
+      }
+    </style>
+
+    <!--[if mso]>
+      <style type="text/css">
+        /* Outlook-only CSS: place here to avoid editor warnings */
+        table { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        .preheader { mso-hide: all !important; }
+      </style>
+    <![endif]-->
+  </head>
+
+  <body
+    bgcolor="{{ bgColor | default('#0b0d12') }}"
+    style="
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      background-color: #0b0d12; /* static fallback */
+      color: #e5e7eb;            /* static fallback */
+      font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    "
+  >
+    <!-- Preheader: shows as preview in many clients -->
+    <div class="preheader">
+      {% block preheader %}{{ preheader | default('') }}{% endblock %}
+    </div>
+
+    <!-- Full-bleed background wrapper -->
+    <table
+      role="presentation"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      bgcolor="{{ bgColor | default('#0b0d12') }}"
+      style="background-color: #0b0d12;"
+    >
+      <tr>
+        <td align="center" style="padding: 24px;">
+          <!-- Centered container -->
+          <table
+            role="presentation"
+            width="600"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            class="container"
+            bgcolor="{{ panelColor | default('#0f172a') }}"
+            style="
+              width: 600px;
+              max-width: 600px;
+              background-color: #0f172a;
+              border: 1px solid #1f2937;
+              border-radius: 16px;
+              overflow: hidden;
+            "
+          >
+            <!-- Header / Brand bar -->
+            <tr>
+              <td
+                bgcolor="{{ brandColor | default('#7c3aed') }}"
+                style="
+                  padding: 16px 20px;
+                  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+                "
+              >
+                <table role="presentation" width="100%">
+                  <tr>
+                    <td align="left" valign="middle" style="vertical-align: middle;">
+                      <table role="presentation">
+                        <tr>
+                          <td style="vertical-align: middle;">
+                            <img
+                              class="logo"
+                              src="{{ logoSrc | default('cid:app-logo') }}"
+                              alt="{{ brandName | default('Helix') }} Logo"
+                              width="48"
+                              height="48"
+                              style="border-radius: 8px;"
+                            />
+                          </td>
+                          <td style="width: 12px;"></td>
+                          <td
+                            style="
+                              font-size: 18px;
+                              font-weight: 700;
+                              color: #ffffff;
+                              letter-spacing: 0.2px;
+                            "
+                          >
+                            {{ brandName | default('Helix') }}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td align="right" valign="middle" style="vertical-align: middle;">
+                      <span
+                        style="
+                          font-size: 12px;
+                          color: #ffffffcc;
+                          font-weight: 500;
+                        "
+                        >{{ tagline | default('') }}</span
+                      >
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Content -->
+            <tr>
+              <td class="p-24" style="padding: 24px;">
+                {% block content %}
+                <h1
+                  style="
+                    margin: 0 0 8px 0;
+                    font-size: 22px;
+                    line-height: 1.3;
+                    color: #e5e7eb;
+                  "
+                >
+                  {{ heading | default(subject | default('')) }}
+                </h1>
+
+                {% if intro %}
+                <p
+                  style="
+                    margin: 0 0 16px 0;
+                    font-size: 14px;
+                    line-height: 1.6;
+                    color: #94a3b8;
+                  "
+                >
+                  {{ intro }}
+                </p>
+                {% endif %}
+
+                {% if bodyHtml %}
+                  {{ bodyHtml | safe }}
+                {% else %}
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 14px;
+                      line-height: 1.7;
+                      color: #e5e7eb;
+                    "
+                  >
+                    {% block body %}{% endblock %}
+                  </p>
+                {% endif %}
+
+                {% if ctaHref and ctaText %}
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top: 20px;">
+                  <tr>
+                    <td
+                      align="center"
+                      bgcolor="{{ buttonBg | default('#7c3aed') }}"
+                      style="
+                        border-radius: 10px;
+                        background-color: #7c3aed;
+                      "
+                    >
+                      <a
+                        href="{{ ctaHref }}"
+                        target="_blank"
+                        style="
+                          display: inline-block;
+                          padding: 12px 18px;
+                          font-size: 14px;
+                          font-weight: 700;
+                          color: #ffffff;
+                          text-decoration: none;
+                          border-radius: 10px;
+                        "
+                        >{{ ctaText }}</a
+                      >
+                    </td>
+                  </tr>
+                </table>
+                {% endif %}
+
+                {% endblock %}
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td
+                style="
+                  padding: 16px 20px;
+                  border-top: 1px solid #1f2937;
+                "
+              >
+                {% block footer %}
+                <p
+                  style="
+                    margin: 0 0 6px 0;
+                    font-size: 12px;
+                    line-height: 1.6;
+                    color: #94a3b8;
+                  "
+                >
+                  © {{ year | default((new Date()).getFullYear()) }} {{ brandName | default('Helix') }}. All rights reserved.
+                </p>
+                {% if supportEmail %}
+                <p
+                  style="
+                    margin: 0;
+                    font-size: 12px;
+                    line-height: 1.6;
+                    color: #94a3b8;
+                  "
+                >
+                  Need help?
+                  <a
+                    href="mailto:{{ supportEmail }}"
+                    style="color: #a78bfa; text-decoration: none;"
+                    >{{ supportEmail }}</a
+                  >
+                </p>
+                {% endif %}
+                {% endblock %}
+              </td>
+            </tr>
+          </table>
+
+          <!-- Bottom spacer -->
+          <div style="height: 24px; line-height: 24px;">&nbsp;</div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

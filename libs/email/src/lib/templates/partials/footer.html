@@ -1,0 +1,77 @@
+<!-- libs/email/src/lib/templates/partials/footer.html -->
+<tr>
+  <td
+    bgcolor="#0b1020"
+    style="padding: 24px 20px;"
+  >
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+      <!-- Links row -->
+      <tr>
+        <td align="center" style="font-size: 12px; line-height: 18px; color: #cbd5e1;">
+          <a
+            href="{{ webUrl | default('#') }}"
+            target="_blank"
+            style="color: #cbd5e1; text-decoration: none; font-weight: 600;"
+          >
+            {{ companyName | default('Helix') }}
+          </a>
+          <span style="color:#64748b;">&nbsp;•&nbsp;</span>
+          <a
+            href="mailto:{{ supportEmail | default('support@example.com') }}"
+            style="color: #cbd5e1; text-decoration: none;"
+          >
+            Support
+          </a>
+          <span style="color:#64748b;">&nbsp;•&nbsp;</span>
+          <a
+            href="{{ preferencesUrl | default('#') }}"
+            target="_blank"
+            style="color: #cbd5e1; text-decoration: none;"
+          >
+            Email Preferences
+          </a>
+          <span style="color:#64748b;">&nbsp;•&nbsp;</span>
+          <a
+            href="{{ unsubscribeUrl | default('#') }}"
+            target="_blank"
+            style="color: #cbd5e1; text-decoration: none;"
+          >
+            Unsubscribe
+          </a>
+        </td>
+      </tr>
+
+      <!-- Address row -->
+      <tr>
+        <td align="center" style="padding-top: 8px; font-size: 12px; line-height: 18px; color: #94a3b8;">
+          {{ companyAddress | default('123 Example St') }},
+          {{ companyCity | default('Example City') }},
+          {{ companyState | default('EX') }}
+          {{ companyZip | default('12345') }}
+        </td>
+      </tr>
+
+      <!-- Legal / © row -->
+      <tr>
+        <td align="center" style="padding-top: 8px; font-size: 12px; line-height: 18px; color: #64748b;">
+          © {{ year | default('2025') }}
+          {{ companyName | default('Helix') }}. All rights reserved.
+        </td>
+      </tr>
+
+      <!-- Reason row -->
+      <tr>
+        <td align="center" style="padding-top: 8px; font-size: 12px; line-height: 18px; color: #64748b;">
+          You’re receiving this email because you have an account with
+          {{ companyName | default('Helix') }}. If this wasn’t you, please contact
+          <a
+            href="mailto:{{ securityEmail | default('security@example.com') }}"
+            style="color: #cbd5e1; text-decoration: none;"
+          >
+            {{ securityEmail | default('security@example.com') }}
+          </a>.
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
