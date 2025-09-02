@@ -1,3 +1,3 @@
-import { BotColors, SystemColors, HelixColors } from './colors'
-
-export { SystemColors, BotColors, HelixColors }
+export * as ColorTypes from './colors.type'
+export * as ColorUtils from './utils'
+export * from './colors'

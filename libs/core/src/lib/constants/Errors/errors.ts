@@ -1,11 +1,27 @@
-import { errCodes } from './error.type'
+// libs/core/src/lib/constants/Errors/errors.ts
+import {
+  defineErrors,
+  type errCodes,
+  type CollectCodes,
+  type CollectPaths
+} from './error.type.js'
 
-export const ErrorCodes: errCodes = {
+/** The canonical error registry */
+export const ErrorCodes = defineErrors({
   // S-xxx
   System: {
     // S-1xx
     api: {
       AUTH_SERVER_DOWN: 100,
+      INVALID_REQUEST: 101,
+      UNAUTHORIZED: 102,
+      FORBIDDEN: 103,
+      NOT_FOUND: 104,
+      TIMEOUT: 105,
+      RATE_LIMITED: 106,
+      INTERNAL_ERROR: 107,
+      BAD_GATEWAY: 108,
+      SERVICE_UNAVAILABLE: 109
     },
     // S-2xx
     database: null,
@@ -40,7 +56,7 @@ export const ErrorCodes: errCodes = {
       US_CENTRAL_DOWN: 522,
       US_EAST_DOWN: 523,
       US_SOUTH_DOWN: 524,
-      US_WEST_DOWN: 525,
+      US_WEST_DOWN: 525
     },
     // S-6xx
     discordApi: null,
@@ -59,78 +75,96 @@ export const ErrorCodes: errCodes = {
       AUTHORITATIVE_DNS_DOWN: 808,
       DNS_ROOT_SERVERS_DOWN: 809,
       DNS_UPDATES_DOWN: 810,
-      RECURSIVE_DNS_DOWN: 811,
-    },
+      RECURSIVE_DNS_DOWN: 811
+    }
   },
   // B-xxx
   Bot: {
-    // B-0-1xx
+    // Keep your placeholders as null for now (tests expect null)
     AFK: null,
-    // B-0-2xx
     ActionLog: null,
-    // B-0-3xx
     Announcements: null,
-    // B-0-4xx
     AntiRaid: null,
-    // B-0-5xx
     AntiSpam: null,
-    // B-0-6xx
     AutoBan: null,
-    // B-0-7xx
     AutoMessage: null,
-    // B-0-8xx
     AutoMod: null,
-    // B-0-9xx
     AutoPurge: null,
-    // B-1-1xx
     AutoResponder: null,
-    // B-1-2xx
     AutoRoles: null,
-    // B-1-3xx
     Forms: null,
-    // B-1-4xx
     Giveaways: null,
-    // B-1-5xx
     Highlights: null,
-    // B-1-6xx
     Leveling: null,
-    // B-1-7xx
     Logging: null,
-    // B-1-8xx
     MessageEmbedder: null,
-    // B-1-9xx
     Moderation: null,
-    // B-2-1xx
     Music: null,
-    // B-2-2xx
     Polls: null,
-    // B-2-3xx
     Protection: null,
-    // B-2-4xx
     ReactionRoles: null,
-    // B-2-5xx
     Reddit: null,
-    // B-2-6xx
     SlowMode: null,
-    // B-2-7xx
     Starboard: null,
-    // B-2-8xx
     Suggestions: null,
-    // B-2-9xx
     Tags: null,
-    // B-3-1xx
     TemporaryChannels: null,
-    // B-3-2xx
     Tickets: null,
-    // B-3-3xx
     Tupper: null,
-    // B-3-4xx
     Twitch: null,
-    // B-3-5xx
     Utility: null,
-    // B-3-6xx
     Welcome: null,
-    // B-3-7xx
-    Youtube: null,
-  },
+    Youtube: null
+  }
+} as const satisfies errCodes)
+
+/** --------- Strongly-typed helpers (auto-derived) --------- */
+
+/** Union of all known numeric codes (e.g., 100 | 500 | 501 | ...) */
+export type KnownErrorCode = CollectCodes<typeof ErrorCodes>
+
+/** Union of all valid path strings (e.g., "System.discord.API_DOWN") */
+export type KnownErrorPath = CollectPaths<typeof ErrorCodes>
+
+/** Build a flat map { "System.discord.API_DOWN": 500, ... } for lookups */
+function buildFlatMap(
+  node: unknown,
+  prefix = '',
+  out: Record<string, number> = {}
+): Record<string, number> {
+  if (typeof node === 'number') {
+    out[prefix] = node
+    return out
+  }
+  if (node && typeof node === 'object') {
+    for (const [k, v] of Object.entries(node as Record<string, unknown>)) {
+      if (v === null) continue // skip placeholders
+      const next = prefix ? `${prefix}.${k}` : k
+      buildFlatMap(v, next, out)
+    }
+  }
+  return out
+}
+
+const __FLAT = buildFlatMap(ErrorCodes)
+
+/** Get code by its dotted path (fully typed if you use KnownErrorPath) */
+export function getErrorCode(
+  path: KnownErrorPath | string
+): number | undefined {
+  return __FLAT[path]
+}
+
+/** Reverse lookup: find the path name for a numeric code */
+export function getErrorPathByCode(code: number): KnownErrorPath | undefined {
+  // O(n) over map size; tiny map so fine. Could cache a reverse map if desired.
+  for (const [k, v] of Object.entries(__FLAT)) {
+    if (v === code) return k as KnownErrorPath
+  }
+  return undefined
+}
+
+/** Type guard: is this number one of our known codes? */
+export function isKnownErrorCode(code: number): code is KnownErrorCode {
+  return getErrorPathByCode(code) !== undefined
 }

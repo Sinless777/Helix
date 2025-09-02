@@ -5,6 +5,7 @@
     "declaration": true,
     "types": ["node"],
     "target": "es2021",
+    "module": "NodeNext",
     "strictNullChecks": true,
     "noImplicitAny": true,
     "strictBindCallApply": true,

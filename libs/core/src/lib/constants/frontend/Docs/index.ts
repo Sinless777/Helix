@@ -1,7 +1,19 @@
+// libs/core/src/lib/constants/frontend/Docs/navigation.ts
+
+// Core navigation sections (defined in this folder)
 export { type NavItem, type NavSection, navSections } from './navigation'
-export { type APACitation, type CitationPageData, Citations } from './citations'
+
+// Citations
+export type { APACitation, CitationPageData } from './citations'
+export { Citations } from './citations'
+
+// Roadmap & Grand Vision
 export type { Phase, Task } from './grand_vision'
+export {
+  KeyValuePillars,
+  RoadmapPhases,
+  InnovationCriteria
+} from './grand_vision'
 
-export { KeyValuePillars, RoadMap, InnovationCriteria } from './grand_vision'
-
-export { nodes, edges } from './developer'
+// Developer Docs (Git Flow diagram)
+export { ContributingFlowNodes, ContributingFlowEdges } from './developer'

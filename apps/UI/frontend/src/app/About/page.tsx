@@ -8,7 +8,7 @@ const orderMap: Record<string, number> = {
   'Meet the Team': 1,
   'Who We Are': 2,
   'Our Mission': 3,
-  'Our Story': 4,
+  'Our Story': 4
 }
 
 export default function AboutPage() {
@@ -41,14 +41,14 @@ export default function AboutPage() {
                   color: 'white',
                   backgroundColor: 'rgba(0, 0, 0, 0.3)',
                   borderRadius: 2,
-                  p: 3,
+                  p: 3
                 }}
               >
                 <Typography variant="h5" component="h2" gutterBottom>
                   {sec.title}
                 </Typography>
                 <Typography component="div" variant="body1" color="white">
-                  {sec.content}
+                  {sec.paragraphs}
                 </Typography>
               </Box>
             </Grid>
