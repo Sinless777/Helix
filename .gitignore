@@ -1,0 +1,116 @@
+# ─────────────────────────────────────────────
+# Helix / Nx Monorepo
+# ─────────────────────────────────────────────
+
+# Nx & build outputs
+dist/
+out/
+.next/
+tmp/
+.cache/
+build/
+coverage/
+reports/
+test-output/
+
+# Generated libs/assets
+*.tsbuildinfo
+*.log
+*.pid
+*.seed
+*.tgz
+*.swp
+
+
+# Local runtime data
+null
+
+# ─────────────────────────────────────────────
+# Node / pnpm
+# ─────────────────────────────────────────────
+node_modules/
+.pnp.*
+.pnpm-store/
+.npm/
+.yarn/
+.yarnrc.yml
+yarn-error.log
+
+# Lockfiles (keep one per policy)
+# package-lock.json
+# yarn.lock
+
+# ─────────────────────────────────────────────
+# Environment & secrets
+# ─────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.local.example
+
+# SOPS encrypted files
+*.sops.yaml
+*.sops.yml
+*.sops.json
+*.sops.env
+
+# ─────────────────────────────────────────────
+# IDEs & editors
+# ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.code-workspace
+
+# OS junk
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+*.tmp
+
+# ─────────────────────────────────────────────
+# Logs & diagnostics
+# ─────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+*.stackdump
+
+# ─────────────────────────────────────────────
+# Docker & local containers
+# ─────────────────────────────────────────────
+.docker/
+docker-compose.override.yml
+*.tar
+*.img
+*.qcow2
+
+# ─────────────────────────────────────────────
+# Local development tooling
+# ─────────────────────────────────────────────
+.envrc
+.direnv
+.local/
+.secret/
+.mitmproxy/
+
+# ─────────────────────────────────────────────
+# JetBrains / VS / Misc
+# ─────────────────────────────────────────────
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+*.vs/
+.vscode-test/
+
+# ─────────────────────────────────────────────
+# Mac/Linux temp
+# ─────────────────────────────────────────────
+*~
+.trash/
+.nfs*
