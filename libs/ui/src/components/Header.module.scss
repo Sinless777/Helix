@@ -1,0 +1,140 @@
+/* Header.module.scss */
+
+/* Import brand font */
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
+
+/* Base header styling */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #fff;
+  background: var(--header-gradient);
+  box-shadow: var(--header-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.75rem 2rem;
+}
+
+.header.scrolled {
+  background: var(--header-blur-bg);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Typography */
+.pinyon {
+  font-family: 'Pinyon Script', cursive;
+}
+
+/* Sections */
+.leftSection {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 1.25rem;
+}
+
+.middleSection {
+  flex: 1;
+  text-align: center;
+}
+
+.navSection {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+}
+
+/* Version link */
+.versionLink {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 0.25rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 0 6px rgba(2, 35, 113, 0.6);
+  }
+}
+
+/* Navigation list */
+.navList {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    button,
+    a {
+      color: #fff;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: none;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: #f6066f;
+      }
+
+      &.active {
+        font-weight: 700;
+        border-bottom: 2px solid #f6066f;
+      }
+    }
+  }
+}
+
+/* Mobile menu button */
+.menuButton {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #fff;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .navList {
+    display: none;
+  }
+
+  .navList.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 1.5rem;
+    top: 4.5rem;
+    background: rgba(2, 35, 113, 0.9);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .menuButton {
+    display: block;
+  }
+}

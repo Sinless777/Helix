@@ -1,0 +1,16 @@
+{
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "../hypertune"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ],
+  "extends": "../../tsconfig.base.json"
+}

@@ -1,0 +1,42 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/libs/ui",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": [
+      "node",
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts",
+      "next",
+      "@nx/next/typings/image.d.ts"
+    ],
+    "jsx": "react-jsx",
+    "tsBuildInfoFile": "../../dist/tmp/libs/ui/tsconfig.lib.tsbuildinfo",
+    "disableSourceOfProjectReferenceRedirect": true
+  },
+  "references": [
+    {
+      "path": "../config/tsconfig.lib.json"
+    },
+    {
+      "path": "../hypertune/tsconfig.lib.json"
+    }
+  ],
+  "exclude": [
+    "out-tsc",
+    "dist",
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.tsx",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.js",
+    "src/**/*.test.js",
+    "src/**/*.spec.jsx",
+    "src/**/*.test.jsx",
+    "eslint.config.js",
+    "eslint.config.cjs",
+    "eslint.config.mjs"
+  ],
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+}

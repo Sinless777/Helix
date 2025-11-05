@@ -1,0 +1,115 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "frontend",
+  "projectType": "application",
+  "sourceRoot": "apps/frontend/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^build"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        {
+          "externalDependencies": ["next"]
+        }
+      ],
+      "outputs": ["{workspaceRoot}/dist/apps/frontend"],
+      "options": {
+        "cwd": "apps/frontend",
+        "tty": false,
+        "command": "next build"
+      },
+      "syncGenerators": ["@nx/js:typescript-sync"],
+      "parallelism": true,
+      "configurations": {}
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "continuous": true,
+      "options": {
+        "cwd": "apps/frontend",
+        "command": "next dev"
+      },
+      "syncGenerators": ["@nx/js:typescript-sync"],
+      "parallelism": true,
+      "configurations": {}
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "continuous": true,
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "apps/frontend",
+        "command": "next start"
+      },
+      "configurations": {},
+      "parallelism": true
+    },
+    "serve-static": {
+      "executor": "nx:run-commands",
+      "continuous": true,
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "apps/frontend",
+        "command": "next start"
+      },
+      "configurations": {},
+      "parallelism": true
+    },
+    "build-deps": {
+      "executor": "nx:noop",
+      "dependsOn": ["^build"],
+      "options": {},
+      "configurations": {},
+      "parallelism": true
+    },
+    "watch-deps": {
+      "executor": "nx:run-commands",
+      "continuous": true,
+      "dependsOn": ["build-deps"],
+      "options": {
+        "command": "pnpm exec nx watch --projects frontend --includeDependentProjects -- pnpm exec nx build-deps frontend"
+      },
+      "configurations": {},
+      "parallelism": true
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/eslint.config.mjs",
+        "{workspaceRoot}/apps/frontend/eslint.config.mjs",
+        "{workspaceRoot}/tools/eslint-rules/**/*",
+        {
+          "externalDependencies": ["eslint"]
+        }
+      ],
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "cwd": "apps/frontend",
+        "command": "eslint ."
+      },
+      "metadata": {
+        "technologies": ["eslint"],
+        "description": "Runs ESLint on project",
+        "help": {
+          "command": "pnpm exec eslint --help",
+          "example": {
+            "options": {
+              "max-warnings": 0
+            }
+          }
+        }
+      },
+      "syncGenerators": ["@nx/js:typescript-sync"],
+      "configurations": {},
+      "parallelism": true
+    }
+  },
+  "tags": ["npm:private"],
+  "implicitDependencies": []
+}

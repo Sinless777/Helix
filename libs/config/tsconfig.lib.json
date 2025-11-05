@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dist/libs/config",
+    "tsBuildInfoFile": "../../dist/tmp/libs/config/tsconfig.lib.tsbuildinfo",
+    "emitDeclarationOnly": false,
+    "module": "es2022",
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"],
+  "references": []
+}

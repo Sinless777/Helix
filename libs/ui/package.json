@@ -1,0 +1,29 @@
+{
+  "name": "@helix/ui",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.esm.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.esm.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "Helix": "./src/index.ts",
+      "types": "./dist/index.esm.d.ts",
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.esm.js"
+    }
+  },
+  "dependencies": {
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "@grafana/faro-web-sdk": "^1.19.0",
+    "@grafana/faro-web-tracing": "^1.19.0",
+    "@mui/icons-material": "^7.3.5",
+    "@mui/material": "^7.3.5",
+    "@vercel/edge-config": "^1.4.3",
+    "hypertune": "^2.10.0",
+    "material": "link:@mui/icons/material",
+    "server-only": "^0.0.1"
+  }
+}

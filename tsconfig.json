@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/frontend-e2e"
+    },
+    {
+      "path": "./apps/frontend"
+    },
+    {
+      "path": "./apps/services/user-e2e"
+    },
+    {
+      "path": "./apps/services/user"
+    },
+    {
+      "path": "./libs/db"
+    },
+    {
+      "path": "./libs/ui"
+    },
+    {
+      "path": "./libs/config"
+    },
+    {
+      "path": "./libs/hypertune"
+    }
+  ]
+}

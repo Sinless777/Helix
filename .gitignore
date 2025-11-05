@@ -114,3 +114,12 @@ docker-compose.override.yml
 *~
 .trash/
 .nfs*
+
+# ─────────────────────────────────────────────
+# NX specific
+# ─────────────────────────────────────────────
+# Ignore generated files from Nx plugins
+libs/**/src/generated/
+apps/**/src/generated/
+
+.nx/
