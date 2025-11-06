@@ -17,7 +17,7 @@ export default function HypertuneProvider({
   dehydratedState,
   rootArgs,
   children,
-}: HypertuneProviderProps): React.ReactElement {
+}: HypertuneProviderProps) {
   // If you still need the result of getHypertune, call it here or elsewhere:
   // e.g. const root = await getHypertune();
 

@@ -1,19 +1,16 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
-import { Header, HelixCard } from '@helix/ui';  // using @helix/ui exports
+import { Header, HelixCard } from '@helix/ui'; // using @helix/ui exports
 import type { CardProps, ListItemProps } from '@helix/ui';
 import { headerProps } from '../../../content/header';
 import * as technology from '../../../content/technology';
 
-type PageProps = {
-  params: { link: string };
-};
-
 // Ensure leading slash + lowercase for robust comparisons
 function norm(path: string) {
-  const p = path.startsWith('/') ? path : `/${path}`;
+  const p = path?.startsWith('/') ? path : `/${path ?? ''}`;
   return p.toLowerCase();
 }
 
@@ -21,9 +18,10 @@ function getAllCards(): CardProps[] {
   return (Object.values(technology).flat() as CardProps[]).filter(Boolean);
 }
 
-export default function Page({ params }: PageProps) {
-  const { link } = params;
-  const slug = decodeURIComponent(link || '');
+export default function Page() {
+  const params = useParams<{ link: string }>();
+  const link = params?.link ?? '';
+  const slug = decodeURIComponent(link);
   const target = norm(`/technology/${slug}`);
 
   const allCards = getAllCards();

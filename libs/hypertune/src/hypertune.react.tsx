@@ -7,19 +7,36 @@ import { useRouter } from "next/navigation";
 import * as hypertune from "./hypertune";
 import * as sdk from "hypertune";
 
-// Hypertune
-
-export function HypertuneProvider({
-  createSourceOptions,
-  dehydratedState,
-  rootArgs,
-  children,
-}: {
+type HypertuneProviderProps = {
   createSourceOptions: hypertune.CreateSourceOptions;
   dehydratedState?: hypertune.DehydratedState | null;
   rootArgs: hypertune.RootArgs;
   children: React.ReactNode;
-}): React.ReactElement {
+};
+
+type HypertuneSourceProviderProps = {
+  createSourceOptions: hypertune.CreateSourceOptions;
+  children: React.ReactNode;
+};
+
+type HypertuneRootProviderProps = {
+  rootArgs: hypertune.RootArgs;
+  children: React.ReactNode;
+};
+
+type HypertuneHydratorProps = {
+  dehydratedState?: hypertune.DehydratedState | null;
+  children?: React.ReactNode;
+};
+
+// Hypertune
+
+export const HypertuneProvider: React.FC<HypertuneProviderProps> = ({
+  createSourceOptions,
+  dehydratedState,
+  rootArgs,
+  children,
+}) => {
   return (
     <HypertuneSourceProvider
       createSourceOptions={{
@@ -34,7 +51,7 @@ export function HypertuneProvider({
       </HypertuneHydrator>
     </HypertuneSourceProvider>
   );
-}
+};
 
 // Hypertune Source
 
@@ -46,13 +63,10 @@ const HypertuneSourceContext = React.createContext<{
   setOverride: () => { /* noop */ },
 });
 
-export function HypertuneSourceProvider({
+export const HypertuneSourceProvider: React.FC<HypertuneSourceProviderProps> = ({
   createSourceOptions,
   children,
-}: {
-  createSourceOptions: hypertune.CreateSourceOptions;
-  children: React.ReactNode;
-}): React.ReactElement {
+}) => {
   const hypertuneSource = hypertune.createSource({
     key: typeof window === "undefined" ? "ssr" : "client",
     initDataProvider: typeof window === "undefined" ? null : undefined,
@@ -113,7 +127,7 @@ export function HypertuneSourceProvider({
       {children}
     </HypertuneSourceContext.Provider>
   );
-}
+};
 
 export function useHypertuneSource(): hypertune.SourceNode {
   const { hypertuneSource } = React.useContext(HypertuneSourceContext);
@@ -140,13 +154,10 @@ const HypertuneRootContext = React.createContext(emptyRoot);
 
 let hypertuneRootSingleton = emptyRoot;
 
-export function HypertuneRootProvider({
+export const HypertuneRootProvider: React.FC<HypertuneRootProviderProps> = ({
   rootArgs,
   children,
-}: {
-  rootArgs: hypertune.RootArgs;
-  children: React.ReactNode;
-}): React.ReactElement {
+}) => {
   const hypertuneSource = useHypertuneSource();
 
   const rootArgsKey = sdk.stableStringify(rootArgs);
@@ -165,7 +176,7 @@ export function HypertuneRootProvider({
       {children}
     </HypertuneRootContext.Provider>
   );
-}
+};
 
 export function useHypertune(): hypertune.RootNode {
   const hypertuneRoot = React.useContext(HypertuneRootContext);
@@ -185,13 +196,10 @@ export function getHypertuneSingleton(): hypertune.RootNode {
   return hypertuneRootSingleton;
 }
 
-export function HypertuneHydrator({
+export const HypertuneHydrator: React.FC<HypertuneHydratorProps> = ({
   dehydratedState,
   children,
-}: {
-  dehydratedState?: hypertune.DehydratedState | null;
-  children: React.ReactElement | null;
-}): React.ReactElement | null {
+}) => {
   const hypertuneSource = useHypertuneSource();
 
   if (dehydratedState) {
@@ -199,7 +207,7 @@ export function HypertuneHydrator({
   }
 
   return children;
-}
+};
 
 export function HypertuneClientLogger({
   flagPaths,
