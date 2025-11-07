@@ -1,13 +1,13 @@
 // libs/db/src/mikroorm-config.ts
 
 import { defineConfig } from '@mikro-orm/postgresql';
-import { appConfig } from '@helix/config';
+import { appConfig } from '@helix-ai/config';
 import * as entities from './entities';
 
 /**
  * MikroORM configuration for Helix DB.
  *
- * Dynamically loads environment settings from @helix/config,
+ * Dynamically loads environment settings from @helix-ai/config,
  * supporting Postgres, Redis, and secure connection parameters.
  */
 export default defineConfig({

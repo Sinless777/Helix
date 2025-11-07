@@ -8,8 +8,8 @@
  *
  * Usage:
  * ```ts
- * import { ormConfig, appEntities } from '@helix/db';
- * import { User, Org } from '@helix/db/entities';
+ * import { ormConfig, appEntities } from '@helix-ai/db';
+ * import { User, Org } from '@helix-ai/db/entities';
  * ```
  */
 

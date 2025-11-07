@@ -3,8 +3,8 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
 
-import { HelixCard } from '@helix/ui';  // Correctly import from @helix/ui
-import { Header } from '@helix/ui';  // Correctly import Header from @helix/ui
+import { HelixCard } from '@helix-ai/ui';
+import { Header } from '@helix-ai/ui';
 import { AboutContent } from '../../content/about';
 import { headerProps } from '../../content/header';
 

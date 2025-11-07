@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "grapgh": "nx graph --watch",
-    "postinstall": "node ./tools/scripts/patch-nx.js"
+    "postinstall": "node ./tools/scripts/patch-nx.js",
+  "build": "pnpm -w -r build",
+  "vercel-build": "pnpm -w -r build && pnpm --filter frontend build",
+  "start": "pnpm --filter frontend start",
+  "publish:libs": "pnpm -w -r publish --access public"
   },
   "keywords": [],
   "author": "",

@@ -3,7 +3,7 @@
 import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
 import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
-import { appConfig } from '@helix/config';
+import { appConfig } from '@helix-ai/config';
 
 let faroSingleton: ReturnType<typeof initializeFaro> | null = null;
 

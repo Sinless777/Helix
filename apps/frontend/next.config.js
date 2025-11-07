@@ -10,13 +10,16 @@ const nextConfig = {
   // See: https://nx.dev/recipes/next/next-config-setup
   nx: {},
 
-  distDir: '../../dist/apps/frontend',
+  // Use a different distDir for local Nx builds, but let Vercel use the
+  // default `.next` when running on Vercel so the platform can find
+  // `routes-manifest.json` and other expected artifacts.
+  distDir: process.env.VERCEL ? '.next' : '../../dist/apps/frontend',
   compiler: {
     // For other options, see https://nextjs.org/docs/architecture/nextjs-compiler#emotion
     emotion: true,
   },
 
-  transpilePackages: ['@helix/ui', '@helix/config', '@helix/hypertune'],
+  transpilePackages: ['@helix-ai/ui', '@helix-ai/config', '@helix-ai/hypertune'],
 
   images: {
     remotePatterns: [

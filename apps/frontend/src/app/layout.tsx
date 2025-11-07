@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
-import { HelixProviders, Background } from '@helix/ui';
+import { HelixProviders, Background } from '@helix-ai/ui';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://helixai.com'),

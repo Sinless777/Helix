@@ -1,6 +1,6 @@
 'use client';
 
-import { DevelopmentBanner, Header, HeroSection } from '@helix/ui';
+import { DevelopmentBanner, Header, HeroSection } from '@helix-ai/ui';
 import { headerProps } from '../content/header';
 
 const HERO_DATA = {

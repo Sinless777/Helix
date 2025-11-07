@@ -1,0 +1,53 @@
+name: Publish libs
+
+# Publish workspace libraries to npm.
+# Triggers on pushed tag (e.g., v1.2.3) or manual dispatch.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    name: Build and publish libs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node and pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Enable corepack and ensure pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Configure npm auth for publishing
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+        run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "Missing NPM_ACCESS_TOKEN secret — aborting"
+            exit 1
+          fi
+          # Create a project-local .npmrc so pnpm publish can authenticate
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+
+      - name: Install dependencies
+        run: pnpm -w install --frozen-lockfile
+
+      - name: Build workspace
+        run: pnpm -w -r build
+
+      - name: Publish workspace packages
+        # `--no-git-checks` avoids errors caused by detached HEAD in some CI setups
+        run: pnpm -w -r publish --access public --no-git-checks
+
+      - name: Cleanup .npmrc
+        if: always()
+        run: rm -f .npmrc

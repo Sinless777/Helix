@@ -1,11 +1,20 @@
 {
-  "name": "@helix/hypertune",
+  "name": "@helix-ai/hypertune",
   "version": "0.0.1",
-  "private": true,
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.lib.json",
+    "prepublishOnly": "pnpm build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -20,7 +29,7 @@
     "hypertune": "^2.10.0",
     "next": "~15.2.5",
     "react": "^19.2.0",
-    "tslib": "^2.3.0"
+    "server-only": "0.0.1"
   },
   "devDependencies": {
     "@types/node": "20.19.9",

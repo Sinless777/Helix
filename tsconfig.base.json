@@ -19,18 +19,18 @@
     "customConditions": ["Helix"],
     "baseUrl": ".",
     "paths": {
-      "@helix/ui/*": ["libs/ui/src/*"],
-      "@helix/ui": ["libs/ui/src/index.ts"],
-      "@helix/config/*": ["libs/config/src/*"],
-      "@helix/config": ["libs/config/src/index.ts"],
-      "@helix/utils/*": ["libs/utils/src/*"],
-      "@helix/utils": ["libs/utils/src/index.ts"],
-      "@helix/types/*": ["libs/types/src/*"],
-      "@helix/types": ["libs/types/src/index.ts"],
-      "@helix/hypertune/*": ["libs/hypertune/src/*"],
-      "@helix/hypertune": ["libs/hypertune/src/index.ts"],
-      "@helix/db/*": ["libs/db/src/*"],
-      "@helix/db": ["libs/db/src/index.ts"]
+      "@helix-ai/ui/*": ["libs/ui/src/*"],
+      "@helix-ai/ui": ["libs/ui/src/index.ts"],
+      "@helix-ai/config/*": ["libs/config/src/*"],
+      "@helix-ai/config": ["libs/config/src/index.ts"],
+      "@helix-ai/utils/*": ["libs/utils/src/*"],
+      "@helix-ai/utils": ["libs/utils/src/index.ts"],
+      "@helix-ai/types/*": ["libs/types/src/*"],
+      "@helix-ai/types": ["libs/types/src/index.ts"],
+      "@helix-ai/hypertune/*": ["libs/hypertune/src/*"],
+      "@helix-ai/hypertune": ["libs/hypertune/src/index.ts"],
+      "@helix-ai/db/*": ["libs/db/src/*"],
+      "@helix-ai/db": ["libs/db/src/index.ts"]
     }
   }
 }

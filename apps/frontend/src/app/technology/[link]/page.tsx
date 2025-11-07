@@ -3,8 +3,8 @@
 import { useParams } from 'next/navigation';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
-import { Header, HelixCard } from '@helix/ui'; // using @helix/ui exports
-import type { CardProps, ListItemProps } from '@helix/ui';
+import { Header, HelixCard } from '@helix-ai/ui'; // using @helix-ai/ui exports
+import type { CardProps, ListItemProps } from '@helix-ai/ui';
 import { headerProps } from '../../../content/header';
 import * as technology from '../../../content/technology';
 

@@ -5,8 +5,8 @@ import Script from 'next/script';
 import { Box, Container, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
-import { Header, HelixCard } from '@helix/ui';
-import type { CardProps } from '@helix/ui';
+import { Header, HelixCard } from '@helix-ai/ui';
+import type { CardProps } from '@helix-ai/ui';
 import { headerProps } from '../../content/header';
 import * as Constants from '../../content/technology';
 

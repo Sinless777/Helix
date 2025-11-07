@@ -3,7 +3,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid'; // v2 API (supports `size`)
 
-import { Header, HelixCard } from '@helix/ui'; // named import for HelixCard and Header
+import { Header, HelixCard } from '@helix-ai/ui'; // named import for HelixCard and Header
 import { CONTACT_OPTIONS } from '../../content/contact';  // Assuming this holds your contact options
 import { headerProps } from '../../content/header';  // Your header properties
 

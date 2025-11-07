@@ -6,7 +6,7 @@
  *
  * Example:
  * ```ts
- * import { User, Org, Invoice, Connector } from '@helix/db/entities';
+ * import { User, Org, Invoice, Connector } from '@helix-ai/db/entities';
  * ```
  */
 

@@ -1,11 +1,21 @@
 {
-  "name": "@helix/config",
+  "name": "@helix-ai/config",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.lib.json"
+  },
+  "prepublishOnly": "pnpm build",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -14,8 +24,5 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     }
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
   }
 }

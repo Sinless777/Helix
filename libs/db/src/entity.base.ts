@@ -6,11 +6,11 @@ import {
   BeforeUpdate,
 } from '@mikro-orm/core';
 import { v5 as uuidv5 } from 'uuid';
-import { appConfig } from '@helix/config';
+import { appConfig } from '@helix-ai/config';
 
 /**
  * A namespace UUID for deterministic id generation.
- * Ensure `appConfig.security.uuidNamespace` exists in @helix/config.
+ * Ensure `appConfig.security.uuidNamespace` exists in @helix-ai/config.
  */
 export const HELIX_UUID_NAMESPACE =
   appConfig.security.uuid_namespace;
