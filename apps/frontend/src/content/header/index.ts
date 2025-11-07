@@ -13,7 +13,7 @@ export interface HeaderProps {
   logo: string;
   title: string;
   version: string;
-  pages: readonly Page[];
+  pages: Page[];
   style?: CSSProperties;
 }
 

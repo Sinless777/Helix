@@ -147,6 +147,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.0
         version: 19.2.2(@types/react@19.2.2)
+      '@vercel/remote-nx':
+        specifier: ^2.0.0
+        version: 2.0.0(encoding@0.1.13)(nx@22.0.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.5.29(@swc/helpers@0.5.17)))
       core-js:
         specifier: ^3.36.1
         version: 3.46.0
@@ -306,6 +309,9 @@ importers:
 
   libs/hypertune:
     dependencies:
+      '@vercel/edge-config':
+        specifier: ^1.4.3
+        version: 1.4.3(@opentelemetry/api@1.9.0)(next@15.2.5(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.3))
       hypertune:
         specifier: ^2.10.0
         version: 2.10.0(encoding@0.1.13)
@@ -343,6 +349,12 @@ importers:
       '@grafana/faro-web-tracing':
         specifier: ^1.19.0
         version: 1.19.0
+      '@helix/config':
+        specifier: workspace:*
+        version: link:../config
+      '@helix/hypertune':
+        specifier: workspace:*
+        version: link:../hypertune
       '@mui/icons-material':
         specifier: ^7.3.5
         version: 7.3.5(@mui/material@7.3.5(@emotion/react@11.11.1(@types/react@19.2.2)(react@19.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@types/react@19.2.2)(react@19.2.0)
@@ -3959,6 +3971,12 @@ packages:
       next:
         optional: true
 
+  '@vercel/remote-nx@2.0.0':
+    resolution: {integrity: sha512-lO5zIXnfg6Igi3Zpsf6uzSPXassO7j4udA5Jn++qKyUTqtzpn0rUav5VmNxDTS4nEDJhrYyRJwx7oUNp7yQyTQ==}
+
+  '@vercel/remote@1.0.1':
+    resolution: {integrity: sha512-5iUXUO/DBsNPFPq1tuIndhq+x14Nec1lyj0F2IelWm/cVFl7q8dnXsAPtMnr1129RD8hbOTqI2XgXKo8orAlpA==}
+
   '@vercel/speed-insights@1.2.0':
     resolution: {integrity: sha512-y9GVzrUJ2xmgtQlzFP2KhVRoCglwfRQgjyfY607aU0hh0Un6d0OUyrJkjuAlsV18qR4zfoFPs/BiIj9YDS6Wzw==}
     peerDependencies:
@@ -4665,6 +4683,10 @@ packages:
   chokidar@4.0.3:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
     engines: {node: '>= 14.16.0'}
+
+  chownr@2.0.0:
+    resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
+    engines: {node: '>=10'}
 
   chrome-trace-event@1.0.4:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
@@ -5914,6 +5936,10 @@ packages:
   fs-extra@9.1.0:
     resolution: {integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==}
     engines: {node: '>=10'}
+
+  fs-minipass@2.1.0:
+    resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
+    engines: {node: '>= 8'}
 
   fs-monkey@1.1.0:
     resolution: {integrity: sha512-QMUezzXWII9EV5aTFXW1UBVUO77wYPpjqIF8/AviUCThNeSYZykpoTixUeaNNBwmCev0AMDWMAni+f8Hxb1IFw==}
@@ -7218,12 +7244,29 @@ packages:
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
+  minipass@3.3.6:
+    resolution: {integrity: sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==}
+    engines: {node: '>=8'}
+
+  minipass@5.0.0:
+    resolution: {integrity: sha512-3FnjYuehv9k6ovOEbyOswadCDPX1piCfhV8ncmYtHOjuPwylVWsghTLo7rabjC3Rx5xD4HDx8Wm1xnMF7S5qFQ==}
+    engines: {node: '>=8'}
+
   minipass@7.1.2:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  minizlib@2.1.2:
+    resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
+    engines: {node: '>= 8'}
+
   mkdirp@0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
+    hasBin: true
+
+  mkdirp@1.0.4:
+    resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
+    engines: {node: '>=10'}
     hasBin: true
 
   module-details-from-path@1.0.4:
@@ -7382,6 +7425,11 @@ packages:
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
+
+  nx-remotecache-custom@17.1.1:
+    resolution: {integrity: sha512-p9ccy0piga2rAb22ULV1ZyRaC6No2hIh3UIN2uQJ7WP1kM+NF7Gk3K2hQo4urnYxSF6QzQI71KcKS5DVLsqOLQ==}
+    peerDependencies:
+      nx: ^17.0.0
 
   nx@21.6.8:
     resolution: {integrity: sha512-NilGEk1Cngs3Se9JW+f9cDeN6RBvmABhpEtgMvOK8RAAZszq6B380oCzKcQljhnrbQ6+v6j/Vb7hBPTCvXb0Ng==}
@@ -9085,6 +9133,10 @@ packages:
   tar-stream@3.1.7:
     resolution: {integrity: sha512-qJj60CXt7IU1Ffyc3NJMjh6EkuCFej46zUqJ4J7pqYlThyd9bO0XBTmcOIhSzZJVWfsLks0+nle/j538YAW9RQ==}
 
+  tar@6.2.1:
+    resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
+    engines: {node: '>=10'}
+
   tarn@3.0.2:
     resolution: {integrity: sha512-51LAVKUSZSVfI05vjPESNc5vwqqZpbXCsU+/+wxlOrUjk2SnFTt97v9ZgQrD4YmxYW1Px6w2KjaDitCfkvgxMQ==}
     engines: {node: '>=8.0.0'}
@@ -9796,6 +9848,9 @@ packages:
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
+
+  yallist@4.0.0:
+    resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
 
   yaml@1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
@@ -14144,6 +14199,24 @@ snapshots:
       '@opentelemetry/api': 1.9.0
       next: 15.2.5(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.3)
 
+  '@vercel/remote-nx@2.0.0(encoding@0.1.13)(nx@22.0.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.5.29(@swc/helpers@0.5.17)))':
+    dependencies:
+      '@vercel/remote': 1.0.1(encoding@0.1.13)
+      chalk: 4.1.2
+      nx-remotecache-custom: 17.1.1(nx@22.0.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.5.29(@swc/helpers@0.5.17)))
+    transitivePeerDependencies:
+      - encoding
+      - nx
+
+  '@vercel/remote@1.0.1(encoding@0.1.13)':
+    dependencies:
+      ci-info: 3.9.0
+      concat-stream: 2.0.0
+      node-fetch: 2.7.0(encoding@0.1.13)
+      raw-body: 2.5.2
+    transitivePeerDependencies:
+      - encoding
+
   '@vercel/speed-insights@1.2.0(next@15.2.5(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.3))(react@19.2.0)':
     optionalDependencies:
       next: 15.2.5(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.93.3)
@@ -14973,6 +15046,8 @@ snapshots:
   chokidar@4.0.3:
     dependencies:
       readdirp: 4.1.2
+
+  chownr@2.0.0: {}
 
   chrome-trace-event@1.0.4: {}
 
@@ -16561,6 +16636,10 @@ snapshots:
       jsonfile: 6.2.0
       universalify: 2.0.1
 
+  fs-minipass@2.1.0:
+    dependencies:
+      minipass: 3.3.6
+
   fs-monkey@1.1.0: {}
 
   fs.realpath@1.0.0: {}
@@ -18116,11 +18195,24 @@ snapshots:
 
   minimist@1.2.8: {}
 
+  minipass@3.3.6:
+    dependencies:
+      yallist: 4.0.0
+
+  minipass@5.0.0: {}
+
   minipass@7.1.2: {}
+
+  minizlib@2.1.2:
+    dependencies:
+      minipass: 3.3.6
+      yallist: 4.0.0
 
   mkdirp@0.5.6:
     dependencies:
       minimist: 1.2.8
+
+  mkdirp@1.0.4: {}
 
   module-details-from-path@1.0.4: {}
 
@@ -18276,6 +18368,13 @@ snapshots:
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
+
+  nx-remotecache-custom@17.1.1(nx@22.0.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.5.29(@swc/helpers@0.5.17))):
+    dependencies:
+      chalk: 4.1.2
+      dotenv: 16.4.7
+      nx: 22.0.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.5.29(@swc/helpers@0.5.17))
+      tar: 6.2.1
 
   nx@21.6.8(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.5.29(@swc/helpers@0.5.17)):
     dependencies:
@@ -20169,6 +20268,15 @@ snapshots:
       - bare-abort-controller
       - react-native-b4a
 
+  tar@6.2.1:
+    dependencies:
+      chownr: 2.0.0
+      fs-minipass: 2.1.0
+      minipass: 5.0.0
+      minizlib: 2.1.2
+      mkdirp: 1.0.4
+      yallist: 4.0.0
+
   tarn@3.0.2: {}
 
   tcp-port-used@1.0.2:
@@ -20940,6 +21048,8 @@ snapshots:
   y18n@5.0.8: {}
 
   yallist@3.1.1: {}
+
+  yallist@4.0.0: {}
 
   yaml@1.10.2: {}
 

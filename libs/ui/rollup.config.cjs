@@ -8,20 +8,27 @@ module.exports = withNx(
     outputPath: '../../dist/libs/ui',
     tsConfig: './tsconfig.lib.json',
     compiler: 'babel',
-    external: ["react","react-dom","react/jsx-runtime"],
-    format: ["esm"],
-    assets:[{ input: '.', output: '.', glob: 'README.md'}],
-  }, {
-    // Provide additional rollup configuration here. See: https://rollupjs.org/configuration-options
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      '@helix/hypertune',
+      '@helix/config',
+      '@mui/material',
+      '@mui/icons-material',
+      '@emotion/react',
+      '@emotion/styled',
+    ],
+    format: ['esm'],
+    assets: [{ input: '.', output: '.', glob: 'README.md' }],
+    rollupOptions: {
+      treeshake: { moduleSideEffects: false },
+    },
+  },
+  {
     plugins: [
-      svg({
-        svgo: false,
-        titleProp: true,
-        ref: true,
-      }),
-      url({
-        limit: 10000, // 10kB
-      }),
+      svg({ svgo: false, titleProp: true, ref: true }),
+      url({ limit: 10_000 }),
     ],
   }
 );

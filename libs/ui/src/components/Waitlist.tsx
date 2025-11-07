@@ -19,7 +19,7 @@ export function HeroWaitlist() {
 
   // Automatically clear feedback after 5 seconds
   useEffect(() => {
-    if (status === 'idle') return;
+    if (status === 'idle') return undefined;
     const timer = setTimeout(() => setStatus('idle'), 5000);
     return () => clearTimeout(timer);
   }, [status]);

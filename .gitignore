@@ -123,3 +123,4 @@ libs/**/src/generated/
 apps/**/src/generated/
 
 .nx/
+.vercel

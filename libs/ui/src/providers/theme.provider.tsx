@@ -47,7 +47,6 @@ export function ThemeProvider({ defaultMode = 'system', children }: Props) {
 
   // sync system changes if defaultMode === 'system'
   React.useEffect(() => {
-    if (defaultMode !== 'system') return;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = () => setMode(mq.matches ? 'dark' : 'light');
     mq.addEventListener?.('change', handler);

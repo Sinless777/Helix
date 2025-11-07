@@ -4,16 +4,16 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": false,
     "outDir": "../../dist/libs/hypertune",
     "tsBuildInfoFile": "../../dist/libs/hypertune/tsconfig.lib.tsbuildinfo",
     "module": "es2022",
+    "rootDir": "src",
     "lib": ["es2022", "dom"],
     "jsx": "react-jsx",
-    "types": ["node", "react", "react-dom"],
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "jsxImportSource": "react",
+    "types": ["react", "react-dom", "node"],
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "references": []
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

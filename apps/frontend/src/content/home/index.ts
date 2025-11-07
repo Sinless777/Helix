@@ -9,7 +9,7 @@ export interface Page {
 }
 
 /** Main navigation pages for Helix */
-export const pages: Readonly<Page[]> = [
+export const pages: Page[] = [
   { name: 'Home', url: '/' },
   { name: 'About', url: '/About' },
   { name: 'Contact', url: '/Contact' },

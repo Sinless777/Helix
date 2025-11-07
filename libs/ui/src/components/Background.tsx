@@ -22,14 +22,14 @@ export interface BackgroundImageProps {
 /**
  * BackgroundImage — a fixed full-viewport background with overlay and foreground content.
  */
-export const BackgroundImage: React.FC<BackgroundImageProps> = ({
+export function BackgroundImage({
   imageUrl,
   altText = '',
   sx,
   overlayOpacity = 0.4,
   blur = 0,
   children,
-}) => {
+}: BackgroundImageProps) {
   return (
     <>
       {/* Background layer */}
@@ -70,13 +70,13 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
         sx={{
           position: 'relative',
           zIndex: 0,
-          ...sx,
+          ...(sx ?? {}),
         }}
       >
         {children}
       </Box>
     </>
   );
-};
+}
 
 export default BackgroundImage;

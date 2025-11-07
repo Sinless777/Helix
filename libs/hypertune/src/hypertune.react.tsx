@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import * as hypertune from "./hypertune";
 import * as sdk from "hypertune";
 
-type HypertuneProviderProps = {
+export type HypertuneProviderProps = {
   createSourceOptions: hypertune.CreateSourceOptions;
   dehydratedState?: hypertune.DehydratedState | null;
   rootArgs: hypertune.RootArgs;

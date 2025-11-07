@@ -1,9 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "strict": false,
     "jsx": "preserve",
     "skipLibCheck": true,
-    "jsxImportSource": "@emotion/react",
     "noEmit": true,
     "emitDeclarationOnly": false,
     "esModuleInterop": true,

@@ -91,14 +91,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="antialiased bg-black text-white">
         <Analytics />
         <SpeedInsights />
-        <HelixProviders defaultMode={mode} enableHypertune enableFaro>
           <Background
             imageUrl="https://cdn.sinlessgamesllc.com/Helix-AI/images/Background.webp"
             altText="Background Image"
           >
-            {children}
+            <HelixProviders defaultMode={mode}>
+              {children}
+            </HelixProviders>
           </Background>
-        </HelixProviders>
       </body>
     </html>
   );

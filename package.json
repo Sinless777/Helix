@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "grapgh": "nx graph --watch"
+    "grapgh": "nx graph --watch",
+    "postinstall": "node ./tools/scripts/patch-nx.js"
   },
   "keywords": [],
   "author": "",
@@ -45,6 +46,7 @@
     "@types/node": "20.19.9",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@vercel/remote-nx": "^2.0.0",
     "core-js": "^3.36.1",
     "cypress": "^14.2.1",
     "eslint": "^9.8.0",
