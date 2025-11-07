@@ -10,9 +10,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.lib.json"
+    "build": "tsc -p tsconfig.lib.json",
+    "prepublishOnly": "pnpm build"
   },
-  "prepublishOnly": "pnpm build",
   "publishConfig": {
     "access": "public"
   },
