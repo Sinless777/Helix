@@ -1,4 +1,5 @@
 # Ignore local caches and heavy directories that shouldn't be uploaded to Vercel
+
 .nx/cache
 node_modules
 dist
@@ -7,8 +8,10 @@ dist
 .env*
 .DS_Store
 
-# Ignore local Nx outputs
+## Ignore local Nx outputs
+
 /dist
 
-# Keep Vercel config and project files
+## Keep Vercel config and project files
+
 !vercel.json

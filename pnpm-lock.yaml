@@ -283,11 +283,7 @@ importers:
 
   apps/services/user-e2e: {}
 
-  libs/config:
-    dependencies:
-      tslib:
-        specifier: ^2.3.0
-        version: 2.8.1
+  libs/config: {}
 
   libs/db:
     dependencies:
@@ -297,15 +293,9 @@ importers:
       '@mikro-orm/postgresql':
         specifier: ^6.5.9
         version: 6.5.9(@mikro-orm/core@6.5.9)
-      tslib:
-        specifier: ^2.3.0
-        version: 2.8.1
       uuid:
         specifier: ^13.0.0
         version: 13.0.0
-      uuidv5:
-        specifier: ^1.0.0
-        version: 1.0.0
 
   libs/hypertune:
     dependencies:
@@ -321,9 +311,9 @@ importers:
       react:
         specifier: ^19.2.0
         version: 19.2.0
-      tslib:
-        specifier: ^2.3.0
-        version: 2.8.1
+      server-only:
+        specifier: 0.0.1
+        version: 0.0.1
     devDependencies:
       '@types/node':
         specifier: 20.19.9
@@ -349,10 +339,10 @@ importers:
       '@grafana/faro-web-tracing':
         specifier: ^1.19.0
         version: 1.19.0
-      '@helix/config':
+      '@helix-ai/config':
         specifier: workspace:*
         version: link:../config
-      '@helix/hypertune':
+      '@helix-ai/hypertune':
         specifier: workspace:*
         version: link:../hypertune
       '@mui/icons-material':
@@ -9528,9 +9518,6 @@ packages:
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
-
-  uuidv5@1.0.0:
-    resolution: {integrity: sha512-OIrdJoTuC0Sbk1CKrGWG02gwrZHZptlYTHGkVOH7wxVNmMsGYFzJ77N7+SbrctXfpp9sI8Bp/nsu6C932p2MGQ==}
 
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
@@ -20662,8 +20649,6 @@ snapshots:
   uuid@13.0.0: {}
 
   uuid@8.3.2: {}
-
-  uuidv5@1.0.0: {}
 
   v8-compile-cache-lib@3.0.1: {}
 
