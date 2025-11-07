@@ -28,6 +28,7 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
+  "exclude": ["../ui/src/**/*"],
   "references": [
     {
       "path": "../config/tsconfig.lib.json"

@@ -1,0 +1,61 @@
+{
+  // Use the official schema for validation and editor tooling
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  // Base branches where Renovate should run
+  "baseBranches": ["main"],
+
+  // Apply recommended presets
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":maintainLockFilesMonthly",
+    ":prHourlyLimit2",
+    ":label(dependencies)"
+  ],
+
+  // Limit PR creation so your CI isn't overwhelmed
+  "prHourlyLimit": 2,
+
+  // Add labels to all Renovate PRs
+  "labels": ["dependencies", "auto-merge"],
+
+  // Schedule to avoid noise during business hours
+  "schedule": ["after 5pm every weekday", "every weekend"],
+
+  // Package manager / monorepo settings
+  "packageRules": [
+    {
+      // All pnpm workspace packages
+      "matchPackagePatterns": [".*"],
+      "matchManagers": ["npm"],
+      // Auto‐merge patch updates
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      // Minor updates should wait for manual review
+      "matchUpdateTypes": ["minor"],
+      "automerge": false
+    },
+    {
+      // Ignore devDependencies in the libs folder for now
+      "matchPaths": ["^libs/.*\\.json$"],
+      "matchPackagePatterns": ["^@helix/"],
+      "enabled": false
+    }
+  ],
+
+  // Exclude certain folders/projects if you don’t want updates there
+  "ignorePaths": ["apps/e2e/**", "tools/scripts/**"],
+
+  // Configure automerge strategy
+  "automergeStrategy": "merge-commit",
+
+  // Rebase stale PRs when the base branch has moved on
+  "rebaseWhen": "behind-base-branch",
+
+  // Onboarding PR settings
+  "onboarding": true,
+  "dependencyDashboard": true
+}

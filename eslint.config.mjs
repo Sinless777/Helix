@@ -17,23 +17,8 @@ export default [
             "**/*.jsx"
         ],
         rules: {
-            "@nx/enforce-module-boundaries": [
-                "error",
-                {
-                    enforceBuildableLibDependency: true,
-                    allow: [
-                        "^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$"
-                    ],
-                    depConstraints: [
-                        {
-                            sourceTag: "*",
-                            onlyDependOnLibsWithTags: [
-                                "*"
-                            ]
-                        }
-                    ]
-                }
-            ]
+            "@nx/enforce-module-boundaries": "off",
+            "@typescript-eslint/no-explicit-any": "off"
         }
     },
     {

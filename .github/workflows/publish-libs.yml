@@ -1,53 +1,54 @@
 name: Publish libs
 
-# Publish workspace libraries to npm.
-# Triggers on pushed tag (e.g., v1.2.3) or manual dispatch.
-
 on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 jobs:
   publish:
-    name: Build and publish libs
+    name: Build & Publish Workspace Libraries
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write           # Needed for npm registry publishing
+      id-token: write           # Optional: if using GitHub OIDC for registry auth
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0         # Ensures full git history for tags, versioning tools
 
-      - name: Set up Node and pnpm
+      - name: Set up Node.js & pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
-
-      - name: Enable corepack and ensure pnpm
+      - name: Enable Corepack and pnpm
         run: |
           corepack enable
           corepack prepare pnpm@latest --activate
 
-      - name: Configure npm auth for publishing
+      - name: Configure npm auth
         env:
           NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
         run: |
-          if [ -z "$NPM_TOKEN" ]; then
-            echo "Missing NPM_ACCESS_TOKEN secret — aborting"
+          if [ -z "${NPM_TOKEN}" ]; then
+            echo "Error: NPM_ACCESS_TOKEN secret is missing."
             exit 1
           fi
-          # Create a project-local .npmrc so pnpm publish can authenticate
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
       - name: Install dependencies
-        run: pnpm -w install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
-      - name: Build workspace
-        run: pnpm -w -r build
+      - name: Build workspace (all libraries + apps)
+        run: pnpm -w run build        # ensure workspace build runs topologically
 
       - name: Publish workspace packages
-        # `--no-git-checks` avoids errors caused by detached HEAD in some CI setups
         run: pnpm -w -r publish --access public --no-git-checks
+        # Optionally, you can filter to only libraries: `pnpm -w --filter "libs/**" publish ...`
 
-      - name: Cleanup .npmrc
+      - name: Clean up auth config
         if: always()
-        run: rm -f .npmrc
+        run: rm -f ~/.npmrc
