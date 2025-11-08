@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/Sinless777/Helix/compare/v1.1.1...v1.1.2) (2025-11-08)
+
+
+### Bug Fixes
+
+* Remove unnecessary --all flag from build command in publish workflow ([689372d](https://github.com/Sinless777/Helix/commit/689372d868af8c3d72077000fe7b16c4f37ae43c))
+
 ### [1.1.1](https://github.com/Sinless777/Helix/compare/v1.1.0...v1.1.1) (2025-11-08)
 
 
