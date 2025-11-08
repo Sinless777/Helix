@@ -1,44 +1,34 @@
-name: 🔖 Sync milestones from .github/milestones.yaml
+name: Sync Milestones
 
 on:
+  workflow_dispatch:
   push:
     paths:
-      - ".github/milestones.yaml"
-  workflow_dispatch: {}
-  schedule:
-    - cron: "0 6 * * 1" # Weekly sync every Monday at 06:00 UTC
-
-permissions:
-  contents: read
-  issues: write
-
-concurrency:
-  group: sync-milestones-${{ github.ref }}
-  cancel-in-progress: false
+      - '.github/milestones.yaml'
 
 jobs:
   sync:
-    name: Update milestones
     runs-on: ubuntu-latest
     steps:
-      - name: 🛎️ Checkout repository
+      - name: Check out repo
         uses: actions/checkout@v4
 
-      - name: 🧩 Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: 🪶 Install YAML parser
-        run: npm install -g yaml
+      - name: Install dependencies for script
+        run: |
+          npm install yaml
+        # optionally you could lock this via package.json instead
 
-      - name: 🔖 Sync milestones
+      - name: Run milestone sync script
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
             const { parse } = require('yaml');
-
             const { owner, repo } = context.repo;
             const file = '.github/milestones.yaml';
 
@@ -73,54 +63,48 @@ jobs:
               const description = m.description || '';
               const state = (m.state || 'open').toLowerCase() === 'closed' ? 'closed' : 'open';
               const due_on = m.due_on ? new Date(m.due_on).toISOString() : null;
+
               const current = mapByTitle.get(title);
-
               if (current) {
-                const needsUpdate =
-                  current.description !== description ||
+                // update if needed
+                const needsUpdate = (
                   current.state !== state ||
-                  (current.due_on || null) !== due_on;
-
+                  (due_on && current.due_on !== due_on) ||
+                  (description && (current.description || '') !== description)
+                );
                 if (needsUpdate) {
                   await github.rest.issues.updateMilestone({
                     owner,
                     repo,
                     milestone_number: current.number,
-                    title,
-                    description,
                     state,
+                    description,
                     due_on
                   });
-                  core.info(`🟡 Updated milestone: ${title}`);
-                } else {
-                  core.info(`✅ No change: ${title}`);
                 }
               } else {
+                // create new milestone
                 await github.rest.issues.createMilestone({
                   owner,
                   repo,
                   title,
-                  description,
                   state,
+                  description,
                   due_on
                 });
-                core.info(`🆕 Created milestone: ${title}`);
               }
             }
 
-            // Optional cleanup for missing milestones (disabled by default)
-            const REMOVE_MISSING = false;
-            if (REMOVE_MISSING) {
-              for (const m of existing) {
-                if (!titlesInYaml.has(m.title)) {
-                  await github.rest.issues.deleteMilestone({
-                    owner,
-                    repo,
-                    milestone_number: m.number
-                  });
-                  core.info(`🗑️ Deleted milestone not in YAML: ${m.title}`);
-                }
+            // optionally close ones not in yaml
+            for (const m of existing) {
+              if (!titlesInYaml.has(m.title) && m.state !== 'closed') {
+                await github.rest.issues.updateMilestone({
+                  owner,
+                  repo,
+                  milestone_number: m.number,
+                  state: 'closed'
+                });
               }
             }
-
-            core.info('🎯 Milestone synchronization complete.');
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
