@@ -1,6 +1,4 @@
 // apps/frontend/src/app/layout.tsx
-import 'server-only'
-
 import * as React from 'react';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -91,14 +89,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="antialiased bg-black text-white">
         <Analytics />
         <SpeedInsights />
-          <Background
-            imageUrl="https://cdn.sinlessgamesllc.com/Helix-AI/images/Background.webp"
-            altText="Background Image"
-          >
-            <HelixProviders defaultMode={mode}>
-              {children}
-            </HelixProviders>
-          </Background>
+        <Background
+          imageUrl="https://cdn.sinlessgamesllc.com/Helix-AI/images/Background.webp"
+          altText="Background Image"
+        >
+          <HelixProviders defaultMode={mode}>
+            {children}
+          </HelixProviders>
+        </Background>
       </body>
     </html>
   );
