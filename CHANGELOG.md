@@ -1,0 +1,20 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## 1.1.0 (2025-11-08)
+
+
+### Features
+
+* Add integration entities for connectors and secrets ([0d10a52](https://github.com/Sinless777/Helix/commit/0d10a522cf3edcb5fb147d7295350d70164778bf))
+* Add maintenance and security issue templates for better tracking ([e82b819](https://github.com/Sinless777/Helix/commit/e82b819e9a50bf9fdd594192c4d796eac6e57a2b))
+* Add OpenAI dependency to project ([50de199](https://github.com/Sinless777/Helix/commit/50de199418346d8d66653b09f508347fbd99ba26))
+* Refactor project structure and update package scopes to [@helix-ai](https://github.com/helix-ai). Enhance CI deployment process with new workflows and scripts for publishing libraries. ([fc2ee6a](https://github.com/Sinless777/Helix/commit/fc2ee6a44b0d821e65b3e32d9b72e63627a2d06d))
+
+
+### Bug Fixes
+
+* Correct OpenAI API initialization in release notes script ([41b2339](https://github.com/Sinless777/Helix/commit/41b2339bdcaf69e91ec25b142add3cea9bd47bb2))
+* Refactor OpenAI API usage in release notes script ([d940161](https://github.com/Sinless777/Helix/commit/d94016148ad49d59dd204fb03bc06e7aaaf049bc))
+* Update permissions to allow write access for contents in publish workflow ([200d7ca](https://github.com/Sinless777/Helix/commit/200d7ca7b6bf38d87adabe60d028d10921d52895))
