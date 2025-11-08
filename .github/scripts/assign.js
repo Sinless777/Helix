@@ -10,19 +10,24 @@ async function main() {
   const eventPayload = github.context.payload;
 
   // Determine if this is a PR or an Issue
-  let isPR = false;
   let number;
+    let isPR = false;
 
-  if (eventPayload.pull_request && eventPayload.pull_request.number) {
+    if (eventPayload.pull_request && eventPayload.pull_request.number) {
     isPR = true;
     number = eventPayload.pull_request.number;
-  } else if (eventPayload.issue && eventPayload.issue.number) {
+    } else if (eventPayload.issue && eventPayload.issue.number) {
     isPR = false;
     number = eventPayload.issue.number;
-  } else {
+    } else if (eventPayload.number) {
+    // fallback: some events set number at top level
+    number = eventPayload.number;
+    isPR = !!eventPayload.pull_request;
+    } else {
     core.setFailed('Could not find issue or pull_request number in the event payload.');
     return;
-  }
+    }
+
 
   const cfgPath = process.env.CONFIG_FILE;
   let cfg = {};
