@@ -1,0 +1,88 @@
+# .github/assignees.yaml
+# ==========================================================
+# 👥 Default Assignee Configuration
+# Managed manually or via automation in workflows
+# ==========================================================
+# Each section maps label or event contexts to default assignees.
+# You can extend this with workflow logic (e.g., auto-assign based on label)
+# ==========================================================
+
+# ----------------------------------------------------------
+# 🔧 Core Maintainers
+# ----------------------------------------------------------
+maintainers:
+  - Sinless777
+  - github-actions[bot]
+  - dependabot[bot]
+  - renovate[bot]
+  - github-copilot[bot]
+
+# ----------------------------------------------------------
+# 🧩 Default Auto-Assignment Rules
+# ----------------------------------------------------------
+# Assigns maintainers automatically based on label or type.
+# Integrate this with a workflow like `.github/workflows/auto-assign.yaml`.
+
+rules:
+  type:bug:
+    assignees:
+      - Sinless777
+      - github-copilot[bot]
+    reviewers:
+      - Sinless777
+
+  type:feature:
+    assignees:
+      - Sinless777
+      - github-copilot[bot]
+    reviewers:
+      - Sinless777
+
+  type:chore:
+    assignees:
+      - github-actions[bot]
+    reviewers:
+      - Sinless777
+
+  type:security:
+    assignees:
+      - Sinless777
+    reviewers:
+      - Sinless777
+
+  type:docs:
+    assignees:
+      - github-copilot[bot]
+    reviewers:
+      - Sinless777
+
+  renovate:
+    assignees:
+      - renovate[bot]
+      - Sinless777
+    reviewers:
+      - Sinless777
+
+  dependabot:
+    assignees:
+      - dependabot[bot]
+      - Sinless777
+    reviewers:
+      - Sinless777
+
+  ci:
+    assignees:
+      - github-actions[bot]
+    reviewers:
+      - Sinless777
+
+# ----------------------------------------------------------
+# ⚙️ Fallback
+# ----------------------------------------------------------
+# Default fallback if no specific match found.
+default:
+  assignees:
+    - Sinless777
+    - github-copilot[bot]
+  reviewers:
+    - Sinless777

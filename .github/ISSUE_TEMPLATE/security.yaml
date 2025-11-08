@@ -1,0 +1,117 @@
+# .github/ISSUE_TEMPLATE/security.yml
+name: 🔐 Security Vulnerability Report
+description: Report a potential security vulnerability or weakness in Helix AI.
+title: "[Security]: "
+labels:
+  - type:security
+  - status:todo
+  - needs-triage
+assignees:
+  - Sinless777
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🛡️ Security Vulnerability Report
+        Thank you for responsibly disclosing this issue.  
+        Please provide as much detail as possible so we can assess and remediate it swiftly.
+
+  - type: input
+    id: summary
+    attributes:
+      label: 🔖 Summary
+      description: A concise description of the vulnerability.
+      placeholder: “Stored XSS vulnerability in the Web UI login form”
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: 🎯 Impact
+      description: Describe the potential impact or damage this vulnerability could cause (data leak, remote code execution, privilege escalation, etc.).
+      placeholder: |
+        An attacker could execute arbitrary JavaScript as admin and extract session tokens.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: ⚠️ Steps to Reproduce
+      description: Provide a minimal reproducible scenario, including environment, endpoints, affected modules, and any exploit instructions.
+      placeholder: |
+        1. Login as a user.
+        2. Navigate to /admin/settings -> “Webhooks”.
+        3. Enter payload: `<script>alert(1)</script>` and save.
+        4. Navigate as admin to see alert triggered.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: mitigation
+    attributes:
+      label: 🛠️ Recommended Mitigation / Workaround
+      description: If known, provide any workaround, patch, or steps to reduce risk until full fix is available.
+      placeholder: |
+        - Apply input sanitization to the ‘destination URL’ field.
+        - Introduce Content-Security-Policy header.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: affected_area
+    attributes:
+      label: 🏗️ Affected Area
+      description: Which part of the system is impacted?
+      multiple: false
+      options:
+        - area:frontend
+        - area:backend
+        - area:infra
+        - area:database
+        - area:ai
+        - area:security
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 🌍 Environment
+      description: Share context about your deployment and versions when issue observed.
+      placeholder: |
+        - App: web client
+        - Version/commit: v0.5.2 (commit `a1b2c3d`)
+        - Runtime: Node.js 22 on Ubuntu 24.04
+        - Browser: Chrome 125
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 🪵 Logs / Evidence
+      description: Paste relevant log output, stack traces, or screenshot evidence; sensitive data may be redacted.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: disclosure
+    attributes:
+      label: 📜 Disclosure Preferences
+      description: Let us know your preference for public disclosure once fixed (e.g., coordinated disclosure timeline, credit anonymization).
+      placeholder: |
+        I prefer the fix to be deployed before public disclosure. You may credit me as “security-researcher”.
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 🧠 Additional Notes
+      description: Add any references, related issues, CVE numbers, or external blogs/resources.
+      placeholder: |
+        Related to CVE-2025-XXXXX, similar issue found in module xyz.

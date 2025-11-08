@@ -1,0 +1,126 @@
+# .github/ISSUE_TEMPLATE/maintenance.yml
+name: 🧰 Maintenance Task
+description: Track refactors, dependency updates, or internal improvements.
+title: "[Maintenance]: "
+labels:
+  - type:chore
+  - status:todo
+  - needs-triage
+assignees:
+  - Sinless777
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🧱 Maintenance & Refactor Task
+        Use this template to document **technical debt, internal cleanups, dependency upgrades,**
+        or any non-feature improvements that improve system health and reliability.
+
+        These tasks keep Helix AI fast, secure, and maintainable. ⚙️
+
+  - type: input
+    id: summary
+    attributes:
+      label: 🔖 Task Summary
+      description: A short, clear description of what needs to be done.
+      placeholder: Upgrade `next.js` to v15 and refactor API routes to use new server actions.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 💭 Motivation / Rationale
+      description: Why is this task important? What problem or technical debt does it address?
+      placeholder: |
+        - Improves stability of build pipeline
+        - Reduces CI time by caching node_modules
+        - Unblocks migration to Node 22 runtime
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 🧩 Maintenance Category
+      description: Select the type of maintenance work.
+      multiple: false
+      options:
+        - 🧱 Refactor / Cleanup
+        - 🔄 Dependency / Package Update
+        - 🧪 CI/CD or Tooling
+        - 🧰 Infrastructure / DevOps
+        - 🧩 Code Quality / Testing
+        - 🧠 Documentation or Comments
+    validations:
+      required: true
+
+  - type: textarea
+    id: plan
+    attributes:
+      label: 🗺️ Implementation Plan / Acceptance Criteria
+      description: List the key steps required to complete this task successfully.
+      placeholder: |
+        - [ ] Audit outdated dependencies using `pnpm outdated`
+        - [ ] Upgrade eslint and fix lint errors
+        - [ ] Validate CI workflows on main
+        - [ ] Verify no breaking changes in production build
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 🏗️ Affected Area
+      description: Which system or component does this maintenance impact?
+      multiple: false
+      options:
+        - area:frontend
+        - area:backend
+        - area:infra
+        - area:database
+        - area:security
+        - area:ci
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: ⚡ Priority Level
+      description: How urgent or impactful is this maintenance task?
+      options:
+        - 🟥 Critical — must fix immediately
+        - 🟧 High — affects performance or build stability
+        - 🟨 Medium — normal maintenance priority
+        - 🟩 Low — routine housekeeping
+    validations:
+      required: true
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: ⚠️ Risks & Mitigations
+      description: Highlight any risks, side effects, or dependent tasks that need monitoring.
+      placeholder: |
+        - Possible impact on existing API routes after Next.js upgrade
+        - Validate all env vars before deployment
+        - Rollback strategy: revert to previous minor version if CI fails
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 🔗 Related Issues / Dependencies
+      description: Link related PRs, issues, or workflows that depend on or are impacted by this task.
+      placeholder: |
+        Related to #231 (ESLint upgrade)
+        Blocks #284 (Helix 0.5 release)
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 🧠 Additional Notes
+      description: Include any follow-up steps, references, or notes from internal discussions.
+      placeholder: |
+        - Ref: https://helixaibot.com/docs/contributing
+        - Consider adding Renovate configuration for automated dependency checks

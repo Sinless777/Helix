@@ -1,0 +1,135 @@
+# .github/ISSUE_TEMPLATE/bug-report.yml
+name: 🐞 Bug Report
+description: Report a problem, crash, or unexpected behavior in Helix AI.
+title: "[Bug]: "
+labels:
+  - type:bug
+  - status:todo
+  - needs-triage
+assignees:
+  - Sinless777
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🧩 Bug Report Template
+        Thank you for taking the time to help us improve **Helix AI**.  
+        Please fill out the details below as completely as possible.  
+        Clear reports make it faster for us to reproduce and fix issues. 🧠
+
+  - type: input
+    id: summary
+    attributes:
+      label: 🔖 Summary
+      description: A short, descriptive title for the bug.
+      placeholder: e.g. "The dashboard crashes when opening the sessions page"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 🏗️ Affected Area
+      description: Which part of the system does this issue affect?
+      multiple: false
+      options:
+        - area:frontend
+        - area:backend
+        - area:infra
+        - area:security
+        - area:ai
+        - area:database
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: ⚙️ Steps to Reproduce
+      description: List the actions that consistently reproduce the problem.
+      placeholder: |
+        1. Go to ...
+        2. Click on ...
+        3. Observe ...
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected Behavior
+      description: What did you expect to happen?
+      placeholder: The page should display the user sessions correctly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Actual Behavior
+      description: What actually happened? Include errors, crash logs, or screenshots.
+      placeholder: 'The dashboard shows a blank white screen and logs `TypeError: undefined is not a function`.'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 🚦 Severity
+      description: How severe is the impact of this issue?
+      options:
+        - 🟥 Critical — crashes or data loss
+        - 🟧 High — major feature broken
+        - 🟨 Medium — noticeable disruption
+        - 🟩 Low — minor bug or visual issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 🌍 Environment
+      description: Provide context about where and how you observed the issue.
+      placeholder: |
+        - **App**: web / api / infra / discord
+        - **Version / commit**: v0.5.1 (commit `a1b2c3d`)
+        - **Environment**: dev / staging / production
+        - **Browser / OS / runtime**: Firefox 121 / Ubuntu 24.04
+        - **Node.js version**: 20.10.0
+        - **Additional context**: using local.sinlessgamesllc.com
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 🪵 Logs / Stack Traces
+      description: Paste any relevant console logs, stack traces, or excerpts from your terminal.
+        If you have screenshots, drag and drop them below.
+      render: shell
+      placeholder: |
+        [2025-11-07T20:22:12Z] ERROR: /api/session/fetch -> TypeError: cannot read property 'id' of undefined
+
+  - type: dropdown
+    id: reproducibility
+    attributes:
+      label: 🔁 Reproducibility
+      description: How often does this issue occur?
+      options:
+        - Always
+        - Often
+        - Intermittent
+        - Rarely
+        - Unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 🧠 Additional Notes
+      description: Any insights, temporary workarounds, or related issues/PRs.
+      placeholder: |
+        Possibly linked to PR #245 or similar issue #312.
+        This started happening after upgrading to v0.5.0.

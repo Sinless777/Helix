@@ -1,0 +1,12 @@
+# .github/ISSUE_TEMPLATE/config.yml
+blank_issues_enabled: false
+contact_links:
+  - name: Helix AI Documentation
+    url: https://github.com/Sinless777/Helix
+    about: Review the Helix AI docs and readme before creating a new issue.
+  - name: Community Discussions & Support
+    url: https://github.com/Sinless777/Helix/discussions
+    about: For questions, suggestions, or general help — not bugs or features.
+  - name: Security Disclosure
+    url: https://github.com/Sinless777/Helix/blob/main/SECURITY.md
+    about: Report security issues or suspected vulnerabilities here (confidentially documented).

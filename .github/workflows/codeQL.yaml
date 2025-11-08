@@ -1,0 +1,65 @@
+# .github/workflows/codeQL.yaml
+name: 🔍 CodeQL Analysis
+
+on:
+  push:
+    branches: [ main, master ]
+    # Skip docs-only changes (optional)
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+  pull_request:
+    branches: [ main, master ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+  schedule:
+    - cron: '0 5 * * 1'  # Weekly full scan on Monday at 05:00 UTC
+
+permissions:
+  contents: read
+  security-events: write   # required for CodeQL uploads :contentReference[oaicite:0]{index=0}
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        language: [ 'javascript-typescript', 'c-cpp', 'actions' ]
+        # Add 'python', 'java-kotlin', etc. if needed :contentReference[oaicite:1]{index=1}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          # Use config file if you have one for custom filters
+          config-file: ./.github/codeql.yaml
+          # If you have custom queries or model packs
+          # queries: security-and-quality
+          # model-packs: my-org/codeql-models :contentReference[oaicite:2]{index=2}
+
+      - name: Build repository for CodeQL
+        # Use autobuild for interpreted languages; customize for compiled ones
+        uses: github/codeql-action/autobuild@v4
+        if: matrix.language == 'javascript-typescript'
+      - name: Manual build for C++ and other compiled languages
+        if: matrix.language == 'c-cpp'
+        run: |
+          # Example for your C++ “School” system
+          mkdir build && cd build
+          cmake .. && make
+
+      - name: Run CodeQL analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "codeql/${{ matrix.language }}"
+          # You can set upload-database: false if you don’t want the DB uploaded

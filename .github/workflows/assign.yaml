@@ -1,0 +1,234 @@
+# .github/workflows/assign.yaml
+name: 👥 Auto-assign, label & milestone (issues & PRs)
+
+on:
+  issues:
+    types: [opened, edited, labeled, reopened]
+  pull_request_target:
+    types: [opened, ready_for_review, reopened, synchronize, edited, labeled]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: auto-assign-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  assign:
+    name: Apply assignees, reviewers, labels, milestone
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎️ Checkout default branch (safe for PRs)
+        uses: actions/checkout@v4
+        with:
+          # For pull_request_target, always check out the base ref (not the untrusted PR head)
+          ref: ${{ github.event.pull_request.base.ref || github.ref_name }}
+
+      - name: 🪶 Install YAML parser
+        run: npm i -g yaml
+
+      - name: ⚙️ Apply assignment rules
+        uses: actions/github-script@v7
+        env:
+          CONFIG_FILE: .github/assignees.yaml
+        with:
+          script: |
+            const fs = require('fs');
+            const { parse } = require('yaml');
+            const core = require('@actions/core');
+
+            // ---- Helpers ----------------------------------------------------
+            const isPR = !!context.payload.pull_request;
+            const number = isPR ? context.payload.number : context.payload.issue.number;
+            const actor = context.actor;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            function readYaml(path) {
+              if (!fs.existsSync(path)) return null;
+              try { return parse(fs.readFileSync(path, 'utf8')); }
+              catch (e) { core.warning(`Failed to parse ${path}: ${e}`); return null; }
+            }
+
+            function normalizeTitle(s='') {
+              // Remove most emoji and punctuation used in milestone titles
+              return s
+                .replace(/[\u2190-\u21ff\u2300-\u23ff\u2460-\u24ff\u25a0-\u27bf\u2b00-\u2bff\ud83c[\udf00-\udfff]|\ud83d[\udc00-\udeff]|\ud83e[\udd00-\uddff]]/g, '')
+                .replace(/[\u2000-\u206F\u2E00-\u2E7F'":*—–-]/g, '')
+                .trim()
+                .toLowerCase();
+            }
+
+            function pickVersionFromTitle(title='') {
+              const m = title.match(/\bv?(\d+\.\d+\.\d+)\b/);
+              return m ? m[1] : null;
+            }
+
+            // ---- Load config -------------------------------------------------
+            const cfg = readYaml(process.env.CONFIG_FILE) || {};
+            const maintainers = Array.isArray(cfg.maintainers) ? cfg.maintainers : [];
+            const rules = cfg.rules || {};
+            const fallback = cfg.default || { assignees: [], reviewers: [] };
+
+            // ---- Fetch current item state -----------------------------------
+            const issueData = isPR
+              ? (await github.rest.pulls.get({ owner, repo, pull_number: number })).data
+              : (await github.rest.issues.get({ owner, repo, issue_number: number })).data;
+
+            const title = issueData.title || '';
+            const existingLabels = new Set((issueData.labels || []).map(l => (typeof l === 'string' ? l : l.name)));
+            const existingMilestoneNumber = issueData.milestone?.number ?? null;
+
+            // ---- Derive rule key --------------------------------------------
+            // Priority order:
+            // 1) If any existing label matches a rule key, use that rule.
+            // 2) If actor is a known bot, use bot rule ('renovate' / 'dependabot' / 'ci')
+            // 3) Else try to infer from title prefixes like [Bug], [Feature], etc.
+            // 4) Fallback rule.
+
+            const ruleKeys = Object.keys(rules || {});
+            let chosenRuleKey = null;
+
+            // (1) label-driven
+            for (const lbl of existingLabels) {
+              if (ruleKeys.includes(lbl)) { chosenRuleKey = lbl; break; }
+            }
+
+            // (2) actor-driven
+            if (!chosenRuleKey) {
+              if (actor === 'renovate[bot]') chosenRuleKey = 'renovate';
+              else if (actor === 'dependabot[bot]') chosenRuleKey = 'dependabot';
+              else if (actor === 'github-actions[bot]') chosenRuleKey = 'ci';
+            }
+
+            // (3) title-driven
+            if (!chosenRuleKey) {
+              const t = title.toLowerCase();
+              if (/\bbug|\bfix|\bregression/.test(t)) chosenRuleKey = 'type:bug';
+              else if (/\bfeature|\benhancement|\bfeat/.test(t)) chosenRuleKey = 'type:feature';
+              else if (/\bchore|\brefactor|\bcleanup/.test(t)) chosenRuleKey = 'type:chore';
+              else if (/\bsecurity|\bcve|\bvuln/.test(t)) chosenRuleKey = 'type:security';
+              else if (/\bdocs?/.test(t)) chosenRuleKey = 'type:docs';
+            }
+
+            // (4) fallback
+            const rule = (chosenRuleKey && rules[chosenRuleKey]) ? rules[chosenRuleKey] : fallback;
+
+            // ---- Determine labels to apply ----------------------------------
+            const labelsToAdd = new Set();
+            if (chosenRuleKey && !existingLabels.has(chosenRuleKey)) {
+              // Only auto-add rule key if it looks like a label (contains ":")
+              if (chosenRuleKey.includes(':')) labelsToAdd.add(chosenRuleKey);
+            }
+            // Keep labels unique and only add those that exist (best-effort; if missing, GitHub will create them only if permissions allow)
+            const finalLabels = Array.from(labelsToAdd);
+
+            // ---- Determine assignees & reviewers ----------------------------
+            const wantAssignees = Array.from(new Set([...(rule.assignees || []), ...(fallback.assignees || [])]))
+              .filter(Boolean);
+            const wantReviewers = isPR
+              ? Array.from(new Set([...(rule.reviewers || []), ...(fallback.reviewers || [])])).filter(Boolean)
+              : [];
+
+            // Ensure the core maintainer is present at least once
+            if (!wantAssignees.includes('Sinless777')) wantAssignees.unshift('Sinless777');
+
+            // ---- Determine milestone ----------------------------------------
+            // Strategy:
+            // - If title has version like vX.Y.Z, assign milestone matching that version (emoji-insensitive).
+            // - If security signal (rule 'type:security' or label contains 'type:security'), assign security rolling milestone.
+            // - If Renovate actor, assign weekly dependency milestone.
+            // - Else fallback to 'Backlog'.
+            const version = pickVersionFromTitle(title);
+            const allMilestones = await github.paginate(github.rest.issues.listMilestones, {
+              owner, repo, state: 'open', per_page: 100
+            });
+
+            const msByNorm = new Map(allMilestones.map(m => [normalizeTitle(m.title), m]));
+            let desiredMsTitle = null;
+
+            if (version) {
+              // Find milestone whose normalized title includes the version
+              const match = allMilestones.find(m => normalizeTitle(m.title).includes(normalizeTitle(version)));
+              if (match) desiredMsTitle = match.title;
+            }
+
+            const hasSecuritySignal = chosenRuleKey === 'type:security' || existingLabels.has('type:security') || /\bcve|\bsecurity|\bvuln/i.test(title);
+            if (!desiredMsTitle && hasSecuritySignal) {
+              desiredMsTitle =
+                allMilestones.find(m => normalizeTitle(m.title).includes('security patches cve triage'))?.title ||
+                allMilestones.find(m => normalizeTitle(m.title).includes('security hardening audits'))?.title ||
+                allMilestones.find(m => /security/i.test(m.title))?.title ||
+                null;
+            }
+
+            if (!desiredMsTitle && actor === 'renovate[bot]') {
+              desiredMsTitle =
+                allMilestones.find(m => normalizeTitle(m.title).includes('renovate weekly dependency updates'))?.title ||
+                allMilestones.find(m => /renovate/i.test(m.title))?.title ||
+                null;
+            }
+
+            if (!desiredMsTitle) {
+              desiredMsTitle =
+                allMilestones.find(m => /backlog/i.test(m.title))?.title || null;
+            }
+
+            let desiredMilestoneNumber = null;
+            if (desiredMsTitle) {
+              desiredMilestoneNumber = msByNorm.get(normalizeTitle(desiredMsTitle))?.number || null;
+            }
+
+            // ---- Apply changes ----------------------------------------------
+            // Labels
+            if (finalLabels.length > 0) {
+              await github.rest.issues.addLabels({ owner, repo, issue_number: number, labels: finalLabels });
+              core.info(`🏷️ Added labels: ${finalLabels.join(', ')}`);
+            }
+
+            // Assignees (works for both issues and PRs)
+            if (wantAssignees.length > 0) {
+              // Filter to valid usernames (best-effort; ignore failures)
+              try {
+                await github.rest.issues.addAssignees({
+                  owner, repo, issue_number: number, assignees: wantAssignees
+                });
+                core.info(`🧑‍🔧 Assignees set: ${wantAssignees.join(', ')}`);
+              } catch (e) {
+                core.warning(`Unable to add assignees: ${e.message}`);
+              }
+            }
+
+            // Reviewers (PR only)
+            if (isPR && wantReviewers.length > 0) {
+              try {
+                await github.rest.pulls.requestReviewers({
+                  owner, repo, pull_number: number,
+                  reviewers: wantReviewers.filter(u => u !== 'github-actions[bot]' && !u.endsWith('[bot]'))
+                });
+                core.info(`🔍 Reviewers requested: ${wantReviewers.join(', ')}`);
+              } catch (e) {
+                core.warning(`Unable to request reviewers: ${e.message}`);
+              }
+            }
+
+            // Milestone
+            if (desiredMilestoneNumber && desiredMilestoneNumber !== existingMilestoneNumber) {
+              try {
+                await github.rest.issues.update({
+                  owner, repo, issue_number: number, milestone: desiredMilestoneNumber
+                });
+                const ms = allMilestones.find(m => m.number === desiredMilestoneNumber);
+                core.info(`🔖 Milestone set: ${ms?.title || desiredMilestoneNumber}`);
+              } catch (e) {
+                core.warning(`Unable to set milestone: ${e.message}`);
+              }
+            } else {
+              core.info(`🔖 Milestone unchanged${existingMilestoneNumber ? ` (#${existingMilestoneNumber})` : ''}.`);
+            }
+
+            core.info('✅ Assignment workflow complete.');

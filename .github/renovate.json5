@@ -41,7 +41,7 @@
     {
       // Ignore devDependencies in the libs folder for now
       "matchPaths": ["^libs/.*\\.json$"],
-      "matchPackagePatterns": ["^@helix/"],
+      "matchPackagePatterns": ["^@helix-ai/"],
       "enabled": false
     }
   ],

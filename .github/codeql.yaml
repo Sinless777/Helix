@@ -1,0 +1,61 @@
+# .github/codeql.yaml
+name: "Helix AI CodeQL Config"
+
+# Run the built-in default queries (security + quality), plus optional custom sets
+queries:
+  # Use the built-in “security-and-quality” suite for key languages
+  - uses: security-and-quality
+  # If you create local custom queries, you can include like:
+  # - uses: ./codeql/queries/my-custom-queries.qls
+
+# Disable default queries? Change to true if you want only custom queries
+disable-default-queries: false
+
+# Define language-specific settings if needed
+languages:
+  javascript-typescript:
+    # You can override or add settings specific to JS/TS if desired
+    # For example exclude certain paths for TS
+    paths-ignore:
+      - "packages/ui/**/*.test.tsx"
+      - "apps/web/.next/**"
+  python: {}
+  cpp:
+    paths-ignore:
+      - "legacy_cpp_tests/**"
+
+# Global path exclusions and inclusions
+paths-ignore:
+  - "node_modules/**"
+  - "packages/**/node_modules/**"
+  - ".github/workflows/**"
+  - "docs/**"
+  - "design-assets/**"
+paths:
+  # Optional: restrict to main code areas, uncomment if you prefer
+  # - "apps/"
+  # - "packages/"
+  # - "services/"
+
+# Query filters — exclude noisy or low-priority queries
+query-filters:
+  - exclude:
+      id: js/useless-assignment-to-local
+  - exclude:
+      tags:
+        - /cwe/-029/
+      problems.severity:
+        - recommendation
+        - warning
+
+# Threat model extension (if you want to include local sources of untrusted data)
+threat-models:
+  - local
+
+# Additional packs you might want to run (for example for C++/security or custom queries)
+packs:
+  javascript:
+    - codeql/javascript-queries
+  cpp:
+    - codeql/cpp-queries
+

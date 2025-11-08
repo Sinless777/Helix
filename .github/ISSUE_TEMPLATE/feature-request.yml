@@ -1,0 +1,130 @@
+# .github/ISSUE_TEMPLATE/feature-request.yml
+name: 🌟 Feature Request
+description: Suggest a new idea, enhancement, or improvement for Helix AI.
+title: "[Feature]: "
+labels:
+  - type:feature
+  - status:todo
+  - needs-triage
+assignees:
+  - Sinless777
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 💡 Feature Request Template
+        Thank you for sharing your idea to improve **Helix AI**!  
+        The more context and clarity you provide, the better we can evaluate and plan it.
+
+  - type: input
+    id: summary
+    attributes:
+      label: 🔖 Summary
+      description: A concise one-sentence description of the feature.
+      placeholder: e.g. "Add voice command support for the Helix assistant"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🚩 Problem Statement
+      description: What problem does this feature aim to solve? Why is it important?
+      placeholder: |
+        It’s difficult to interact with Helix while multitasking; voice input would help hands-free users.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 💭 Motivation / Value
+      description: Describe how this feature benefits users or the Helix ecosystem.
+      placeholder: |
+        This will improve accessibility and allow faster interactions during live sessions or coding.
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 🧩 Proposed Solution
+      description: Describe how the feature should work. What’s the expected user flow or outcome?
+      placeholder: |
+        When users say "Hey Helix", the assistant activates and listens for commands.
+        It should support basic voice queries and confirmation prompts.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔁 Alternatives Considered
+      description: Have you tried other solutions or workarounds? Why aren’t they sufficient?
+      placeholder: |
+        I considered using an external voice-to-text plugin, but it lacks integration with Helix’s AI engine.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 🏗️ Affected Area
+      description: Which system area or component does this feature impact?
+      multiple: false
+      options:
+        - area:frontend
+        - area:backend
+        - area:infra
+        - area:ai
+        - area:security
+        - area:database
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: ⚡ Priority Level
+      description: How urgent or impactful is this feature request?
+      options:
+        - 🟥 Critical — must-have for next release
+        - 🟧 High — significant value or blocker for other work
+        - 🟨 Medium — useful enhancement
+        - 🟩 Low — nice-to-have or exploratory
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 🔗 Related Components / Dependencies
+      description: Mention any systems, APIs, or packages that might be affected or need changes.
+      placeholder: |
+        - Affects: Discord bot command processor
+        - Depends on: WebSocket gateway
+        - Impacts: permission management and memory modules
+
+  - type: textarea
+    id: metrics
+    attributes:
+      label: 📊 Success Criteria / KPIs
+      description: Define how success will be measured for this feature.
+      placeholder: |
+        - 90% accuracy in command recognition
+        - <200ms response time for voice-triggered actions
+        - Increased user engagement in analytics
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 🧠 Additional Context
+      description: Include design sketches, references, mockups, or any helpful details.
+      placeholder: |
+        Example UI mockup: https://helixaibot.com/voice-concept
+        Related discussion: #112
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        🧩 **Tip:** Features tagged as `type:feature` will be reviewed during milestone planning.
+        High-impact ideas may be grouped into upcoming Helix AI releases or marketplace expansions.

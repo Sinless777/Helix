@@ -1,0 +1,132 @@
+# ==========================================================
+# GitHub Labels Configuration
+# Managed by .github/workflows/sync-labels.yml
+# ==========================================================
+# Each label entry:
+# - name: Visible label name
+# - color: Hex color code (no #)
+# - description: Short explanation
+# ==========================================================
+
+# -----------------------------
+# 🧩 Type Labels
+# -----------------------------
+- name: type:bug
+  color: d73a4a
+  description: Something isn't working as intended
+
+- name: type:feature
+  color: a2eeef
+  description: New feature or enhancement
+
+- name: type:chore
+  color: cccccc
+  description: Maintenance, cleanup, or refactor task
+
+- name: type:docs
+  color: 0075ca
+  description: Documentation or README-related change
+
+- name: type:test
+  color: 0e8a16
+  description: Unit or integration tests
+
+- name: type:security
+  color: b60205
+  description: Security vulnerability or patch
+
+# -----------------------------
+# 🚦 Status Labels
+# -----------------------------
+- name: status:todo
+  color: d876e3
+  description: Planned but not yet started
+
+- name: status:in-progress
+  color: fbca04
+  description: Work currently in progress
+
+- name: status:review
+  color: fef2c0
+  description: Awaiting review or approval
+
+- name: status:blocked
+  color: 5319e7
+  description: Blocked by external dependency or prerequisite
+
+- name: status:ready
+  color: 0e8a16
+  description: Ready for development or merge
+
+# -----------------------------
+# ⚡ Priority Labels
+# -----------------------------
+- name: priority:critical
+  color: e11d21
+  description: Must fix or implement immediately
+
+- name: priority:high
+  color: b60205
+  description: Important issue that should be addressed soon
+
+- name: priority:medium
+  color: fbca04
+  description: Normal priority item
+
+- name: priority:low
+  color: cccccc
+  description: Low urgency or nice-to-have
+
+# -----------------------------
+# 🏗️ Area / Scope Labels
+# -----------------------------
+- name: area:frontend
+  color: 1d76db
+  description: Frontend, UI, or web client components
+
+- name: area:backend
+  color: 0052cc
+  description: Backend services or APIs
+
+- name: area:infra
+  color: 0e8a16
+  description: Infrastructure, DevOps, or CI/CD
+
+- name: area:database
+  color: f9d0c4
+  description: Schema, ORM, or database logic
+
+- name: area:security
+  color: ffccd7
+  description: Authentication, authorization, or encryption
+
+- name: area:ai
+  color: 5319e7
+  description: AI/ML, inference, or model-related components
+
+# -----------------------------
+# 🧠 Meta / Community Labels
+# -----------------------------
+- name: good first issue
+  color: 7057ff
+  description: Great starting point for new contributors
+
+- name: help wanted
+  color: 008672
+  description: Open for external contributions
+
+- name: discussion
+  color: d4c5f9
+  description: Requires further design or discussion
+
+- name: wontfix
+  color: ffffff
+  description: Decision made to not address this issue
+
+- name: duplicate
+  color: cfd3d7
+  description: Similar or duplicate of another issue
+
+- name: invalid
+  color: e4e669
+  description: Not reproducible or not applicable

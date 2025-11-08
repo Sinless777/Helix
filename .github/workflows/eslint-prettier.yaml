@@ -1,0 +1,82 @@
+# .github/workflows/eslint-prettier.yaml
+name: Lint & Format Checks
+
+on:
+  push:
+    branches: [ main, master ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      - 'docs/**'
+  pull_request:
+    branches: [ main, master ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      - 'docs/**'
+  workflow_dispatch: {}
+
+jobs:
+  lint-format:
+    name: ESLint + Prettier
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        node-version: [18, 20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            pnpm install --frozen-lockfile
+          else
+            npm ci
+          fi
+
+      - name: Run Prettier check
+        run: |
+          if pnpm -v >/dev/null 2>&1; then
+            pnpm -s prettier --check .
+          else
+            npx prettier --check .
+          fi
+
+      - name: Run ESLint
+        run: |
+          if pnpm -v >/dev/null 2>&1; then
+            pnpm -s eslint . --max-warnings=0
+          else
+            npx eslint . --max-warnings=0
+          fi
+
+      - name: Format autofix (optional)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          if pnpm -v >/dev/null 2>&1; then
+            pnpm -s prettier --write .
+          else
+            npx prettier --write .
+          fi
+        continue-on-error: true
+
+      - name: Commit format fixes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: auto-format code"
+          branch: ${{ github.ref_name }}
+          file_pattern: '**/*.{js,ts,tsx,css,md,json}'
