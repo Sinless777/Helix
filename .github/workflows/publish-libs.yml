@@ -32,8 +32,8 @@ jobs:
       - name: Setup Node.js & pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: '8'
-
+          version: '8'   # Choose pnpm version consistent with your lockfile
+          
       - name: Enable Corepack & pnpm
         run: |
           corepack enable
