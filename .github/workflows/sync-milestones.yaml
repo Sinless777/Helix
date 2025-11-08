@@ -1,4 +1,3 @@
-# .github/workflows/sync-milestones.yaml
 name: 🔖 Sync milestones from .github/milestones.yaml
 
 on:
@@ -39,10 +38,8 @@ jobs:
           script: |
             const fs = require('fs');
             const { parse } = require('yaml');
-            const core = require('@actions/core');
 
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
+            const { owner, repo } = context.repo;
             const file = '.github/milestones.yaml';
 
             if (!fs.existsSync(file)) {

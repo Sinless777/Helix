@@ -19,10 +19,10 @@ languages:
     paths-ignore:
       - "packages/ui/**/*.test.tsx"
       - "apps/web/.next/**"
-  python: {}
-  cpp:
-    paths-ignore:
-      - "legacy_cpp_tests/**"
+  # python: {}
+  # cpp:
+  #   paths-ignore:
+  #     - "legacy_cpp_tests/**"
 
 # Global path exclusions and inclusions
 paths-ignore:
