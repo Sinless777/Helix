@@ -19,7 +19,10 @@ async function main() {
     process.exit(1);
   }
   const config = new Configuration({ apiKey: openaiKey });
-  const openai = new OpenAIApi(config);
+  const OpenAI = require('openai');
+    const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+    });
 
   // Determine latest tag
   const lastTag = await runCommand('git describe --tags --abbrev=0');
