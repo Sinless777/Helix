@@ -2,6 +2,7 @@
 name: 👥 Auto-assign, label & milestone (issues & PRs)
 
 on:
+  workflow_dispatch:
   issues:
     types: [opened, edited, labeled, reopened]
   pull_request_target:
