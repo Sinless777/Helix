@@ -56,6 +56,7 @@ async function main() {
         (description && (current.description || '') !== description)
       );
       if (needsUpdate) {
+        console.log(`Updating milestone "${title}"`, { state, due_on, description });
         await octokit.rest.issues.updateMilestone({
           owner,
           repo,
@@ -66,6 +67,7 @@ async function main() {
         });
       }
     } else {
+      console.log(`Creating milestone "${title}"`, { state, due_on, description });
       await octokit.rest.issues.createMilestone({
         owner,
         repo,
@@ -77,9 +79,9 @@ async function main() {
     }
   }
 
-  // Close any milestones not in YAML
   for (const m of existing) {
     if (!titlesInYaml.has(m.title) && m.state !== 'closed') {
+      console.log(`Closing milestone "${m.title}"`);
       await octokit.rest.issues.updateMilestone({
         owner,
         repo,
