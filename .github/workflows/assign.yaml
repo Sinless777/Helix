@@ -35,11 +35,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install YAML parser
-        run: npm install -g yaml @actions/core
+      - name: Install tools
+        run: npm install yaml @actions/core @actions/github
 
-      - name: Apply assignment rules
-        run: ./.github/scripts/assign.js
+      - name: Run assignment script
+        run: node ./.github/scripts/assign.js
         env:
-          CONFIG_FILE: .github/assignees.yaml
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
