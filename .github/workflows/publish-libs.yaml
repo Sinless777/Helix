@@ -48,9 +48,13 @@ jobs:
           fi
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
+      - name: Set Git identity for commits
+        run: |
+          git config user.name "Sinless777"
+          git config user.email "tpierce@sinlessgamesllc.com"
+
       - name: Verify lockfile matches config
         run: pnpm install --frozen-lockfile || (echo "Lockfile out of sync; update locally and commit" && exit 1)
-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
