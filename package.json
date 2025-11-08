@@ -78,7 +78,7 @@
   "dependencies": {
     "@emotion/react": "11.11.1",
     "@emotion/server": "11.11.0",
-    "@emotion/styled": "11.11.0",
+    "@emotion/styled": "11.14.1",
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
