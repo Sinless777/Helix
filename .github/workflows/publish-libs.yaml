@@ -76,7 +76,7 @@ jobs:
           tags: true
 
       - name: Build workspace (all libs + apps)
-        run: pnpm nx run-many --target=build --all
+        run: pnpm nx run-many --target=build
 
       - name: Publish workspace packages
         run: pnpm -w -r publish --access public --no-git-checks
