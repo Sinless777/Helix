@@ -8,8 +8,21 @@ async function main() {
   const { owner, repo } = github.context.repo;
   const actor = github.context.actor;
   const eventPayload = github.context.payload;
-  const isPR = !!eventPayload.pull_request;
-  const number = isPR ? eventPayload.pull_request.number : eventPayload.issue.number;
+
+  // Determine if this is a PR or an Issue
+  let isPR = false;
+  let number;
+
+  if (eventPayload.pull_request && eventPayload.pull_request.number) {
+    isPR = true;
+    number = eventPayload.pull_request.number;
+  } else if (eventPayload.issue && eventPayload.issue.number) {
+    isPR = false;
+    number = eventPayload.issue.number;
+  } else {
+    core.setFailed('Could not find issue or pull_request number in the event payload.');
+    return;
+  }
 
   const cfgPath = process.env.CONFIG_FILE;
   let cfg = {};
@@ -27,17 +40,19 @@ async function main() {
   const rules = cfg.rules || {};
   const fallback = cfg.default || { assignees: [], reviewers: [] };
 
+  const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+
   // Fetch the issue or PR data
   let data;
   if (isPR) {
-    const res = await github.getOctokit(process.env.GITHUB_TOKEN).rest.pulls.get({
+    const res = await octokit.rest.pulls.get({
       owner,
       repo,
       pull_number: number
     });
     data = res.data;
   } else {
-    const res = await github.getOctokit(process.env.GITHUB_TOKEN).rest.issues.get({
+    const res = await octokit.rest.issues.get({
       owner,
       repo,
       issue_number: number
@@ -46,7 +61,7 @@ async function main() {
   }
 
   const title = data.title || '';
-  const existingLabels = new Set((data.labels || []).map(l => typeof l === 'string' ? l : l.name));
+  const existingLabels = new Set((data.labels || []).map(l => (typeof l === 'string' ? l : l.name)));
 
   // Determine key for rule lookup
   let key = null;
@@ -77,14 +92,20 @@ async function main() {
     labelsToAdd.push(key);
   }
 
-  const assignees = Array.from(new Set([...(rule.assignees || []), ...(fallback.assignees || [])])).filter(Boolean);
-  const reviewers = isPR ? Array.from(new Set([...(rule.reviewers || []), ...(fallback.reviewers || [])])).filter(Boolean) : [];
+  const assignees = Array.from(new Set([
+    ...(rule.assignees || []),
+    ...(fallback.assignees || [])
+  ])).filter(Boolean);
+  const reviewers = isPR
+    ? Array.from(new Set([
+        ...(rule.reviewers || []),
+        ...(fallback.reviewers || [])
+      ])).filter(Boolean)
+    : [];
 
   if (!assignees.includes('Sinless777')) {
     assignees.unshift('Sinless777');
   }
-
-  const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 
   if (labelsToAdd.length) {
     await octokit.rest.issues.addLabels({
@@ -132,7 +153,7 @@ async function main() {
     per_page: 100
   });
   const norm = s => s.toLowerCase().replace(/[\s\p{Emoji}—–-]/gu, '');
-  const findMilestone = (search) => openMilestones.find(m => norm(m.title).includes(norm(search)));
+  const findMilestone = search => openMilestones.find(m => norm(m.title).includes(norm(search)));
 
   let selectedMilestone = null;
   const versionMatch = title.match(/\bv?(\d+\.\d+\.\d+)\b/);
