@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.6](https://github.com/Sinless777/Helix/compare/v1.1.5...v1.1.6) (2025-11-08)
+
+
+### Bug Fixes
+
+* Remove --no-cache option from build step for consistency ([21201c7](https://github.com/Sinless777/Helix/commit/21201c71c0852111a86eb974ff2e6619c46e7f4a))
+
 ### [1.1.5](https://github.com/Sinless777/Helix/compare/v1.1.4...v1.1.5) (2025-11-08)
 
 
