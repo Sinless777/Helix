@@ -27,7 +27,7 @@
   "dependencies": {
     "@vercel/edge-config": "^1.4.3",
     "hypertune": "^2.10.0",
-    "next": "~15.2.5",
+    "next": "~15.4.7",
     "react": "^19.2.0",
     "server-only": "0.0.1"
   },
