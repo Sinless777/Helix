@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/Sinless777/Helix/compare/v1.1.0...v1.1.1) (2025-11-08)
+
+
+### Bug Fixes
+
+* Update rootDir in tsconfig.lib.json for correct directory structure ([ae1fc16](https://github.com/Sinless777/Helix/commit/ae1fc16e689bfef3bf976ff804b71d9dff142fd5))
+
 ## 1.1.0 (2025-11-08)
 
 
