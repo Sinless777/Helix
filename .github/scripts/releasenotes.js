@@ -2,7 +2,6 @@
 const fs = require('fs');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-const { Configuration, OpenAIApi } = require('openai');
 
 async function runCommand(cmd) {
   const { stdout, stderr } = await exec(cmd);
@@ -18,11 +17,9 @@ async function main() {
     console.error('ERROR: OPENAI_API_KEY not set');
     process.exit(1);
   }
-  const config = new Configuration({ apiKey: openaiKey });
+
   const OpenAI = require('openai');
-    const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
-    });
+  const openai = new OpenAI({ apiKey: openaiKey });
 
   // Determine latest tag
   const lastTag = await runCommand('git describe --tags --abbrev=0');
@@ -54,7 +51,7 @@ Release Notes:
 `;
 
   // Call OpenAI
-  const response = await openai.createChatCompletion({
+  const response = await openai.chat.completions.create({
     model: 'gpt-4',
     messages: [
       { role: 'system', content: 'You generate release notes from commit messages.' },
@@ -64,7 +61,7 @@ Release Notes:
     max_tokens: 500
   });
 
-  const notes = response.data.choices[0].message.content.trim();
+  const notes = response.choices[0].message.content.trim();
   console.log('Generated release notes:\n', notes);
 
   // Write to file
