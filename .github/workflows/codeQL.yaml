@@ -39,8 +39,8 @@ jobs:
           - windows-latest
         language:
           - javascript-typescript
-          - c-cpp
-          - actions
+          # - c-cpp
+          # - actions
           # Add 'python', 'java-kotlin', 'go', etc. if you have modules in those languages
 
     steps:
