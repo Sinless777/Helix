@@ -7,18 +7,17 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+  issues: write
+  pull-requests: write
+
 jobs:
   version-and-publish:
     name: Bump version • Generate notes • Publish
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      packages: write
-      id-token: write
-      issues: write
-      pull-requests: write
-
     env:
       NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
