@@ -73,11 +73,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           tags: true
+      - name: Build workspace (all libs + apps)
+        run: pnpm nx run-many --target=build
+
       - run: npx nx fix-ci
         if: always()
-
-      - name: Build workspace (all libs + apps)
-        run: pnpm nx run-many --target=build --no-cache
 
       - name: Publish workspace packages
         run: pnpm -w -r publish --access public --no-git-checks
