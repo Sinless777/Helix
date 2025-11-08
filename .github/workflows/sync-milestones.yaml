@@ -28,4 +28,4 @@ jobs:
       - name: Run milestone sync script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node ../scripts/milestone.js
+        run: node ./scripts/milestone.js
