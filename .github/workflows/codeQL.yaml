@@ -3,33 +3,45 @@ name: 🔍 CodeQL Analysis
 
 on:
   push:
-    branches: [ main, master ]
-    # Skip docs-only changes (optional)
+    branches:
+      - main
+      - master
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
+      - 'Docs/**'
+      - 'design-assets/**'
   pull_request:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
+      - 'docs/**'
+      - 'design-assets/**'
   schedule:
     - cron: '0 5 * * 1'  # Weekly full scan on Monday at 05:00 UTC
 
 permissions:
   contents: read
-  security-events: write   # required for CodeQL uploads :contentReference[oaicite:0]{index=0}
+  security-events: write
 
 jobs:
   analyze:
-    name: Analyze (${{ matrix.language }})
+    name: Analyze (${{ matrix.language }} on ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
-        language: [ 'javascript-typescript', 'c-cpp', 'actions' ]
-        # Add 'python', 'java-kotlin', etc. if needed :contentReference[oaicite:1]{index=1}
+        os:
+          - ubuntu-latest
+          - windows-latest
+        language:
+          - javascript-typescript
+          - c-cpp
+          - actions
+          # Add 'python', 'java-kotlin', 'go', etc. if you have modules in those languages
 
     steps:
       - name: Checkout repository
@@ -41,25 +53,23 @@ jobs:
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
-          # Use config file if you have one for custom filters
           config-file: ./.github/codeql.yaml
-          # If you have custom queries or model packs
           # queries: security-and-quality
-          # model-packs: my-org/codeql-models :contentReference[oaicite:2]{index=2}
+          # model-packs: my-org/codeql-models
 
       - name: Build repository for CodeQL
-        # Use autobuild for interpreted languages; customize for compiled ones
-        uses: github/codeql-action/autobuild@v4
+        # Use autobuild for interpreted languages
         if: matrix.language == 'javascript-typescript'
-      - name: Manual build for C++ and other compiled languages
+        uses: github/codeql-action/autobuild@v4
+
+      - name: Manual build for C/C++ and other compiled languages
         if: matrix.language == 'c-cpp'
         run: |
-          # Example for your C++ “School” system
-          mkdir build && cd build
+          mkdir -p build
+          cd build
           cmake .. && make
 
       - name: Run CodeQL analysis
         uses: github/codeql-action/analyze@v4
         with:
           category: "codeql/${{ matrix.language }}"
-          # You can set upload-database: false if you don’t want the DB uploaded

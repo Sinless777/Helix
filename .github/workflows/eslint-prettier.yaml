@@ -3,13 +3,17 @@ name: Lint & Format Checks
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
       - 'docs/**'
   pull_request:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
@@ -33,7 +37,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -63,7 +67,7 @@ jobs:
             npx eslint . --max-warnings=0
           fi
 
-      - name: Format autofix (optional)
+      - name: Format auto-fix on main
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           if pnpm -v >/dev/null 2>&1; then
