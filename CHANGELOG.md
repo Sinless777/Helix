@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.7](https://github.com/Sinless777/Helix/compare/v1.1.6...v1.1.7) (2025-11-08)
+
+
+### Bug Fixes
+
+* Add NPM_ACCESS_TOKEN to environment variables for consistency ([205b0f6](https://github.com/Sinless777/Helix/commit/205b0f63f5890fdf56338dd05af452cf281bb9b1))
+
 ### [1.1.6](https://github.com/Sinless777/Helix/compare/v1.1.5...v1.1.6) (2025-11-08)
 
 
