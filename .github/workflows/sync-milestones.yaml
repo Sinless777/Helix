@@ -6,6 +6,10 @@ on:
     paths:
       - '.github/milestones.yaml'
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -16,16 +20,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
 
-      - name: Install dependencies for script
-        run: |
-          npm install yaml
-        # optionally you could lock this via package.json instead
+      - name: Install yaml dependency
+        run: npm install yaml
 
-      - name: Run milestone sync script
+      - name: Run milestone sync
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const { parse } = require('yaml');
@@ -63,10 +66,9 @@ jobs:
               const description = m.description || '';
               const state = (m.state || 'open').toLowerCase() === 'closed' ? 'closed' : 'open';
               const due_on = m.due_on ? new Date(m.due_on).toISOString() : null;
-
               const current = mapByTitle.get(title);
+
               if (current) {
-                // update if needed
                 const needsUpdate = (
                   current.state !== state ||
                   (due_on && current.due_on !== due_on) ||
@@ -83,7 +85,6 @@ jobs:
                   });
                 }
               } else {
-                // create new milestone
                 await github.rest.issues.createMilestone({
                   owner,
                   repo,
@@ -95,7 +96,6 @@ jobs:
               }
             }
 
-            // optionally close ones not in yaml
             for (const m of existing) {
               if (!titlesInYaml.has(m.title) && m.state !== 'closed') {
                 await github.rest.issues.updateMilestone({
@@ -106,5 +106,3 @@ jobs:
                 });
               }
             }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
