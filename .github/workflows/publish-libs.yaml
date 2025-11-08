@@ -22,6 +22,7 @@ jobs:
     env:
       NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -32,7 +33,7 @@ jobs:
       - name: Setup Node.js & pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: '8'   # Choose pnpm version consistent with your lockfile
+          version: '8'
 
       - name: Enable Corepack & pnpm
         run: |
@@ -48,16 +49,16 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Bump versions & generate CHANGELOG
         id: bump
         run: |
           pnpm exec standard-version --no-verify
-          pnpm exec node scripts/generate-release-notes.js --version ${{ steps.bump.outputs.new_version }}
+          pnpm exec node ./.github/scripts/releasenotes.js --version ${{ steps.bump.outputs.new_version }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push version bump commit and tag
         uses: ad-m/github-push-action@v0.8.0
