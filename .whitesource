@@ -1,21 +1,14 @@
 {
   "scanSettings": {
-    "configMode": "LOCAL",
-    "configExternalURL": "",
-    "projectToken": "",
-    "baseBranches": ["main"]
+    "baseBranches": []
   },
   "checkRunSettings": {
     "vulnerableCheckRunConclusionLevel": "failure",
-    "displayMode": "diff"
+    "displayMode": "diff",
+    "useMendCheckNames": true
   },
   "issueSettings": {
     "minSeverityLevel": "LOW",
     "issueType": "DEPENDENCY"
-  },
-  "remediateSettings": {
-    "workflowRules": {
-      "enabled": true
-    }
   }
 }
