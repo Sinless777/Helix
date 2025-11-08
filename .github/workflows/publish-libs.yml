@@ -4,7 +4,7 @@ name: 🚀 Publish Libraries
 on:
   push:
     tags:
-      - 'v*'             # Already triggered on tags (but we'll adjust for version bumping)
+      - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -14,14 +14,14 @@ jobs:
 
     permissions:
       contents: read
-      packages: write     # for npm registry publishing
-      id-token: write     # if using GitHub OIDC for registry auth
-      issues: write       # for release notes or annotations
+      packages: write
+      id-token: write
+      issues: write
       pull-requests: write
 
     env:
       NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}   # for ChatGPT integration
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -33,7 +33,9 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: '8'
-      - run: |
+
+      - name: Enable Corepack & pnpm
+        run: |
           corepack enable
           corepack prepare pnpm@latest --activate
 
@@ -48,13 +50,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bump package versions & generate CHANGELOG
+      - name: Bump versions & generate CHANGELOG
         id: bump
         run: |
-          # Example: using standard-version or semantic-release
-          # pnpm exec standard-version --release-as minor
           pnpm exec standard-version --no-verify
-          # Optionally run a script that uses ChatGPT to generate detailed release notes
           pnpm exec node scripts/generate-release-notes.js --version ${{ steps.bump.outputs.new_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
