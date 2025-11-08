@@ -1,4 +1,3 @@
-# .github/workflows/assign.yaml
 name: 👥 Auto-assign, label & milestone (issues & PRs)
 
 on:
@@ -12,10 +11,6 @@ permissions:
   contents: read
   issues: write
   pull-requests: write
-
-concurrency:
-  group: auto-assign-${{ github.repository }}-${{ github.ref }}
-  cancel-in-progress: false
 
 jobs:
   assign:
@@ -38,6 +33,7 @@ jobs:
         run: npm install yaml @actions/core @actions/github
 
       - name: Run assignment script
-        run: node ./.github/scripts/assign.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG_FILE: .github/assignees.yaml
+        run: node ./.github/scripts/assign.js

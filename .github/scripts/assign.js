@@ -1,151 +1,173 @@
 const fs = require('fs');
+const path = require('path');
 const { parse } = require('yaml');
 const core = require('@actions/core');
+const github = require('@actions/github');
 
-const owner = context.repo.owner;
-const repo = context.repo.repo;
-const actor = context.actor;
-const isPR = !!context.payload.pull_request;
-const number = isPR ? context.payload.pull_request.number : context.payload.issue.number;
+async function main() {
+  const { owner, repo } = github.context.repo;
+  const actor = github.context.actor;
+  const eventPayload = github.context.payload;
+  const isPR = !!eventPayload.pull_request;
+  const number = isPR ? eventPayload.pull_request.number : eventPayload.issue.number;
 
-function readConfig(path) {
-    if (!fs.existsSync(path)) {
-    core.warning(`Config file not found: ${path}`);
-    return {};
-    }
+  const cfgPath = process.env.CONFIG_FILE;
+  let cfg = {};
+  if (cfgPath && fs.existsSync(cfgPath)) {
     try {
-    return parse(fs.readFileSync(path, 'utf8'));
+      cfg = parse(fs.readFileSync(cfgPath, 'utf8'));
     } catch (error) {
-    core.setFailed(`Failed to parse ${path}: ${error}`);
+      core.setFailed(`Failed to parse ${cfgPath}: ${error}`);
+      return;
     }
-}
+  } else {
+    core.warning(`Config file not found: ${cfgPath}`);
+  }
 
-const cfg = readConfig(process.env.CONFIG_FILE) || {};
-const rules = cfg.rules || {};
-const fallback = cfg.default || { assignees: [], reviewers: [] };
+  const rules = cfg.rules || {};
+  const fallback = cfg.default || { assignees: [], reviewers: [] };
 
-// Get current item data
-const data = isPR
-    ? (await github.rest.pulls.get({ owner, repo, pull_number: number })).data
-    : (await github.rest.issues.get({ owner, repo, issue_number: number })).data;
+  // Fetch the issue or PR data
+  let data;
+  if (isPR) {
+    const res = await github.getOctokit(process.env.GITHUB_TOKEN).rest.pulls.get({
+      owner,
+      repo,
+      pull_number: number
+    });
+    data = res.data;
+  } else {
+    const res = await github.getOctokit(process.env.GITHUB_TOKEN).rest.issues.get({
+      owner,
+      repo,
+      issue_number: number
+    });
+    data = res.data;
+  }
 
-const title = data.title || '';
-const existingLabels = new Set((data.labels || []).map(l => typeof l === 'string' ? l : l.name));
+  const title = data.title || '';
+  const existingLabels = new Set((data.labels || []).map(l => typeof l === 'string' ? l : l.name));
 
-// Determine key for rule lookup
-let key = null;
-// 1) label‐driven
-for (const lbl of existingLabels) {
+  // Determine key for rule lookup
+  let key = null;
+  for (const lbl of existingLabels) {
     if (rules[lbl]) {
-    key = lbl;
-    break;
+      key = lbl;
+      break;
     }
-}
-// 2) actor‐driven for bots
-if (!key) {
+  }
+  if (!key) {
     if (actor === 'renovate[bot]') key = 'renovate';
     else if (actor === 'dependabot[bot]') key = 'dependabot';
     else if (actor === 'github-actions[bot]') key = 'ci';
-}
-// 3) title‐driven heuristics
-if (!key) {
+  }
+  if (!key) {
     const t = title.toLowerCase();
     if (/\bbug|\bfix|\bregression/.test(t)) key = 'type:bug';
     else if (/\bfeature|\benhancement|\bfeat/.test(t)) key = 'type:feature';
     else if (/\bchore|\brefactor|\bcleanup/.test(t)) key = 'type:chore';
     else if (/\bsecurity|\bcve|\bvuln/.test(t)) key = 'type:security';
     else if (/\bdocs?/.test(t)) key = 'type:docs';
-}
+  }
 
-const rule = key && rules[key] ? rules[key] : fallback;
+  const rule = (key && rules[key]) ? rules[key] : fallback;
 
-// Prepare actions
-const labelsToAdd = [];
-if (key && key.includes(':') && !existingLabels.has(key)) {
+  const labelsToAdd = [];
+  if (key && key.includes(':') && !existingLabels.has(key)) {
     labelsToAdd.push(key);
-}
+  }
 
-const assignees = Array.from(new Set([...(rule.assignees || []), ...(fallback.assignees || [])]))
-                    .filter(Boolean);
-const reviewers = isPR
-    ? Array.from(new Set([...(rule.reviewers || []), ...(fallback.reviewers || [])]))
-        .filter(Boolean)
-    : [];
+  const assignees = Array.from(new Set([...(rule.assignees || []), ...(fallback.assignees || [])])).filter(Boolean);
+  const reviewers = isPR ? Array.from(new Set([...(rule.reviewers || []), ...(fallback.reviewers || [])])).filter(Boolean) : [];
 
-// Always ensure your username is present
-if (!assignees.includes('Sinless777')) {
+  if (!assignees.includes('Sinless777')) {
     assignees.unshift('Sinless777');
-}
+  }
 
-// Apply labels
-if (labelsToAdd.length) {
-    await github.rest.issues.addLabels({ owner, repo, issue_number: number, labels: labelsToAdd });
-    core.info(`Added label(s): ${labelsToAdd}`);
-}
+  const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 
-// Assign users
-if (assignees.length) {
+  if (labelsToAdd.length) {
+    await octokit.rest.issues.addLabels({
+      owner,
+      repo,
+      issue_number: number,
+      labels: labelsToAdd
+    });
+    core.info(`Added label(s): ${labelsToAdd.join(', ')}`);
+  }
+
+  if (assignees.length) {
     try {
-    await github.rest.issues.addAssignees({ owner, repo, issue_number: number, assignees });
-    core.info(`Assigned: ${assignees}`);
+      await octokit.rest.issues.addAssignees({
+        owner,
+        repo,
+        issue_number: number,
+        assignees
+      });
+      core.info(`Assigned: ${assignees.join(', ')}`);
     } catch (e) {
-    core.warning(`Failed to assign: ${e.message}`);
+      core.warning(`Failed to assign: ${e.message}`);
     }
-}
+  }
 
-// Request reviewers on PR
-if (isPR && reviewers.length) {
+  if (isPR && reviewers.length) {
     try {
-    await github.rest.pulls.requestReviewers({
-        owner, repo,
+      await octokit.rest.pulls.requestReviewers({
+        owner,
+        repo,
         pull_number: number,
         reviewers: reviewers.filter(u => !u.endsWith('[bot]'))
-    });
-    core.info(`Requested reviewers: ${reviewers}`);
+      });
+      core.info(`Requested reviewers: ${reviewers.join(', ')}`);
     } catch (e) {
-    core.warning(`Failed to request reviewers: ${e.message}`);
+      core.warning(`Failed to request reviewers: ${e.message}`);
     }
-}
+  }
 
-// Milestone logic (optional but recommended)
-const milestones = await github.paginate(github.rest.issues.listMilestones, {
-    owner, repo, state: 'open', per_page: 100
-});
-const norm = s => s.toLowerCase().replace(/[\s\p{Emoji}—–-]/gu, '');
-const findMilestone = (search) => milestones.find(m => norm(m.title).includes(norm(search)));
-let selectedMilestone = null;
+  // Milestone logic
+  const openMilestones = await octokit.paginate(octokit.rest.issues.listMilestones, {
+    owner,
+    repo,
+    state: 'open',
+    per_page: 100
+  });
+  const norm = s => s.toLowerCase().replace(/[\s\p{Emoji}—–-]/gu, '');
+  const findMilestone = (search) => openMilestones.find(m => norm(m.title).includes(norm(search)));
 
-// Try match semantic version like vX.Y.Z
-const versionMatch = title.match(/\bv?(\d+\.\d+\.\d+)\b/);
-if (versionMatch) {
+  let selectedMilestone = null;
+  const versionMatch = title.match(/\bv?(\d+\.\d+\.\d+)\b/);
+  if (versionMatch) {
     selectedMilestone = findMilestone(versionMatch[1]);
-}
-// Security key
-if (!selectedMilestone && key === 'type:security') {
+  }
+  if (!selectedMilestone && key === 'type:security') {
     selectedMilestone = findMilestone('security');
-}
-// Bot updates
-if (!selectedMilestone && actor === 'renovate[bot]') {
+  }
+  if (!selectedMilestone && actor === 'renovate[bot]') {
     selectedMilestone = findMilestone('renovate');
-}
-// Fallback to backlog
-if (!selectedMilestone) {
+  }
+  if (!selectedMilestone) {
     selectedMilestone = findMilestone('backlog');
-}
+  }
 
-if (selectedMilestone && data.milestone?.number !== selectedMilestone.number) {
+  if (selectedMilestone && data.milestone?.number !== selectedMilestone.number) {
     try {
-    await github.rest.issues.update({
-        owner, repo,
+      await octokit.rest.issues.update({
+        owner,
+        repo,
         issue_number: number,
         milestone: selectedMilestone.number
-    });
-    core.info(`Milestone set to: ${selectedMilestone.title}`);
+      });
+      core.info(`Milestone set to: ${selectedMilestone.title}`);
     } catch (e) {
-    core.warning(`Failed to set milestone: ${e.message}`);
+      core.warning(`Failed to set milestone: ${e.message}`);
     }
-} else {
-    core.info(`Milestone unchanged.`);
+  } else {
+    core.info('Milestone unchanged.');
+  }
+
+  core.info('✅ Auto-assignment complete.');
 }
 
-core.info('✅ Auto-assignment complete.');
+main().catch(err => {
+  core.setFailed(err.message);
+});
