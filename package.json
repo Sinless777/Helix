@@ -67,6 +67,7 @@
     "jest-util": "^30.0.2",
     "jsonc-eslint-parser": "^2.1.0",
     "nx": "22.0.2",
+    "nx-mcp": "^0.9.0",
     "openai": "^6.8.1",
     "rollup": "^4.53.1",
     "standard-version": "^9.5.0",

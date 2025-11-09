@@ -198,6 +198,9 @@ importers:
       nx:
         specifier: 22.0.2
         version: 22.0.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.5.29(@swc/helpers@0.5.17))
+      nx-mcp:
+        specifier: ^0.9.0
+        version: 0.9.0
       openai:
         specifier: ^6.8.1
         version: 6.8.1(ws@8.18.0)(zod@4.1.12)
@@ -7870,6 +7873,10 @@ packages:
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
+
+  nx-mcp@0.9.0:
+    resolution: {integrity: sha512-5xM6J9Dhg2rr7w3zCEp2HfuJQ5QSHbmTq5FuEExtvLplKlW1JTiN1PH5LO9XxIfYVnMcbEzgR3/t7wa9SS7Hhg==}
+    hasBin: true
 
   nx-remotecache-custom@17.1.1:
     resolution: {integrity: sha512-p9ccy0piga2rAb22ULV1ZyRaC6No2hIh3UIN2uQJ7WP1kM+NF7Gk3K2hQo4urnYxSF6QzQI71KcKS5DVLsqOLQ==}
@@ -19399,6 +19406,8 @@ snapshots:
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
+
+  nx-mcp@0.9.0: {}
 
   nx-remotecache-custom@17.1.1(nx@22.0.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.5.29(@swc/helpers@0.5.17))):
     dependencies:
