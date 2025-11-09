@@ -40,14 +40,11 @@ jobs:
           restore-keys: |
             pnpm-store-${{ runner.os }}-
 
-      - name: Setup Node.js & pnpm
-        uses: pnpm/action-setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          version: '9.15.4'
-
-      - run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
+          version: '10.18.0'
+          standalone: true
 
       - name: Cache Nx computation results
         uses: actions/cache@v4
@@ -103,8 +100,11 @@ jobs:
       - name: Bump version & generate CHANGELOG
         id: bump
         run: |
+          set -euo pipefail
           pnpm exec standard-version --no-verify
-          pnpm exec node ./.github/scripts/releasenotes.js --version ${{ steps.bump.outputs.new_version }}
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "new_version=${NEW_VERSION}" >> "$GITHUB_OUTPUT"
+          pnpm exec node ./.github/scripts/releasenotes.js
 
       - name: Push version bump + tag
         uses: ad-m/github-push-action@v0.8.0
@@ -124,7 +124,3 @@ jobs:
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Clean up npm auth
-        if: always()
-        run: rm -f ~/.npmrc
