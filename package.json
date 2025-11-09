@@ -6,7 +6,6 @@
   "main": "index.js",
   "scripts": {
     "grapgh": "nx graph --watch",
-    "postinstall": "node ./tools/scripts/patch-nx.js",
     "build": "pnpm -w -r build",
     "vercel-build": "pnpm -w -r build && pnpm --filter frontend build",
     "start": "pnpm --filter frontend start",
@@ -91,19 +90,5 @@
     "react-dom": "^19.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "koa": "3.0.3"
-    },
-    "onlyBuiltDependencies": [
-      "@nestjs/core",
-      "@swc/core",
-      "@vercel/speed-insights",
-      "core-js",
-      "cypress",
-      "nx",
-      "sharp"
-    ]
   }
 }

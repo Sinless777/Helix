@@ -3,9 +3,3 @@ packages:
   - libs/*
   - apps/services/*
 
-onlyBuiltDependencies:
-  - '@nestjs/core'
-  - '@swc/core'
-  - core-js
-  - cypress
-  - nx
