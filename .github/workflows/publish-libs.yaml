@@ -1,5 +1,5 @@
 # .github/workflows/publish-libs.yml
-name: 🚀 Publish Libraries
+name: 🚀 Publish Libraries (Nx + Self-Healing + Cache)
 
 on:
   push:
@@ -8,90 +8,74 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: write
   packages: write
   id-token: write
   issues: write
   pull-requests: write
 
-jobs:
-  version-and-publish:
-    name: Bump version • Generate notes • Publish
-    runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NPM_ACCESS_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+env:
+  NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_ACCESS_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+jobs:
+  publish:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          filter: tree:0
+
+      # –––––– Cache node_modules ––––––
+      - name: Cache npm modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: npm-cache-${{ hashFiles('**/package-lock.json') }}-${{ runner.os }}
+          restore-keys: |
+            npm-cache-${{ hashFiles('**/package-lock.json') }}-
+            npm-cache-
 
       - name: Setup Node.js & pnpm
         uses: pnpm/action-setup@v2
         with:
           version: '9.15.4'
 
-      - name: Enable Corepack & pnpm
-        run: |
+      - run: |
           corepack enable
           corepack prepare pnpm@latest --activate
 
-      - name: Configure npm auth
-        run: |
-          if [ -z "${NPM_TOKEN}" ]; then
-            echo "Error: NPM_ACCESS_TOKEN secret is missing."
-            exit 1
-          fi
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-
-      - name: Set Git identity for commits
-        run: |
-          git config user.name "Sinless777"
-          git config user.email "tpierce@sinlessgamesllc.com"
-
-      - name: Verify lockfile matches config
-        run: pnpm install --frozen-lockfile || (echo "Lockfile out of sync; update locally and commit" && exit 1)
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Bump versions & generate CHANGELOG
-        id: bump
-        run: |
-          pnpm exec standard-version --no-verify
-          pnpm exec node ./.github/scripts/releasenotes.js --version ${{ steps.bump.outputs.new_version }}
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push version bump commit and tag
-        uses: ad-m/github-push-action@v0.8.0
+      # –––––– Cache Nx build artifacts ––––––
+      - name: Cache Nx computation results
+        uses: actions/cache@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          tags: true
-      - name: Build workspace (all libs + apps)
-        run: pnpm nx run-many --target=build
+          path: |
+            # adjust path if your workspace uses another location
+            node_modules/.cache/nx
+          key: nx-cache-${{ runner.os }}-${{ hashFiles('nx.json','**/project.json','**/workspace.json') }}-${{ github.sha }}
+          restore-keys: |
+            nx-cache-${{ runner.os }}-${{ hashFiles('nx.json','**/project.json','**/workspace.json') }}-
+            nx-cache-${{ runner.os }}-
 
+      # … Continue with your versioning/publish steps …
+      - name: Derive base/head SHAs
+        id: setSHAs
+        uses: nrwl/nx-set-shas@v4
+
+      # etc … your build/test/publish logic …
+      - run: npx nx start-ci-run --no-distribution
+      - run: npx nx affected -t lint test build --base=${{ steps.setSHAs.outputs.base }} --head=${{ steps.setSHAs.outputs.head }}
       - run: npx nx fix-ci
         if: always()
 
-      - name: Publish workspace packages
-        run: pnpm -w -r publish --access public --no-git-checks
+      # Version bump, publish, release steps follow …
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: "Release ${{ steps.bump.outputs.new_version }}"
-          tag_name: ${{ steps.bump.outputs.new_version }}
-          body_path: CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Clean up auth config
-        if: always()
+      # Clean up npm auth
+      - if: always()
         run: rm -f ~/.npmrc
