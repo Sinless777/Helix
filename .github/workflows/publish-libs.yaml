@@ -18,7 +18,6 @@ permissions:
 env:
   NPM_ACCESS_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_ACCESS_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -78,9 +77,6 @@ jobs:
       - name: Build all libraries/apps (ensure libs like hypertune are built)
         run: pnpm exec nx run-many --target=build --all
 
-      - name: Start Nx CI run
-        run: npx nx start-ci-run --no-distribution
-
       - name: Build affected projects only
         run: |
           npx nx affected -t build --base=${{ steps.setSHAs.outputs.base }} --head=${{ steps.setSHAs.outputs.head }}
@@ -88,10 +84,6 @@ jobs:
       - name: Lint & test affected projects
         run: |
           npx nx affected -t lint test --base=${{ steps.setSHAs.outputs.base }} --head=${{ steps.setSHAs.outputs.head }}
-
-      - name: Run Nx Self-Healing CI
-        run: npx nx fix-ci
-        if: always()
 
       - name: Bump version & generate CHANGELOG
         id: bump
