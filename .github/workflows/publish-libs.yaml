@@ -1,4 +1,4 @@
-# .github/workflows/publish-libs.yml
+# .github/workflows/publish-libs.yaml
 name: 🚀 Publish Libraries (Nx + Self-Healing + Cache)
 
 on:
@@ -30,17 +30,15 @@ jobs:
           fetch-depth: 0
           filter: tree:0
 
-      # –––––– Cache node_modules ––––––
-      - name: Cache npm modules
+      - name: Cache pnpm store & modules
         uses: actions/cache@v4
         with:
           path: |
-            ~/.npm
+            ~/.pnpm-store
             node_modules
-          key: npm-cache-${{ hashFiles('**/package-lock.json') }}-${{ runner.os }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            npm-cache-${{ hashFiles('**/package-lock.json') }}-
-            npm-cache-
+            pnpm-store-${{ runner.os }}-
 
       - name: Setup Node.js & pnpm
         uses: pnpm/action-setup@v2
@@ -51,31 +49,82 @@ jobs:
           corepack enable
           corepack prepare pnpm@latest --activate
 
-      # –––––– Cache Nx build artifacts ––––––
       - name: Cache Nx computation results
         uses: actions/cache@v4
         with:
           path: |
-            # adjust path if your workspace uses another location
             node_modules/.cache/nx
           key: nx-cache-${{ runner.os }}-${{ hashFiles('nx.json','**/project.json','**/workspace.json') }}-${{ github.sha }}
           restore-keys: |
             nx-cache-${{ runner.os }}-${{ hashFiles('nx.json','**/project.json','**/workspace.json') }}-
-            nx-cache-${{ runner.os }}-
 
-      # … Continue with your versioning/publish steps …
       - name: Derive base/head SHAs
         id: setSHAs
         uses: nrwl/nx-set-shas@v4
+        with:
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
+          main-branch-name: main
+          remote: origin
+          set-environment-variables-for-job: true
+          error-on-no-successful-workflow: false
+          last-successful-event: push
+          working-directory: .
 
-      # etc … your build/test/publish logic …
-      - run: npx nx start-ci-run --no-distribution
-      - run: npx nx affected -t lint test build --base=${{ steps.setSHAs.outputs.base }} --head=${{ steps.setSHAs.outputs.head }}
-      - run: npx nx fix-ci
+      - name: Configure npm auth
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+
+      - name: Set Git identity
+        run: |
+          git config user.name "Sinless777"
+          git config user.email "tpierce@sinlessgamesllc.com"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all libraries/apps (ensure libs like hypertune are built)
+        run: pnpm exec nx run-many --target=build --all
+
+      - name: Start Nx CI run
+        run: npx nx start-ci-run --no-distribution
+
+      - name: Build affected projects only
+        run: |
+          npx nx affected -t build --base=${{ steps.setSHAs.outputs.base }} --head=${{ steps.setSHAs.outputs.head }}
+
+      - name: Lint & test affected projects
+        run: |
+          npx nx affected -t lint test --base=${{ steps.setSHAs.outputs.base }} --head=${{ steps.setSHAs.outputs.head }}
+
+      - name: Run Nx Self-Healing CI
+        run: npx nx fix-ci
         if: always()
 
-      # Version bump, publish, release steps follow …
+      - name: Bump version & generate CHANGELOG
+        id: bump
+        run: |
+          pnpm exec standard-version --no-verify
+          pnpm exec node ./.github/scripts/releasenotes.js --version ${{ steps.bump.outputs.new_version }}
 
-      # Clean up npm auth
-      - if: always()
+      - name: Push version bump + tag
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          tags: true
+
+      - name: Publish workspace packages
+        run: pnpm -w -r publish --access public --no-git-checks
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "Release ${{ steps.bump.outputs.new_version }}"
+          tag_name: ${{ steps.bump.outputs.new_version }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean up npm auth
+        if: always()
         run: rm -f ~/.npmrc
