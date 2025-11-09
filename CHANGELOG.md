@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.9](https://github.com/Sinless777/Helix/compare/v1.1.8...v1.1.9) (2025-11-09)
+
+### [1.1.8](https://github.com/Sinless777/Helix/compare/v1.1.7...v1.1.8) (2025-11-08)
+
+
+### Bug Fixes
+
+* Remove emitDeclarationOnly option from tsconfig.lib.json for clarity ([179d705](https://github.com/Sinless777/Helix/commit/179d7056073eab30da88c04a358e2f04055d559a))
+
 ### [1.1.7](https://github.com/Sinless777/Helix/compare/v1.1.6...v1.1.7) (2025-11-08)
 
 
