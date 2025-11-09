@@ -41,7 +41,7 @@ jobs:
             pnpm-store-${{ runner.os }}-
 
       - name: Setup Node.js & pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: '9.15.4'
 
