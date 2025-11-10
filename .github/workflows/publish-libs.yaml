@@ -24,7 +24,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
           filter: tree:0
@@ -42,7 +42,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: '10.18.0'
+          version: '10.21.0'
           standalone: true
 
       - name: Cache Nx computation results
@@ -95,7 +95,7 @@ jobs:
           pnpm exec node ./.github/scripts/releasenotes.js
 
       - name: Push version bump + tag
-        uses: ad-m/github-push-action@v0.8.0
+        uses: ad-m/github-push-action@v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
