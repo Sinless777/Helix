@@ -1,53 +1,29 @@
-//@ts-check
-const { composePlugins, withNx } = require('@nx/next');
+// next.config.js
+// Next 16-compatible, no @nx/next runtime plugin
 
-
-/**
- * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
- **/
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Use this to set Nx-specific options
-  // See: https://nx.dev/recipes/next/next-config-setup
-  nx: {},
-
-  // Use a different distDir for local Nx builds, but let Vercel use the
-  // default `.next` when running on Vercel so the platform can find
-  // `routes-manifest.json` and other expected artifacts.
+  // Keep Nx’s dist path locally; let Vercel use the default `.next`
   distDir: process.env.VERCEL ? '.next' : '../../dist/apps/frontend',
-  compiler: {
-    // For other options, see https://nextjs.org/docs/architecture/nextjs-compiler#emotion
-    emotion: true,
-  },
 
+  // SWC compiler options
+  compiler: { emotion: true },
+
+  // Transpile workspace libraries without withNx
   transpilePackages: ['@helix-ai/ui', '@helix-ai/config', '@helix-ai/hypertune'],
 
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.sinlessgamesllc.com',
-        pathname: '/Helix-AI/images/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.sinlessgamesllc.com',
-        pathname: '/Sinless-Games/images/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'optimum-dinosaur-24.clerk.accounts.dev',
-        pathname: '/**',
-      },
+      { protocol: 'https', hostname: 'cdn.sinlessgamesllc.com', pathname: '/Helix-AI/images/**' },
+      { protocol: 'https', hostname: 'cdn.sinlessgamesllc.com', pathname: '/Sinless-Games/images/**' },
+      { protocol: 'https', hostname: 'optimum-dinosaur-24.clerk.accounts.dev', pathname: '/**' },
     ],
     formats: ['image/avif', 'image/webp'],
-    qualities: [100, 75, 50, 25],
+    // `qualities` is not a valid Next.js option; remove if present
   },
-
 };
 
-const plugins = [
-  // Add more Next.js plugins to this list if needed.
-  withNx,
-];
+// Safety: strip any accidental legacy `eslint` key (Next 16 disallows it)
+if ('eslint' in nextConfig) delete nextConfig.eslint;
 
-module.exports = composePlugins(...plugins)(nextConfig);
+module.exports = nextConfig;
