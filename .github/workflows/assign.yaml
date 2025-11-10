@@ -24,16 +24,25 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.base.ref || github.ref_name }}
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: '24'
+          cache: 'pnpm'
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            **/pnpm-lock.yaml
 
-      - name: Install tools
-        run: npm install yaml @actions/core @actions/github
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Run assignment script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONFIG_FILE: .github/assignees.yaml
-        run: node ./.github/scripts/assign.js
+        run: pnpm node ./.github/scripts/assign.js
