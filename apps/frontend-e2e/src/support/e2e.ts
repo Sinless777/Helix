@@ -15,3 +15,12 @@
 
 // Import commands.ts using ES2015 syntax:
 import './commands';
+
+beforeEach(() => {
+  cy.intercept('GET', 'https://api.github.com/repos/Sinless777/Helix/releases/latest', {
+    statusCode: 200,
+    body: {
+      tag_name: 'v1.0.0',
+    },
+  }).as('githubRelease');
+});

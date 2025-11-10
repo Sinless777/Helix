@@ -16,7 +16,6 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.sinlessgamesllc.com', pathname: '/Helix-AI/images/**' },
       { protocol: 'https', hostname: 'cdn.sinlessgamesllc.com', pathname: '/Sinless-Games/images/**' },
-      { protocol: 'https', hostname: 'optimum-dinosaur-24.clerk.accounts.dev', pathname: '/**' },
     ],
     formats: ['image/avif', 'image/webp'],
     // `qualities` is not a valid Next.js option; remove if present
