@@ -26,9 +26,6 @@
   "references": [
     {
       "path": "../../libs/ui"
-    },
-    {
-      "path": "../frontend"
     }
   ]
 }

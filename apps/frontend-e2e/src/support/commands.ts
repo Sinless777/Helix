@@ -17,6 +17,7 @@ type WaitlistResponseBody = {
   message?: string;
 };
 
+/* eslint-disable @typescript-eslint/no-namespace */
 declare global {
   namespace Cypress {
     interface Chainable<Subject = any> {
@@ -30,6 +31,7 @@ declare global {
     }
   }
 }
+/* eslint-enable @typescript-eslint/no-namespace */
 
 // -- This is a parent command --
 Cypress.Commands.add('login', (email, password) => {
