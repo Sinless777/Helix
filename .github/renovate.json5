@@ -44,7 +44,7 @@
       ],
       enabled: false,
       matchPackageNames: [
-        '/^@helix-ai//',
+        '/^@helix-ai/',
       ],
     },
   ],

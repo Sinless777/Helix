@@ -89,7 +89,7 @@ jobs:
         id: bump
         run: |
           set -euo pipefail
-          pnpm exec standard-version --no-verify
+          pnpm exec commit-and-tag-version --no-verify
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "new_version=${NEW_VERSION}" >> "$GITHUB_OUTPUT"
           pnpm exec node ./.github/scripts/releasenotes.js
