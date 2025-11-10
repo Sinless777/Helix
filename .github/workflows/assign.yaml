@@ -24,13 +24,29 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.base.ref || github.ref_name }}
 
+      # Install pnpm (no auto-install to keep control over caching flow)
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      # Set up Node.js with built-in pnpm cache
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: '24'
+          cache: 'pnpm'
+          # If you keep the lockfile at repo root this is enough.
+          # Add patterns if you have multiple lockfiles in a monorepo:
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            **/pnpm-lock.yaml
 
-      - name: Install tools
-        run: npm install yaml @actions/core @actions/github
+      # Install dependencies using the cached pnpm store when available
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile --prefer-offline
 
       - name: Run assignment script
         env:
