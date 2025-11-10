@@ -29,17 +29,27 @@ async function main() {
     }
 
 
-  const cfgPath = process.env.CONFIG_FILE;
+  const cfgPathEnv = process.env.CONFIG_FILE;
   let cfg = {};
-  if (cfgPath && fs.existsSync(cfgPath)) {
-    try {
-      cfg = parse(fs.readFileSync(cfgPath, 'utf8'));
-    } catch (error) {
-      core.setFailed(`Failed to parse ${cfgPath}: ${error}`);
+  if (cfgPathEnv) {
+    // Resolve the config path relative to a trusted root and normalize
+    const resolvedCfgPath = fs.realpathSync(path.resolve(CFG_ROOT, cfgPathEnv));
+    if (!resolvedCfgPath.startsWith(CFG_ROOT)) {
+      core.setFailed(`The config file path (${cfgPathEnv}) is not allowed.`);
       return;
     }
+    if (fs.existsSync(resolvedCfgPath)) {
+      try {
+        cfg = parse(fs.readFileSync(resolvedCfgPath, 'utf8'));
+      } catch (error) {
+        core.setFailed(`Failed to parse ${resolvedCfgPath}: ${error}`);
+        return;
+      }
+    } else {
+      core.warning(`Config file not found: ${resolvedCfgPath}`);
+    }
   } else {
-    core.warning(`Config file not found: ${cfgPath}`);
+    core.warning(`Config file path not specified in CONFIG_FILE`);
   }
 
   const rules = cfg.rules || {};
