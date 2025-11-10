@@ -47,7 +47,7 @@
     "@swc/jest": "~0.2.38",
     "@swc/plugin-emotion": "^2.5.67",
     "@types/jest": "^30.0.0",
-    "@types/node": "20.19.9",
+    "@types/node": "24.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vercel/remote-nx": "^2.0.0",
