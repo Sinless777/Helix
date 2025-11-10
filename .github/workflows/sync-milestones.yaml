@@ -1,126 +1,31 @@
-name: 🔖 Sync milestones from .github/milestones.yaml
+name: Sync Milestones
 
 on:
+  workflow_dispatch:
   push:
     paths:
-      - ".github/milestones.yaml"
-  workflow_dispatch: {}
-  schedule:
-    - cron: "0 6 * * 1" # Weekly sync every Monday at 06:00 UTC
+      - '.github/milestones.yaml'
 
 permissions:
   contents: read
   issues: write
 
-concurrency:
-  group: sync-milestones-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
   sync:
-    name: Update milestones
     runs-on: ubuntu-latest
     steps:
-      - name: 🛎️ Checkout repository
-        uses: actions/checkout@v4
+      - name: Check out repo
+        uses: actions/checkout@v5
 
-      - name: 🧩 Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: '24'
 
-      - name: 🪶 Install YAML parser
-        run: npm install -g yaml
+      - name: Install dependencies
+        run: npm install yaml @actions/core @actions/github
 
-      - name: 🔖 Sync milestones
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const { parse } = require('yaml');
-
-            const { owner, repo } = context.repo;
-            const file = '.github/milestones.yaml';
-
-            if (!fs.existsSync(file)) {
-              core.setFailed('milestones.yaml not found.');
-              process.exit(1);
-            }
-
-            const yamlData = fs.readFileSync(file, 'utf8');
-            const milestones = parse(yamlData);
-
-            if (!Array.isArray(milestones)) {
-              core.setFailed('milestones.yaml must contain an array.');
-              process.exit(1);
-            }
-
-            const existing = await github.paginate(github.rest.issues.listMilestones, {
-              owner,
-              repo,
-              state: 'all',
-              per_page: 100
-            });
-
-            const mapByTitle = new Map(existing.map(m => [m.title, m]));
-            const titlesInYaml = new Set();
-
-            for (const m of milestones) {
-              const title = String(m.title).trim();
-              if (!title) continue;
-              titlesInYaml.add(title);
-
-              const description = m.description || '';
-              const state = (m.state || 'open').toLowerCase() === 'closed' ? 'closed' : 'open';
-              const due_on = m.due_on ? new Date(m.due_on).toISOString() : null;
-              const current = mapByTitle.get(title);
-
-              if (current) {
-                const needsUpdate =
-                  current.description !== description ||
-                  current.state !== state ||
-                  (current.due_on || null) !== due_on;
-
-                if (needsUpdate) {
-                  await github.rest.issues.updateMilestone({
-                    owner,
-                    repo,
-                    milestone_number: current.number,
-                    title,
-                    description,
-                    state,
-                    due_on
-                  });
-                  core.info(`🟡 Updated milestone: ${title}`);
-                } else {
-                  core.info(`✅ No change: ${title}`);
-                }
-              } else {
-                await github.rest.issues.createMilestone({
-                  owner,
-                  repo,
-                  title,
-                  description,
-                  state,
-                  due_on
-                });
-                core.info(`🆕 Created milestone: ${title}`);
-              }
-            }
-
-            // Optional cleanup for missing milestones (disabled by default)
-            const REMOVE_MISSING = false;
-            if (REMOVE_MISSING) {
-              for (const m of existing) {
-                if (!titlesInYaml.has(m.title)) {
-                  await github.rest.issues.deleteMilestone({
-                    owner,
-                    repo,
-                    milestone_number: m.number
-                  });
-                  core.info(`🗑️ Deleted milestone not in YAML: ${m.title}`);
-                }
-              }
-            }
-
-            core.info('🎯 Milestone synchronization complete.');
+      - name: Run milestone sync script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node ./.github/scripts/milestone.js

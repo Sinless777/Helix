@@ -45,6 +45,8 @@ export const HelixCard: React.FC<CardProps> = ({
 
   return (
     <Box
+      data-testid="helix-card"
+      data-card-title={title}
       sx={{
         position: 'relative',
         borderRadius: 3,

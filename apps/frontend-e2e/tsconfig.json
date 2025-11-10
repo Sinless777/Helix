@@ -22,5 +22,10 @@
   "exclude": [
     "out-tsc",
     "test-output"
+  ],
+  "references": [
+    {
+      "path": "../../libs/ui"
+    }
   ]
 }

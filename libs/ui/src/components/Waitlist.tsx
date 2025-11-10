@@ -53,6 +53,7 @@ export function HeroWaitlist() {
   return (
     <Box
       component="section"
+      data-testid="waitlist-section"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -76,12 +77,20 @@ export function HeroWaitlist() {
 
       {/* Feedback Alerts */}
       {status === 'success' && (
-        <Alert severity="success" sx={{ mt: 2, width: { xs: '100%', sm: 'auto' } }}>
+        <Alert
+          severity="success"
+          data-testid="waitlist-success"
+          sx={{ mt: 2, width: { xs: '100%', sm: 'auto' } }}
+        >
           Thanks! You&apos;re on the waitlist. We’ll notify you when we launch.
         </Alert>
       )}
       {status === 'error' && (
-        <Alert severity="error" sx={{ mt: 2, width: { xs: '100%', sm: 'auto' } }}>
+        <Alert
+          severity="error"
+          data-testid="waitlist-error"
+          sx={{ mt: 2, width: { xs: '100%', sm: 'auto' } }}
+        >
           Error: {errorMsg}
         </Alert>
       )}
@@ -89,6 +98,7 @@ export function HeroWaitlist() {
       {/* Form */}
       <Box
         component="form"
+        data-testid="waitlist-form"
         noValidate
         autoComplete="off"
         onSubmit={(e) => {
@@ -114,6 +124,7 @@ export function HeroWaitlist() {
           onChange={(e) => setEmail(e.target.value)}
           error={email !== '' && !isValidEmail}
           helperText={email !== '' && !isValidEmail ? 'Please enter a valid email' : ' '}
+          inputProps={{ 'data-testid': 'waitlist-email-input' }}
           sx={{
             bgcolor: 'rgba(255,255,255,0.08)',
             borderRadius: 1,
@@ -133,6 +144,7 @@ export function HeroWaitlist() {
           type="submit"
           variant="contained"
           disabled={!isValidEmail || status === 'sending'}
+          data-testid="waitlist-submit"
           sx={{
             backgroundColor: '#022371',
             color: '#fff',

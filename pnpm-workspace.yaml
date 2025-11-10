@@ -6,6 +6,5 @@ packages:
 onlyBuiltDependencies:
   - '@nestjs/core'
   - '@swc/core'
-  - core-js
   - cypress
   - nx

@@ -1,6 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "nxCloudId": "690adb7552839f5024ee3529",
   "plugins": [
     {
       "plugin": "@nx/next/plugin",
@@ -86,6 +85,11 @@
     }
   },
   "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
     "test": {
       "dependsOn": [
         "^build"
