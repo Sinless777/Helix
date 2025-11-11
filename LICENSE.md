@@ -1,7 +1,9 @@
 # Modified Apache License 2.0
 
 Version 2.0, January 2004 – Modified by SinLess Games LLC, 2025
+
 Original: [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
 Modified to permit non-commercial use under standard terms and require a commercial license for commercial use.
 
 ---
