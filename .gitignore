@@ -125,3 +125,5 @@ apps/**/src/generated/
 
 .nx/
 .vercel
+
+test-output

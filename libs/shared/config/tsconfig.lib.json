@@ -1,6 +1,6 @@
 // libs/config/tsconfig.lib.json
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
     "declaration": true,

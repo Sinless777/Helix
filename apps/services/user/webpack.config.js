@@ -1,25 +1,21 @@
-const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
-const { join } = require('path');
+const { composePlugins, withNx} = require('@nx/webpack');
 
-module.exports = {
-  output: {
-    path: join(__dirname, '../../../dist/apps/services/user'),
-    clean: true,
-    ...(process.env.NODE_ENV !== 'production' && {
+// Nx plugins for webpack.
+module.exports = composePlugins(
+  withNx({
+    target: 'node',
+  }),
+  (config) => {
+    config.output = {
+      ...config.output,
+      ...(process.env.NODE_ENV !== 'production' && {
+      clean: true,
       devtoolModuleFilenameTemplate: '[absolute-resource-path]',
-    }),
-  },
-  plugins: [
-    new NxAppWebpackPlugin({
-      target: 'node',
-      compiler: 'tsc',
-      main: './src/main.ts',
-      tsConfig: './tsconfig.app.json',
-      assets: ["./src/assets"],
-      optimization: false,
-      outputHashing: 'none',
-      generatePackageJson: true,
-      sourceMaps: true,
-    })
-  ],
-};
+      }),
+    };
+    config.devtool = 'source-map';
+    // Update the webpack config as needed here.
+    // e.g. `config.plugins.push(new MyPlugin())`
+    return config;
+  }
+);

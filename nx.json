@@ -61,6 +61,7 @@
       },
       "exclude": [
         "apps/services/user-e2e/**/*",
+        "apps/services/user-e2e/**/*",
         "apps/services/user-e2e/**/*"
       ]
     },

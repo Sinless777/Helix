@@ -1,22 +1,33 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../dist/apps/services/user",
+    "outDir": "dist",
     "module": "nodenext",
     "types": [
       "node"
     ],
     "rootDir": "src",
     "moduleResolution": "nodenext",
-    "tsBuildInfoFile": "../../../dist/apps/services/user/tsconfig.app.tsbuildinfo",
+    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "target": "es2021"
+    "target": "es2021",
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
+    "out-tsc",
+    "dist",
+    "jest.config.ts",
+    "jest.config.cts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
     "eslint.config.js",
     "eslint.config.cjs",
     "eslint.config.mjs"

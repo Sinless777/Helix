@@ -10,12 +10,6 @@
       "path": "./apps/frontend"
     },
     {
-      "path": "./apps/services/user-e2e"
-    },
-    {
-      "path": "./apps/services/user"
-    },
-    {
       "path": "./libs/db"
     },
     {
@@ -26,6 +20,15 @@
     },
     {
       "path": "./libs/hypertune"
+    },
+    {
+      "path": "./apps/services/user-e2e"
+    },
+    {
+      "path": "./apps/services/user"
+    },
+    {
+      "path": "./libs/shared/logger"
     }
   ]
 }

@@ -6,6 +6,7 @@
     "declarationMap": true,
     "emitDeclarationOnly": false,
     "outDir": "../../dist/libs/ui",
+    "rootDir": "../../",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": [
       "node",
@@ -40,7 +41,9 @@
     "src/**/*.test.jsx",
     "eslint.config.js",
     "eslint.config.cjs",
-    "eslint.config.mjs"
+    "eslint.config.mjs",
+    "../db",
+    "../db/**"
   ],
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
 }

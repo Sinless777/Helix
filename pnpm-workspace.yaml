@@ -1,10 +1,10 @@
 packages:
-  - apps/*
-  - libs/*
-  - apps/services/*
-
+  - "apps/*"
+  - "libs/*"
+  - "apps/services/*"
+  - "libs/shared/*"
 onlyBuiltDependencies:
-  - '@nestjs/core'
-  - '@swc/core'
-  - cypress
-  - nx
+  - "@nestjs/core"
+  - "@swc/core"
+  - "cypress"
+  - "nx"
