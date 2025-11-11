@@ -7,9 +7,6 @@
       "path": "./apps/frontend-e2e"
     },
     {
-      "path": "./apps/frontend"
-    },
-    {
       "path": "./libs/db"
     },
     {

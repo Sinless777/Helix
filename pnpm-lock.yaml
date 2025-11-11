@@ -301,27 +301,6 @@ importers:
 
   apps/services/user-e2e: {}
 
-  libs/config:
-    dependencies:
-      yaml:
-        specifier: ^2.2.1
-        version: 2.8.1
-
-  libs/db:
-    dependencies:
-      '@helix-ai/config':
-        specifier: workspace:*
-        version: link:../config
-      '@mikro-orm/core':
-        specifier: ^6.5.9
-        version: 6.5.9
-      '@mikro-orm/postgresql':
-        specifier: ^6.5.9
-        version: 6.5.9(@mikro-orm/core@6.5.9)
-      uuid:
-        specifier: ^13.0.0
-        version: 13.0.0
-
   libs/hypertune:
     dependencies:
       '@vercel/edge-config':
@@ -350,6 +329,27 @@ importers:
         specifier: ^19.2.2
         version: 19.2.2(@types/react@19.2.2)
 
+  libs/shared/config:
+    dependencies:
+      yaml:
+        specifier: ^2.2.1
+        version: 2.8.1
+
+  libs/shared/db:
+    dependencies:
+      '@helix-ai/config':
+        specifier: workspace:*
+        version: link:../config
+      '@mikro-orm/core':
+        specifier: ^6.5.9
+        version: 6.5.9
+      '@mikro-orm/postgresql':
+        specifier: ^6.5.9
+        version: 6.5.9(@mikro-orm/core@6.5.9)
+      uuid:
+        specifier: ^13.0.0
+        version: 13.0.0
+
   libs/shared/logger:
     dependencies:
       tslib:
@@ -375,7 +375,7 @@ importers:
         version: 1.19.0
       '@helix-ai/config':
         specifier: workspace:*
-        version: link:../config
+        version: link:../shared/config
       '@helix-ai/hypertune':
         specifier: workspace:*
         version: link:../hypertune
