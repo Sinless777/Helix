@@ -32,7 +32,7 @@
 <p align="center">
   <strong>Community</strong><br />
   <a href="https://discord.gg/Za8MVstYnr">
-    <img src="https://img.shields.io/discord/1179519063312341032?label=Community&logo=discord&style=for-the-badge" alt="Join the Discord Community" />
+    <img src="https://img.shields.io/discord/1070973491379191818?label=Community&logo=discord&style=for-the-badge" alt="Join the Discord Community" />
   </a>
   <a href="https://github.com/Sinless777/Helix/blob/main/CONTRIBUTING.md">
     <img src="https://img.shields.io/badge/PRs-Welcome-ff69b4?style=for-the-badge&logo=github" alt="PRs Welcome" />
