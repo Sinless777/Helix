@@ -1,8 +1,22 @@
 # Modified Apache License 2.0
 
 Version 2.0, January 2004 – Modified by SinLess Games LLC, 2025
+
 Original: [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
 Modified to permit non-commercial use under standard terms and require a commercial license for commercial use.
+
+> ## 📄 NOTICE
+>
+> This software contains modifications to the Apache License 2.0 by **SinLess Games LLC**.
+> Original license available at: [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+> All changes governed under the modified terms as noted above.
+>
+> **Copyright © 2025 SinLess Games LLC**
+> **Author:** Timothy "Andy" Andrew Pierce (sinless777)
+>
+> 🛑 **Commercial rights are reserved.**
+> For licensing inquiries, visit [https://helixaibot.com](https://helixaibot.com).
 
 ---
 
@@ -91,15 +105,3 @@ While redistributing the Work or Derivative Works thereof, You may choose to off
 
 Commercial licensing is available under a separate agreement.
 By default, **this license prohibits commercial use** of the Work unless such use is governed by a commercial license from the copyright holder.
-
----
-
-## NOTICE
-
-This software contains modifications to the Apache License 2.0 by SinLess Games LLC.
-Original license available at: [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-All changes governed under the modified terms as noted above.
-Copyright (c) 2025 SinLess Games LLC
-Author: Timothy "Andy" Andrew Pierce (sinless777)
-
-Commercial rights are reserved. For licensing inquiries, visit [https://helixaibot.com](https://helixaibot.com).
