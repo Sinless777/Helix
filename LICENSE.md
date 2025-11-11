@@ -16,7 +16,9 @@ Modified to permit non-commercial use under standard terms and require a commerc
 > **Author:** Timothy "Andy" Andrew Pierce (sinless777)
 >
 > 🛑 **Commercial rights are reserved.**
+>
 > For licensing inquiries, visit [https://helixaibot.com](https://helixaibot.com).
+>
 
 ---
 
