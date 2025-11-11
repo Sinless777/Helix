@@ -6,7 +6,6 @@
     "declarationMap": true,
     "emitDeclarationOnly": false,
     "outDir": "../../dist/libs/ui",
-    "rootDir": "src",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": [
       "node",
