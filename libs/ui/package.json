@@ -5,37 +5,43 @@
   "main": "./dist/index.esm.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.esm.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.lib.json",
     "prepublishOnly": "pnpm build"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "publishConfig": { "access": "public" },
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "Helix": "./src/index.ts",
       "types": "./dist/index.esm.d.ts",
       "import": "./dist/index.esm.js",
       "default": "./dist/index.esm.js"
     }
   },
-  "dependencies": {
-  "@helix-ai/config": "workspace:*",
-  "@helix-ai/hypertune": "workspace:*",
-    "@emotion/react": "11.14.0",
-    "@emotion/styled": "11.14.1",
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "@grafana/faro-react": "^1.19.0",
     "@grafana/faro-web-sdk": "^1.19.0",
     "@grafana/faro-web-tracing": "^1.19.0",
-    "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.5",
+    "@mui/icons-material": "^7.3.5",
+    "@emotion/react": "11.x",
+    "@emotion/styled": "11.x"
+  },
+  "peerDependenciesMeta": {
+    "@grafana/faro-react": { "optional": true }
+  },
+  "dependencies": {
+    "@helix-ai/config": "workspace:*",
+    "@helix-ai/hypertune": "workspace:*",
     "@vercel/edge-config": "^1.4.3",
     "hypertune": "^2.10.0",
     "material": "link:@mui/icons/material",
     "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@grafana/faro-rollup-plugin": "^0.6.0"
   }
 }

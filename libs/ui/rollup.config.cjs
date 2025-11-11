@@ -9,26 +9,36 @@ module.exports = withNx(
     tsConfig: './tsconfig.lib.json',
     compiler: 'babel',
     external: [
+      // react
       'react',
       'react-dom',
       'react/jsx-runtime',
-  '@helix-ai/hypertune',
-  '@helix-ai/config',
+
+      // helix workspaces
+      '@helix-ai/hypertune',
+      '@helix-ai/config',
+
+      // mui & emotion
       '@mui/material',
       '@mui/icons-material',
       '@emotion/react',
       '@emotion/styled',
+
+      // faro sdk (keep out of bundle!)
+      '@grafana/faro-react',
+      '@grafana/faro-web-sdk',
+      '@grafana/faro-web-tracing'
     ],
     format: ['esm'],
     assets: [{ input: '.', output: '.', glob: 'README.md' }],
     rollupOptions: {
-      treeshake: { moduleSideEffects: false },
-    },
+      treeshake: { moduleSideEffects: false }
+    }
   },
   {
     plugins: [
       svg({ svgo: false, titleProp: true, ref: true }),
-      url({ limit: 10_000 }),
-    ],
+      url({ limit: 10_000 })
+    ]
   }
 );

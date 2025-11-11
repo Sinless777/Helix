@@ -14,5 +14,4 @@ export const pages: Page[] = [
   { name: 'About', url: '/About' },
   { name: 'Contact', url: '/Contact' },
   { name: 'Tech Stack', url: '/technology' },
-  { name: 'Docs', url: '/Docs' },
 ] as const;

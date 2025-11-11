@@ -48,6 +48,7 @@ yarn-error.log
 !.env.example
 !.env.sample
 !.env.local.example
+.npmrc.local
 
 # SOPS encrypted files
 *.sops.yaml

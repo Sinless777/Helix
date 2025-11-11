@@ -1,3 +1,5 @@
+"use client";
+
 import { ThemeProvider } from './theme.provider';
 import type { Mode } from '../theme/constants';
 import FaroProvider from './faro.provider';

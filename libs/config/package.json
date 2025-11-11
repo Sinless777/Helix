@@ -16,6 +16,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "yaml": "^2.2.1"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
