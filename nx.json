@@ -1,5 +1,7 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "useDaemonProcess": false,
+  "useInferencePlugins": false,
   "plugins": [
     {
       "plugin": "@nx/next/plugin",

@@ -19,7 +19,7 @@
       "options": {
         "cwd": "apps/frontend",
         "tty": false,
-        "command": "next build"
+        "command": "next build --webpack"
       },
       "syncGenerators": ["@nx/js:typescript-sync"],
       "parallelism": true,
