@@ -1,57 +1,105 @@
-# License
+# Modified Apache License 2.0
 
-This software is licensed under the **Polyform Noncommercial License 1.0.0**.
+Version 2.0, January 2004 – Modified by SinLess Games LLC, 2025
+Original: [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+Modified to permit non-commercial use under standard terms and require a commercial license for commercial use.
 
-## Summary
+---
 
-- ✅ You may **use**, **modify**, and **redistribute** this software **for noncommercial purposes only**, under the terms below.
-- ❌ **Commercial use is not permitted** unless you obtain a separate commercial license from the copyright holder.
-- ❌ **Sublicensing**, **resale**, or use in paid services/products is strictly prohibited without explicit written permission.
+## Summary of Key Modifications
 
-## Required Notice
+- Commercial use (including redistribution for profit, SaaS deployment, resale, or integration into paid products) **requires a separate commercial license** from SinLess Games LLC.
+- Non-commercial use, modification, and redistribution are permitted under the terms below.
+- You **may not sublicense** or resell this software without express written permission.
 
-All copies and substantial portions of this software must include the following notice:
+To obtain a commercial license, contact:
+📧 [legal@sinlessgamesllc.com](mailto:legal@sinlessgamesllc.com)
+🌐 [https://helixaibot.com](https://helixaibot.com)
 
-```
-Copyright (c) [2025] SinLess Games LLC
+---
+
+## TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+> All original Apache 2.0 clauses are preserved and legally in force, except where explicitly modified in Sections 2, 4, and 9 below.
+
+### 1. Definitions
+
+**"License"** shall mean the terms and conditions for use, reproduction, and distribution as defined by Sections 1 through 9 of this document.
+
+**"Licensor"** shall mean the copyright owner or entity authorized by the copyright owner that is granting the License.
+
+**"Legal Entity"** shall mean the union of the acting entity and all other entities that control, are controlled by, or are under common control with that entity. For the purposes of this definition, "control" means (i) the power, direct or indirect, to cause the direction or management of such entity, whether by contract or otherwise, or (ii) ownership of fifty percent (50%) or more of the outstanding shares, or (iii) beneficial ownership of such entity.
+
+**"You"** (or **"Your"**) shall mean an individual or Legal Entity exercising permissions granted by this License.
+
+**"Source"** form shall mean the preferred form for making modifications, including but not limited to software source code, documentation source, and configuration files.
+
+**"Object"** form shall mean any form resulting from mechanical transformation or translation of a Source form, including but not limited to compiled object code, generated documentation, and conversions to other media types.
+
+**"Work"** shall mean the work of authorship, whether in Source or Object form, made available under the License, as indicated by a copyright notice that is included in or attached to the work (an example is provided in the Appendix below).
+
+**"Derivative Works"** shall mean any work, whether in Source or Object form, that is based on (or derived from) the Work and for which the editorial revisions, annotations, elaborations, or other modifications represent, as a whole, an original work of authorship. For the purposes of this License, Derivative Works shall not include works that remain separable from, or merely link (or bind by name) to the interfaces of, the Work and Derivative Works thereof.
+
+**"Contribution"** shall mean any work of authorship, including the original version of the Work and any modifications or additions to that Work or Derivative Works thereof, that is intentionally submitted to Licensor for inclusion in the Work by the copyright owner or by an individual or Legal Entity authorized to submit on behalf of the copyright owner. For the purposes of this definition, "submitted" means any form of electronic, verbal, or written communication sent to the Licensor or its representatives, including but not limited to communication on electronic mailing lists, source code control systems, and issue tracking systems that are managed by, or on behalf of, the Licensor for the purpose of discussing and improving the Work, but excluding communication that is conspicuously marked or otherwise designated in writing by the copyright owner as "Not a Contribution."
+
+**"Contributor"** shall mean Licensor and any individual or Legal Entity on behalf of whom a Contribution has been received by Licensor and subsequently incorporated within the Work.
+
+### 2. Grant of Copyright License
+
+Subject to the terms and conditions of this License, including Section 4 below:
+
+- You may use, modify, and distribute the Work **for non-commercial purposes only**.
+- **Commercial use is not permitted under this license**. You must obtain a separate commercial license from SinLess Games LLC to:
+  - Sell or license Derivative Works or products incorporating the Work
+  - Use the Work in a paid or revenue-generating context (including SaaS or enterprise apps)
+  - Bundle or redistribute the Work for commercial benefit
+
+### 3. Grant of Patent License
+
+Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable (except as stated in this section) patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer the Work, where such license applies only to those patent claims licensable by such Contributor that are necessarily infringed by their Contribution(s) alone or by combination of their Contribution(s) with the Work to which such Contribution(s) was submitted. If You institute patent litigation against any entity (including a cross-claim or counterclaim in a lawsuit) alleging that the Work or a Contribution incorporated within the Work constitutes direct or contributory patent infringement, then any patent licenses granted to You under this License for that Work shall terminate as of the date such litigation is filed.
+
+### 4. Redistribution
+
+You may reproduce and distribute copies of the Work or Derivative Works in any medium, with or without modifications, **for non-commercial purposes only**, provided that:
+
+- You include a copy of this License
+- You clearly mark modified files
+- You retain all notices from the original source
+- You do not sublicense, resell, or commercially redistribute the Work or Derivative Works
+
+### 5. Submission of Contributions
+
+Unless You explicitly state otherwise, any Contribution intentionally submitted for inclusion in the Work by You to the Licensor shall be under the terms and conditions of this License, without any additional terms or conditions. Notwithstanding the above, nothing herein shall supersede or modify the terms of any separate license agreement you may have executed with Licensor regarding such Contributions.
+
+### 6. Trademarks
+
+ This License does not grant permission to use the trade names, trademarks, service marks, or product names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content of the NOTICE file.
+
+### 7. Disclaimer of Warranty
+
+Unless required by applicable law or agreed to in writing, Licensor provides the Work (and each Contributor provides its Contributions) on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied, including, without limitation, any warranties or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You are solely responsible for determining the appropriateness of using or redistributing the Work and assume any risks associated with Your exercise of permissions under this License.
+
+### 8. Limitation of Liability
+
+In no event and under no legal theory, whether in tort (including negligence), contract, or otherwise, unless required by applicable law (such as deliberate and grossly negligent acts) or agreed to in writing, shall any Contributor be liable to You for damages, including any direct, indirect, special, incidental, or consequential damages of any character arising as a result of this License or out of the use or inability to use the Work (including but not limited to damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses), even if such Contributor has been advised of the possibility of such damages.
+
+### 9. Accepting Warranty or Additional Liability
+
+While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for, acceptance of support, warranty, indemnity, or other liability obligations and/or rights consistent with this License. However, in accepting such obligations, You may act only on Your own behalf and on Your sole responsibility, not on behalf of any other Contributor, and only if You agree to indemnify, defend, and hold each Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by reason of your accepting any such warranty or additional liability.
+
+### 10. Additional Terms
+
+Commercial licensing is available under a separate agreement.
+By default, **this license prohibits commercial use** of the Work unless such use is governed by a commercial license from the copyright holder.
+
+---
+
+## NOTICE
+
+This software contains modifications to the Apache License 2.0 by SinLess Games LLC.
+Original license available at: [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+All changes governed under the modified terms as noted above.
+Copyright (c) 2025 SinLess Games LLC
 Author: Timothy "Andy" Andrew Pierce (sinless777)
-This software is licensed for noncommercial use only under the Polyform Noncommercial License 1.0.0.
-Commercial use requires a separate license from SinLess Games LLC (https://sinlessgamesllc.com)
-```
 
-## Commercial Licensing
-
-To request a commercial license (including for SaaS, enterprise use, closed-source redistribution, or resale), please contact:
-
-**Email:** legal@sinlessgamesllc.com  
-**Website:** [https://sinlessgamesllc.com](https://sinlessgamesllc.com)
-
-## Full License Text
-
-The full license text follows:
-
----
-
-**Polyform Noncommercial License 1.0.0**
-
-Copyright © 2025 SinLess Games LLC
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, and distribute, subject to the following conditions:
-
-1. **Noncommercial Use Only.**  
-   You may not use the Software for any commercial purpose. Commercial purposes include running a business, offering paid services, or using the Software in a revenue-generating product.
-
-2. **No Sublicensing or Sale.**  
-   You may not sublicense, sell, lease, or distribute the Software or derivative works for a fee without a commercial license.
-
-3. **Attribution Required.**  
-   You must retain the above “Required Notice” in all copies or substantial portions of the Software.
-
-4. **Disclaimer.**  
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
-
-For the full legal license text, visit: [https://polyformproject.org/licenses/noncommercial/1.0.0/](https://polyformproject.org/licenses/noncommercial/1.0.0/)
-
----
-
-For commercial licensing terms or exceptions, please contact us at **legal@sinlessgamesllc.com**.
+Commercial rights are reserved. For licensing inquiries, visit [https://helixaibot.com](https://helixaibot.com).
