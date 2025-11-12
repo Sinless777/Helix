@@ -399,8 +399,8 @@ importers:
         version: 0.0.1
     devDependencies:
       '@grafana/faro-rollup-plugin':
-        specifier: ^0.6.0
-        version: 0.6.0(encoding@0.1.13)
+        specifier: ^0.7.0
+        version: 0.7.0(encoding@0.1.13)
 
 packages:
 
@@ -1723,8 +1723,8 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@grafana/faro-bundlers-shared@0.5.0':
-    resolution: {integrity: sha512-YaoOVbtCHfQrw/pQf5Y21UtlBgDP77N0EfaVd2Hr12PysFvLwaYdZDRgMws/+yJlJJilK8Y97TNWaDHCCsMurw==}
+  '@grafana/faro-bundlers-shared@0.6.0':
+    resolution: {integrity: sha512-aphGaqubY8uqHQDBhTT7kyc5eunlk1K/vxfj8tqL3h4QIbpOBYSAM3/NAT0s7GVVyxIBV7x+MTbohyy5/j4C/w==}
 
   '@grafana/faro-core@1.19.0':
     resolution: {integrity: sha512-Juo5G/aviSh3XqSGGr6D61noAC8sb+oCawBsv545ILEeOQdINyzRaoQdRpnXEY3DLS9LYtL0PYhvHZiP3rlscQ==}
@@ -1741,8 +1741,8 @@ packages:
       react-router-dom:
         optional: true
 
-  '@grafana/faro-rollup-plugin@0.6.0':
-    resolution: {integrity: sha512-pJzc8aQjMCOFvtJdBYQjlnaMEYv4MFQjHwdd5pgm5KKMZXAKt+3xBIPQAip5RTJKhxx11Toov9OcaAw6pAhl6w==}
+  '@grafana/faro-rollup-plugin@0.7.0':
+    resolution: {integrity: sha512-l9tyBpKxz7O32SGCyqCsImV39V/O1/VWSbQkOVt5+JZlZIG9ZYpGr6E10JvmK6raKPQ8vEl3uQdUl0mExlQnjA==}
 
   '@grafana/faro-web-sdk@1.19.0':
     resolution: {integrity: sha512-3u74mV2uBWqoF6WBx71p0vtkaS1Z0QbGoZ8tuX5yiYnIybqnhKdGkApFUi7q5se0tMPIeJdMVoRFdLU8f9hfAw==}
@@ -11948,7 +11948,7 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@grafana/faro-bundlers-shared@0.5.0':
+  '@grafana/faro-bundlers-shared@0.6.0':
     dependencies:
       ansis: 4.2.0
       tar: 7.5.2
@@ -11969,9 +11969,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@grafana/faro-rollup-plugin@0.6.0(encoding@0.1.13)':
+  '@grafana/faro-rollup-plugin@0.7.0(encoding@0.1.13)':
     dependencies:
-      '@grafana/faro-bundlers-shared': 0.5.0
+      '@grafana/faro-bundlers-shared': 0.6.0
       cross-fetch: 4.1.0(encoding@0.1.13)
       magic-string: 0.30.21
       rollup: 4.53.2
