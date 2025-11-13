@@ -76,8 +76,8 @@ importers:
         specifier: ^11.0.0
         version: 11.1.8(@nestjs/common@11.1.8(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.8)(@nestjs/platform-express@11.1.8)
       '@next/eslint-plugin-next':
-        specifier: ^16.0.0
-        version: 16.0.1
+        specifier: ^16.0.2
+        version: 16.0.2
       '@nx-extend/vercel':
         specifier: ^13.0.1
         version: 13.0.1(@nx/devkit@22.0.3(nx@22.0.3(@swc-node/register@1.11.1(@swc/core@1.15.1(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.1(@swc/helpers@0.5.17))))
@@ -2617,6 +2617,9 @@ packages:
 
   '@next/eslint-plugin-next@16.0.1':
     resolution: {integrity: sha512-g4Cqmv/gyFEXNeVB2HkqDlYKfy+YrlM2k8AVIO/YQVEPfhVruH1VA99uT1zELLnPLIeOnx8IZ6Ddso0asfTIdw==}
+
+  '@next/eslint-plugin-next@16.0.2':
+    resolution: {integrity: sha512-xYPCH5pE0QOhQ9AFM4itZgO3YtZz/0/h37L0cbZ2a3s/ePVN9VsZqpDYaZvxH33Vejp//fdvE1Iv8Ra6DUqjjA==}
 
   '@next/swc-darwin-arm64@14.2.33':
     resolution: {integrity: sha512-HqYnb6pxlsshoSTubdXKu15g3iivcbsMXg4bYpjL2iS/V6aQot+iyF4BUc2qA/J/n55YtvE4PHMKWBKGCF/+wA==}
@@ -13030,6 +13033,10 @@ snapshots:
   '@next/env@16.0.1': {}
 
   '@next/eslint-plugin-next@16.0.1':
+    dependencies:
+      fast-glob: 3.3.1
+
+  '@next/eslint-plugin-next@16.0.2':
     dependencies:
       fast-glob: 3.3.1
 
