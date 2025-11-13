@@ -51,7 +51,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "24.10.1",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
+    "@types/react-dom": "^19.2.3",
     "@vercel/remote-nx": "^2.0.0",
     "core-js": "^3.36.1",
     "cypress": "^15.0.0",
