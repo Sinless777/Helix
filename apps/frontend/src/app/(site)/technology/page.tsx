@@ -1,14 +1,15 @@
+// apps/frontend/src/app/(site)/technology/page.tsx
+
 'use client';
 
 import * as React from 'react';
 import Script from 'next/script';
-import { Box, Container, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import { Box, Container, Typography, Grid } from '@mui/material';
 
 import { Header, HelixCard } from '@helix-ai/ui';
 import type { CardProps } from '@helix-ai/ui';
-import { headerProps } from '../../content/header';
-import * as Constants from '../../content/technology';
+import { headerProps } from '../../../content/header';
+import * as Constants from '../../../content/technology';
 
 declare global {
   interface Window {
@@ -26,7 +27,7 @@ export default function Technology() {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch {
-      // ignore locally
+      // ignore errors in dev/preview
     }
   }, [allCards.length]);
 
@@ -85,25 +86,21 @@ export default function Technology() {
             align="center"
             sx={{ color: 'text.secondary', maxWidth: 900, mx: 'auto' }}
           >
-            Helix AI is built on modern, battle‑tested technologies—selected for performance, reliability,
-            scalability, and security. Explore the systems that power Helix—engineered to evolve, scale, and serve.
+            Helix AI is built on modern, battle-tested technologies—selected for performance, reliability,
+            scalability, and security. Explore the systems that power Helix—engineered to evolve, scale,
+            and serve.
           </Typography>
         </Container>
       </Box>
 
       <Box component="section" sx={{ pb: { xs: 6, md: 10 } }}>
         <Container maxWidth="lg">
-          <Grid
-            container
-            spacing={2}
-            sx={{
-              alignContent: 'center',
-              alignItems: 'stretch',
-              justifyContent: 'center',
-            }}
-          >
+          <Grid container spacing={2} alignContent="center" alignItems="stretch" justifyContent="center">
             {allCards.map((card, idx) => (
-              <Grid key={`${card.title}-${card.link ?? idx}`} size={{ xs: 12, sm: 6, md: 4 }}>
+              <Grid
+                key={`${card.title}-${card.link ?? idx}`}
+                size={{ xs: 12, sm: 6, md: 4 }}
+              >
                 <HelixCard {...card} />
               </Grid>
             ))}

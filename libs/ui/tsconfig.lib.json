@@ -24,7 +24,7 @@
       "path": "../hypertune/tsconfig.lib.json"
     },
     {
-      "path": "../config/tsconfig.lib.json"
+      "path": "../shared/config/tsconfig.lib.json"
     }
   ],
   "exclude": [

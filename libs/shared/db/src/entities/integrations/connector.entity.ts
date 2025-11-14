@@ -35,7 +35,7 @@ export class Connector extends BaseEntity {
   org!: Rel<Org>;
 
   /** Associated secrets for secure credentials storage. */
-  @OneToMany(() => ConnectorSecret, (secret) => secret.connector, {
+  @OneToMany(() => ConnectorSecret, (secret: ConnectorSecret) => secret.connector, {
     cascade: [Cascade.PERSIST, Cascade.REMOVE],
   })
   secrets = new Collection<Rel<ConnectorSecret>>(this);

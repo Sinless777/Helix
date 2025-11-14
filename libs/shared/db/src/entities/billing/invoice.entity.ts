@@ -82,7 +82,7 @@ export class Invoice extends BaseEntity {
   lines?: unknown;
 
   /** Payments associated with this invoice. */
-  @OneToMany(() => Payment, (p) => p.invoice, {
+  @OneToMany(() => Payment, (payment: Payment) => payment.invoice, {
     cascade: [Cascade.PERSIST],
   })
   payments = new Collection<Rel<Payment>>(this);

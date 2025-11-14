@@ -57,13 +57,13 @@ export class Customer extends BaseEntity {
   metadata?: Record<string, unknown>;
 
   /** Invoices associated with this customer. */
-  @OneToMany(() => Invoice, (i) => i.customer, {
+  @OneToMany(() => Invoice, (invoice: Invoice) => invoice.customer, {
     cascade: [Cascade.PERSIST],
   })
   invoices = new Collection<Rel<Invoice>>(this);
 
   /** Payments associated with this customer. */
-  @OneToMany(() => Payment, (p) => p.customer, {
+  @OneToMany(() => Payment, (payment: Payment) => payment.customer, {
     cascade: [Cascade.PERSIST],
   })
   payments = new Collection<Rel<Payment>>(this);

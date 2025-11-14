@@ -7,13 +7,10 @@
       "path": "./apps/frontend-e2e"
     },
     {
-      "path": "./libs/db"
+      "path": "./apps/frontend"
     },
     {
       "path": "./libs/ui"
-    },
-    {
-      "path": "./libs/config"
     },
     {
       "path": "./libs/hypertune"
@@ -26,6 +23,12 @@
     },
     {
       "path": "./libs/shared/logger"
+    },
+    {
+      "path": "./libs/shared/config"
+    },
+    {
+      "path": "./libs/shared/db"
     }
   ]
 }

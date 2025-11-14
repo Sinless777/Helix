@@ -48,7 +48,7 @@ export class Run extends BaseEntity {
   conversation!: Rel<Conversation>;
 
   /** All logs associated with this run (execution trace, stdout, errors, etc.). */
-  @OneToMany(() => RunLog, (log) => log.run, { cascade: [Cascade.PERSIST, Cascade.REMOVE] })
+  @OneToMany(() => RunLog, (log: RunLog) => log.run, { cascade: [Cascade.PERSIST, Cascade.REMOVE] })
   logs = new Collection<Rel<RunLog>>(this);
 
   // ---------------------------------------------------------------------

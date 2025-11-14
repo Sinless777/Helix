@@ -1,4 +1,0 @@
-# Copy this file to .npmrc.local and add your private registry token.
-# .npmrc.local is gitignored, so your credentials stay on your machine/CI only.
-
-//registry.npmjs.org/:_authToken=YOUR_NPM_TOKEN_HERE

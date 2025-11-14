@@ -22,6 +22,10 @@
     ]
   },
   "dependencies": {
+    "node-fetch": "^2.7.0",
     "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.13"
   }
 }

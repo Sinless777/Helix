@@ -3,6 +3,7 @@
 import {
   Entity,
   Property,
+  ManyToOne,
   OneToMany,
   Index,
   Cascade,
@@ -35,11 +36,11 @@ export class KmsKey extends BaseEntity {
   // ---------------------------------------------------------------------
 
   /** Owning organization (multi-tenant key isolation). */
-  @OneToMany(() => Org, (o) => o.kmsKeys)
+  @ManyToOne(() => Org, { inversedBy: 'kmsKeys', fieldName: 'org_id', nullable: false })
   org!: Rel<Org>;
 
   /** All secrets protected by this KMS key. */
-  @OneToMany(() => Secret, (secret) => secret.kmsKey, {
+  @OneToMany(() => Secret, (secret: Secret) => secret.kmsKey, {
     cascade: [Cascade.REMOVE],
   })
   secrets = new Collection<Rel<Secret>>(this);

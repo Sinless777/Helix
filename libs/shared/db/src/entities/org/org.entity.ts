@@ -62,14 +62,14 @@ export class Org extends BaseEntity {
   // Profile & Settings (1:1 inverse; owning side is OrgSettings)
   // ---------------------------------------------------------------------
 
-  @OneToOne(() => OrgSettings, (s) => s.org, { nullable: true })
+  @OneToOne(() => OrgSettings, (settings: OrgSettings) => settings.org, { nullable: true })
   settings?: Rel<OrgSettings>;
 
   // ---------------------------------------------------------------------
   // Memberships
   // ---------------------------------------------------------------------
 
-  @OneToMany(() => OrgMember, (m) => m.org, {
+  @OneToMany(() => OrgMember, (member: OrgMember) => member.org, {
     cascade: [Cascade.PERSIST],
   })
   members = new Collection<Rel<OrgMember>>(this);
@@ -78,22 +78,22 @@ export class Org extends BaseEntity {
   // Governance / Security
   // ---------------------------------------------------------------------
 
-  @OneToMany(() => ApiKey, (k) => k.org, {
+  @OneToMany(() => ApiKey, (apiKey: ApiKey) => apiKey.org, {
     cascade: [Cascade.PERSIST],
   })
   apiKeys = new Collection<Rel<ApiKey>>(this);
 
-  @OneToMany(() => Audit, (a) => a.org, {
+  @OneToMany(() => Audit, (audit: Audit) => audit.org, {
     cascade: [Cascade.PERSIST],
   })
   audits = new Collection<Rel<Audit>>(this);
 
-  @OneToMany(() => Secret, (s) => s.org, {
+  @OneToMany(() => Secret, (secret: Secret) => secret.org, {
     cascade: [Cascade.PERSIST],
   })
   secrets = new Collection<Rel<Secret>>(this);
 
-  @OneToMany(() => KmsKey, (k) => k.org, {
+  @OneToMany(() => KmsKey, (kmsKey: KmsKey) => kmsKey.org, {
     cascade: [Cascade.PERSIST],
   })
   kmsKeys = new Collection<Rel<KmsKey>>(this);
@@ -102,22 +102,22 @@ export class Org extends BaseEntity {
   // Billing / Metering
   // ---------------------------------------------------------------------
 
-  @OneToMany(() => Customer, (c) => c.org, {
+  @OneToMany(() => Customer, (customer: Customer) => customer.org, {
     cascade: [Cascade.PERSIST],
   })
   customers = new Collection<Rel<Customer>>(this);
 
-  @OneToMany(() => Invoice, (i) => i.org)
+  @OneToMany(() => Invoice, (invoice: Invoice) => invoice.org)
   invoices = new Collection<Rel<Invoice>>(this);
 
-  @OneToMany(() => UsageMeter, (m) => m.org)
+  @OneToMany(() => UsageMeter, (usageMeter: UsageMeter) => usageMeter.org)
   usageMeters = new Collection<Rel<UsageMeter>>(this);
 
   // ---------------------------------------------------------------------
   // ABAC / Policy
   // ---------------------------------------------------------------------
 
-  @OneToMany(() => Policy, (p) => p.org, {
+  @OneToMany(() => Policy, (policy: Policy) => policy.org, {
     cascade: [Cascade.PERSIST],
   })
   policies = new Collection<Rel<Policy>>(this);
@@ -126,30 +126,30 @@ export class Org extends BaseEntity {
   // Assistant / Automations
   // ---------------------------------------------------------------------
 
-  @OneToMany(() => Conversation, (c) => c.org)
+  @OneToMany(() => Conversation, (conversation: Conversation) => conversation.org)
   conversations = new Collection<Rel<Conversation>>(this);
 
-  @OneToMany(() => Run, (r) => r.org)
+  @OneToMany(() => Run, (run: Run) => run.org)
   runs = new Collection<Rel<Run>>(this);
 
-  @OneToMany(() => WebhookSubscription, (s) => s.org, {
+  @OneToMany(() => WebhookSubscription, (subscription: WebhookSubscription) => subscription.org, {
     cascade: [Cascade.PERSIST],
   })
   webhookSubscriptions = new Collection<Rel<WebhookSubscription>>(this);
 
-  @OneToMany(() => WebhookDelivery, (d) => d.org)
+  @OneToMany(() => WebhookDelivery, (delivery: WebhookDelivery) => delivery.org)
   webhookDeliveries = new Collection<Rel<WebhookDelivery>>(this);
 
   // ---------------------------------------------------------------------
   // Integrations
   // ---------------------------------------------------------------------
 
-  @OneToMany(() => Connector, (c) => c.org, {
+  @OneToMany(() => Connector, (connector: Connector) => connector.org, {
     cascade: [Cascade.PERSIST],
   })
   connectors = new Collection<Rel<Connector>>(this);
 
-  @OneToMany(() => ConnectorSecret, (cs) => cs.org, {
+  @OneToMany(() => ConnectorSecret, (connectorSecret: ConnectorSecret) => connectorSecret.org, {
     cascade: [Cascade.PERSIST],
   })
   connectorSecrets = new Collection<Rel<ConnectorSecret>>(this);
@@ -158,12 +158,12 @@ export class Org extends BaseEntity {
   // Edge / IoT
   // ---------------------------------------------------------------------
 
-  @OneToMany(() => Agent, (a) => a.org)
+  @OneToMany(() => Agent, (agent: Agent) => agent.org)
   agents = new Collection<Rel<Agent>>(this);
 
-  @OneToMany(() => Device, (d) => d.org)
+  @OneToMany(() => Device, (device: Device) => device.org)
   devices = new Collection<Rel<Device>>(this);
 
-  @OneToMany(() => Deployment, (d) => d.org)
+  @OneToMany(() => Deployment, (deployment: Deployment) => deployment.org)
   deployments = new Collection<Rel<Deployment>>(this);
 }

@@ -21,7 +21,7 @@ export class UserSettings extends BaseEntity {
    * Owning side of the 1:1 relation.
    * FK lives in this table and is UNIQUE by virtue of OneToOne(owner: true).
    */
-  @OneToOne(() => User, (u) => u.settings, {
+  @OneToOne(() => User, (user: User) => user.settings, {
     owner: true,
     nullable: false,
     unique: true,

@@ -3,11 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "../../../",
-    "outDir": "../../dist/libs/shared/logger",
-    "tsBuildInfoFile": "../../dist/libs/shared/logger/tsconfig.lib.tsbuildinfo",
+    "outDir": "../../../dist/libs/shared/logger",
+    "tsBuildInfoFile": "../../../dist/libs/shared/logger/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": false,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "es2022",
     "forceConsistentCasingInFileNames": true,
     "types": [
       "node"

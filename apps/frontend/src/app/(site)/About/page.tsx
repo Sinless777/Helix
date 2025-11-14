@@ -1,12 +1,13 @@
+// apps/frontend/src/app/(site)/About/page.tsx
+
 'use client';
 
-import { Box, Grid } from '@mui/material';
-import React from 'react';
+import * as React from 'react';
+import { Box, Grid, Typography } from '@mui/material';
 
-import { HelixCard } from '@helix-ai/ui';
-import { Header } from '@helix-ai/ui';
-import { AboutContent } from '../../content/about';
-import { headerProps } from '../../content/header';
+import { Header, HelixCard } from '@helix-ai/ui';
+import { AboutContent } from '../../../content/about';
+import { headerProps } from '../../../content/header';
 
 type AboutSection = {
   title: string;
@@ -20,18 +21,25 @@ const ORDER_MAP: Record<string, string> = {
   'Our Story': 'order-0 sm:order-4',
 };
 
-// Helper to flatten ReactNode[] into plain text for HelixCard.description
+// Helper to flatten ReactNode[] into plain text
 function nodesToPlainText(nodes: React.ReactNode[]): string {
   return nodes
-    .map((n) =>
-      typeof n === 'string'
-        ? n
-        : React.isValidElement(n) &&
-            typeof (n as React.ReactElement<{ children?: React.ReactNode }>).props.children ===
-              'string'
-          ? ((n as React.ReactElement<{ children?: React.ReactNode }>).props.children as string)
-          : ''
-    )
+    .flatMap((n) => {
+      if (typeof n === 'string') {
+        return n;
+      }
+      if (React.isValidElement(n)) {
+        const maybeProps = (n.props as { children?: React.ReactNode });
+        const child = maybeProps.children;
+        if (typeof child === 'string') {
+          return child;
+        }
+        if (Array.isArray(child)) {
+          return child.map((c) => (typeof c === 'string' ? c : '')).filter(Boolean);
+        }
+      }
+      return '';
+    })
     .filter((str) => str.length > 0)
     .join('\n\n')
     .trim();
@@ -42,51 +50,55 @@ export default function AboutPage() {
 
   return (
     <Box component="div" sx={{ position: 'relative', minHeight: '100vh', color: 'white' }}>
-      <Header {...headerProps} pages={[...(headerProps.pages ?? [])]} />
+      <Header {...headerProps} pages={[...headerProps.pages]} />
 
       <Box
         component="main"
-        sx={{ mx: 'auto', maxWidth: 1200, px: { xs: 2, sm: 3, lg: 4 }, pb: { xs: 10, md: 14 } }}
+        sx={{
+          mx: 'auto',
+          maxWidth: 1200,
+          px: { xs: 2, sm: 3, lg: 4 },
+          pb: { xs: 10, md: 14 },
+        }}
       >
-        <Box
+        <Typography
           component="h1"
+          variant="h2"
+          align="center"
           sx={{
             fontSize: { xs: '2rem', md: '2.5rem' },
             fontWeight: 'bold',
-            textAlign: 'center',
             mb: { xs: 4, md: 6 },
           }}
         >
           About Helix AI
-        </Box>
+        </Typography>
 
         <Grid container spacing={4}>
           {sections.map((sec) => {
             const paras = Array.isArray(sec.paragraphs) ? sec.paragraphs : [sec.paragraphs];
             const description =
               paras.length === 1 && typeof paras[0] === 'string'
-                ? (paras[0] as string)
+                ? paras[0]
                 : nodesToPlainText(paras);
+
+            const orderValue =
+              parseInt(ORDER_MAP[sec.title]?.split('sm:order-')[1] ?? '0') || 0;
 
             return (
               <Grid
-                size={{ xs: 12, sm: 6 }}
-                spacing={{ xs: 2, sm: 4, md: 6, lg: 8 }}
                 key={sec.title}
+                size={{ xs: 12, sm: 6 }}
                 sx={{
-                  // apply ordering only on sm+ as defined
-                  order: {
-                    xs: 0,
-                    sm: parseInt(ORDER_MAP[sec.title]?.split('sm:order-')[1] ?? '0'),
-                  },
                   padding: 1,
+                  order: { xs: 0, sm: orderValue },
                 }}
               >
                 <HelixCard
                   title={sec.title}
                   description={description}
-                  image="" // no image
-                  link="" // no link
+                  image=""
+                  link=""
                   sx={{
                     backgroundColor: 'rgba(0,0,0,0.3)',
                     borderColor: 'rgba(255,255,255,0.1)',

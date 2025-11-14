@@ -26,7 +26,7 @@ export class UserProfile extends BaseEntity {
    * Owning side of the 1:1 relation.
    * FK lives in this table and is UNIQUE via the decorator above.
    */
-  @OneToOne(() => User, (u) => u.profile, {
+  @OneToOne(() => User, (user: User) => user.profile, {
     owner: true,
     nullable: false,
     unique: true,

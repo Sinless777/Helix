@@ -1,13 +1,12 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "../../../",
-    "outDir": "../../../dist/libs/db",
-    "tsBuildInfoFile": "../../../dist/libs/db/tsconfig.lib.tsbuildinfo",
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/db",
+    "tsBuildInfoFile": "../../../dist/libs/shared/db/tsconfig.db.tsbuildinfo",
 
     /* Module & resolution */
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "es2022",
 
     /* Decorators / metadata (MikroORM) */
     "experimentalDecorators": true,

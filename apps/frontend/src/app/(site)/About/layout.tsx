@@ -1,4 +1,4 @@
-// app/about/layout.tsx
+// apps/frontend/src/app/About/layout.tsx
 import type { Metadata } from 'next';
 import React from 'react';
 
@@ -47,6 +47,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutLayout({ children }: { children: React.ReactNode }) {
-  return <main className="flex min-h-screen flex-col bg-black text-white">{children}</main>;
+type AboutLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function AboutLayout({ children }: AboutLayoutProps) {
+  return (
+    <main className="flex min-h-screen flex-col bg-black text-white">
+      {children}
+    </main>
+  );
 }

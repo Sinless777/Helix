@@ -1,7 +1,9 @@
+// apps/frontend/src/app/(site)/page.tsx
+
 'use client';
 
 import { DevelopmentBanner, Header, HeroSection } from '@helix-ai/ui';
-import { headerProps } from '../content/header';
+import { headerProps } from '../../content/header';
 
 const HERO_DATA = {
   title: 'Meet Helix AI — Your Intelligent Companion for a Smarter Digital Life',
@@ -14,13 +16,6 @@ const HERO_DATA = {
 export default function IndexPage() {
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only fixed left-4 top-4 z-[60] rounded-md bg-white/10 px-3 py-2 text-sm backdrop-blur hover:bg-white/20"
-      >
-        Skip to content
-      </a>
-
       <Header {...headerProps} pages={headerProps.pages} />
       <DevelopmentBanner sx={{ mb: 2 }} />
 

@@ -3,7 +3,12 @@ import * as React from 'react';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
-import { HelixProviders, Background } from '@helix-ai/ui';
+import Script from 'next/script';
+import dynamic from 'next/dynamic';
+
+const Background = dynamic(() => import('@helix-ai/ui').then((mod) => ({ default: mod.Background })));
+
+const AppProviders = dynamic(() => import('./providers').then((mod) => ({ default: mod.AppProviders })));
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://helixai.com'),
@@ -73,19 +78,25 @@ export const viewport: Viewport = {
   ],
 };
 
-type RootLayoutProps = { children: React.ReactNode };
+type RootLayoutProps = {
+  children: React.ReactNode;
+};
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const mode: 'dark' | 'light' = 'dark';
 
   return (
-    <html
-      lang="en"
-      className={mode === 'dark' ? 'dark' : ''}
-      style={{ colorScheme: mode }}
-      suppressHydrationWarning
-    >
-      <head />
+    <html lang="en" className={mode === 'dark' ? 'dark' : ''} style={{ colorScheme: mode }}>
+      {/* Analytics snippet for dev/preview */}
+      {(process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview') && (
+        <Script
+          id="meticulous-analytics"
+          strategy="beforeInteractive"
+          src="https://snippet.meticulous.ai/v1/meticulous.js"
+          data-recording-token="mxGHRESvuU68b8edOcewbT25c8mElDmQWedof3QS"
+          data-is-production-environment="false"
+        />
+      )}
       <body className="antialiased bg-black text-white">
         <Analytics />
         <SpeedInsights />
@@ -93,9 +104,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           imageUrl="https://cdn.sinlessgamesllc.com/Helix-AI/images/Background.webp"
           altText="Background Image"
         >
-          <HelixProviders defaultMode={mode}>
-            {children}
-          </HelixProviders>
+          <AppProviders defaultMode={mode}>{children}</AppProviders>
         </Background>
       </body>
     </html>

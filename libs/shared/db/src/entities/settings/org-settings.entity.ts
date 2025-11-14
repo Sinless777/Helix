@@ -30,7 +30,7 @@ export class OrgSettings extends BaseEntity {
   // ---------------------------------------------------------------------
 
   /** Each organization has exactly one settings record. */
-  @OneToOne(() => Org, (o) => o.settings, {
+  @OneToOne(() => Org, (org: Org) => org.settings, {
     owner: true,
     nullable: false,
     unique: true,

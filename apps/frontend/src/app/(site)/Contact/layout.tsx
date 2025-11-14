@@ -1,4 +1,4 @@
-// app/contact/layout.tsx
+// apps/frontend/src/app/Contact/layout.tsx
 
 import type { Metadata } from 'next';
 import React from 'react';
@@ -44,14 +44,18 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Contact Helix AI | Reach Out for Support, Sales & Partnerships',
     description:
-      'Have questions or need help? Contact Helix AI for support, sales, or partnership opportunities. Our team is ready to assist you.',
+      "Have questions or need help? Contact Helix AI for support, sales, or partnership opportunities. Our team is ready to assist you.",
     images: ['https://cdn.sinlessgamesllc.com/Helix-AI/images/Helix_Contact_Card.png'],
     site: '@Sinless777',
     creator: '@Sinless777',
   },
 };
 
-export default function ContactLayout({ children }: { children: React.ReactNode }) {
+type ContactLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function ContactLayout({ children }: ContactLayoutProps) {
   return (
     <main id="contact" className="flex flex-col min-h-screen bg-black text-white">
       {children}

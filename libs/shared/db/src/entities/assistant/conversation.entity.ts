@@ -44,13 +44,13 @@ export class Conversation extends BaseEntity {
   user!: Rel<User>;
 
   /** Messages in this conversation (chat entries). */
-  @OneToMany(() => Message, (m) => m.conversation, {
+  @OneToMany(() => Message, (message: Message) => message.conversation, {
     cascade: [Cascade.PERSIST, Cascade.REMOVE],
   })
   messages = new Collection<Rel<Message>>(this);
 
   /** All execution runs (e.g., tool or agent calls) associated with this conversation. */
-  @OneToMany(() => Run, (r) => r.conversation, {
+  @OneToMany(() => Run, (run: Run) => run.conversation, {
     cascade: [Cascade.PERSIST, Cascade.REMOVE],
   })
   runs = new Collection<Rel<Run>>(this);

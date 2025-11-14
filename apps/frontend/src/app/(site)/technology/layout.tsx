@@ -1,4 +1,4 @@
-// app/technology/layout.tsx
+// apps/frontend/src/app/technology/layout.tsx
 
 import type { Metadata } from 'next';
 import React from 'react';
@@ -51,6 +51,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TechnologyLayout({ children }: { children: React.ReactNode }) {
-  return <main className="flex flex-col min-h-screen bg-black text-white">{children}</main>;
+type TechnologyLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function TechnologyLayout({ children }: TechnologyLayoutProps) {
+  return (
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      {children}
+    </div>
+  );
 }

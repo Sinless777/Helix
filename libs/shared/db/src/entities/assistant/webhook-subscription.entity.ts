@@ -36,7 +36,7 @@ export class WebhookSubscription extends BaseEntity {
   org!: Rel<Org>;
 
   /** All delivery attempts for this subscription. */
-  @OneToMany(() => WebhookDelivery, (delivery) => delivery.subscription, {
+  @OneToMany(() => WebhookDelivery, (delivery: WebhookDelivery) => delivery.subscription, {
     cascade: [Cascade.PERSIST, Cascade.REMOVE],
   })
   deliveries = new Collection<Rel<WebhookDelivery>>(this);
