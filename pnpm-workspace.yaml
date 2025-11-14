@@ -2,9 +2,18 @@ packages:
   - apps/*
   - libs/*
   - apps/services/*
+  - libs/shared/*
 
 onlyBuiltDependencies:
   - '@nestjs/core'
+  - '@parcel/watcher'
   - '@swc/core'
+  - '@vercel/speed-insights'
+  - core-js
   - cypress
+  - esbuild
   - nx
+  - protobufjs
+  - sharp
+  - unrs-resolver
+  - workerd

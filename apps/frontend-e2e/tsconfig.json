@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "out-tsc/cypress",
     "allowJs": true,
+    "rootDir": "../../",
     "types": [
       "cypress",
       "node"

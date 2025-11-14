@@ -18,7 +18,6 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
 
 import styles from './Header.module.scss';
@@ -39,10 +38,16 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [latestVersion, setLatestVersion] = React.useState<string | null>(null);
 
-  const pathname = usePathname();
-  const router = useRouter();
+  const [pathname, setPathname] = React.useState<string>('');
   const theme = useTheme();
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+
+  React.useEffect(() => {
+    setPathname(window.location.pathname);
+    const handlePopState = () => setPathname(window.location.pathname);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -66,11 +71,17 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
   const releaseUrl = `https://github.com/Sinless777/Helix/releases/tag/v${displayVersion}`;
 
   const go = (href: string) => {
-    router.push(href as any);
+    setPathname(href);
+    if (typeof window !== 'undefined') {
+      window.location.href = href;
+    }
   };
   const goAndClose = (href: string) => {
     setMenuOpen(false);
-    router.push(href as any);
+    setPathname(href);
+    if (typeof window !== 'undefined') {
+      window.location.href = href;
+    }
   };
 
   return (

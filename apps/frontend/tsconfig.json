@@ -30,16 +30,12 @@
     ]
   },
   "include": [
-    "../../apps/frontend/.next/types/**/*.ts",
-    "../../dist/apps/frontend/.next/types/**/*.ts",
-    "../../libs/ui/src",
-    ".next/types/**/*.ts",
     "next-env.d.ts",
+    ".next/types/**/*.ts",
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "../../dist/apps/frontend/types/**/*.ts"
+    "src/**/*.tsx"
   ],
   "exclude": [
     "out-tsc",
