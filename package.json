@@ -85,7 +85,7 @@
     "@emotion/server": "11.11.0",
     "@emotion/styled": "11.14.1",
     "@nestjs/common": "^11.0.0",
-    "@nestjs/core": "^11.0.0",
+    "@nestjs/core": "^11.1.9",
     "@nestjs/platform-express": "^11.0.0",
     "axios": "^1.6.0",
     "next": "~16.0.1",
