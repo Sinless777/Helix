@@ -17,7 +17,7 @@ export const appConfig: AppConfig = {
   github: githubConfig,
   grafanaCloud: grafanaCloudConfig,
   security: securityConfig,
-  auth: authConfig,
+  authConfig: authConfig,
   telemetry: telemetryConfig,
   services: servicesConfig,
   supabase: supabaseConfig,

@@ -15,6 +15,7 @@
 // ---------------------------------------------------------------------
 export * from './org/org.entity';
 export * from './org/org-member.entity';
+export * from './settings/org-settings.entity';
 
 // ---------------------------------------------------------------------
 // User & Profile

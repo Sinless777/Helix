@@ -23,6 +23,7 @@
     "@eslint/compat": "^1.1.1",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.8.0",
+    "@mikro-orm/cli": "^6.6.0",
     "@naxodev/nx-cloudflare": "^5.0.2",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.0",

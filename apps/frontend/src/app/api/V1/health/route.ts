@@ -1,5 +1,6 @@
 // app/api/V1/health/route.ts
 import { NextResponse, type NextRequest } from 'next/server';
+import { frontendLogger } from '../../../../lib/logger';
 
 /** Force dynamic – health should never be prerendered or cached by Next */
 export const dynamic = 'force-dynamic';
@@ -130,9 +131,20 @@ function uuid(): string {
 
 /** GET /api/V1/health?checks=basic|deep */
 export async function GET(request: NextRequest) {
+  const started = Date.now();
   const url = new URL(request.url);
   const checksParam = (url.searchParams.get('checks') || 'basic').toLowerCase();
   const wantDeep = checksParam === 'deep';
+  const requestId = uuid();
+  const reqInfo = getRequestInfo(request);
+
+  frontendLogger.info('health_check_received', {
+    requestId,
+    url: reqInfo.url,
+    ip: reqInfo.ip,
+    userAgent: reqInfo.userAgent,
+    checks: checksParam,
+  });
 
   const [basic, deep] = await Promise.all([
     basicChecks(),
@@ -145,8 +157,16 @@ export async function GET(request: NextRequest) {
   const statusCode = hasFailure ? 503 : 200;
 
   const meta = getBuildMeta();
-  const reqInfo = getRequestInfo(request);
   const proc = getProcessMetrics();
+  const durationMs = Date.now() - started;
+
+  frontendLogger.info('health_check_completed', {
+    requestId,
+    status: hasFailure ? 'error' : 'ok',
+    counts,
+    statusCode,
+    durationMs,
+  });
 
   return json(
     {
@@ -158,7 +178,7 @@ export async function GET(request: NextRequest) {
       env: process.env.NODE_ENV || 'development',
       git: meta,
       region: meta.region,
-      request: { id: uuid(), ...reqInfo },
+      request: { id: requestId, ...reqInfo },
       metrics: proc,
       checks,
       counts,

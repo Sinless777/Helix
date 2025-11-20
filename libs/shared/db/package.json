@@ -2,7 +2,6 @@
   "name": "@helix-ai/db",
   "version": "0.0.1",
   "private": false,
-  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -22,8 +21,10 @@
     }
   },
   "dependencies": {
-    "@mikro-orm/core": "^6.5.9",
-    "@mikro-orm/postgresql": "^6.5.9",
+    "@mikro-orm/core": "^6.6.0",
+    "@mikro-orm/postgresql": "^6.6.0",
+    "@mikro-orm/migrations": "^6.6.0",
+    "dotenv": "^16.6.1",
     "uuid": "^13.0.0",
     "@helix-ai/config": "workspace:*"
   }

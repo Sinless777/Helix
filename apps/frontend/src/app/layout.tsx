@@ -84,19 +84,23 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const mode: 'dark' | 'light' = 'dark';
+  const showMeticulousSnippet =
+    process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview';
 
   return (
     <html lang="en" className={mode === 'dark' ? 'dark' : ''} style={{ colorScheme: mode }}>
-      {/* Analytics snippet for dev/preview */}
-      {(process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'preview') && (
-        <Script
-          id="meticulous-analytics"
-          strategy="beforeInteractive"
-          src="https://snippet.meticulous.ai/v1/meticulous.js"
-          data-recording-token="mxGHRESvuU68b8edOcewbT25c8mElDmQWedof3QS"
-          data-is-production-environment="false"
-        />
-      )}
+      <head>
+        {/* Analytics snippet for dev/preview */}
+        {showMeticulousSnippet && (
+          <Script
+            id="meticulous-analytics"
+            strategy="beforeInteractive"
+            src="https://snippet.meticulous.ai/v1/meticulous.js"
+            data-recording-token="mxGHRESvuU68b8edOcewbT25c8mElDmQWedof3QS"
+            data-is-production-environment="false"
+          />
+        )}
+      </head>
       <body className="antialiased bg-black text-white">
         <Analytics />
         <SpeedInsights />

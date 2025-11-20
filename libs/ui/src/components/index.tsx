@@ -38,3 +38,9 @@ export type { HeaderProps } from './Header';
 // waitlist
 export * from './Waitlist';
 
+
+// Auth
+export { LoginButton } from './auth/login-button';
+
+export { SignupButton } from './auth/signup-button';
+

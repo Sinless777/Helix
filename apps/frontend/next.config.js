@@ -19,6 +19,7 @@ const nextConfig = {
     ],
     formats: ['image/avif', 'image/webp'],
     // `qualities` is not a valid Next.js option; remove if present
+    qualities: [25, 50, 75, 100],
   },
 };
 

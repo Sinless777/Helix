@@ -2,7 +2,6 @@
   "name": "@helix-ai/config",
   "version": "0.0.1",
   "private": false,
-  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,6 +16,8 @@
     "access": "public"
   },
   "dependencies": {
+    "@auth/mikro-orm-adapter": "^2.11.1",
+    "next-auth": "^4.24.13",
     "yaml": "^2.2.1"
   },
   "exports": {

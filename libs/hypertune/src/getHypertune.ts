@@ -1,4 +1,3 @@
-import "server-only";
 import { VercelEdgeConfigInitDataProvider } from "hypertune";
 import { createClient } from "@vercel/edge-config";
 import { unstable_noStore as noStore } from "next/cache";

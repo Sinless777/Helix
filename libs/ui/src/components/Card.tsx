@@ -20,6 +20,8 @@ export interface CardProps {
   description?: string;
   listItems?: ListItemProps[];
   image?: string;
+  imageFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  imageBackground?: string;
   link?: string;
   buttonText?: string;
   quote?: string;
@@ -35,6 +37,9 @@ export const HelixCard: React.FC<CardProps> = ({
   description,
   listItems,
   image,
+  imageFit = 'contain',
+  imageBackground,
+  aspectRatio = '16 / 9',
   link,
   buttonText = `Read more about ${title}`,
   quote,
@@ -93,7 +98,7 @@ export const HelixCard: React.FC<CardProps> = ({
           sx={{
             position: 'relative',
             width: '100%',
-            aspectRatio: '16 / 9',
+            aspectRatio,
             mb: 2,
             borderRadius: theme.shape.borderRadius,
             overflow: 'hidden',
@@ -105,9 +110,10 @@ export const HelixCard: React.FC<CardProps> = ({
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             style={{
-              objectFit: 'cover',
+              objectFit: imageFit,
               borderRadius: theme.shape.borderRadius,
               transition: 'transform 0.3s ease',
+              objectPosition: 'center',
             }}
           />
         </Box>

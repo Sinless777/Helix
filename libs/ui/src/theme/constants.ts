@@ -50,8 +50,12 @@ const createColor = (hex: string, alpha = 1): ColorFormats => {
   };
 };
 
+// Extracted from your UI screenshot:
+// Primary  = Neon pink text color (~#F6066F)
+// Secondary = Bright Helix blue (~#4AB3FF)
+
 export const lightTheme: ThemePalette = {
-  primary: createColor('#6200EE'),
+  primary: createColor('#F6066F'),
   primaryForeground: createColor('#FFFFFF'),
   background: createColor('#F5F7FC'),
   backgroundTransparent: createColor('#F5F7FC', 0.72),
@@ -60,12 +64,12 @@ export const lightTheme: ThemePalette = {
   border: createColor('#D6DBE6'),
   text: createColor('#121826'),
   textSecondary: createColor('#5C6982'),
-  accent: createColor('#00BCD4'),
+  accent: createColor('#4AB3FF'),
   accentForeground: createColor('#082B38'),
 };
 
 export const darkTheme: ThemePalette = {
-  primary: createColor('#8C52FF'),
+  primary: createColor('#F6066F'),
   primaryForeground: createColor('#130D29'),
   background: createColor('#070A11'),
   backgroundTransparent: createColor('#070A11', 0.72),
@@ -74,7 +78,7 @@ export const darkTheme: ThemePalette = {
   border: createColor('#383D4F'),
   text: createColor('#E5E8F0'),
   textSecondary: createColor('#A4AABE'),
-  accent: createColor('#00BFA6'),
+  accent: createColor('#4AB3FF'),
   accentForeground: createColor('#052421'),
 };
 

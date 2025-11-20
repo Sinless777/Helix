@@ -9,5 +9,10 @@
     "outDir": "../../../dist/libs/shared/config",
     "tsBuildInfoFile": "../../../dist/libs/shared/config/tsconfig.lib.tsbuildinfo"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "references": [
+    {
+      "path": "../db/tsconfig.json"
+    }
+  ]
 }

@@ -7,7 +7,7 @@
     "outDir": "../../dist/libs/hypertune",
     "tsBuildInfoFile": "../../dist/libs/hypertune/tsconfig.lib.tsbuildinfo",
     "module": "es2022",
-    "rootDir": "src",
+    "rootDir": "../../",
     "lib": ["es2022", "dom"],
     "jsx": "react-jsx",
     "jsxImportSource": "react",

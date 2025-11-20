@@ -4,6 +4,15 @@
   "include": [],
   "references": [
     {
+      "path": "../../../libs/shared/logger"
+    },
+    {
+      "path": "../../../libs/hypertune"
+    },
+    {
+      "path": "../../../libs/shared/db"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {

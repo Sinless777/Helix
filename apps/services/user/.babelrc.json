@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "@nx/js/babel",
+      {
+        "targets": {
+          "node": "18"
+        }
+      }
+    ]
+  ]
+}

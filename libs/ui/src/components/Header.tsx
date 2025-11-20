@@ -1,3 +1,5 @@
+// libs/ui/src/components/Header.tsx
+
 'use client';
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -19,8 +21,12 @@ import {
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import * as React from 'react';
+import { useSession } from 'next-auth/react';
 
 import styles from './Header.module.scss';
+
+import { useHypertune } from '@helix-ai/hypertune';
+import { LoginButton, SignupButton } from '@helix-ai/ui';
 
 export interface Page {
   name: string;
@@ -41,6 +47,11 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
   const [pathname, setPathname] = React.useState<string>('');
   const theme = useTheme();
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const { data: session } = useSession();
+
+  const hypertune = useHypertune();
+  // Use the generated flag function name exactly; e.g. if your flag is “permissionsSystem” ➜ hypertune.permissionsSystem({ fallback: false })
+  const permissionsEnabled = hypertune.permissionsSystem({ fallback: false });
 
   React.useEffect(() => {
     setPathname(window.location.pathname);
@@ -53,11 +64,14 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch('https://api.github.com/repos/Sinless777/Helix/releases/latest');
+        const res = await fetch(
+          'https://api.github.com/repos/Sinless777/Helix/releases/latest'
+        );
         if (!res.ok) throw new Error('bad status');
         const data = await res.json();
         const tag: string = data?.tag_name ?? '';
-        if (!cancelled) setLatestVersion(tag.replace(/^v/i, '') || null);
+        if (!cancelled)
+          setLatestVersion(tag.replace(/^v/i, '') || null);
       } catch {
         if (!cancelled) setLatestVersion(null);
       }
@@ -99,13 +113,17 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
             gap: 2,
           }}
         >
-          {/* Left: Logo + Version */}
+          {/* Logo + Version */}
           <Stack direction="row" spacing={2}>
             <Box
               role="link"
               aria-label="Helix Home"
               onClick={() => go('/')}
-              sx={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }}
+              sx={{
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+              }}
             >
               <Image src={logo} alt="Helix logo" width={120} height={40} priority />
             </Box>
@@ -130,7 +148,7 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
             </MuiLink>
           </Stack>
 
-          {/* Middle: Navigation on large screens */}
+          {/* Navigation */}
           {mdUp && (
             <Stack
               component="nav"
@@ -169,32 +187,36 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
             </Stack>
           )}
 
-          {/* Right: menu toggle for small screens */}
-          {!mdUp && (
-            <IconButton
-              onClick={() => setMenuOpen(true)}
-              sx={{ color: '#fff' }}
-              aria-label="Open menu"
-            >
-              <MenuIcon fontSize="large" />
-            </IconButton>
-          )}
+          {/* Auth buttons or menu toggle */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            {permissionsEnabled && (
+              <>
+                <LoginButton className="auth-btn" />
+                {!session && <SignupButton className="auth-btn" />}
+              </>
+            )}
+
+            {!mdUp && (
+              <IconButton
+                onClick={() => setMenuOpen(true)}
+                sx={{ color: '#fff' }}
+                aria-label="Open menu"
+              >
+                <MenuIcon fontSize="large" />
+              </IconButton>
+            )}
+          </Box>
         </Box>
       </Box>
 
-      {/* Drawer for mobile navigation */}
+      {/* Drawer for mobile */}
       <Drawer
         anchor="right"
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
         PaperProps={{ sx: { width: 300, bgcolor: '#1f1f2a', color: '#fff' } }}
       >
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{ px: 2, py: 2 }}
-        >
+        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 2, py: 2 }}>
           <Typography variant="subtitle1">Menu</Typography>
           <IconButton
             onClick={() => setMenuOpen(false)}
@@ -226,7 +248,6 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
         </List>
       </Drawer>
 
-      {/* Spacer so content isn’t hidden behind the fixed header */}
       <Box sx={{ height: { xs: 64, md: 68 } }} />
     </>
   );

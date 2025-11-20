@@ -12,7 +12,7 @@ export type AppConfig = {
   github: GithubConfig;
   grafanaCloud: GrafanaCloudConfig;
   security: SecurityConfig;
-  auth: AuthConfig;
+  authConfig: AuthConfig;
   telemetry: TelemetryConfig;
   services: ServicesConfig;
   supabase: SupabaseConfig;

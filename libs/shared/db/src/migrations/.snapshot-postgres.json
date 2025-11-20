@@ -1,0 +1,4888 @@
+{
+  "namespaces": [
+    "public"
+  ],
+  "name": "public",
+  "tables": [
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "org",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_org_name",
+          "columnNames": [
+            "name"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "org_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "alias": {
+          "name": "alias",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "security_kms_key",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "alias"
+          ],
+          "composite": false,
+          "keyName": "security_kms_key_alias_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "idx_kms_key_alias",
+          "columnNames": [
+            "alias"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_kms_key_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "security_kms_key_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "security_kms_key_org_id_foreign": {
+          "constraintName": "security_kms_key_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.security_kms_key",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "protocol": {
+          "name": "protocol",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "twin_state": {
+          "name": "twin_state",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "last_seen_at": {
+          "name": "last_seen_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "edge_device",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_device_last_seen",
+          "columnNames": [
+            "last_seen_at"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_device_protocol",
+          "columnNames": [
+            "protocol"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_device_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "edge_device_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "edge_device_org_id_foreign": {
+          "constraintName": "edge_device_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.edge_device",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "environment": {
+          "name": "environment",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "region": {
+          "name": "region",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "config": {
+          "name": "config",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "edge_deployment",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_deployment_env_region",
+          "columnNames": [
+            "environment",
+            "region"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_deployment_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "edge_deployment_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "edge_deployment_org_id_foreign": {
+          "constraintName": "edge_deployment_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.edge_deployment",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "config": {
+          "name": "config",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'inactive'",
+          "mappedType": "text"
+        }
+      },
+      "name": "integrations_connector",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_connector_org_code",
+          "columnNames": [
+            "org_id",
+            "code"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "integrations_connector_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "integrations_connector_org_id_foreign": {
+          "constraintName": "integrations_connector_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.integrations_connector",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "version": {
+          "name": "version",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'offline'",
+          "mappedType": "text"
+        },
+        "last_seen_at": {
+          "name": "last_seen_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "capabilities": {
+          "name": "capabilities",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "edge_agent",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_agent_last_seen",
+          "columnNames": [
+            "last_seen_at"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_agent_org_status",
+          "columnNames": [
+            "org_id",
+            "status"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "edge_agent_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "edge_agent_org_id_foreign": {
+          "constraintName": "edge_agent_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.edge_agent",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "branding": {
+          "name": "branding",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "security": {
+          "name": "security",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "defaults": {
+          "name": "defaults",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "billing_prefs": {
+          "name": "billing_prefs",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "org_settings",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "keyName": "org_settings_org_id_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "idx_org_settings_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "org_settings_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "org_settings_org_id_foreign": {
+          "constraintName": "org_settings_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.org_settings",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "rules": {
+          "name": "rules",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "json"
+        },
+        "version": {
+          "name": "version",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "enabled": {
+          "name": "enabled",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "true",
+          "mappedType": "boolean"
+        }
+      },
+      "name": "abac_policy",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_policy_code",
+          "columnNames": [
+            "code"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_policy_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "uq_policy_org_code_version",
+          "columnNames": [
+            "org_id",
+            "code",
+            "version"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "abac_policy_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "abac_policy_org_id_foreign": {
+          "constraintName": "abac_policy_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.abac_policy",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "kms_key_id": {
+          "name": "kms_key_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "ciphertext": {
+          "name": "ciphertext",
+          "type": "bytea",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "blob"
+        },
+        "kms_key_alias": {
+          "name": "kms_key_alias",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "rotated_at": {
+          "name": "rotated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "security_secret",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_secret_kms_key",
+          "columnNames": [
+            "kms_key_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_secret_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "security_secret_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "security_secret_org_id_foreign": {
+          "constraintName": "security_secret_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.security_secret",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        },
+        "security_secret_kms_key_id_foreign": {
+          "constraintName": "security_secret_kms_key_id_foreign",
+          "columnNames": [
+            "kms_key_id"
+          ],
+          "localTableName": "public.security_secret",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.security_kms_key",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "connector_id": {
+          "name": "connector_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "secret_id": {
+          "name": "secret_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "integrations_connector_secret",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_connector_secret_secret",
+          "columnNames": [
+            "secret_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_connector_secret_connector",
+          "columnNames": [
+            "connector_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_connector_secret_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "uq_connector_secret_pair",
+          "columnNames": [
+            "connector_id",
+            "secret_id"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "integrations_connector_secret_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "integrations_connector_secret_org_id_foreign": {
+          "constraintName": "integrations_connector_secret_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.integrations_connector_secret",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        },
+        "integrations_connector_secret_connector_id_foreign": {
+          "constraintName": "integrations_connector_secret_connector_id_foreign",
+          "columnNames": [
+            "connector_id"
+          ],
+          "localTableName": "public.integrations_connector_secret",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.integrations_connector",
+          "updateRule": "cascade"
+        },
+        "integrations_connector_secret_secret_id_foreign": {
+          "constraintName": "integrations_connector_secret_secret_id_foreign",
+          "columnNames": [
+            "secret_id"
+          ],
+          "localTableName": "public.integrations_connector_secret",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.security_secret",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "metric_code": {
+          "name": "metric_code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "bigint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "bigint"
+        },
+        "for_date": {
+          "name": "for_date",
+          "type": "date",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "date"
+        },
+        "dimensions": {
+          "name": "dimensions",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "dimensions_hash": {
+          "name": "dimensions_hash",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        }
+      },
+      "name": "billing_usage_meter",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_usage_metric_hash",
+          "columnNames": [
+            "dimensions_hash"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_usage_org_metric_date",
+          "columnNames": [
+            "org_id",
+            "metric_code",
+            "for_date"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "billing_usage_meter_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "billing_usage_meter_org_id_foreign": {
+          "constraintName": "billing_usage_meter_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.billing_usage_meter",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "hashed_password": {
+          "name": "hashed_password",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "app_user",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "uq_user_email",
+          "columnNames": [
+            "email"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false,
+          "options": {
+            "unique": true
+          }
+        },
+        {
+          "keyName": "app_user_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "ticket_id": {
+          "name": "ticket_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'OPEN'",
+          "mappedType": "text"
+        },
+        "assignee_id": {
+          "name": "assignee_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "conversation": {
+          "name": "conversation",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'[]'",
+          "mappedType": "json"
+        },
+        "resolved_at": {
+          "name": "resolved_at",
+          "type": "bigint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "bigint"
+        }
+      },
+      "name": "system_ticket",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_ticket_assignee",
+          "columnNames": [
+            "assignee_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_ticket_category",
+          "columnNames": [
+            "category"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_ticket_status",
+          "columnNames": [
+            "status"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_ticket_user",
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_ticket_id",
+          "columnNames": [
+            "ticket_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "system_ticket_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "system_ticket_user_id_foreign": {
+          "constraintName": "system_ticket_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.system_ticket",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "attributes": {
+          "name": "attributes",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        }
+      },
+      "name": "org_member",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_org_member_user",
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_org_member_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "uq_org_member_org_user",
+          "columnNames": [
+            "org_id",
+            "user_id"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "org_member_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "org_member_org_id_foreign": {
+          "constraintName": "org_member_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.org_member",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        },
+        "org_member_user_id_foreign": {
+          "constraintName": "org_member_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.org_member",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "read": {
+          "name": "read",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "system_notification",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_notification_user_unread",
+          "columnNames": [
+            "user_id",
+            "read"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "system_notification_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "system_notification_user_id_foreign": {
+          "constraintName": "system_notification_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.system_notification",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "external_id": {
+          "name": "external_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "billing_contacts": {
+          "name": "billing_contacts",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "billing_customer",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_customer_user",
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_customer_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "uq_customer_provider_external",
+          "columnNames": [
+            "provider",
+            "external_id"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "billing_customer_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "ck_customer_one_side",
+          "expression": "(org_id IS NULL) <> (user_id IS NULL)",
+          "definition": "check (((org_id IS NULL) <> (user_id IS NULL)))"
+        }
+      ],
+      "foreignKeys": {
+        "billing_customer_org_id_foreign": {
+          "constraintName": "billing_customer_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.billing_customer",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "billing_customer_user_id_foreign": {
+          "constraintName": "billing_customer_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.billing_customer",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "customer_id": {
+          "name": "customer_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "external_id": {
+          "name": "external_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(10,0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "precision": 10,
+          "scale": 0,
+          "mappedType": "decimal"
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "period_start": {
+          "name": "period_start",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "period_end": {
+          "name": "period_end",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "lines": {
+          "name": "lines",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "billing_invoice",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_invoice_customer_created",
+          "columnNames": [
+            "customer_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_invoice_user_created",
+          "columnNames": [
+            "user_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_invoice_org_created",
+          "columnNames": [
+            "org_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "uq_invoice_provider_external",
+          "columnNames": [
+            "provider",
+            "external_id"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "billing_invoice_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "billing_invoice_org_id_foreign": {
+          "constraintName": "billing_invoice_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.billing_invoice",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "billing_invoice_user_id_foreign": {
+          "constraintName": "billing_invoice_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.billing_invoice",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "billing_invoice_customer_id_foreign": {
+          "constraintName": "billing_invoice_customer_id_foreign",
+          "columnNames": [
+            "customer_id"
+          ],
+          "localTableName": "public.billing_invoice",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.billing_customer",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "customer_id": {
+          "name": "customer_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "invoice_id": {
+          "name": "invoice_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "external_id": {
+          "name": "external_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(10,0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "precision": 10,
+          "scale": 0,
+          "mappedType": "decimal"
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "method_details": {
+          "name": "method_details",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "captured_at": {
+          "name": "captured_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "refunded_at": {
+          "name": "refunded_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "billing_payment",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_payment_invoice_created",
+          "columnNames": [
+            "invoice_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_payment_customer_created",
+          "columnNames": [
+            "customer_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_payment_user_created",
+          "columnNames": [
+            "user_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_payment_org_created",
+          "columnNames": [
+            "org_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "uq_payment_provider_external",
+          "columnNames": [
+            "provider",
+            "external_id"
+          ],
+          "composite": true,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "billing_payment_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "billing_payment_org_id_foreign": {
+          "constraintName": "billing_payment_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.billing_payment",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "billing_payment_user_id_foreign": {
+          "constraintName": "billing_payment_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.billing_payment",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "billing_payment_customer_id_foreign": {
+          "constraintName": "billing_payment_customer_id_foreign",
+          "columnNames": [
+            "customer_id"
+          ],
+          "localTableName": "public.billing_payment",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.billing_customer",
+          "updateRule": "cascade"
+        },
+        "billing_payment_invoice_id_foreign": {
+          "constraintName": "billing_payment_invoice_id_foreign",
+          "columnNames": [
+            "invoice_id"
+          ],
+          "localTableName": "public.billing_payment",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.billing_invoice",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "assistant_conversation",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_conversation_created",
+          "columnNames": [
+            "created_at"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_conversation_user",
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_conversation_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "assistant_conversation_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "assistant_conversation_org_id_foreign": {
+          "constraintName": "assistant_conversation_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.assistant_conversation",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        },
+        "assistant_conversation_user_id_foreign": {
+          "constraintName": "assistant_conversation_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.assistant_conversation",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "conversation_id": {
+          "name": "conversation_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "skill_code": {
+          "name": "skill_code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "latency_ms": {
+          "name": "latency_ms",
+          "type": "real",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "float"
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "finished_at": {
+          "name": "finished_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "assistant_run",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_run_status",
+          "columnNames": [
+            "status"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_run_conversation",
+          "columnNames": [
+            "conversation_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_run_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "assistant_run_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "assistant_run_org_id_foreign": {
+          "constraintName": "assistant_run_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.assistant_run",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        },
+        "assistant_run_conversation_id_foreign": {
+          "constraintName": "assistant_run_conversation_id_foreign",
+          "columnNames": [
+            "conversation_id"
+          ],
+          "localTableName": "public.assistant_run",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.assistant_conversation",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "run_id": {
+          "name": "run_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "logs": {
+          "name": "logs",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "json"
+        }
+      },
+      "name": "assistant_run_log",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_runlog_created",
+          "columnNames": [
+            "created_at"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_runlog_run",
+          "columnNames": [
+            "run_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "assistant_run_log_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "assistant_run_log_run_id_foreign": {
+          "constraintName": "assistant_run_log_run_id_foreign",
+          "columnNames": [
+            "run_id"
+          ],
+          "localTableName": "public.assistant_run_log",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.assistant_run",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "conversation_id": {
+          "name": "conversation_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "tool_calls": {
+          "name": "tool_calls",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "attachments": {
+          "name": "attachments",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "model": {
+          "name": "model",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        }
+      },
+      "name": "assistant_message",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_message_role",
+          "columnNames": [
+            "role"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_message_conversation_created",
+          "columnNames": [
+            "conversation_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_message_conversation",
+          "columnNames": [
+            "conversation_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "assistant_message_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "assistant_message_conversation_id_foreign": {
+          "constraintName": "assistant_message_conversation_id_foreign",
+          "columnNames": [
+            "conversation_id"
+          ],
+          "localTableName": "public.assistant_message",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.assistant_conversation",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "action": {
+          "name": "action",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "resource": {
+          "name": "resource",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "attributes": {
+          "name": "attributes",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "result": {
+          "name": "result",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "feature_flag_checked": {
+          "name": "feature_flag_checked",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        },
+        "feature_flag_name": {
+          "name": "feature_flag_name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "bigint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "1763416064446",
+          "mappedType": "bigint"
+        }
+      },
+      "name": "system_audit",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_audit_org_time",
+          "columnNames": [
+            "org_id",
+            "timestamp"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_audit_user_time",
+          "columnNames": [
+            "user_id",
+            "timestamp"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "system_audit_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "system_audit_user_id_foreign": {
+          "constraintName": "system_audit_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.system_audit",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "system_audit_org_id_foreign": {
+          "constraintName": "system_audit_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.system_audit",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "scopes": {
+          "name": "scopes",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "hashed_secret": {
+          "name": "hashed_secret",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "last_used_at": {
+          "name": "last_used_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "revoked_at": {
+          "name": "revoked_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        }
+      },
+      "name": "system_api_key",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_api_key_hash",
+          "columnNames": [
+            "hashed_secret"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false,
+          "options": {
+            "unique": true
+          }
+        },
+        {
+          "keyName": "idx_api_key_user",
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_api_key_org",
+          "columnNames": [
+            "org_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "system_api_key_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "system_api_key_org_id_foreign": {
+          "constraintName": "system_api_key_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.system_api_key",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        },
+        "system_api_key_user_id_foreign": {
+          "constraintName": "system_api_key_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.system_api_key",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "account_id": {
+          "name": "account_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "management_url": {
+          "name": "management_url",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "connected_at": {
+          "name": "connected_at",
+          "type": "bigint",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "1763416064391",
+          "mappedType": "bigint"
+        }
+      },
+      "name": "user_account",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_account_provider",
+          "columnNames": [
+            "provider",
+            "account_id"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_account_user",
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "user_account_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "user_account_user_id_foreign": {
+          "constraintName": "user_account_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.user_account",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "handle": {
+          "name": "handle",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "avatar_url": {
+          "name": "avatar_url",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "bio": {
+          "name": "bio",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "links": {
+          "name": "links",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "user_profile",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "keyName": "user_profile_user_id_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "idx_user_profile_handle",
+          "columnNames": [
+            "handle"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "uq_user_profile_handle",
+          "columnNames": [
+            "handle"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "uq_user_profile_user",
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "user_profile_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "user_profile_user_id_foreign": {
+          "constraintName": "user_profile_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.user_profile",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "session_token": {
+          "name": "session_token",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "user_session",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_session_user_expires",
+          "columnNames": [
+            "user_id",
+            "expires"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_session_token",
+          "columnNames": [
+            "session_token"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "user_session_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "user_session_user_id_foreign": {
+          "constraintName": "user_session_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.user_session",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "notifications": {
+          "name": "notifications",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "privacy": {
+          "name": "privacy",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "accessibility": {
+          "name": "accessibility",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "product": {
+          "name": "product",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "user_settings",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "user_id"
+          ],
+          "composite": false,
+          "keyName": "user_settings_user_id_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "user_settings_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "user_settings_user_id_foreign": {
+          "constraintName": "user_settings_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.user_settings",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "user_verification_token",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_verification_user_expires",
+          "columnNames": [
+            "user_id",
+            "expires"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_verification_identifier_token",
+          "columnNames": [
+            "identifier",
+            "token"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "user_verification_token_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "user_verification_token_user_id_foreign": {
+          "constraintName": "user_verification_token_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.user_verification_token",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "ref_code": {
+          "name": "ref_code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "cohort": {
+          "name": "cohort",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'pending'",
+          "mappedType": "text"
+        },
+        "invite_code": {
+          "name": "invite_code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "applied_at": {
+          "name": "applied_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "invited_at": {
+          "name": "invited_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "joined_at": {
+          "name": "joined_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "system_waitlist",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "email"
+          ],
+          "composite": false,
+          "keyName": "system_waitlist_email_unique",
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "idx_waitlist_status",
+          "columnNames": [
+            "status"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_waitlist_email",
+          "columnNames": [
+            "email"
+          ],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "system_waitlist_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "system_waitlist_user_id_foreign": {
+          "constraintName": "system_waitlist_user_id_foreign",
+          "columnNames": [
+            "user_id"
+          ],
+          "localTableName": "public.system_waitlist",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.app_user",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "event": {
+          "name": "event",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "target_url": {
+          "name": "target_url",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "headers": {
+          "name": "headers",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "enabled": {
+          "name": "enabled",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "true",
+          "mappedType": "boolean"
+        }
+      },
+      "name": "assistant_webhook_subscription",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_webhook_org_event",
+          "columnNames": [
+            "org_id",
+            "event"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "assistant_webhook_subscription_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "assistant_webhook_subscription_org_id_foreign": {
+          "constraintName": "assistant_webhook_subscription_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.assistant_webhook_subscription",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "CURRENT_TIMESTAMP",
+          "mappedType": "datetime"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "subscription_id": {
+          "name": "subscription_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "attempt": {
+          "name": "attempt",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "response_code": {
+          "name": "response_code",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "idempotency_key": {
+          "name": "idempotency_key",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "error_message": {
+          "name": "error_message",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "response": {
+          "name": "response",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "request": {
+          "name": "request",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "duration_ms": {
+          "name": "duration_ms",
+          "type": "real",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "float"
+        }
+      },
+      "name": "assistant_webhook_delivery",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "idx_webhook_delivery_subscription_created",
+          "columnNames": [
+            "subscription_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "idx_webhook_delivery_org_created",
+          "columnNames": [
+            "org_id",
+            "created_at"
+          ],
+          "composite": true,
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "uq_webhook_delivery_idempotency",
+          "columnNames": [
+            "idempotency_key"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "assistant_webhook_delivery_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "assistant_webhook_delivery_org_id_foreign": {
+          "constraintName": "assistant_webhook_delivery_org_id_foreign",
+          "columnNames": [
+            "org_id"
+          ],
+          "localTableName": "public.assistant_webhook_delivery",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.org",
+          "updateRule": "cascade"
+        },
+        "assistant_webhook_delivery_subscription_id_foreign": {
+          "constraintName": "assistant_webhook_delivery_subscription_id_foreign",
+          "columnNames": [
+            "subscription_id"
+          ],
+          "localTableName": "public.assistant_webhook_delivery",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.assistant_webhook_subscription",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    }
+  ],
+  "nativeEnums": {}
+}

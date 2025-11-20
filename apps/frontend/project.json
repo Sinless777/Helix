@@ -31,9 +31,6 @@
         "tty": false,
         "command": "next build --webpack"
       },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ],
       "parallelism": true,
       "configurations": {}
     },
@@ -42,17 +39,10 @@
       "continuous": true,
       "options": {
         "cwd": "apps/frontend",
-        "command": "next dev",
-        "proxyConfig": "apps/frontend/proxy.conf.json"
+        "command": "next dev"
       },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ],
       "parallelism": true,
-      "configurations": {},
-      "dependsOn": [
-        "user:serve"
-      ]
+      "configurations": {}
     },
     "start": {
       "executor": "nx:run-commands",
@@ -137,9 +127,6 @@
           }
         }
       },
-      "syncGenerators": [
-        "@nx/js:typescript-sync"
-      ],
       "configurations": {},
       "parallelism": true
     }

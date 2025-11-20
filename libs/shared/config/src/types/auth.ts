@@ -1,9 +1,3 @@
-export interface AuthConfig {
-    nextAuth: {
-      secret?: string;
-    };
-    google: {
-      clientId?: string;
-      clientSecret?: string;
-    };
-}
+import type { NextAuthOptions } from 'next-auth';
+
+export type AuthConfig = NextAuthOptions;

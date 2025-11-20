@@ -41,6 +41,9 @@ export class User extends BaseEntity {
   @Property({ type: 'text' })
   email!: string;
 
+  @Property({ type: 'text', nullable: true })
+  hashedPassword?: string;
+
   @Property({ type: 'text' })
   displayName!: string;
 
@@ -99,7 +102,7 @@ export class User extends BaseEntity {
   @OneToMany(() => OrgMember, (membership: OrgMember) => membership.user, {
     cascade: [Cascade.PERSIST],
   })
-  memberships = new Collection<Rel<OrgMember>>(this);
+  orgMemberships = new Collection<Rel<OrgMember>>(this);
 
   /** Conversations initiated/owned by this user. */
   @OneToMany(() => Conversation, (conversation: Conversation) => conversation.user)

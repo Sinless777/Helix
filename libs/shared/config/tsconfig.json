@@ -5,6 +5,9 @@
   "references": [
     {
       "path": "./tsconfig.lib.json"
+    },
+    {
+      "pathg": "../db/tsconfig.lib.json"
     }
   ]
 }

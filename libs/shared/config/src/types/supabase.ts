@@ -2,6 +2,7 @@ export interface SupabaseConfig {
     url?: string;
     jwtSecret?: string;
     serviceRoleKey?: string;
+    host?: string;
     postgres: {
       url?: string;
       prismaUrl?: string;

@@ -13,8 +13,8 @@
  * ```
  */
 
-import ormConfig from './mikroorm-config';
-export { ormConfig };
+import ormConfig, { hasDatabaseUrl } from './mikroorm-config';
+export { ormConfig, hasDatabaseUrl };
 
 // Export all entity classes
 export * as entities from './entities';
