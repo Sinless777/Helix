@@ -206,7 +206,7 @@ importers:
         version: 0.9.0
       openai:
         specifier: ^6.8.1
-        version: 6.8.1(ws@8.18.0)(zod@4.1.12)
+        version: 6.9.1(ws@8.18.0)(zod@4.1.12)
       rollup:
         specifier: ^4.53.2
         version: 4.53.3
@@ -8189,8 +8189,8 @@ packages:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
 
-  openai@6.8.1:
-    resolution: {integrity: sha512-ACifslrVgf+maMz9vqwMP4+v9qvx5Yzssydizks8n+YUJ6YwUoxj51sKRQ8HYMfR6wgKLSIlaI108ZwCk+8yig==}
+  openai@6.9.1:
+    resolution: {integrity: sha512-vQ5Rlt0ZgB3/BNmTa7bIijYFhz3YBceAA3Z4JuoMSBftBF9YqFHIEhZakSs+O/Ad7EaoEimZvHxD5ylRjN11Lg==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -19996,7 +19996,7 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openai@6.8.1(ws@8.18.0)(zod@4.1.12):
+  openai@6.9.1(ws@8.18.0)(zod@4.1.12):
     optionalDependencies:
       ws: 8.18.0
       zod: 4.1.12
