@@ -29,7 +29,7 @@ export class UserProfileService {
       const now = new Date();
       profile = this.em.create(UserProfile, {
         user,
-        handle: user.email.split('@')[0], // safe fallback, can be overridden later
+        handle: user.email.split('@')[0].toLowerCase(), // safe fallback, can be overridden later
         avatarUrl:
           typeof metadataAvatar === 'string' && metadataAvatar.trim().length > 0
             ? metadataAvatar
@@ -112,6 +112,14 @@ export class UserProfileService {
 
     if (dto.bio !== undefined) {
       profile.bio = dto.bio ?? undefined;
+    }
+
+    if (dto.sex !== undefined) {
+      profile.sex = dto.sex ?? null;
+    }
+
+    if (dto.gender !== undefined) {
+      profile.gender = dto.gender ?? null;
     }
 
     if (dto.links) {

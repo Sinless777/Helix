@@ -54,9 +54,6 @@
       "path": "../../libs/shared/logger"
     },
     {
-      "path": "../../libs/hypertune"
-    },
-    {
       "path": "../../libs/ui"
     }
   ]

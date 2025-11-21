@@ -22,6 +22,23 @@ export default [
         }
     },
     {
+        files: ["libs/**/*.{ts,tsx,js,jsx}"],
+        rules: {
+            // Keep libs dependency-free: only allow core imports from other Helix libs.
+            "no-restricted-imports": [
+                "error",
+                {
+                    "patterns": [
+                        {
+                            "group": ["@helix-ai/(?!core).*"],
+                            "message": "Libraries must not depend on other Helix libraries; use @helix-ai/core for shared helpers."
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
         files: [
             "**/*.ts",
             "**/*.tsx",

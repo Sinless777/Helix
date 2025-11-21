@@ -1,12 +1,21 @@
 // libs/shared/config/src/config/auth.config.ts
 
 import type { NextAuthOptions } from 'next-auth';
-import type { User } from '@helix-ai/db';
+// Keep this lib dependency-free; define minimal shape instead of importing from db.
+type AuthUser = {
+  id: string;
+  email?: string | null;
+  name?: string | null;
+  displayName?: string | null;
+  roles?: string[];
+  orgId?: string | null;
+};
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
 import DiscordProvider from 'next-auth/providers/discord';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { createHash, randomUUID } from 'crypto';
+import { getSecretFromCache } from '../infisical';
 
 type LoginResponse = {
   userId: string;
@@ -14,13 +23,18 @@ type LoginResponse = {
   expires: string;
 };
 
+const secret = (key: string, fallback = '') =>
+  getSecretFromCache(key, process.env[key] ?? fallback);
+
 const hashPassword = (email: string, password: string) =>
   createHash('sha256')
     .update(`${email.toLowerCase()}:${password}`, 'utf8')
     .digest('hex');
 
-// Prefer explicit URL, fall back to dev default pointing at local user-service
+// Prefer Infisical, then env, then dev default pointing at local user-service
 const userServiceBase =
+  secret('USER_SERVICE_URL') ??
+  secret('NEXT_PUBLIC_USER_SERVICE_URL') ??
   process.env.USER_SERVICE_URL ??
   process.env.NEXT_PUBLIC_USER_SERVICE_URL ??
   'http://localhost:3001/api';
@@ -95,20 +109,20 @@ export const authConfig: NextAuthOptions = {
     // --- OAuth providers ---
 
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+      clientId: secret('GOOGLE_CLIENT_ID'),
+      clientSecret: secret('GOOGLE_CLIENT_SECRET'),
       allowDangerousEmailAccountLinking: true,
     }),
 
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID ?? '',
-      clientSecret: process.env.GITHUB_CLIENT_SECRET ?? '',
+      clientId: secret('GITHUB_CLIENT_ID'),
+      clientSecret: secret('GITHUB_CLIENT_SECRET'),
       allowDangerousEmailAccountLinking: true,
     }),
 
     DiscordProvider({
-      clientId: process.env.DISCORD_CLIENT_ID ?? '',
-      clientSecret: process.env.DISCORD_CLIENT_SECRET ?? '',
+      clientId: secret('DISCORD_CLIENT_ID'),
+      clientSecret: secret('DISCORD_CLIENT_SECRET'),
       allowDangerousEmailAccountLinking: true,
     }),
 
@@ -121,12 +135,12 @@ export const authConfig: NextAuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, _req) {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
-        const baseUrl = process.env.USER_SERVICE_URL;
+        const baseUrl = userServiceBase;
         if (!baseUrl) {
           console.error(
             '[NextAuth] Missing USER_SERVICE_URL for credentials authorize()',
@@ -186,7 +200,7 @@ export const authConfig: NextAuthOptions = {
             return null;
           }
 
-          const user = (await userRes.json()) as any;
+        const user = (await userRes.json()) as AuthUser;
 
           return {
             id: login.userId,
@@ -206,7 +220,7 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
 
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: secret('NEXTAUTH_SECRET'),
 
   session: {
     strategy: 'jwt',
@@ -269,20 +283,19 @@ export const authConfig: NextAuthOptions = {
           undefined;
 
         // Ensure the user exists (create if missing)
-        let backendUser: User | null =
-          (await getUserByEmail(email)) ??
-          (await createUserFromOAuth({
-            email,
-            displayName,
-            provider: account.provider,
-            providerAccountId: account.providerAccountId,
-            avatarUrl,
-          }));
-
-        // Create a session for this user in the User Service
-        const session = backendUser
-          ? await createSessionForUser(backendUser.id)
-          : null;
+                const backendUser: User | null =
+                  (await getUserByEmail(email)) ??
+                  (await createUserFromOAuth({
+                    email,
+                    displayName,
+                    provider: account.provider,
+                    providerAccountId: account.providerAccountId,
+                    avatarUrl,
+                  }));
+                // Create a session for this user in the User Service
+                const session = backendUser
+                  ? await createSessionForUser(backendUser.id)
+                  : null;
         const sessionToken = session?.sessionToken ?? randomUUID();
         const sessionExpires =
           session?.expires ??

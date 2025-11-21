@@ -39,6 +39,15 @@ export class UserProfile extends BaseEntity {
   @Property({ type: 'text' })
   handle!: string;
 
+  @Property({ type: 'text', nullable: true })
+  firstName?: string;
+
+  @Property({ type: 'text', nullable: true })
+  middleName?: string;
+
+  @Property({ type: 'text', nullable: true })
+  lastName?: string;
+
   /** Optional avatar URL. */
   @Property({ type: 'text', nullable: true })
   avatarUrl?: string;

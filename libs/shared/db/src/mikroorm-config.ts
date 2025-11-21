@@ -3,16 +3,14 @@
 import './register-env';
 
 import { defineConfig } from '@mikro-orm/postgresql';
-import { appConfig } from '@helix-ai/config';
+import { uuidNamespace } from '@helix-ai/core';
 import * as entities from './entities';
 
 // Prefer explicit Postgres URLs; DO NOT use the HTTP Supabase URL here.
 const resolvedClientUrl =
-  appConfig.supabase.postgres.url ||       // POSTGRES_URL
-  appConfig.supabase.postgres.prismaUrl || // POSTGRES_PRISMA_URL (if you want)
-  process.env.DATABASE_URL ||
   process.env.POSTGRES_URL ||
   process.env.POSTGRES_PRISMA_URL ||
+  process.env.DATABASE_URL ||
   '';
 
 export const hasDatabaseUrl = !!resolvedClientUrl;
@@ -23,7 +21,7 @@ if (!hasDatabaseUrl) {
   // eslint-disable-next-line no-console
   console.error(
     '[helix-db] No Postgres connection string found. ' +
-      'Set POSTGRES_URL / POSTGRES_PRISMA_URL / DATABASE_URL or appConfig.supabase.postgres.url.',
+      'Set POSTGRES_URL / POSTGRES_PRISMA_URL / DATABASE_URL.',
   );
 }
 
@@ -37,7 +35,7 @@ export default defineConfig({
 
   // You can optionally still pass dbName/host if you want,
   // but clientUrl is enough and usually preferred.
-  dbName: appConfig.supabase.postgres.database || 'postgres',
+  dbName: process.env.POSTGRES_DATABASE || 'postgres',
 
   driverOptions: {
     // Supabase requires SSL

@@ -30,6 +30,15 @@ import { headerProps } from '../../../../content/header';
 import { Sex } from '@helix-ai/db/enums/sex.enum';
 import { Gender } from '@helix-ai/db/enums/gender.enum';
 
+// Simple helpers reused across hooks
+const isUuid = (value: string) =>
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+const looksLikeHandle = (value: string) => /^[a-zA-Z0-9_-]{3,}$/.test(value);
+const sexLabel = (value: number | null | undefined) =>
+  typeof value === 'number' ? Sex[value] ?? '—' : '—';
+const genderLabel = (value: number | null | undefined) =>
+  typeof value === 'number' ? Gender[value] ?? '—' : '—';
+
 type Profile = {
   id: string;
   user: string;
@@ -68,14 +77,21 @@ export default function ProfilePage() {
   // Always use the Next.js proxy to stay same-origin and avoid CORS.
   const userServiceBase = '/user-service';
 
+  const sessionUserId = (session?.user as { id?: string } | undefined)?.id;
+  const sessionEmail = session?.user?.email;
+
+  // Choose the best candidate user id for operations that require a UUID.
+  const targetUserId = useMemo(() => {
+    if (profile?.user && isUuid(profile.user)) return profile.user;
+    if (sessionUserId && isUuid(sessionUserId)) return sessionUserId;
+    if (userId && isUuid(userId)) return userId;
+    return null;
+  }, [profile?.user, sessionUserId, userId]);
+
   // Load the profile and populate the edit form; resilient to id/handle mismatches.
   useEffect(() => {
     if (!userId) return null;
     const controller = new AbortController();
-    const isUuid = (value: string) =>
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
-    const sessionUserId = (session?.user as { id?: string } | undefined)?.id;
-    const sessionEmail = session?.user?.email;
 
     // Fetch by userId (UUID expected)
     const fetchProfileById = async (id: string) => {
@@ -144,22 +160,17 @@ export default function ProfilePage() {
           if (!attempts.some((a) => a.name === name)) attempts.push({ name, fn });
         };
 
-        // If the param looks like a UUID, try by id then handle; otherwise treat it as a handle.
-        if (isUuid(userId)) {
-          addAttempt('param-id', () => fetchProfileById(userId));
-          addAttempt('param-handle', () => fetchProfileByHandleFallback(userId));
-        } else {
-          addAttempt('param-handle', () => fetchProfileByHandleFallback(userId));
-        }
-
-        // Use the signed-in user id if available.
-        if (sessionUserId) {
+        // Prefer the signed-in user first so owners see their profile even if the URL slug is off.
+        if (sessionUserId && isUuid(sessionUserId)) {
           addAttempt('session-id', () => fetchProfileById(sessionUserId));
         }
+        if (sessionEmail) addAttempt('session-email', () => fetchProfileByEmail(sessionEmail));
 
-        // As a last resort, try resolving by email.
-        if (sessionEmail) {
-          addAttempt('session-email', () => fetchProfileByEmail(sessionEmail));
+        // For a UUID slug, use id lookup; otherwise only try handle if it resembles a handle (skip pure numeric ids).
+        if (isUuid(userId)) {
+          addAttempt('param-id', () => fetchProfileById(userId));
+        } else if (looksLikeHandle(userId)) {
+          addAttempt('param-handle', () => fetchProfileByHandleFallback(userId));
         }
 
         let profileData: Profile | null = null;
@@ -181,7 +192,8 @@ export default function ProfilePage() {
         }
 
         if (!profileData) {
-          throw new Error(attemptErrors.join(' | ') || 'Failed to resolve profile');
+          setError('Profile not found.');
+          return;
         }
 
         setProfile(profileData);
@@ -225,25 +237,42 @@ export default function ProfilePage() {
   // Determine if the current session user owns this profile.
   const isOwner = useMemo(() => {
     const sessionId = (session?.user as { id?: string } | undefined)?.id;
-    if (sessionId && profile?.user) {
-      return sessionId === profile.user;
+    const sessionEmail = session?.user?.email?.toLowerCase();
+    const routeId = userId ?? '';
+
+    // Direct matches: profile.user, route param, or both.
+    if (sessionId && profile?.user && sessionId === profile.user) return true;
+    if (sessionId && routeId && sessionId === routeId) return true;
+    if (profile?.user && routeId && profile.user === routeId) return true;
+
+    // Handle/email fallback: allow owners whose handle matches their email prefix.
+    if (sessionEmail && profile?.handle) {
+      const handleMatch = profile.handle.toLowerCase() === sessionEmail.split('@')[0];
+      if (handleMatch) return true;
     }
-    if (sessionId) return sessionId === userId;
+
     return false;
-  }, [session?.user, profile?.user, userId]);
+  }, [session?.user, profile?.user, profile?.handle, userId]);
   const [editOpen, setEditOpen] = useState(false);
 
-  // Prefer profile handle, then session name/email, then a placeholder.
+  // Prefer real name (profile first/last or session name), then handle, then email fallback.
   const displayName = useMemo(() => {
-    if (profile?.handle) return profile.handle;
+    const profileName = [profile?.firstName, profile?.lastName]
+      .filter(Boolean)
+      .join(' ')
+      .trim();
+    if (profileName) return profileName;
     if (session?.user?.name) return session.user.name;
+    if (profile?.handle) return profile.handle;
     if (session?.user?.email) return session.user.email.split('@')[0];
     return 'Profile';
-  }, [profile?.handle, session?.user]);
+  }, [profile?.firstName, profile?.lastName, profile?.handle, session?.user]);
 
   // Avatar prefers profile image, then session image, then a fallback icon.
   const avatarUrl = profile?.avatarUrl ?? session?.user?.image ?? '/favicon.ico';
   const bio = profile?.bio ?? 'No bio yet.';
+  type Section = 'overview' | 'settings' | 'security' | 'connections';
+  const [activeSection, setActiveSection] = useState<Section>('overview');
 
   // Generic handler to update simple text fields on the form.
   const handleChange =
@@ -272,7 +301,11 @@ export default function ProfilePage() {
 
   // Persist profile changes (owner-only).
   const handleSave = async () => {
-    if (!userId || !isOwner) return;
+    if (!isOwner) return;
+    if (!targetUserId) {
+      setError('Cannot save: profile id is not resolved yet.');
+      return;
+    }
     setSaving(true);
     setError(null);
     try {
@@ -284,7 +317,7 @@ export default function ProfilePage() {
             return acc;
           }, {}) || undefined;
 
-      const res = await fetch(`${userServiceBase}/user-profile/${userId}`, {
+      const res = await fetch(`${userServiceBase}/user-profile/${targetUserId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -351,16 +384,16 @@ export default function ProfilePage() {
             </Typography>
             <Divider flexItem sx={{ my: 2, width: '100%' }} />
             <List dense sx={{ width: '100%' }}>
-                {[
-                { label: 'Profile Overview', href: `/profile/${userId}` },
-                { label: 'Settings', href: '/settings' },
-                { label: 'Security', href: '/settings/security' },
-                { label: 'Connections', href: '/settings/connections' },
+              {[
+                { label: 'Profile Overview', id: 'overview' as Section },
+                { label: 'Settings', id: 'settings' as Section },
+                { label: 'Security', id: 'security' as Section },
+                { label: 'Connections', id: 'connections' as Section },
               ].map((item) => (
                 <ListItem key={item.label} disablePadding>
                   <ListItemButton
-                    component="a"
-                    href={item.href}
+                    onClick={() => setActiveSection(item.id)}
+                    selected={activeSection === item.id}
                     sx={{
                       borderRadius: 2,
                       '&:hover': { backgroundColor: 'rgba(255,255,255,0.06)' },
@@ -403,63 +436,144 @@ export default function ProfilePage() {
                 {error}
               </Paper>
             )}
-            <Paper
-              sx={{
-                p: 3,
-                borderRadius: 3,
-                background:
-                  'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))',
-                border: '1px solid rgba(255,255,255,0.08)',
-              }}
-            >
-              <Stack spacing={2}>
-                <Typography variant="h6" fontWeight={700}>
-                  Bio
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  {loading ? 'Loading…' : bio}
-                </Typography>
-                <Stack direction="row" spacing={2} sx={{ color: 'text.secondary' }}>
-                  <Typography variant="body2">
-                    Sex: {profile?.sex ?? '—'}
+            {activeSection === 'overview' && (
+              <Paper
+                sx={{
+                  p: 3,
+                  borderRadius: 3,
+                  background:
+                    'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+              >
+                <Stack spacing={2}>
+                  <Typography variant="h6" fontWeight={700}>
+                    Bio
                   </Typography>
-                  <Typography variant="body2">
-                    Gender: {profile?.gender ?? '—'}
+                  <Typography variant="body1" color="text.secondary">
+                    {loading ? 'Loading…' : bio}
                   </Typography>
-                </Stack>
-                {profile?.links && (
-                  <Stack spacing={1} sx={{ mt: 1 }}>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Links
+                  <Stack direction="row" spacing={2} sx={{ color: 'text.secondary' }}>
+                    <Typography variant="body2">
+                      Sex: {sexLabel(profile?.sex)}
                     </Typography>
-                    {profile.links && Object.keys(profile.links as any).length > 0 ? (
-                      <Stack spacing={1}>
-                        {Object.entries(profile.links as Record<string, string>).map(
-                          ([label, url]) => (
-                            <Button
-                              key={label}
-                              component="a"
-                              href={url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              variant="outlined"
-                              color="primary"
-                              sx={{ justifyContent: 'flex-start' }}
-                            >
-                              <strong>{label}:</strong>&nbsp;{url}
-                            </Button>
-                          ),
-                        )}
-                      </Stack>
-                    ) : (
-                      <Typography variant="body2" color="text.secondary">
-                        No links provided.
-                      </Typography>
-                    )}
+                    <Typography variant="body2">
+                      Gender: {genderLabel(profile?.gender)}
+                    </Typography>
                   </Stack>
-                )}
-              </Stack>
-            </Paper>
+                  {profile?.links && (
+                    <Stack spacing={1} sx={{ mt: 1 }}>
+                      <Typography variant="subtitle2" color="text.secondary">
+                        Links
+                      </Typography>
+                      {profile.links && Object.keys(profile.links as any).length > 0 ? (
+                        <Stack spacing={1}>
+                          {Object.entries(profile.links as Record<string, string>).map(
+                            ([label, url]) => (
+                              <Button
+                                key={label}
+                                component="a"
+                                href={url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                variant="outlined"
+                                color="primary"
+                                sx={{ justifyContent: 'flex-start' }}
+                              >
+                                <strong>{label}:</strong>&nbsp;{url}
+                              </Button>
+                            ),
+                          )}
+                        </Stack>
+                      ) : (
+                        <Typography variant="body2" color="text.secondary">
+                          No links provided.
+                        </Typography>
+                      )}
+                    </Stack>
+                  )}
+                </Stack>
+              </Paper>
+            )}
+
+            {activeSection === 'settings' && (
+              <Paper
+                sx={{
+                  p: 3,
+                  borderRadius: 3,
+                  background:
+                    'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+              >
+                <Stack spacing={2}>
+                  <Typography variant="h6" fontWeight={700}>
+                    Profile Settings
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    Update your public profile details, avatar, and links. Changes are visible to
+                    anyone who visits your profile.
+                  </Typography>
+                  <Stack spacing={1} sx={{ color: 'text.secondary' }}>
+                    <Typography variant="body2">
+                      Display name: {displayName || '—'}
+                    </Typography>
+                    <Typography variant="body2">
+                      Email: {session?.user?.email || '—'}
+                    </Typography>
+                    <Typography variant="body2">
+                      Sex: {sexLabel(profile?.sex)} · Gender: {genderLabel(profile?.gender)}
+                    </Typography>
+                  </Stack>
+                  {isOwner && (
+                    <Stack direction="row" justifyContent="flex-end">
+                      <Button variant="contained" onClick={() => setEditOpen(true)}>
+                        Edit profile
+                      </Button>
+                    </Stack>
+                  )}
+                </Stack>
+              </Paper>
+            )}
+
+            {activeSection === 'security' && (
+              <Paper
+                sx={{
+                  p: 3,
+                  borderRadius: 3,
+                  background:
+                    'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+              >
+                <Typography variant="h6" fontWeight={700}>
+                  Security
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Security settings will live here. For now, use the Edit profile button under
+                  Settings to manage your information.
+                </Typography>
+              </Paper>
+            )}
+
+            {activeSection === 'connections' && (
+              <Paper
+                sx={{
+                  p: 3,
+                  borderRadius: 3,
+                  background:
+                    'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+              >
+                <Typography variant="h6" fontWeight={700}>
+                  Connections
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Manage connected accounts and integrations here in the future.
+                </Typography>
+              </Paper>
+            )}
           </Stack>
         </Box>
       </main>

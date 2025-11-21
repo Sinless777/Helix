@@ -26,6 +26,6 @@
     "@mikro-orm/migrations": "^6.6.0",
     "dotenv": "^16.6.1",
     "uuid": "^13.0.0",
-    "@helix-ai/config": "workspace:*"
+    "@helix-ai/core": "workspace:*"
   }
 }

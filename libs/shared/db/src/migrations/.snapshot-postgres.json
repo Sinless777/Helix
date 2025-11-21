@@ -3428,7 +3428,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "default": "1763685294601",
+          "default": "1763695893921",
           "mappedType": "bigint"
         }
       },
@@ -3788,7 +3788,7 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "default": "1763685294541",
+          "default": "1763695893858",
           "mappedType": "bigint"
         }
       },
@@ -3893,6 +3893,33 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "mappedType": "text"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
           "mappedType": "text"
         },
         "avatar_url": {

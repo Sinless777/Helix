@@ -6,14 +6,13 @@ import {
   BeforeUpdate,
 } from '@mikro-orm/core';
 import { v5 as uuidv5 } from 'uuid';
-import { appConfig } from '@helix-ai/config';
+import { uuidNamespace } from '@helix-ai/core';
 
 /**
  * A namespace UUID for deterministic id generation.
- * Ensure `appConfig.security.uuidNamespace` exists in @helix-ai/config.
+ * Sourced from @helix-ai/core to avoid cross-lib deps.
  */
-export const HELIX_UUID_NAMESPACE =
-  appConfig.security.uuid_namespace;
+export const HELIX_UUID_NAMESPACE = uuidNamespace || '00000000-0000-0000-0000-000000000000';
 
 export abstract class BaseEntity {
   @PrimaryKey({ type: 'uuid' })

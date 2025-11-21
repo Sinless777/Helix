@@ -1,9 +1,9 @@
 // libs/ui/src/utils/getHypertune.ts
 
-import { VercelEdgeConfigInitDataProvider } from 'hypertune';
+import { VercelEdgeConfigInitDataProvider, createSource } from 'hypertune';
 import { createClient } from '@vercel/edge-config';
 import { unstable_noStore as noStore } from 'next/cache';
-import { createSource, emptySource } from '@helix-ai/hypertune';
+import { emptyHypertuneSource } from '@helix-ai/core';
 
 type MaybeInit = { initIfNeeded?: () => Promise<void> };
 type RootFn = (opts: { args: Record<string, unknown> }) => unknown;
@@ -41,7 +41,7 @@ function makeInitDataProvider() {
  * We avoid side-effects until the first getHypertune() call.
  */
 function buildHypertuneSource() {
-  if (!hypertuneToken) return emptySource;
+  if (!hypertuneToken) return emptyHypertuneSource;
 
   return createSource({
     token: hypertuneToken,
@@ -93,7 +93,7 @@ export default async function getHypertune(): Promise<unknown> {
           if (process.env.NODE_ENV !== 'production') {
             console.warn('[hypertune] initIfNeeded failed, falling back to empty source:', err);
           }
-          cachedSource = emptySource;
+          cachedSource = emptyHypertuneSource;
         }
       }
 

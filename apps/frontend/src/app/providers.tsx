@@ -3,7 +3,7 @@
 
 import { SessionProvider } from 'next-auth/react';
 import { HelixProviders } from '@helix-ai/ui';
-import { HypertuneProvider } from '@helix-ai/hypertune';
+import { HypertuneProvider } from '@helix-ai/core/hypertune/hypertune.react';
 import type { ReactNode } from 'react';
 import type { Mode } from '@helix-ai/ui';
 

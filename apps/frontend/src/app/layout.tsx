@@ -100,6 +100,23 @@ export default function RootLayout({ children }: RootLayoutProps) {
             data-is-production-environment="false"
           />
         )}
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-EXCL6FMDHY"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-EXCL6FMDHY');
+            `,
+          }}
+        />
       </head>
       <body className="antialiased bg-black text-white">
         <Analytics />

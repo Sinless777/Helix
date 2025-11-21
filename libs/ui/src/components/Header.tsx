@@ -25,7 +25,6 @@ import { useSession } from 'next-auth/react';
 
 import styles from './Header.module.scss';
 
-import { useHypertune } from '@helix-ai/hypertune';
 import { LoginButton, SignupButton } from '@helix-ai/ui';
 
 export interface Page {
@@ -49,9 +48,8 @@ const Header: React.FC<HeaderProps> = ({ logo, version, pages, style }) => {
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
   const { data: session } = useSession();
 
-  const hypertune = useHypertune();
-  // Use the generated flag function name exactly; e.g. if your flag is “permissionsSystem” ➜ hypertune.permissionsSystem({ fallback: false })
-  const permissionsEnabled = hypertune.permissionsSystem({ fallback: false });
+  // Hypertune removed from this lib to avoid cross-lib deps; assume permissions are enabled.
+  const permissionsEnabled = true;
 
   React.useEffect(() => {
     setPathname(window.location.pathname);

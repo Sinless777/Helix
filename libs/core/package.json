@@ -1,0 +1,65 @@
+{
+  "name": "@helix-ai/core",
+  "version": "0.0.1",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.lib.json",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "helix",
+    "core",
+    "shared"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@auth/mikro-orm-adapter": "^2.11.1",
+    "@infisical/sdk": "^4.0.6",
+    "@vercel/edge-config": "^1.4.3",
+    "hypertune": "^2.10.0",
+    "next-auth": "^4.24.13",
+    "server-only": "0.0.1",
+    "yaml": "^2.2.1"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./infisical": {
+      "import": "./dist/infisical.js",
+      "types": "./dist/infisical.d.ts",
+      "default": "./dist/infisical.js"
+    },
+    "./config": {
+      "import": "./dist/config.index.js",
+      "types": "./dist/config.index.d.ts",
+      "default": "./dist/config.index.js"
+    },
+    "./config/*": {
+      "import": "./dist/config/*.js",
+      "types": "./dist/config/*.d.ts",
+      "default": "./dist/config/*.js"
+    },
+    "./hypertune": {
+      "import": "./dist/hypertune/index.js",
+      "types": "./dist/hypertune/index.d.ts",
+      "default": "./dist/hypertune/index.js"
+    },
+    "./hypertune/*": {
+      "import": "./dist/hypertune/*.js",
+      "types": "./dist/hypertune/*.d.ts",
+      "default": "./dist/hypertune/*.js"
+    }
+  }
+}

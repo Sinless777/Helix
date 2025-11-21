@@ -5,11 +5,16 @@
 
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
 import { helixLogger } from './logger';
 import { HelixNestLogger } from './logger.adapter';
+import { hydrateEnvFromInfisical } from '@helix-ai/config/infisical';
 
 async function bootstrap() {
+  // Load secrets from Infisical into process.env (no-op if not configured).
+  await hydrateEnvFromInfisical();
+
+  // Import AppModule after secrets are hydrated so config can see them.
+  const { AppModule } = await import('./app/app.module');
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   const nestLogger = new HelixNestLogger(helixLogger);
   app.useLogger(nestLogger);

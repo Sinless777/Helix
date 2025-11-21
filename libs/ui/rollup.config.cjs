@@ -15,8 +15,7 @@ module.exports = withNx(
       'react/jsx-runtime',
 
       // helix workspaces
-      '@helix-ai/hypertune',
-      '@helix-ai/config',
+      '@helix-ai/core',
 
       // mui & emotion
       '@mui/material',

@@ -1,4 +1,6 @@
-import { IsOptional, IsString, IsObject, IsUrl } from 'class-validator';
+import { IsOptional, IsString, IsObject, IsUrl, IsEnum } from 'class-validator';
+import { Sex } from '@helix-ai/db/enums/sex.enum';
+import { Gender } from '@helix-ai/db/enums/gender.enum';
 
 export class UpdateUserProfileDto {
   @IsOptional()
@@ -16,4 +18,12 @@ export class UpdateUserProfileDto {
   @IsOptional()
   @IsObject()
   links?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsEnum(Sex)
+  sex?: Sex | null;
+
+  @IsOptional()
+  @IsEnum(Gender)
+  gender?: Gender | null;
 }

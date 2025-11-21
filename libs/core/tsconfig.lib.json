@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@helix-ai/core": ["./src/index.ts"],
+      "@helix-ai/core/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "tmp",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "src/hypertune/hypertune.react.tsx"
+  ]
+}

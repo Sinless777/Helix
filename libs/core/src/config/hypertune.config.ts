@@ -1,7 +1,6 @@
 // libs/config/src/config/hypertune.config.ts
 
-import fs from 'node:fs';
-import path from 'node:path';
+// Avoid static node imports so browser bundles don't try to include fs/path.
 import { parse as parseYaml } from 'yaml';
 
 import type { FeatureFlag, HypertuneConfig, HypertuneEnvironment } from '../types/hypertune';
@@ -42,6 +41,18 @@ function loadYamlConfig(): {
   environment?: HypertuneEnvironment;
   project?: string;
 } {
+  // Only attempt to read from disk in a Node runtime.
+  let fs: typeof import('fs') | undefined;
+  let path: typeof import('path') | undefined;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    fs = require('node:fs');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    path = require('node:path');
+  } catch {
+    return { featureFlags: [] };
+  }
+
   const yamlPath = path.resolve(__dirname, '../hypertune/hypertune.yaml');
 
   if (!fs.existsSync(yamlPath)) {
