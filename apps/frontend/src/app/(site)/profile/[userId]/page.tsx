@@ -22,8 +22,10 @@ import {
   Typography,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Switch from '@mui/material/Switch';
 import { useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useParams } from 'next/navigation';
 import { Header, PrimitiveModal } from '@helix-ai/ui';
 import { headerProps } from '../../../../content/header';
@@ -50,6 +52,20 @@ type Profile = {
   gender?: number | null;
 };
 
+type UserSettings = {
+  notifications?: Record<string, unknown> | null;
+  privacy?: Record<string, unknown> | null;
+  accessibility?: Record<string, unknown> | null;
+  product?: Record<string, unknown> | null;
+};
+
+type LinkedAccount = {
+  id?: string;
+  provider: string;
+  providerAccountId?: string;
+  connectedAt?: string | null;
+};
+
 export default function ProfilePage() {
   const params = useParams<{ userId: string }>();
   const userId = params?.userId;
@@ -58,6 +74,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [settingsError, setSettingsError] = useState<string | null>(null);
   const [form, setForm] = useState<{
     handle: string;
     avatarUrl: string;
@@ -73,6 +90,20 @@ export default function ProfilePage() {
     sex: '',
     gender: '',
   });
+  const [settings, setSettings] = useState<UserSettings | null>(null);
+  const [settingsLoading, setSettingsLoading] = useState(false);
+  const [settingsSaving, setSettingsSaving] = useState(false);
+  const [passwordSaving, setPasswordSaving] = useState(false);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [passwordSuccess, setPasswordSuccess] = useState<string | null>(null);
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [accounts, setAccounts] = useState<LinkedAccount[]>([]);
+  const [accountsError, setAccountsError] = useState<string | null>(null);
+  const [accountsLoading, setAccountsLoading] = useState(false);
 
   // Always use the Next.js proxy to stay same-origin and avoid CORS.
   const userServiceBase = '/user-service';
@@ -346,6 +377,155 @@ export default function ProfilePage() {
     }
   };
 
+  // Settings setter helpers
+  const settingsBool = (scope: keyof UserSettings, key: string, defaultValue = false) =>
+    Boolean((settings?.[scope] as Record<string, unknown> | null)?.[key] ?? defaultValue);
+
+  const updateSettingsField = (scope: keyof UserSettings, key: string, value: boolean) => {
+    setSettings((prev) => ({
+      ...(prev ?? {}),
+      [scope]: {
+        ...((prev?.[scope] as Record<string, unknown>) ?? {}),
+        [key]: value,
+      },
+    }));
+  };
+
+  // Load settings for owner when available
+  useEffect(() => {
+    if (!isOwner || !targetUserId) return;
+    const controller = new AbortController();
+    const load = async () => {
+      setSettingsLoading(true);
+      setSettingsError(null);
+      try {
+        const res = await fetch(`${userServiceBase}/user-settings/${targetUserId}`, {
+          signal: controller.signal,
+        });
+        if (!res.ok) {
+          throw new Error(`Settings fetch failed (${res.status})`);
+        }
+        const data = (await res.json()) as UserSettings;
+        setSettings(data);
+      } catch (err: any) {
+        if (controller.signal.aborted) return;
+        setSettingsError(err?.message ?? 'Failed to load settings');
+      } finally {
+        if (!controller.signal.aborted) setSettingsLoading(false);
+      }
+    };
+    load();
+    return () => controller.abort();
+  }, [isOwner, targetUserId, userServiceBase]);
+
+  const saveSettings = async () => {
+    if (!isOwner || !targetUserId) return;
+    setSettingsSaving(true);
+    setSettingsError(null);
+    try {
+      const res = await fetch(`${userServiceBase}/user-settings/${targetUserId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          notifications: settings?.notifications,
+          privacy: settings?.privacy,
+          accessibility: settings?.accessibility,
+          product: settings?.product,
+        }),
+      });
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(`Settings save failed: ${res.status} ${text}`);
+      }
+      const data = (await res.json()) as UserSettings;
+      setSettings(data);
+    } catch (err: any) {
+      setSettingsError(err?.message ?? 'Failed to save settings');
+    } finally {
+      setSettingsSaving(false);
+    }
+  };
+
+  // Load linked accounts for owner
+  useEffect(() => {
+    if (!isOwner || !targetUserId) return;
+    const controller = new AbortController();
+    const loadAccounts = async () => {
+      setAccountsLoading(true);
+      setAccountsError(null);
+      try {
+        const res = await fetch(`${userServiceBase}/accounts/user/${targetUserId}`, {
+          signal: controller.signal,
+        });
+        if (!res.ok) {
+          throw new Error(`Accounts fetch failed (${res.status})`);
+        }
+        const data = (await res.json()) as LinkedAccount[];
+        setAccounts(Array.isArray(data) ? data : []);
+      } catch (err: any) {
+        if (controller.signal.aborted) return;
+        setAccountsError(err?.message ?? 'Failed to load connections');
+      } finally {
+        if (!controller.signal.aborted) setAccountsLoading(false);
+      }
+    };
+    loadAccounts();
+    return () => controller.abort();
+  }, [isOwner, targetUserId, userServiceBase]);
+
+  const hashPassword = async (email: string, password: string) => {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(`${email.toLowerCase()}:${password}`);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+  };
+
+  const savePassword = async () => {
+    if (!isOwner || !targetUserId) return;
+    setPasswordError(null);
+    setPasswordSuccess(null);
+
+    if (!session?.user?.email) {
+      setPasswordError('Email is required to set a password.');
+      return;
+    }
+
+    if (!passwordForm.newPassword || passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordError('New password and confirmation must match.');
+      return;
+    }
+
+    try {
+      setPasswordSaving(true);
+      const hashedPassword = await hashPassword(session.user.email, passwordForm.newPassword);
+      const currentHashedPassword = passwordForm.currentPassword
+        ? await hashPassword(session.user.email, passwordForm.currentPassword)
+        : undefined;
+
+      const res = await fetch(`${userServiceBase}/users/${targetUserId}/password`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          hashedPassword,
+          currentHashedPassword,
+        }),
+      });
+
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(`Password update failed: ${res.status} ${text}`);
+      }
+
+      setPasswordSuccess('Password updated successfully.');
+      setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (err: any) {
+      setPasswordError(err?.message ?? 'Failed to update password.');
+    } finally {
+      setPasswordSaving(false);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
       <Header {...headerProps} pages={headerProps.pages} />
@@ -526,10 +706,81 @@ export default function ProfilePage() {
                     </Typography>
                   </Stack>
                   {isOwner && (
-                    <Stack direction="row" justifyContent="flex-end">
-                      <Button variant="contained" onClick={() => setEditOpen(true)}>
-                        Edit profile
-                      </Button>
+                    <Stack spacing={2} sx={{ mt: 2 }}>
+                      <Divider />
+                      <Typography variant="subtitle1" fontWeight={700}>
+                        User settings
+                      </Typography>
+                      {settingsError && (
+                        <Typography color="error.main" variant="body2">
+                          {settingsError}
+                        </Typography>
+                      )}
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Switch
+                          checked={settingsBool('notifications', 'emailAlerts')}
+                          onChange={(e) =>
+                            updateSettingsField('notifications', 'emailAlerts', e.target.checked)
+                          }
+                        />
+                        <Typography variant="body2">Email alerts</Typography>
+                      </Stack>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Switch
+                          checked={settingsBool('privacy', 'hideProfile')}
+                          onChange={(e) =>
+                            updateSettingsField('privacy', 'hideProfile', e.target.checked)
+                          }
+                        />
+                        <Typography variant="body2">Hide my profile from discovery</Typography>
+                      </Stack>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Switch
+                          checked={settingsBool('accessibility', 'highContrast')}
+                          onChange={(e) =>
+                            updateSettingsField('accessibility', 'highContrast', e.target.checked)
+                          }
+                        />
+                        <Typography variant="body2">High-contrast mode preference</Typography>
+                      </Stack>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Switch
+                          checked={settingsBool('product', 'betaFeatures')}
+                          onChange={(e) =>
+                            updateSettingsField('product', 'betaFeatures', e.target.checked)
+                          }
+                        />
+                        <Typography variant="body2">Opt into beta features</Typography>
+                      </Stack>
+                      <Stack direction="row" spacing={2} justifyContent="flex-end">
+                        <Button
+                          variant="outlined"
+                          onClick={() => {
+                            // Reload latest settings
+                            if (targetUserId) {
+                              setSettingsLoading(true);
+                              fetch(`${userServiceBase}/user-settings/${targetUserId}`)
+                                .then((r) => r.json())
+                                .then((data) => setSettings(data))
+                                .catch(() => setSettingsError('Failed to reload settings'))
+                                .finally(() => setSettingsLoading(false));
+                            }
+                          }}
+                          disabled={settingsLoading || settingsSaving}
+                        >
+                          Reset
+                        </Button>
+                        <Button
+                          variant="contained"
+                          onClick={saveSettings}
+                          disabled={settingsLoading || settingsSaving}
+                        >
+                          {settingsSaving ? 'Saving…' : 'Save settings'}
+                        </Button>
+                        <Button variant="outlined" onClick={() => setEditOpen(true)}>
+                          Edit profile
+                        </Button>
+                      </Stack>
                     </Stack>
                   )}
                 </Stack>
@@ -550,9 +801,67 @@ export default function ProfilePage() {
                   Security
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Security settings will live here. For now, use the Edit profile button under
-                  Settings to manage your information.
+                  Set or update your password. If you already have one, enter your current password to
+                  confirm the change.
                 </Typography>
+                {passwordError && (
+                  <Typography color="error.main" variant="body2">
+                    {passwordError}
+                  </Typography>
+                )}
+                {passwordSuccess && (
+                  <Typography color="success.light" variant="body2">
+                    {passwordSuccess}
+                  </Typography>
+                )}
+                <Stack spacing={2} mt={1}>
+                  <TextField
+                    label="Current password"
+                    type="password"
+                    value={passwordForm.currentPassword}
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({ ...prev, currentPassword: e.target.value }))
+                    }
+                    fullWidth
+                    helperText="Leave blank if setting a password for the first time."
+                  />
+                  <TextField
+                    label="New password"
+                    type="password"
+                    value={passwordForm.newPassword}
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({ ...prev, newPassword: e.target.value }))
+                    }
+                    fullWidth
+                  />
+                  <TextField
+                    label="Confirm new password"
+                    type="password"
+                    value={passwordForm.confirmPassword}
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({ ...prev, confirmPassword: e.target.value }))
+                    }
+                    fullWidth
+                  />
+                  <Stack direction="row" spacing={2} justifyContent="flex-end">
+                    <Button
+                      variant="outlined"
+                      onClick={() =>
+                        setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' })
+                      }
+                      disabled={passwordSaving}
+                    >
+                      Reset
+                    </Button>
+                    <Button
+                      variant="contained"
+                      onClick={savePassword}
+                      disabled={passwordSaving || !isOwner || !session?.user?.email}
+                    >
+                      {passwordSaving ? 'Saving…' : 'Save password'}
+                    </Button>
+                  </Stack>
+                </Stack>
               </Paper>
             )}
 
@@ -570,8 +879,62 @@ export default function ProfilePage() {
                   Connections
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Manage connected accounts and integrations here in the future.
+                  Connect external accounts you can use to sign in with NextAuth. Linking an account
+                  lets you log in without a password.
                 </Typography>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} mt={2} flexWrap="wrap">
+                  {[
+                    { label: 'Google', provider: 'google' },
+                    { label: 'GitHub', provider: 'github' },
+                    { label: 'Discord', provider: 'discord' },
+                  ].map((p) => (
+                    <Button
+                      key={p.provider}
+                      variant="outlined"
+                      onClick={() =>
+                        signIn(p.provider, {
+                          callbackUrl: typeof window !== 'undefined' ? window.location.href : '/',
+                          redirect: true,
+                        })
+                      }
+                      disabled={!isOwner}
+                    >
+                      Connect {p.label}
+                    </Button>
+                  ))}
+                </Stack>
+                {accountsError && (
+                  <Typography variant="body2" color="error.main" sx={{ mt: 1 }}>
+                    {accountsError}
+                  </Typography>
+                )}
+                <Stack spacing={1} mt={2}>
+                  <Typography variant="subtitle1" fontWeight={700}>
+                    Linked accounts
+                  </Typography>
+                  {accountsLoading ? (
+                    <Typography variant="body2" color="text.secondary">
+                      Loading connections…
+                    </Typography>
+                  ) : accounts.length === 0 ? (
+                    <Typography variant="body2" color="text.secondary">
+                      No linked accounts yet.
+                    </Typography>
+                  ) : (
+                    accounts.map((acct) => (
+                      <Typography key={`${acct.provider}-${acct.providerAccountId || 'id'}`} variant="body2">
+                        {acct.provider}
+                        {acct.providerAccountId ? ` • ${acct.providerAccountId}` : ''}
+                        {acct.connectedAt ? ` • connected ${new Date(acct.connectedAt).toLocaleDateString()}` : ''}
+                      </Typography>
+                    ))
+                  )}
+                </Stack>
+                {!isOwner && (
+                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                    You must be the profile owner to manage linked accounts.
+                  </Typography>
+                )}
               </Paper>
             )}
           </Stack>

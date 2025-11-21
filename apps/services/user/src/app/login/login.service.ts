@@ -31,7 +31,8 @@ export class LoginService {
 
     const metadata = (user.metadata ?? {}) as Record<string, unknown>;
     const authMeta = (metadata.auth ?? {}) as Record<string, unknown>;
-    const storedHash = authMeta.passwordHash as string | undefined;
+    const storedHash =
+      user.hashedPassword || (authMeta.passwordHash as string | undefined);
 
     if (!storedHash || storedHash !== dto.hashedPassword) {
       throw new UnauthorizedException('Invalid credentials');

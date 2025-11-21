@@ -26,3 +26,12 @@ export class UpdateUserDto {
   @IsObject()
   metadata?: Record<string, unknown>;
 }
+
+export class UpdatePasswordDto {
+  @IsString()
+  hashedPassword!: string;
+
+  @IsOptional()
+  @IsString()
+  currentHashedPassword?: string;
+}

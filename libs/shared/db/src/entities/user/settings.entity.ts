@@ -1,13 +1,24 @@
 // libs/db/src/entities/user/settings.entity.ts
 
-import {
-  Entity,
-  OneToOne,
-  Property,
-  type Rel,
-} from '@mikro-orm/core';
+import { Entity, OneToOne, Property, type Rel } from '@mikro-orm/core';
 import { BaseEntity } from '../../entity.base';
 import { User } from './user.entity';
+
+type NotificationPrefs = {
+  emailAlerts?: boolean;
+};
+
+type PrivacyPrefs = {
+  hideProfile?: boolean;
+};
+
+type AccessibilityPrefs = {
+  highContrast?: boolean;
+};
+
+type ProductPrefs = {
+  betaFeatures?: boolean;
+};
 
 /**
  * UserSettings
@@ -30,17 +41,17 @@ export class UserSettings extends BaseEntity {
 
   /** Notification preferences (email, push, etc). */
   @Property({ type: 'jsonb', nullable: true })
-  notifications?: Record<string, unknown>;
+  notifications?: NotificationPrefs;
 
   /** Privacy preferences (discoverability, visibility, etc). */
   @Property({ type: 'jsonb', nullable: true })
-  privacy?: Record<string, unknown>;
+  privacy?: PrivacyPrefs;
 
   /** Accessibility preferences (reduced motion, high contrast, etc). */
   @Property({ type: 'jsonb', nullable: true })
-  accessibility?: Record<string, unknown>;
+  accessibility?: AccessibilityPrefs;
 
   /** Product/feature toggles or per-user flags. */
   @Property({ type: 'jsonb', nullable: true })
-  product?: Record<string, unknown>;
+  product?: ProductPrefs;
 }

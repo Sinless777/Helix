@@ -22,10 +22,10 @@ export class UserSettingsService {
       const now = new Date();
       settings = this.em.create(UserSettings, {
         user,
-        notifications: {},
-        privacy: {},
-        accessibility: {},
-        product: {},
+        notifications: { emailAlerts: false },
+        privacy: { hideProfile: false },
+        accessibility: { highContrast: false },
+        product: { betaFeatures: false },
         createdAt: now,
         updatedAt: now,
       });
@@ -44,33 +44,25 @@ export class UserSettingsService {
   ): Promise<UserSettings> {
     const settings = await this.getSettings(userId);
 
-    if (dto.notifications) {
-      settings.notifications = {
-        ...(settings.notifications || {}),
-        ...dto.notifications,
-      };
-    }
+    const notif = { ...(settings.notifications || {}) };
+    const privacy = { ...(settings.privacy || {}) };
+    const accessibility = { ...(settings.accessibility || {}) };
+    const product = { ...(settings.product || {}) };
 
-    if (dto.privacy) {
-      settings.privacy = {
-        ...(settings.privacy || {}),
-        ...dto.privacy,
-      };
-    }
+    if (dto.notifications) Object.assign(notif, dto.notifications);
+    if (dto.privacy) Object.assign(privacy, dto.privacy);
+    if (dto.accessibility) Object.assign(accessibility, dto.accessibility);
+    if (dto.product) Object.assign(product, dto.product);
 
-    if (dto.accessibility) {
-      settings.accessibility = {
-        ...(settings.accessibility || {}),
-        ...dto.accessibility,
-      };
-    }
+    if (dto.emailAlerts !== undefined) notif.emailAlerts = dto.emailAlerts;
+    if (dto.hideProfile !== undefined) privacy.hideProfile = dto.hideProfile;
+    if (dto.highContrast !== undefined) accessibility.highContrast = dto.highContrast;
+    if (dto.betaFeatures !== undefined) product.betaFeatures = dto.betaFeatures;
 
-    if (dto.product) {
-      settings.product = {
-        ...(settings.product || {}),
-        ...dto.product,
-      };
-    }
+    settings.notifications = notif;
+    settings.privacy = privacy;
+    settings.accessibility = accessibility;
+    settings.product = product;
 
     await this.em.flush();
     return settings;

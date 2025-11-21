@@ -104,6 +104,30 @@ async function createSessionForUser(userId: string, ttlMs = 7 * 24 * 60 * 60 * 1
   return { sessionToken, expires };
 }
 
+async function linkAccount(params: {
+  userId: string;
+  provider: string;
+  providerAccountId: string;
+  displayName: string;
+}) {
+  if (!userServiceBase) return null;
+  const res = await fetch(`${userServiceBase}/accounts/link`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      userId: params.userId,
+      provider: params.provider,
+      accountId: params.providerAccountId,
+      displayName: params.displayName,
+      status: 'active',
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`Link account failed: ${res.status}`);
+  }
+  return res.json();
+}
+
 export const authConfig: NextAuthOptions = {
   providers: [
     // --- OAuth providers ---
@@ -283,19 +307,36 @@ export const authConfig: NextAuthOptions = {
           undefined;
 
         // Ensure the user exists (create if missing)
-                const backendUser: User | null =
-                  (await getUserByEmail(email)) ??
-                  (await createUserFromOAuth({
-                    email,
-                    displayName,
-                    provider: account.provider,
-                    providerAccountId: account.providerAccountId,
-                    avatarUrl,
-                  }));
-                // Create a session for this user in the User Service
-                const session = backendUser
-                  ? await createSessionForUser(backendUser.id)
-                  : null;
+        const backendUser: User | null =
+          (await getUserByEmail(email)) ??
+          (await createUserFromOAuth({
+            email,
+            displayName,
+            provider: account.provider,
+            providerAccountId: account.providerAccountId,
+            avatarUrl,
+          }));
+
+        if (backendUser) {
+          // Link external account (idempotent)
+          try {
+            if (account.providerAccountId) {
+              await linkAccount({
+                userId: backendUser.id,
+                provider: account.provider,
+                providerAccountId: account.providerAccountId,
+                displayName,
+              });
+            }
+          } catch (e) {
+            console.error('[NextAuth] Failed to link external account', e);
+          }
+        }
+
+        // Create a session for this user in the User Service
+        const session = backendUser
+          ? await createSessionForUser(backendUser.id)
+          : null;
         const sessionToken = session?.sessionToken ?? randomUUID();
         const sessionExpires =
           session?.expires ??

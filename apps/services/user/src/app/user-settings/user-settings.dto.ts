@@ -1,4 +1,4 @@
-import { IsOptional, IsObject } from 'class-validator';
+import { IsOptional, IsObject, IsBoolean } from 'class-validator';
 
 export class UpdateUserSettingsDto {
   @IsOptional()
@@ -16,4 +16,20 @@ export class UpdateUserSettingsDto {
   @IsOptional()
   @IsObject()
   product?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsBoolean()
+  emailAlerts?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  hideProfile?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  highContrast?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  betaFeatures?: boolean;
 }

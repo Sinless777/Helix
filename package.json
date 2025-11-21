@@ -89,6 +89,7 @@
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@sentry/nextjs": "^10.26.0",
     "@vercel/edge-config": "^1.4.3",
     "axios": "^1.6.0",
     "hypertune": "^2.10.0",
