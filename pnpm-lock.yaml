@@ -316,8 +316,8 @@ importers:
         specifier: ^6.6.0
         version: 6.6.0
       '@mikro-orm/postgresql':
-        specifier: ^6.5.9
-        version: 6.5.9(@mikro-orm/core@6.6.0)
+        specifier: ^6.6.0
+        version: 6.6.0(@mikro-orm/core@6.6.0)
       uuid:
         specifier: ^13.0.0
         version: 13.0.0
@@ -2209,8 +2209,8 @@ packages:
     resolution: {integrity: sha512-o0uFaaBnE5Y88hbm5Qeol8Z5kllXJbJkdW3PdWVuwVSKTdv7hNu3tmcCixKmw5004VVfa8a9zpjXvySk1EbzVg==}
     engines: {node: '>= 18.12.0'}
 
-  '@mikro-orm/knex@6.5.9':
-    resolution: {integrity: sha512-VtBPIcNYyWeQ+M+ha5DD+961gc6jtJDX0JLkBfMatTgHl78R1IuiTPaPfen4X9ezEDsR6N8XqJtuRmOXRFl6lA==}
+  '@mikro-orm/knex@6.6.0':
+    resolution: {integrity: sha512-FHxmqS5iCVnSz8booSSjnJx/H2uCRrQWZ7K0h+tmBlT6ItpZklTblscTRHQCg8NDcDtyDTlKBM1kiJ2k+tByuA==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@mikro-orm/core': ^6.0.0
@@ -2225,8 +2225,8 @@ packages:
       mariadb:
         optional: true
 
-  '@mikro-orm/postgresql@6.5.9':
-    resolution: {integrity: sha512-0pIWgHolYzAHa2/0fXjDNzGYK833XNHCuH079c65gScCl1s+YuByXPW7rJIYMqVXsgWtWpuS43G0VJ+jglXPQg==}
+  '@mikro-orm/postgresql@6.6.0':
+    resolution: {integrity: sha512-CuiSO5FJXT0/uLe9eB0qrV0T90oc0eId/TXc+hV47HrvBVRcL3TcrO49WNqvl1qy9B0garIf+zmd685cc7amug==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@mikro-orm/core': ^6.0.0
@@ -12802,7 +12802,7 @@ snapshots:
       mikro-orm: 6.6.0
       reflect-metadata: 0.2.2
 
-  '@mikro-orm/knex@6.5.9(@mikro-orm/core@6.6.0)(pg@8.16.3)':
+  '@mikro-orm/knex@6.6.0(@mikro-orm/core@6.6.0)(pg@8.16.3)':
     dependencies:
       '@mikro-orm/core': 6.6.0
       fs-extra: 11.3.2
@@ -12817,10 +12817,10 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/postgresql@6.5.9(@mikro-orm/core@6.6.0)':
+  '@mikro-orm/postgresql@6.6.0(@mikro-orm/core@6.6.0)':
     dependencies:
       '@mikro-orm/core': 6.6.0
-      '@mikro-orm/knex': 6.5.9(@mikro-orm/core@6.6.0)(pg@8.16.3)
+      '@mikro-orm/knex': 6.6.0(@mikro-orm/core@6.6.0)(pg@8.16.3)
       pg: 8.16.3
       postgres-array: 3.0.4
       postgres-date: 2.1.0
