@@ -5,6 +5,9 @@
     "emitDeclarationOnly": true,
     "importHelpers": true,
     "isolatedModules": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": false,
     "lib": ["es2022"],
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -19,18 +22,22 @@
     "customConditions": ["Helix"],
     "baseUrl": ".",
     "paths": {
+      "@helix-ai/core/*": ["libs/core/src/*"],
+      "@helix-ai/core": ["libs/core/src/index.ts"],
       "@helix-ai/ui/*": ["libs/ui/src/*"],
       "@helix-ai/ui": ["libs/ui/src/index.ts"],
-      "@helix-ai/config/*": ["libs/config/src/*"],
-      "@helix-ai/config": ["libs/config/src/index.ts"],
+      "@helix-ai/config/*": ["libs/core/src/*"],
+      "@helix-ai/config": ["libs/core/src/index.ts"],
       "@helix-ai/utils/*": ["libs/utils/src/*"],
       "@helix-ai/utils": ["libs/utils/src/index.ts"],
       "@helix-ai/types/*": ["libs/types/src/*"],
       "@helix-ai/types": ["libs/types/src/index.ts"],
-      "@helix-ai/hypertune/*": ["libs/hypertune/src/*"],
-      "@helix-ai/hypertune": ["libs/hypertune/src/index.ts"],
-      "@helix-ai/db/*": ["libs/db/src/*"],
-      "@helix-ai/db": ["libs/db/src/index.ts"]
+      "@helix-ai/hypertune/*": ["libs/core/src/hypertune/*"],
+      "@helix-ai/hypertune": ["libs/core/src/hypertune/index.ts"],
+      "@helix-ai/db/*": ["libs/shared/db/src/*"],
+      "@helix-ai/db": ["libs/shared/db/src/index.ts"],
+      "@helix-ai/logger/*": ["libs/shared/logger/src/*"],
+      "@helix-ai/logger": ["libs/shared/logger/src/index.ts"]
     }
   }
 }

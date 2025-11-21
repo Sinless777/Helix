@@ -6,7 +6,7 @@
       "path": "../hypertune"
     },
     {
-      "path": "../config"
+      "path": "../shared/config"
     },
     {
       "path": "./tsconfig.lib.json"

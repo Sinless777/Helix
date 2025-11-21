@@ -125,3 +125,8 @@ apps/**/src/generated/
 
 .nx/
 .vercel
+
+test-output
+
+# Sentry Config File
+.env.sentry-build-plugin

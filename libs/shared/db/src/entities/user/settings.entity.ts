@@ -1,0 +1,57 @@
+// libs/db/src/entities/user/settings.entity.ts
+
+import { Entity, OneToOne, Property, type Rel } from '@mikro-orm/core';
+import { BaseEntity } from '../../entity.base';
+import { User } from './user.entity';
+
+type NotificationPrefs = {
+  emailAlerts?: boolean;
+};
+
+type PrivacyPrefs = {
+  hideProfile?: boolean;
+};
+
+type AccessibilityPrefs = {
+  highContrast?: boolean;
+};
+
+type ProductPrefs = {
+  betaFeatures?: boolean;
+};
+
+/**
+ * UserSettings
+ * Owns a 1:1 relationship to User and stores preferences as JSON.
+ *
+ * Table: user_settings
+ */
+@Entity({ tableName: 'user_settings' })
+export class UserSettings extends BaseEntity {
+  /**
+   * Owning side of the 1:1 relation.
+   * FK lives in this table and is UNIQUE by virtue of OneToOne(owner: true).
+   */
+  @OneToOne(() => User, (user: User) => user.settings, {
+    owner: true,
+    nullable: false,
+    unique: true,
+  })
+  user!: Rel<User>;
+
+  /** Notification preferences (email, push, etc). */
+  @Property({ type: 'jsonb', nullable: true })
+  notifications?: NotificationPrefs;
+
+  /** Privacy preferences (discoverability, visibility, etc). */
+  @Property({ type: 'jsonb', nullable: true })
+  privacy?: PrivacyPrefs;
+
+  /** Accessibility preferences (reduced motion, high contrast, etc). */
+  @Property({ type: 'jsonb', nullable: true })
+  accessibility?: AccessibilityPrefs;
+
+  /** Product/feature toggles or per-user flags. */
+  @Property({ type: 'jsonb', nullable: true })
+  product?: ProductPrefs;
+}

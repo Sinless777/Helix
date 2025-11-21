@@ -5,8 +5,24 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  /**
+   * Simple root route — useful for health/liveness probes.
+   */
   @Get()
-  getData() {
-    return this.appService.getData();
+  root() {
+    return {
+      service: 'helix-user-service',
+      version: '1.0.0',
+      status: 'running',
+    };
+  }
+
+  /**
+   * Hypertune-aware status endpoint.
+   * Shows current feature gates or rollout logic in effect.
+   */
+  @Get('status')
+  getStatus() {
+    return this.appService.getStatus();
   }
 }
