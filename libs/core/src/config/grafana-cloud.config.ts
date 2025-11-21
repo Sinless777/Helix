@@ -1,4 +1,4 @@
-import { GrafanaCloudConfig } from "../types/grafana-cloud";
+import { GrafanaCloudConfig } from '@helix-ai/types';
 
 export const grafanaCloudConfig: GrafanaCloudConfig = {
     addons: {

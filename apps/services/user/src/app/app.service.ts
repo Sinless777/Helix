@@ -9,7 +9,7 @@ import {
   RootNode,
   SourceNode,
   flagFallbacks,
-} from '@helix-ai/hypertune/hypertune';
+} from '@helix-ai/core/hypertune/hypertune';
 import { HYPERTUNE_SOURCE } from './hypertune.module';
 
 const DEFAULT_ENVIRONMENT: Environment = 'development';

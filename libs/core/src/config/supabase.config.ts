@@ -1,4 +1,4 @@
-import { SupabaseConfig } from '../types/supabase';
+import { SupabaseConfig } from '@helix-ai/types';
 
 // libs/shared/config/src/config/supabase.config.ts
 

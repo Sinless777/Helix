@@ -1,9 +1,10 @@
 // libs/ui/src/utils/getHypertune.ts
 
-import { VercelEdgeConfigInitDataProvider, createSource } from 'hypertune';
+import { VercelEdgeConfigInitDataProvider } from 'hypertune';
 import { createClient } from '@vercel/edge-config';
 import { unstable_noStore as noStore } from 'next/cache';
 import { emptyHypertuneSource } from '@helix-ai/core';
+import { createSource } from '@helix-ai/core/hypertune';
 
 type MaybeInit = { initIfNeeded?: () => Promise<void> };
 type RootFn = (opts: { args: Record<string, unknown> }) => unknown;

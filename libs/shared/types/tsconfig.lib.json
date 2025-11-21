@@ -1,0 +1,25 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "../../../dist/libs/shared/types",
+    "tsBuildInfoFile": "../../../dist/libs/shared/types/tsconfig.lib.tsbuildinfo",
+    "emitDeclarationOnly": false,
+    "module": "es2022",
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "references": [],
+  "exclude": [
+    "jest.config.ts",
+    "jest.config.cts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ]
+}

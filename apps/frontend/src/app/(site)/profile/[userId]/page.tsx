@@ -29,8 +29,7 @@ import { signIn } from 'next-auth/react';
 import { useParams } from 'next/navigation';
 import { Header, PrimitiveModal } from '@helix-ai/ui';
 import { headerProps } from '../../../../content/header';
-import { Sex } from '@helix-ai/db/enums/sex.enum';
-import { Gender } from '@helix-ai/db/enums/gender.enum';
+import { Sex, Gender, UserProfile, User, UserSettings, UserAccount } from '@helix-ai/db';
 
 // Simple helpers reused across hooks
 const isUuid = (value: string) =>
@@ -63,6 +62,7 @@ type LinkedAccount = {
   id?: string;
   provider: string;
   providerAccountId?: string;
+  displayName?: string | null;
   connectedAt?: string | null;
 };
 
@@ -921,12 +921,30 @@ export default function ProfilePage() {
                       No linked accounts yet.
                     </Typography>
                   ) : (
-                    accounts.map((acct) => (
-                      <Typography key={`${acct.provider}-${acct.providerAccountId || 'id'}`} variant="body2">
-                        {acct.provider}
-                        {acct.providerAccountId ? ` • ${acct.providerAccountId}` : ''}
-                        {acct.connectedAt ? ` • connected ${new Date(acct.connectedAt).toLocaleDateString()}` : ''}
-                      </Typography>
+                    Object.entries(
+                      accounts.reduce<Record<string, LinkedAccount[]>>((acc, acct) => {
+                        const key = acct.provider || 'other';
+                        acc[key] = acc[key] ? [...acc[key], acct] : [acct];
+                        return acc;
+                      }, {}),
+                    ).map(([provider, list]) => (
+                      <Stack key={provider} spacing={0.5}>
+                        <Typography variant="subtitle2" fontWeight={700}>
+                          {provider}
+                        </Typography>
+                        {list.map((acct) => (
+                          <Typography
+                            key={`${provider}-${acct.providerAccountId ?? Math.random()}`}
+                            variant="body2"
+                            color="text.secondary"
+                          >
+                            {acct.displayName || acct.providerAccountId || 'Account'}
+                            {acct.connectedAt
+                              ? ` • connected ${new Date(acct.connectedAt).toLocaleDateString()}`
+                              : ''}
+                          </Typography>
+                        ))}
+                      </Stack>
                     ))
                   )}
                 </Stack>

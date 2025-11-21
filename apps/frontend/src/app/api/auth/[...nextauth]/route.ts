@@ -3,7 +3,7 @@
 import NextAuth from 'next-auth';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { authConfig } from '@helix-ai/config';
+import { authConfig } from '@helix-ai/core';
 
 // Create the NextAuth handler (App Router style: single handler function)
 const handler = NextAuth(authConfig);

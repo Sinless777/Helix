@@ -1,23 +1,29 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "rootDir": "../../",
+    "outDir": "../../dist/libs/core",
+    "tsBuildInfoFile": "../../dist/libs/core/tsbuild.json",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "paths": {
-      "@helix-ai/core": ["./src/index.ts"],
-      "@helix-ai/core/*": ["./src/*"]
-    }
+    "jsx": "react-jsx"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "references": [
+    {
+      "path": "../shared/types/tsconfig.lib.json"
+    }
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "exclude": [
     "dist",
     "node_modules",
     "tmp",
     "**/*.spec.ts",
-    "**/*.test.ts",
-    "src/hypertune/hypertune.react.tsx"
+    "**/*.test.ts"
   ]
 }

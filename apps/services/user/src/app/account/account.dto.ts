@@ -6,7 +6,7 @@ import {
 } from 'class-validator';
 
 export class LinkAccountDto {
-  @IsUUID()
+  // User IDs may be UUIDs or provider-issued strings (e.g., Google sub).
   userId!: string;
 
   @IsString()

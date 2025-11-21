@@ -40,7 +40,7 @@
       "path": "../../../libs/shared/db/tsconfig.lib.json"
     },
     {
-      "path": "../../../libs/hypertune/tsconfig.lib.json"
+      "path": "../../../libs/core/tsconfig.lib.json"
     }
   ]
 }

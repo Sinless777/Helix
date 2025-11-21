@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "useDaemonProcess": false,
+  "useDaemonProcess": true,
   "useInferencePlugins": false,
   "plugins": [
     "@nx/next",
@@ -26,10 +26,19 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  },
+  "release": {
+    "version": {
+      "preVersionCommand": "pnpm dlx nx run-many -t build"
     }
   }
 }

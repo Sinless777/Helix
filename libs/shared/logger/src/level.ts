@@ -1,16 +1,7 @@
 // libs/shared/logger/src/level.ts
 
-/**
- * Available log levels for Helix AI logger
- */
-export type LogLevel = 
-  | 'trace'
-  | 'debug'
-  | 'info'
-  | 'warn'
-  | 'error'
-  | 'fatal'
-  | 'audit';
+import type { LogLevel } from '@helix-ai/types';
+export type { LogLevel } from '@helix-ai/types';
 
 /**
  * Defines the numeric severity for each level (lower = less severe)

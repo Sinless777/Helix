@@ -12,7 +12,7 @@ const nextConfig = {
   compiler: { emotion: true },
 
   // Transpile workspace libraries without withNx
-  transpilePackages: ['@helix-ai/ui', '@helix-ai/config', '@helix-ai/hypertune'],
+  transpilePackages: ['@helix-ai/ui', '@helix-ai/core'],
 
   images: {
     remotePatterns: [

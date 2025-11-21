@@ -4,7 +4,7 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/frontend-e2e"
+      "path": "./apps/e2e/frontend-e2e"
     },
     {
       "path": "./apps/frontend"
@@ -13,10 +13,10 @@
       "path": "./libs/ui"
     },
     {
-      "path": "./libs/hypertune"
+      "path": "./libs/core/tsconfig.lib.json"
     },
     {
-      "path": "./apps/services/user-e2e"
+      "path": "./apps/e2e/user-e2e"
     },
     {
       "path": "./apps/services/user"
@@ -25,10 +25,13 @@
       "path": "./libs/shared/logger"
     },
     {
-      "path": "./libs/shared/config"
+      "path": "./libs/shared/db"
     },
     {
-      "path": "./libs/shared/db"
+      "path": "./libs/shared/utils"
+    },
+    {
+      "path": "./libs/shared/types"
     }
   ]
 }

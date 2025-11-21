@@ -1,4 +1,4 @@
-import type { RedisConfig } from '../types/redis';
+import type { RedisConfig } from '@helix-ai/types';
 
 export const redisConfig: RedisConfig = {
     url: process.env.REDIS_URL || '',

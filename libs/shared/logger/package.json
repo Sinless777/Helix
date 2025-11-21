@@ -15,7 +15,7 @@
     }
   },
   "nx": {
-    "name": "logger",
+    "name": "@helix-ai/logger",
     "tags": [
       "scope:shared",
       "type:library"

@@ -3,7 +3,7 @@
 // Avoid static node imports so browser bundles don't try to include fs/path.
 import { parse as parseYaml } from 'yaml';
 
-import type { FeatureFlag, HypertuneConfig, HypertuneEnvironment } from '../types/hypertune';
+import type { FeatureFlag, HypertuneConfig, HypertuneEnvironment } from '@helix-ai/types';
 
 type RawYaml = {
   feature_flags?: Array<{
@@ -50,6 +50,10 @@ function loadYamlConfig(): {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     path = require('node:path');
   } catch {
+    return { featureFlags: [] };
+  }
+
+  if (!fs || !path) {
     return { featureFlags: [] };
   }
 

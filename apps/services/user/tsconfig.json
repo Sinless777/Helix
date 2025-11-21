@@ -7,7 +7,7 @@
       "path": "../../../libs/shared/logger"
     },
     {
-      "path": "../../../libs/hypertune"
+      "path": "../../../libs/core/tsconfig.lib.json"
     },
     {
       "path": "../../../libs/shared/db"

@@ -26,18 +26,12 @@
       "@helix-ai/core": ["libs/core/src/index.ts"],
       "@helix-ai/ui/*": ["libs/ui/src/*"],
       "@helix-ai/ui": ["libs/ui/src/index.ts"],
-      "@helix-ai/config/*": ["libs/core/src/*"],
-      "@helix-ai/config": ["libs/core/src/index.ts"],
-      "@helix-ai/utils/*": ["libs/utils/src/*"],
-      "@helix-ai/utils": ["libs/utils/src/index.ts"],
-      "@helix-ai/types/*": ["libs/types/src/*"],
-      "@helix-ai/types": ["libs/types/src/index.ts"],
-      "@helix-ai/hypertune/*": ["libs/core/src/hypertune/*"],
-      "@helix-ai/hypertune": ["libs/core/src/hypertune/index.ts"],
       "@helix-ai/db/*": ["libs/shared/db/src/*"],
       "@helix-ai/db": ["libs/shared/db/src/index.ts"],
       "@helix-ai/logger/*": ["libs/shared/logger/src/*"],
-      "@helix-ai/logger": ["libs/shared/logger/src/index.ts"]
+      "@helix-ai/logger": ["libs/shared/logger/src/index.ts"],
+      "@helix-ai/types": ["libs/shared/types/src/index.ts"],
+      "@helix-ai/types/*": ["libs/shared/types/src/*"],
     }
   }
 }

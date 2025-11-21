@@ -3,10 +3,7 @@
   "include": [],
   "references": [
     {
-      "path": "../hypertune"
-    },
-    {
-      "path": "../shared/config"
+      "path": "../core/tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.lib.json"

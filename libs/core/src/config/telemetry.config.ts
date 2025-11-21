@@ -1,4 +1,4 @@
-import type { TelemetryConfig } from "../types/telemetry";
+import type { TelemetryConfig } from '@helix-ai/types';
 
 export const telemetryConfig: TelemetryConfig = {
     profileEncryptionKey: process.env.PROFILE_ENCRYPTION_KEY,

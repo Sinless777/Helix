@@ -1,0 +1,54 @@
+{
+  "name": "@helix-ai/utils",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!**/*.tsbuildinfo"
+  ],
+  "nx": {
+    "targets": {
+      "lint": {
+        "executor": "@nx/eslint:lint"
+      },
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "libs/shared/utils/jest.config.cts"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.937.0",
+    "@cloudflare/kv-asset-handler": "^0.4.0",
+    "@google-cloud/storage": "^7.17.3",
+    "@infisical/sdk": "^4.0.6",
+    "@mikro-orm/core": "^6.6.0",
+    "@mikro-orm/postgresql": "^6.6.0",
+    "@types/jsonwebtoken": "^9.0.6",
+    "axios": "^1.13.2",
+    "contentful": "^11.9.0",
+    "got": "^14.6.4",
+    "ioredis": "^5.8.2",
+    "jsonwebtoken": "^9.0.2",
+    "redis": "^5.10.0",
+    "tslib": "^2.3.0",
+    "wrangler": "^4.50.0",
+    "zod": "^4.1.12"
+  }
+}

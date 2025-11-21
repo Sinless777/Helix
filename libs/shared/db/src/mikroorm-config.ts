@@ -3,7 +3,6 @@
 import './register-env';
 
 import { defineConfig } from '@mikro-orm/postgresql';
-import { uuidNamespace } from '@helix-ai/core';
 import * as entities from './entities';
 
 // Prefer explicit Postgres URLs; DO NOT use the HTTP Supabase URL here.

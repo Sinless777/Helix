@@ -21,10 +21,7 @@
   },
   "references": [
     {
-      "path": "../hypertune/tsconfig.lib.json"
-    },
-    {
-      "path": "../shared/config/tsconfig.lib.json"
+      "path": "../core/tsconfig.lib.json"
     }
   ],
   "exclude": [

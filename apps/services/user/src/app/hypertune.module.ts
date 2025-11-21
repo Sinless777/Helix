@@ -5,7 +5,7 @@ import {
   SourceNode,
   emptySource,
   createSourceForServerOnly,
-} from '@helix-ai/hypertune/hypertune';
+} from '@helix-ai/core/hypertune/hypertune';
 import { LoggerService } from '@helix-ai/logger';
 
 // ----------------------------------------------------

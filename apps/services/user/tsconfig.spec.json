@@ -9,7 +9,8 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "rootDir": "../../.."
   },
   "include": [
     "jest.config.ts",

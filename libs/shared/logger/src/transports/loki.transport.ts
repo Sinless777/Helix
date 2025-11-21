@@ -1,9 +1,7 @@
 // libs/shared/logger/src/transports/loki.transport.ts
 
 import fetch from 'node-fetch'; // or global fetch if supported
-import { LoggerConfig } from '../config';
-import { LogRecord } from '../logger.interface';
-import { LogLevel } from '../level';
+import type { LoggerConfig, LogRecord, LogLevel } from '@helix-ai/types';
 
 interface LokiStream {
   stream: Record<string,string>;

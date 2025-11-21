@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": "../../../libs/shared/db/src",
     "outDir": "../../../dist/libs/shared/db",
     "tsBuildInfoFile": "../../../dist/libs/shared/db/tsconfig.db.tsbuildinfo",
 
@@ -31,7 +31,7 @@
   "exclude": ["../ui/src/**/*"],
   "references": [
     {
-      "path": "../config/tsconfig.lib.json"
+      "path": "../../core/tsconfig.lib.json"
     }
   ]
 }

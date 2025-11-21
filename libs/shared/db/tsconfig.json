@@ -4,7 +4,7 @@
   "include": [],
   "references": [
     {
-      "path": "../config"
+      "path": "../../core/tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.lib.json"

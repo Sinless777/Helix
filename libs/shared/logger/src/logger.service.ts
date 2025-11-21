@@ -1,8 +1,8 @@
 // libs/shared/logger/src/logger.service.ts
 
-import { LoggerConfig, DEFAULT_LOGGER_CONFIG } from './config';
-import { LogLevel, LevelSeverity } from './level';
-import { LogRecord, ILogger } from './logger.interface';
+import type { LoggerConfig, LogLevel, LogRecord, ILogger } from '@helix-ai/types';
+import { DEFAULT_LOGGER_CONFIG } from './config';
+import { LevelSeverity } from './level';
 import { ConsoleTransport } from './transports/console.transport';
 import { LokiTransport } from './transports/loki.transport';
 
@@ -100,6 +100,10 @@ export class LoggerService implements ILogger {
     if (!this.shouldLog('audit')) return;
     const rec = this.buildRecord('audit', message, meta);
     this.dispatch(rec);
+  }
+
+  log(message: string, meta?: Record<string, unknown>): void {
+    this.info(message, meta);
   }
 
   async flush(): Promise<void> {

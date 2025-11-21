@@ -16,7 +16,6 @@ import {
   SvgIcon,
   SvgIconProps,
   TextField,
-  Typography,
 } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';

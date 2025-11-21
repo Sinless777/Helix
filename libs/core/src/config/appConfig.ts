@@ -1,3 +1,4 @@
+import type { AppConfig } from '@helix-ai/types';
 import { githubConfig } from './github.config';
 import { grafanaCloudConfig } from './grafana-cloud.config';
 import { authConfig } from './auth.config';
@@ -7,11 +8,6 @@ import { servicesConfig } from './services';
 import { supabaseConfig } from './supabase.config';
 import { redisConfig } from './redis.config';
 import { hypertuneConfig } from './hypertune.config';
-
-
-import type { AppConfig } from '../types/appConfig';
-
-
 
 export const appConfig: AppConfig = {
   github: githubConfig,

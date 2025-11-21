@@ -6,3 +6,4 @@ export * from './logger.interface';
 export * from './transports/console.transport';
 export * from './transports/loki.transport';
 export * from './logger.service';
+export * from './logger.factory';

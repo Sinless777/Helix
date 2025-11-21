@@ -3,7 +3,7 @@
  *  - hydrateEnvFromInfisical(): fetches all secrets for the configured env/path and populates process.env
  *  - getSecretFromCache(): reads from process.env or the hydrated cache with a fallback
  */
-import { InfisicalClient } from '@infisical/sdk';
+import { InfisicalSDK } from '@infisical/sdk';
 
 type SecretMap = Record<string, string>;
 
@@ -16,31 +16,43 @@ const envName =
   process.env.NODE_ENV ??
   'development';
 const secretPath = process.env.INFISICAL_PATH ?? '/';
+const projectId =
+  process.env.INFISICAL_PROJECT_ID ??
+  process.env.INFISICAL_PROJECT ??
+  process.env.NEXT_PUBLIC_INFISICAL_PROJECT_ID ??
+  '';
 
 async function loadAllSecrets(): Promise<SecretMap> {
   if (cache) return cache;
   if (priming) return priming;
-  if (!process.env.INFISICAL_TOKEN) {
+  if (!process.env.INFISICAL_TOKEN || !projectId) {
     cache = {};
     return cache;
   }
 
   priming = (async () => {
     try {
-      const client = new InfisicalClient({
-        token: process.env.INFISICAL_TOKEN as string,
+      const sdk = new InfisicalSDK({
         siteUrl: process.env.INFISICAL_SITE_URL,
       });
 
-      const result = await client.getAllSecrets({
+      const client = sdk.auth().accessToken(process.env.INFISICAL_TOKEN as string);
+
+      const result = await client.secrets().listSecrets({
+        projectId,
         environment: envName,
-        path: secretPath,
+        secretPath,
+        includeImports: true,
+        attachToProcessEnv: false,
+        recursive: true,
       });
 
       const secrets: SecretMap = {};
-      for (const entry of result?.secrets ?? []) {
-        if (entry.secretName && entry.secretValue !== undefined && entry.secretValue !== null) {
-          secrets[entry.secretName] = entry.secretValue;
+      const fromImports = (result.imports ?? []).flatMap((group) => group.secrets ?? []);
+      const allSecrets = [...(result?.secrets ?? []), ...fromImports];
+      for (const entry of allSecrets) {
+        if (entry.secretKey && entry.secretValue !== undefined && entry.secretValue !== null) {
+          secrets[entry.secretKey] = entry.secretValue;
         }
       }
 

@@ -7,7 +7,7 @@ import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { helixLogger } from './logger';
 import { HelixNestLogger } from './logger.adapter';
-import { hydrateEnvFromInfisical } from '@helix-ai/config/infisical';
+import { hydrateEnvFromInfisical } from '@helix-ai/core/infisical';
 
 async function bootstrap() {
   // Load secrets from Infisical into process.env (no-op if not configured).

@@ -1,4 +1,4 @@
-import type { SecurityConfig } from "../types/security";
+import type { SecurityConfig } from '@helix-ai/types';
 import { getSecretFromCache } from '../infisical';
 
 const uuidNsFallback = '4a85e34a-92b8-4c21-9e90-9e4d9630a1bb';

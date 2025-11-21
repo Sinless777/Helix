@@ -55,6 +55,9 @@
     },
     {
       "path": "../../libs/ui"
+    },
+    {
+      "path": "../../libs/shared/db"
     }
   ]
 }

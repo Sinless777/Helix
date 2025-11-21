@@ -46,3 +46,7 @@ import type { PostgreSqlDriver } from '@mikro-orm/postgresql';
 export async function initOrm() {
   return await MikroORM.init<PostgreSqlDriver>(ormConfig);
 }
+
+
+export * from './enums/gender.enum';
+export * from './enums/sex.enum';

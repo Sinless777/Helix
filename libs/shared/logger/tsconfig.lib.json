@@ -1,7 +1,6 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "rootDir": "../../../",
     "outDir": "../../../dist/libs/shared/logger",
     "tsBuildInfoFile": "../../../dist/libs/shared/logger/tsconfig.lib.tsbuildinfo",
@@ -15,7 +14,9 @@
   "include": [
     "src/**/*.ts"
   ],
-  "references": [],
+  "references": [
+    { "path": "../types/tsconfig.lib.json" }
+  ],
   "exclude": [
     "jest.config.ts",
     "jest.config.cts",

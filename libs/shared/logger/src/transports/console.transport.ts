@@ -1,7 +1,6 @@
 // libs/shared/logger/src/transports/console.transport.ts
-import { LogLevel, LevelColor, RESET_COLOR } from '../level';
-import { LogRecord } from '../logger.interface';
-import { LoggerConfig } from '../config';
+import type { LogLevel, LogRecord, LoggerConfig } from '@helix-ai/types';
+import { LevelColor, RESET_COLOR } from '../level';
 
 export class ConsoleTransport {
   constructor(private readonly config: LoggerConfig) {}

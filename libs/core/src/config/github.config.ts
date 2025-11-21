@@ -1,4 +1,4 @@
-import { GithubConfig } from '../types/github';
+import { GithubConfig } from '@helix-ai/types';
 
 export const githubConfig: GithubConfig = {
     clientId: process.env.GITHUB_CLIENT_ID || undefined,

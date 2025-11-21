@@ -1,4 +1,4 @@
-import type { ServicesConfig } from '../types/services';
+import type { ServicesConfig } from '@helix-ai/types';
 
 export const servicesConfig: ServicesConfig = {
     discord: {

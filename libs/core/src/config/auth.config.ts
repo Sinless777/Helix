@@ -1,7 +1,14 @@
 // libs/shared/config/src/config/auth.config.ts
 
 import type { NextAuthOptions } from 'next-auth';
-// Keep this lib dependency-free; define minimal shape instead of importing from db.
+import GoogleProvider from 'next-auth/providers/google';
+import GithubProvider from 'next-auth/providers/github';
+import DiscordProvider from 'next-auth/providers/discord';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { createHash, randomUUID } from 'crypto';
+import { getSecretFromCache } from '../infisical';
+
+// Minimal shape from the User Service; keep this lib dependency-free.
 type AuthUser = {
   id: string;
   email?: string | null;
@@ -10,12 +17,6 @@ type AuthUser = {
   roles?: string[];
   orgId?: string | null;
 };
-import GoogleProvider from 'next-auth/providers/google';
-import GithubProvider from 'next-auth/providers/github';
-import DiscordProvider from 'next-auth/providers/discord';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { createHash, randomUUID } from 'crypto';
-import { getSecretFromCache } from '../infisical';
 
 type LoginResponse = {
   userId: string;
@@ -31,16 +32,22 @@ const hashPassword = (email: string, password: string) =>
     .update(`${email.toLowerCase()}:${password}`, 'utf8')
     .digest('hex');
 
-// Prefer Infisical, then env, then dev default pointing at local user-service
-const userServiceBase =
-  secret('USER_SERVICE_URL') ??
-  secret('NEXT_PUBLIC_USER_SERVICE_URL') ??
-  process.env.USER_SERVICE_URL ??
-  process.env.NEXT_PUBLIC_USER_SERVICE_URL ??
-  'http://localhost:3001/api';
+// Normalize service URL to a valid http(s) origin
+const userServiceBase = (() => {
+  const raw =
+    secret('USER_SERVICE_URL') ??
+    secret('NEXT_PUBLIC_USER_SERVICE_URL') ??
+    process.env.USER_SERVICE_URL ??
+    process.env.NEXT_PUBLIC_USER_SERVICE_URL ??
+    'http://localhost:3001/api';
+  if (typeof raw !== 'string') return 'http://localhost:3001/api';
+  const trimmed = raw.trim();
+  if (!trimmed.startsWith('http')) return 'http://localhost:3001/api';
+  return trimmed.replace(/\/+$/, '') + '/api'; // ensure /api suffix once
+})();
 
 
-async function getUserByEmail(email: string): Promise<User | null> {
+async function getUserByEmail(email: string): Promise<AuthUser | null> {
   if (!userServiceBase) return null;
   const res = await fetch(
     `${userServiceBase}/users/email/${encodeURIComponent(email.toLowerCase())}`,
@@ -48,7 +55,7 @@ async function getUserByEmail(email: string): Promise<User | null> {
   );
   if (res.status === 404) return null;
   if (!res.ok) return null;
-  return (await res.json()) as User;
+  return (await res.json()) as AuthUser;
 }
 
 async function createUserFromOAuth(params: {
@@ -57,7 +64,7 @@ async function createUserFromOAuth(params: {
   provider: string;
   providerAccountId?: string | null;
   avatarUrl?: string | null;
-}): Promise<User | null> {
+}): Promise<AuthUser | null> {
   if (!userServiceBase) return null;
   const res = await fetch(`${userServiceBase}/users`, {
     method: 'POST',
@@ -81,7 +88,7 @@ async function createUserFromOAuth(params: {
   if (!res.ok) {
     return null;
   }
-  return (await res.json()) as User;
+  return (await res.json()) as AuthUser;
 }
 
 async function createSessionForUser(userId: string, ttlMs = 7 * 24 * 60 * 60 * 1000) {
@@ -307,15 +314,22 @@ export const authConfig: NextAuthOptions = {
           undefined;
 
         // Ensure the user exists (create if missing)
-        const backendUser: User | null =
-          (await getUserByEmail(email)) ??
-          (await createUserFromOAuth({
+        let backendUser: AuthUser | null = await getUserByEmail(email);
+
+        // Only auto-create for non-GitHub providers; GitHub must match an existing user to avoid dup accounts.
+        if (!backendUser) {
+          if (account.provider === 'github') {
+            console.error('[NextAuth] User not found for GitHub OAuth login; refusing auto-create.');
+            return false;
+          }
+          backendUser = await createUserFromOAuth({
             email,
             displayName,
             provider: account.provider,
             providerAccountId: account.providerAccountId,
             avatarUrl,
-          }));
+          });
+        }
 
         if (backendUser) {
           // Link external account (idempotent)
