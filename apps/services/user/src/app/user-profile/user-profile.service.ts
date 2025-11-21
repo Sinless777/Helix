@@ -16,19 +16,39 @@ export class UserProfileService {
    */
   private async ensureProfile(user: User): Promise<UserProfile> {
     let profile = await this.em.findOne(UserProfile, { user });
+    const metadataAuth =
+      user.metadata && typeof user.metadata === 'object'
+        ? (user.metadata as Record<string, any>).auth
+        : undefined;
+    const metadataAvatar =
+      metadataAuth && typeof metadataAuth === 'object'
+        ? (metadataAuth as Record<string, any>).avatarUrl
+        : undefined;
 
     if (!profile) {
       const now = new Date();
       profile = this.em.create(UserProfile, {
         user,
         handle: user.email.split('@')[0], // safe fallback, can be overridden later
-        avatarUrl: null,
+        avatarUrl:
+          typeof metadataAvatar === 'string' && metadataAvatar.trim().length > 0
+            ? metadataAvatar
+            : null,
         bio: null,
         links: {},
         createdAt: now,
         updatedAt: now,
       });
       await this.em.persistAndFlush(profile);
+    } else {
+      if (
+        (!profile.avatarUrl || profile.avatarUrl.trim().length === 0) &&
+        typeof metadataAvatar === 'string' &&
+        metadataAvatar.trim().length > 0
+      ) {
+        profile.avatarUrl = metadataAvatar;
+        await this.em.flush();
+      }
     }
 
     return profile;

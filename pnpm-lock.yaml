@@ -243,6 +243,9 @@ importers:
       '@emotion/styled':
         specifier: 11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0)
+      '@mui/icons-material':
+        specifier: ^7.3.5
+        version: 7.3.5(@mui/material@7.3.5(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@types/react@19.2.2)(react@19.2.0)
       '@mui/material':
         specifier: ^7.3.5
         version: 7.3.5(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -252,6 +255,9 @@ importers:
       '@vercel/speed-insights':
         specifier: ^1.2.0
         version: 1.2.0(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.94.0))(react@19.2.0)
+      icons-material:
+        specifier: 0.0.1-security
+        version: 0.0.1-security
       ioredis:
         specifier: ^5.8.2
         version: 5.8.2
@@ -6975,6 +6981,9 @@ packages:
   hypertune@2.10.0:
     resolution: {integrity: sha512-/WcCeCvicb1fKX+ZrcC7Iaa80Uu8oL9Q3FHaAg5mFdoGIh7usva4Sx/KxTzYWsHbAnwAt0jQi87SUoqC7xSugQ==}
     hasBin: true
+
+  icons-material@0.0.1-security:
+    resolution: {integrity: sha512-qC86C+cW1ikSByd726UElBmyRuX6fjVGm6Jsoj4NHuovvcpQZtLKd+o9qVT32BeaDuLR9wdJeG3M1yE8Uh/S4A==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -18837,6 +18846,8 @@ snapshots:
       regenerator-runtime: 0.14.1
     transitivePeerDependencies:
       - encoding
+
+  icons-material@0.0.1-security: {}
 
   iconv-lite@0.4.24:
     dependencies:

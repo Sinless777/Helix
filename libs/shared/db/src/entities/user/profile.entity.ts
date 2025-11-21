@@ -10,6 +10,8 @@ import {
 } from '@mikro-orm/core';
 import { BaseEntity } from '../../entity.base';
 import { User } from './user.entity';
+import { Sex } from '../../enums/sex.enum';
+import { Gender } from '../../enums/gender.enum';
 
 /**
  * UserProfile
@@ -44,6 +46,14 @@ export class UserProfile extends BaseEntity {
   /** Optional short bio/description. */
   @Property({ type: 'text', nullable: true })
   bio?: string;
+
+  /** Sex assigned at birth. */
+  @Property({ type: 'enum', nullable: true })
+  sex?: Sex;
+
+  /** Gender identity. */
+  @Property({ type: 'enum', nullable: true })
+  gender?: Gender;
 
   /** External links (e.g., { github, discord, website }). */
   @Property({ type: 'jsonb', nullable: true })

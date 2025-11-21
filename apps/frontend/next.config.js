@@ -16,10 +16,22 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.sinlessgamesllc.com', pathname: '/Helix-AI/images/**' },
       { protocol: 'https', hostname: 'cdn.sinlessgamesllc.com', pathname: '/Sinless-Games/images/**' },
+      { protocol: 'https', hostname: 'avatars.githubusercontent.com', pathname: '/**' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com', pathname: '/**' },
     ],
     formats: ['image/avif', 'image/webp'],
     // `qualities` is not a valid Next.js option; remove if present
     qualities: [25, 50, 75, 100],
+  },
+
+  async rewrites() {
+    return [
+      // Proxy user-service to avoid CORS in the browser
+      {
+        source: '/user-service/:path*',
+        destination: 'http://localhost:3001/api/:path*',
+      },
+    ];
   },
 };
 

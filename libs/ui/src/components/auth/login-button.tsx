@@ -9,6 +9,9 @@ import {
   Avatar,
   Button,
   Divider,
+  IconButton,
+  Menu,
+  MenuItem,
   Stack,
   SvgIcon,
   SvgIconProps,
@@ -43,11 +46,16 @@ export const LoginButton: React.FC<LoginButtonProps> = ({
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState<string | null>(null);
   const [submitting, setSubmitting] = React.useState(false);
+  const [menuAnchor, setMenuAnchor] = React.useState<null | HTMLElement>(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) =>
+    setMenuAnchor(event.currentTarget);
+  const handleMenuClose = () => setMenuAnchor(null);
 
   const handleSignOut = () => {
+    handleMenuClose();
     signOut({ callbackUrl });
   };
 
@@ -96,29 +104,50 @@ export const LoginButton: React.FC<LoginButtonProps> = ({
   }
 
   if (session) {
+    const userId = (session as any)?.user?.id;
     return (
-      <Stack
-        className={className}
-        direction="row"
-        spacing={1}
-        alignItems="center"
-      >
-        <Avatar
-          alt={session.user?.name ?? ''}
-          src={session.user?.image ?? ''}
-          sx={{ width: 32, height: 32 }}
-        />
-        <Typography variant="body2" color="text.secondary">
-          {session.user?.email ?? session.user?.name}
-        </Typography>
-        <Button
-          variant="outlined"
+      <>
+        <IconButton
+          className={className}
+          onClick={handleMenuOpen}
           size="small"
-          onClick={handleSignOut}
+          sx={{ p: 0.25 }}
         >
-          Sign out
-        </Button>
-      </Stack>
+          <Avatar
+            alt={session.user?.name ?? ''}
+            src={session.user?.image ?? ''}
+            sx={{ width: 36, height: 36 }}
+          />
+        </IconButton>
+
+        <Menu
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={handleMenuClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          keepMounted
+        >
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              const href = userId ? `/profile/${userId}` : '/profile';
+              window.location.href = href;
+            }}
+          >
+            Profile
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              window.location.href = '/settings';
+            }}
+          >
+            Settings
+          </MenuItem>
+          <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+        </Menu>
+      </>
     );
   }
 

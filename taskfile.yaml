@@ -1,0 +1,36 @@
+version: '3'
+
+vars:
+  MIKRO_CONFIG: mikro-orm.config.ts
+
+tasks:
+  migrate:gen-push:
+    desc: Generate a MikroORM migration and apply it (set NAME=YourMigrationName)
+    cmds:
+      - pnpm exec mikro-orm migration:create --config {{.MIKRO_CONFIG}} --name {{.NAME | default "auto_migration"}}
+      - pnpm exec mikro-orm migration:up --config {{.MIKRO_CONFIG}}
+    sources:
+      - libs/shared/db/src/entities/**/*.ts
+      - libs/shared/db/src/migrations/**/*.ts
+    generates:
+      - libs/shared/db/src/migrations/**/*.ts
+
+  migrate:up:
+    desc: Apply pending MikroORM migrations
+    cmds:
+      - pnpm exec mikro-orm migration:up --config {{.MIKRO_CONFIG}}
+
+  migrate:create:
+    desc: Generate a MikroORM migration (set NAME=YourMigrationName)
+    cmds:
+      - pnpm exec mikro-orm migration:create --config {{.MIKRO_CONFIG}} --name {{.NAME | default "auto-migration"}}
+    sources:
+      - libs/shared/db/src/entities/**/*.ts
+    generates:
+      - libs/shared/db/src/migrations/**/*.ts
+
+  pre-commit:
+    desc: Run lightweight checks before committing
+    cmds:
+      - pnpm exec nx lint
+      - pnpm exec nx format:check || true
