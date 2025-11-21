@@ -1,3 +1,4 @@
+// Client component: renders a public profile with owner-only editing.
 'use client';
 
 import {
@@ -64,25 +65,19 @@ export default function ProfilePage() {
     gender: '',
   });
 
-  const userServiceBase = useMemo(() => {
-    if (typeof window !== 'undefined') {
-      // Always prefer the Next.js proxy in the browser to stay same-origin.
-      return '/user-service';
-    }
-    return (
-      process.env.USER_SERVICE_URL ??
-      process.env.NEXT_PUBLIC_USER_SERVICE_URL ??
-      'http://localhost:3001/api'
-    );
-  }, []);
+  // Always use the Next.js proxy to stay same-origin and avoid CORS.
+  const userServiceBase = '/user-service';
 
+  // Load the profile and populate the edit form; resilient to id/handle mismatches.
   useEffect(() => {
     if (!userId) return null;
     const controller = new AbortController();
-    const sessionEmail = session?.user?.email;
     const isUuid = (value: string) =>
       /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+    const sessionUserId = (session?.user as { id?: string } | undefined)?.id;
+    const sessionEmail = session?.user?.email;
 
+    // Fetch by userId (UUID expected)
     const fetchProfileById = async (id: string) => {
       const res = await fetch(`${userServiceBase}/user-profile/${id}`, {
         signal: controller.signal,
@@ -97,7 +92,8 @@ export default function ProfilePage() {
       return (await res.json()) as Profile;
     };
 
-    const fetchProfileByHandle = async (handle: string) => {
+    // Fallback: fetch by handle when the route param is not a UUID
+    const fetchProfileByHandleFallback = async (handle: string) => {
       const res = await fetch(
         `${userServiceBase}/user-profile/handle/${encodeURIComponent(handle)}`,
         { signal: controller.signal },
@@ -115,12 +111,16 @@ export default function ProfilePage() {
       return (await res.json()) as Profile;
     };
 
-    const fetchProfileViaEmail = async (email: string) => {
+    // Last resort: resolve a user by email, then hydrate via id/profile
+    const fetchProfileByEmail = async (email: string) => {
       const res = await fetch(
         `${userServiceBase}/users/email/${encodeURIComponent(email.toLowerCase())}`,
         { signal: controller.signal },
       );
 
+      if (res.status === 404) {
+        throw new Error('User not found by email');
+      }
       if (!res.ok) {
         throw new Error(
           `User lookup failed (${res.status} ${res.statusText || ''})`.trim(),
@@ -139,23 +139,36 @@ export default function ProfilePage() {
       setLoading(true);
       setError(null);
       try {
-        const attempts: Array<() => Promise<Profile>> = [];
+        const attempts: Array<{ name: string; fn: () => Promise<Profile> }> = [];
+        const addAttempt = (name: string, fn: () => Promise<Profile>) => {
+          if (!attempts.some((a) => a.name === name)) attempts.push({ name, fn });
+        };
 
+        // If the param looks like a UUID, try by id then handle; otherwise treat it as a handle.
         if (isUuid(userId)) {
-          attempts.push(() => fetchProfileById(userId));
+          addAttempt('param-id', () => fetchProfileById(userId));
+          addAttempt('param-handle', () => fetchProfileByHandleFallback(userId));
         } else {
-          attempts.push(() => fetchProfileByHandle(userId));
-          if (sessionEmail) {
-            attempts.push(() => fetchProfileViaEmail(sessionEmail));
-          }
+          addAttempt('param-handle', () => fetchProfileByHandleFallback(userId));
+        }
+
+        // Use the signed-in user id if available.
+        if (sessionUserId) {
+          addAttempt('session-id', () => fetchProfileById(sessionUserId));
+        }
+
+        // As a last resort, try resolving by email.
+        if (sessionEmail) {
+          addAttempt('session-email', () => fetchProfileByEmail(sessionEmail));
         }
 
         let profileData: Profile | null = null;
         const attemptErrors: string[] = [];
 
+        // Execute attempts in order until one succeeds.
         for (const attempt of attempts) {
           try {
-            profileData = await attempt();
+            profileData = await attempt.fn();
             break;
           } catch (err: any) {
             if (controller.signal.aborted) return;
@@ -163,7 +176,7 @@ export default function ProfilePage() {
               err?.name === 'TypeError'
                 ? 'Network error while contacting the user service'
                 : err?.message ?? 'Unknown profile fetch error';
-            attemptErrors.push(attemptMessage);
+            attemptErrors.push(`${attempt.name}: ${attemptMessage}`);
           }
         }
 
@@ -209,6 +222,7 @@ export default function ProfilePage() {
     return () => controller.abort();
   }, [userId, userServiceBase, session?.user?.email]);
 
+  // Determine if the current session user owns this profile.
   const isOwner = useMemo(() => {
     const sessionId = (session?.user as { id?: string } | undefined)?.id;
     if (sessionId && profile?.user) {
@@ -219,6 +233,7 @@ export default function ProfilePage() {
   }, [session?.user, profile?.user, userId]);
   const [editOpen, setEditOpen] = useState(false);
 
+  // Prefer profile handle, then session name/email, then a placeholder.
   const displayName = useMemo(() => {
     if (profile?.handle) return profile.handle;
     if (session?.user?.name) return session.user.name;
@@ -226,14 +241,17 @@ export default function ProfilePage() {
     return 'Profile';
   }, [profile?.handle, session?.user]);
 
-  const avatarUrl = profile?.avatarUrl ?? (isOwner ? session?.user?.image : undefined);
+  // Avatar prefers profile image, then session image, then a fallback icon.
+  const avatarUrl = profile?.avatarUrl ?? session?.user?.image ?? '/favicon.ico';
   const bio = profile?.bio ?? 'No bio yet.';
 
+  // Generic handler to update simple text fields on the form.
   const handleChange =
     (field: keyof typeof form) => (event: React.ChangeEvent<HTMLInputElement>) => {
       setForm((prev) => ({ ...prev, [field]: event.target.value }));
     };
 
+  // Sync the edit form with the latest profile state.
   const resetFormFromProfile = () => {
     if (!profile) return;
     setForm({
@@ -252,6 +270,7 @@ export default function ProfilePage() {
     });
   };
 
+  // Persist profile changes (owner-only).
   const handleSave = async () => {
     if (!userId || !isOwner) return;
     setSaving(true);
