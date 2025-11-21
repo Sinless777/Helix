@@ -1,0 +1,14 @@
+{
+  "name": "frontend-e2e",
+  "projectType": "application",
+  "root": "apps/e2e/frontend-e2e",
+  "tags": ["type:e2e", "scope:apps"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/e2e/frontend-e2e/cypress.config.ts"
+      }
+    }
+  }
+}

@@ -1,9 +1,13 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "out-tsc/cypress",
     "allowJs": true,
-    "rootDir": "../../",
+    "rootDir": ".",
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
     "types": [
       "cypress",
       "node"
@@ -23,13 +27,5 @@
   "exclude": [
     "out-tsc",
     "test-output"
-  ],
-  "references": [
-    {
-      "path": "../../libs/ui"
-    },
-    {
-      "path": "../frontend"
-    }
   ]
 }

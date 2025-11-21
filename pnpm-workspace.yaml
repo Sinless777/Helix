@@ -1,7 +1,8 @@
 packages:
-  - apps/*
-  - libs/*
+  - apps/frontend
   - apps/services/*
+  - apps/e2e/*
+  - libs/*
   - libs/shared/*
 
 onlyBuiltDependencies:
