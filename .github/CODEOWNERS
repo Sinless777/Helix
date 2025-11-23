@@ -1,0 +1,18 @@
+# Default owners for the Nx monorepo
+
+* @sinless777
+
+# App surfaces
+
+/apps/frontend/ @sinless777
+/apps/services/ @sinless777
+
+# Shared libraries
+
+/libs/ @sinless777
+
+# Infrastructure and repo config
+
+/IaC/ @sinless777
+/.github/ @sinless777
+Taskfile.yaml .taskfiles/ @sinless777

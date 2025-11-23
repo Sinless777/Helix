@@ -55,6 +55,7 @@ yarn-error.log
 *.sops.yml
 *.sops.json
 *.sops.env
+!.sops.yaml
 
 # ─────────────────────────────────────────────
 # IDEs & editors
@@ -125,3 +126,8 @@ apps/**/src/generated/
 
 .nx/
 .vercel
+
+# ─────────────────────────────────────────────
+# Docker
+# ─────────────────────────────────────────────
+docker/hashicorp/certs/

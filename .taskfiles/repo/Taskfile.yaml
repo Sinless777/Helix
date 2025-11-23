@@ -1,0 +1,36 @@
+version: '3'
+
+vars:
+  WORKDIR: ../..
+  NX_CMD: pnpm nx
+
+tasks:
+  lint:
+    desc: Lint all projects with Nx.
+    dir: '{{.WORKDIR}}'
+    cmds:
+      - '{{.NX_CMD}} run-many -t lint --all --parallel'
+
+  tests:
+    desc: Run all unit tests with Nx.
+    dir: '{{.WORKDIR}}'
+    cmds:
+      - '{{.NX_CMD}} run-many -t test --all --parallel'
+
+  e2e-tests:
+    desc: Execute all end-to-end tests with Nx.
+    dir: '{{.WORKDIR}}'
+    cmds:
+      - '{{.NX_CMD}} run-many -t e2e --all --parallel'
+
+  build:
+    desc: Build all projects with Nx.
+    dir: '{{.WORKDIR}}'
+    cmds:
+      - '{{.NX_CMD}} run-many -t build --all --parallel'
+
+  precommit:
+    desc: Run lint and tests before committing.
+    cmds:
+      - task: lint
+      - task: tests

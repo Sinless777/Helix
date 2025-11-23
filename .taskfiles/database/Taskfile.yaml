@@ -1,0 +1,24 @@
+version: '3'
+
+vars:
+  WORKDIR: ../..
+  DB_CONFIG: libs/db/src/mikroorm-config.ts
+
+tasks:
+  generate:
+    desc: Generate a new MikroORM migration from entity changes.
+    dir: '{{.WORKDIR}}'
+    cmds:
+      - pnpm mikro-orm migration:generate --config {{.DB_CONFIG}}
+
+  push:
+    desc: Apply pending MikroORM migrations to the database.
+    dir: '{{.WORKDIR}}'
+    cmds:
+      - pnpm mikro-orm migration:up --config {{.DB_CONFIG}}
+
+  gen-push:
+    desc: Generate a migration and immediately apply it.
+    cmds:
+      - task: generate
+      - task: push
