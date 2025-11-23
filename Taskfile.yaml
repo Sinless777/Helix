@@ -1,0 +1,43 @@
+# Taskfile.yaml
+version: '3'
+
+includes:
+  database:
+    taskfile: ./.taskfiles/database/Taskfile.yaml
+    aliases:
+      - db
+  development:
+    taskfile: ./.taskfiles/development/Taskfile.yaml
+    aliases:
+      - dev
+
+  repository:
+    taskfile: ./.taskfiles/repo/Taskfile.yaml
+    aliases:
+      - repo
+
+dotenv:
+  - ./.env
+  - ./.env.local
+
+env:
+  # ---------------------------------------
+  # Directories
+  # ---------------------------------------
+  TASKFILES_DIR: ./.taskfiles
+  ANSIBLE_DIR: ./IaC/ansible
+  TERRAFORM_DIR: ./IaC/terraform
+  SCRIPTS_DIR: ./scripts
+  DOCS_DIR: ./Docs
+  KUBERNETES_DIR: ./IaC/kubernetes
+
+  # ---------------------------------------
+  # Configuration Files
+  # ---------------------------------------
+  SOPS_CONFIG_FILE: ./.sops.yaml
+
+tasks:
+  default:
+    desc: Display available tasks
+    cmds:
+      - task --list

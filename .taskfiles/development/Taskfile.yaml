@@ -1,0 +1,49 @@
+version: '3'
+
+vars:
+  MINIKUBE_PROFILE: helix
+  MINIKUBE_DRIVER: docker
+  MINIKUBE_CPUS: 4
+  MINIKUBE_MEMORY: 4g
+  MINIKUBE_HOSTNAME: local.dev.helixaibot.com
+
+tasks:
+  minikube-start:
+    desc: Start a local Minikube cluster with Docker driver, custom hostname, and addons.
+    cmds:
+      - |
+        minikube start -p {{.MINIKUBE_PROFILE}} \
+          --driver={{.MINIKUBE_DRIVER}} \
+          --container-runtime=containerd \
+          --cpus={{.MINIKUBE_CPUS}} \
+          --memory={{.MINIKUBE_MEMORY}} \
+          --addons=ingress,metrics-server
+      - minikube addons enable ingress -p {{.MINIKUBE_PROFILE}}
+      - minikube addons enable metrics-server -p {{.MINIKUBE_PROFILE}}
+      - |
+        IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
+        echo "Minikube IP: ${IP}"
+        echo "Add to /etc/hosts: ${IP} {{.MINIKUBE_HOSTNAME}}"
+
+  minikube-stop:
+    desc: Stop the Minikube cluster (keeps VM state).
+    cmds:
+      - minikube stop -p {{.MINIKUBE_PROFILE}}
+
+  minikube-delete:
+    desc: Delete the Minikube cluster (removes all state).
+    cmds:
+      - minikube delete -p {{.MINIKUBE_PROFILE}}
+
+  minikube-hosts:
+    desc: Add or update /etc/hosts entry for the Minikube IP and hostname.
+    cmds:
+      - |
+        IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
+        HOST={{.MINIKUBE_HOSTNAME}}
+        if [ -z "$IP" ]; then
+          echo "Minikube is not running; start it first."
+          exit 1
+        fi
+        sudo sh -c "sed -i.bak '/[[:space:]]${HOST//./\\.}$/d' /etc/hosts && echo \"$IP $HOST\" >> /etc/hosts"
+        echo "Updated /etc/hosts with: $IP $HOST"
