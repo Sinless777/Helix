@@ -1,0 +1,36 @@
+provisionDataStore:
+  cassandra: false
+  elasticsearch: false
+  kafka: false
+
+allInOne:
+  enabled: true
+  replicas: 1
+  ingress:
+    enabled: false
+  service:
+    annotations:
+      gethomepage.dev/href: "http://jaeger-query.observability.svc.cluster.local:16686"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: "Tracing UI"
+      gethomepage.dev/group: "Observability"
+      gethomepage.dev/icon: "jaeger.png"
+      gethomepage.dev/app: "jaeger"
+      gethomepage.dev/name: "Jaeger"
+      gethomepage.dev/widget.type: "jaeger"
+      gethomepage.dev/widget.url: "http://jaeger-query.observability.svc.cluster.local:16686"
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=jaeger"
+      gethomepage.dev/weight: "10"
+      gethomepage.dev/instance: "platform"
+
+agent:
+  enabled: false
+
+collector:
+  enabled: false
+
+query:
+  enabled: false
+
+storage:
+  type: memory

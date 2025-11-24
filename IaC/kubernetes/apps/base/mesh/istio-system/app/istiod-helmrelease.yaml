@@ -1,0 +1,43 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: istiod
+  namespace: mesh
+  labels:
+    app.kubernetes.io/name: istiod
+    app.kubernetes.io/instance: istiod
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: control-plane
+spec:
+  interval: 30m
+  timeout: 10m
+  maxHistory: 5
+  releaseName: istiod
+  targetNamespace: mesh
+  dependsOn:
+    - name: istio-base
+      namespace: mesh
+      kind: HelmRelease
+  chart:
+    spec:
+      chart: istiod
+      version: "1.23.0"                     # version pinned to match base chart installation. :contentReference[oaicite:1]{index=1}
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+      enable: true
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  driftDetection:
+    mode: enabled
+  valuesFrom:
+    - kind: ConfigMap
+      name: istiod-values
+      valuesKey: istiod.yaml

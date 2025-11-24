@@ -1,0 +1,109 @@
+namespaceOverride: observability
+
+grafana:
+  defaultDashboardsEnabled: true
+  plugins:
+    - grafana-pyroscope-datasource
+  service:
+    annotations:
+      gethomepage.dev/href: "http://kube-prometheus-stack-grafana.observability.svc.cluster.local"
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/description: "Observability dashboards"
+      gethomepage.dev/group: "Observability"
+      gethomepage.dev/icon: "grafana.png"
+      gethomepage.dev/app: "grafana"
+      gethomepage.dev/name: "Grafana"
+      gethomepage.dev/widget.type: "grafana"
+      gethomepage.dev/widget.url: "http://kube-prometheus-stack-grafana.observability.svc.cluster.local"
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=grafana"
+      gethomepage.dev/weight: "10"
+      gethomepage.dev/instance: "platform"
+  serviceMonitor:
+    enabled: true
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
+  additionalDataSources:
+    - name: Prometheus
+      type: prometheus
+      uid: prometheus
+      access: proxy
+      url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
+      isDefault: true
+    - name: Loki
+      type: loki
+      uid: loki
+      access: proxy
+      url: http://loki.observability.svc.cluster.local:3100
+      isDefault: false
+    - name: Tempo
+      type: tempo
+      uid: tempo
+      access: proxy
+      url: http://tempo.observability.svc.cluster.local:3200
+      jsonData:
+        httpMethod: GET
+        tracesToLogs:
+          datasourceUid: loki
+          tags:
+            - job
+            - instance
+            - pod
+          mappedTags:
+            - key: service.name
+              value: service
+          filterByTraceID: true
+          filterBySpanID: true
+        tracesToMetrics:
+          datasourceUid: prometheus
+          tags:
+            - service.name
+        serviceMap:
+          datasourceUid: prometheus
+        nodeGraph:
+          enabled: true
+      isDefault: false
+    - name: Jaeger
+      type: jaeger
+      uid: jaeger
+      access: proxy
+      url: http://jaeger-query.observability.svc.cluster.local:16686
+      isDefault: false
+    - name: Pyroscope
+      type: grafana-pyroscope-datasource
+      uid: pyroscope
+      access: proxy
+      url: http://pyroscope.observability.svc.cluster.local:4040
+      isDefault: false
+
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    externalLabels:
+      cluster: "${CLUSTER_NAME}"   # replace via overlay (dev/staging/prod)
+    retention: 15d                    # example: 15 days retention
+    resources:
+      requests:
+        memory: "4Gi"
+        cpu: "2000m"
+      limits:
+        memory: "8Gi"
+        cpu: "4000m"
+
+# Additional production hardening
+alertmanager:
+  alertmanagerSpec:
+    replicas: 2
+    retention: 30d    # example
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "2Gi"
+        cpu: "1"

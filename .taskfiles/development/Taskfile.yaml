@@ -24,6 +24,7 @@ tasks:
         IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
         echo "Minikube IP: ${IP}"
         echo "Add to /etc/hosts: ${IP} {{.MINIKUBE_HOSTNAME}}"
+      - task: deploy-all
 
   minikube-stop:
     desc: Stop the Minikube cluster (keeps VM state).
@@ -47,3 +48,20 @@ tasks:
         fi
         sudo sh -c "sed -i.bak '/[[:space:]]${HOST//./\\.}$/d' /etc/hosts && echo \"$IP $HOST\" >> /etc/hosts"
         echo "Updated /etc/hosts with: $IP $HOST"
+
+  deploy-all:
+    desc: Reconcile all Flux kustomizations for dev cluster after minikube start
+    cmds:
+      - |
+        flux reconcile kustomization flux-system -n flux-system
+        flux reconcile kustomization cluster-vars -n flux-system || true
+        flux reconcile kustomization flux-helm-repositories -n flux-system || true
+        flux reconcile kustomization networking-base -n flux-system || true
+        flux reconcile kustomization mesh-base -n flux-system || true
+        flux reconcile kustomization platform-base -n flux-system || true
+        flux reconcile kustomization storage-base -n flux-system || true
+        flux reconcile kustomization observability-base -n flux-system || true
+        flux reconcile kustomization security-base -n flux-system || true
+        flux reconcile kustomization dr-chaos-base -n flux-system || true
+        flux reconcile kustomization cost-feature-base -n flux-system || true
+        flux reconcile kustomization apps-dev -n flux-system || true

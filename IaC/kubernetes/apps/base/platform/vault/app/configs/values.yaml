@@ -1,0 +1,7 @@
+global:
+  enabled: true
+server:
+  ha:
+    enabled: false
+  dataStorage:
+    enabled: false

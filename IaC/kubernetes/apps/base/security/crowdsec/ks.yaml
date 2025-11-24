@@ -1,0 +1,26 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: crowdsec
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/name: crowdsec
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: security-crowdsec
+spec:
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  prune: true
+  wait: true
+  targetNamespace: security
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: crowdsec
+      helix.ai/component: security-crowdsec
+  sourceRef:
+    kind: GitRepository
+    name: helix-ai
+    namespace: flux-system
+  path: ./IaC/kubernetes/apps/base/security/crowdsec/app

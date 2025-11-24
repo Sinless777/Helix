@@ -1,0 +1,75 @@
+# CoreDNS Helm chart values — Helix Platform Networking
+
+isClusterService: true                     # Deploy CoreDNS as the cluster’s primary DNS service
+
+service:
+  type: ClusterIP                          # Internal cluster service
+  clusterIP: ""                            # Keep default or override if needed
+  annotations:
+    prometheus.io/scrape: "true"           # Scrape metrics
+    prometheus.io/port: "9153"
+  externalTrafficPolicy: Cluster            # Ensures client source IPs not preserved
+  loadBalancerIP: ""                        # Override for bare-metal LB if needed
+  externalIPs: []                           # External endpoints, if required
+
+image:
+  repository: coredns/coredns
+  tag: "1.13.1"                             # Pin tag for stability (match chart release)
+  pullPolicy: IfNotPresent
+
+replicaCount: 3                            # Ensure high-availability for cluster DNS
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+prometheus:
+  service:
+    enabled: true                          # Expose metrics service
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9153"
+  monitor:
+    enabled: true                          # ServiceMonitor for Prometheus operator
+    additionalLabels:
+      app.kubernetes.io/part-of: helix-observability
+    namespace: observability
+    interval: "1m"
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 5
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: coredns
+        topologyKey: kubernetes.io/hostname
+
+tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: Exists
+    effect: NoSchedule
+
+nodeSelector: {}                           # Set if restricting scheduling to specific nodes
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000

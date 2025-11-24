@@ -1,0 +1,136 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: echo-server-domain2
+  namespace: networking
+  labels:
+    app.kubernetes.io/name: echo-server
+    app.kubernetes.io/instance: echo-server-domain2
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: echo-service
+spec:
+  interval: 30m
+  timeout: 10m
+  maxHistory: 5
+  releaseName: echo-server-domain2
+  targetNamespace: networking
+  chart:
+    spec:
+      chart: app-template
+      version: "2.5.0"
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+      enable: true
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  driftDetection:
+    mode: enabled
+  values:
+    controllers:
+      main:
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: ghcr.io/mendhak/http-https-echo
+              tag: "31"
+              pullPolicy: IfNotPresent
+            env:
+              HTTP_PORT: 8080
+              LOG_WITHOUT_NEWLINE: "true"
+              LOG_IGNORE_PATH: "/healthz"
+              PROMETHEUS_ENABLED: "true"
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: 8080
+                  initialDelaySeconds: 10
+                  periodSeconds: 15
+                  timeoutSeconds: 2
+                  failureThreshold: 4
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: 8080
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
+            resources:
+              requests:
+                cpu: "50m"
+                memory: "128Mi"
+              limits:
+                cpu: "200m"
+                memory: "256Mi"
+        pod:
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+            runAsNonRoot: true
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    serviceMonitor:
+      main:
+        enabled: true
+        namespace: observability
+        interval: "1m"
+        path: /metrics
+        port: 8080
+    ingress:
+      main:
+        enabled: true
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${DOMAIN_2}"
+        hosts:
+          - host: "{{ .Release.Name }}-external.${DOMAIN_2}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - "{{ .Release.Name }}-external.${DOMAIN_2}"
+      internal:
+        enabled: true
+        className: internal
+        hosts:
+          - host: "{{ .Release.Name }}-internal.${DOMAIN_2}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - "{{ .Release.Name }}-internal.${DOMAIN_2}"

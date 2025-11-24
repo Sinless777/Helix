@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  labels:
+    app.kubernetes.io/name: istio-system
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: service-mesh
+namespace: mesh
+commonLabels:
+  app.kubernetes.io/name: istio-system
+  helix.ai/component: service-mesh
+resources:
+  - ./istio-base-helmrelease.yaml
+  - ./istiod-helmrelease.yaml
+  - ./istio-gateway-helmrelease.yaml
+configMapGenerator:
+  - name: istio-base-values
+    files:
+      - base.yaml=./configs/base.yaml
+  - name: istiod-values
+    files:
+      - istiod.yaml=./configs/istiod.yaml
+  - name: istio-gateway-values
+    files:
+      - gateway.yaml=./configs/gateway.yaml
+generatorOptions:
+  disableNameSuffixHash: true

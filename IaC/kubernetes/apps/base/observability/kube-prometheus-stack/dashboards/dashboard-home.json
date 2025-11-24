@@ -1,0 +1,38 @@
+{
+  "id": null,
+  "uid": "helix-home",
+  "title": "Helix Connections",
+  "tags": ["home", "helix"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 2,
+  "editable": false,
+  "refresh": "1m",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "type": "text",
+      "title": "Helix Observability",
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "**Welcome to Helix Observability**  \n\nExplore your telemetry stack:  \n- Prometheus: `[[Prometheus Datasource]]`  \n- Loki: `[[Loki Datasource]]`  \n- Tempo: `[[Tempo Datasource]]`  \n- Jaeger: `[[Jaeger UI]]`  \n- Pyroscope: `[[Pyroscope UI]]`"
+      }
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "links": []
+}

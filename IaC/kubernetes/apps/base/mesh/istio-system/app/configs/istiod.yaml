@@ -1,0 +1,44 @@
+global:
+  istioNamespace: mesh
+  hub: "docker.io/istio"
+  tag: "1.28.0"
+  defaultRevision: "default"
+  defaultResources:
+    requests:
+      cpu: "200m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
+
+pilot:
+  autoscaleEnabled: false            # Disable HPA: fixed replica count preferred for control plane stability
+  replicaCount: 2                    # Provide 2-pod HA baseline
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
+  hpaSpec:                            # Provide HPA spec for future enablement if desired
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+meshConfig:
+  accessLogFile: "/dev/stdout"
+  enablePrometheusMerge: true
+  enableTracing: true
+  defaultConfig:
+    proxyMetadata:
+      ISTIO_PROXY_SHA: "auto"
+
+security:
+  mtls:
+    enabled: true
+  enablePortSharing: true
+
+telemetry:
+  enabled: true

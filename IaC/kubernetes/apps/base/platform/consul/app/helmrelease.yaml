@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: consul
+  namespace: platform
+  labels:
+    app.kubernetes.io/name: consul
+    app.kubernetes.io/instance: consul
+    app.kubernetes.io/managed-by: fluxcd
+    app.kubernetes.io/part-of: helix-platform
+spec:
+  interval: 30m
+  timeout: 10m
+  releaseName: consul
+  targetNamespace: platform
+  suspend: true
+  chart:
+    spec:
+      chart: consul
+      version: 1.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: hashicorp
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: consul-values
+      valuesKey: values.yaml

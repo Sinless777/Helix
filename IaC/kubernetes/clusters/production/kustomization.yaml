@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./flux-system
+  - ./cluster-vars.yaml
+  - ./helm-repositories.yaml
+  - ./networking.yaml
+  - ./mesh.yaml
+  - ./platform.yaml
+  - ./storage.yaml
+  - ./observability.yaml
+  - ./security.yaml
+  - ./dr-chaos.yaml
+  - ./cost-feature.yaml
+  - ./apps-production.yaml

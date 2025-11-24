@@ -1,0 +1,26 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: nats
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/name: nats
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: platform-nats
+spec:
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  prune: true
+  wait: true
+  targetNamespace: platform
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: nats
+      helix.ai/component: platform-nats
+  sourceRef:
+    kind: GitRepository
+    name: helix-ai
+    namespace: flux-system
+  path: ./IaC/kubernetes/apps/base/platform/nats/app

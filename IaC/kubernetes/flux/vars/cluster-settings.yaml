@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/name: cluster-settings
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: flux-vars
+data:
+  # ---------------------------------------------------------------------------
+  # Core cluster settings
+  # ---------------------------------------------------------------------------
+  TIMEZONE: "America/Boise"
+
+  # ---------------------------------------------------------------------------
+  # Network settings (CIDRs are examples; override per-cluster if needed)
+  # ---------------------------------------------------------------------------
+  CLUSTER_CIDR: "10.11.12.0/16"
+  SERVICE_CIDR: "13.14.15.0/24"
+
+  # ---------------------------------------------------------------------------
+  # Domains
+  #
+  # NOTE:
+  #  - These values are meant to be consumed by Kustomize/Helm substitutions.
+  #  - Keep them as plain strings; do NOT rely on ${VAR} expansion here,
+  #    Kubernetes will not interpolate those.
+  # ---------------------------------------------------------------------------
+
+  # Primary public domain (Helix SaaS)
+  DOMAIN_1: "helixaibot.com"
+  LOCAL_DOMAIN_1: "local.helixaibot.com"
+
+  # Company domain (SinLess Games LLC)
+  DOMAIN_2: "sinlessgamesllc.com"
+  LOCAL_DOMAIN_2: "local.sinlessgamesllc.com"
+
+  # Main brand / marketing domain
+  DOMAIN_3: "sinlessgames.com"
+  LOCAL_DOMAIN_3: "local.sinlessgames.com"

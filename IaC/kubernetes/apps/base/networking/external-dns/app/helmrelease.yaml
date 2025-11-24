@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: external-dns
+  namespace: networking
+  labels:
+    app.kubernetes.io/name: external-dns
+    app.kubernetes.io/instance: external-dns
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: dns-automation
+spec:
+  interval: 30m
+  timeout: 10m
+  maxHistory: 5
+  releaseName: external-dns
+  targetNamespace: networking
+  suspend: false               # ensure not suspended unless manually paused
+  chart:
+    spec:
+      chart: external-dns
+      version: "1.15.0"         # pin to known stable version; verify latest
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+      enable: true
+  upgrade:
+    remediation:
+      retries: 3
+      cleanupOnFail: true
+      crds: CreateReplace
+  driftDetection:
+    mode: enabled
+  valuesFrom:
+    - kind: Secret
+      name: external-dns-cloudflare-token        # reference your secret
+      valuesKey: apiToken
+    - kind: ConfigMap
+      name: external-dns-values
+      valuesKey: values.yaml

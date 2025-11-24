@@ -1,0 +1,19 @@
+preset: application
+
+service:
+  enabled: true
+  port: 9090
+  targetPort: 9090
+
+serviceMonitor:
+  enabled: true
+
+config:
+  create: true
+  data:
+    log_level: info
+    otel_traces_export:
+      endpoint: http://otel-collector.observability.svc.cluster.local:4318
+    prometheus_export:
+      port: 9090
+      path: /metrics

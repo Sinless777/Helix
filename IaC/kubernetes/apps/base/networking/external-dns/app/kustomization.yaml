@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  labels:
+    app.kubernetes.io/name: external-dns
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: dns-automation
+namespace: networking
+commonLabels:
+  app.kubernetes.io/name: external-dns
+  helix.ai/component: dns-automation
+resources:
+  - ./helmrelease.yaml
+  - ./CRD/dns-endpoint.yaml
+configMapGenerator:
+  - name: external-dns-values
+    files:
+      - values.yaml=./configs/values.yaml
+    options:
+      disableNameSuffixHash: true
+generatorOptions:
+  disableNameSuffixHash: true

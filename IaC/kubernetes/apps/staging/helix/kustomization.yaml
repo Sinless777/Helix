@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/helix
+patches:
+  - path: ./patches/api-deployment-staging.yaml
+    target:
+      kind: Deployment
+      name: helix-api
+  - path: ./patches/frontend-deployment-staging.yaml
+    target:
+      kind: Deployment
+      name: helix-frontend
+  - path: ./patches/canary-staging.yaml
+    target:
+      kind: Canary
+      name: helix
+  - path: ./patches/virtualservice-staging.yaml
+    target:
+      kind: VirtualService
+      name: helix

@@ -1,0 +1,40 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudflared-tunnel
+  namespace: networking
+  labels:
+    app.kubernetes.io/name: cloudflared
+    app.kubernetes.io/instance: cloudflared-tunnel
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: networking-tunnel
+spec:
+  interval: 30m
+  timeout: 10m
+  maxHistory: 5
+  releaseName: cloudflared-tunnel
+  targetNamespace: networking
+  chart:
+    spec:
+      chart: cloudflared
+      version: "2.2.4"              # pin the version for reproducibility — see Artifact Hub. :contentReference[oaicite:0]{index=0}
+      sourceRef:
+        kind: HelmRepository
+        name: cloudflare
+        namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: cloudflared-tunnel
+      valuesKey: ""                   # This uses the encrypted secret from secret.sops.yaml
+    - kind: ConfigMap
+      name: cloudflared-values
+      valuesKey: values.yaml          # picks up the values.yaml you created
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+    crds: CreateReplace

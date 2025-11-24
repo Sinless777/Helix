@@ -1,0 +1,5 @@
+monitoring:
+  enabled: true
+cephClusterSpec:
+  crashCollector:
+    disable: true
