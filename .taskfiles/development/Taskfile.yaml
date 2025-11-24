@@ -53,6 +53,8 @@ tasks:
     desc: Reconcile all Flux kustomizations for dev cluster after minikube start
     cmds:
       - |
+        kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
+        kubectl wait --for=condition=Established --timeout=60s crd/gitrepositories.source.toolkit.fluxcd.io crd/helmrepositories.source.toolkit.fluxcd.io crd/ocirepositories.source.toolkit.fluxcd.io crd/kustomizations.kustomize.toolkit.fluxcd.io
         kubectl apply -k IaC/kubernetes/clusters/dev
         flux reconcile source git flux-system -n flux-system --with-source
         flux reconcile kustomization flux-system -n flux-system
