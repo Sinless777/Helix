@@ -12,6 +12,7 @@ commonLabels:
 resources:
   - ./bitnami.yaml
   - ./chaos-mesh.yaml
+  - ./bjw-s.yaml
   - ./cloudflare.yaml
   - ./coredns.yaml
   - ./crowdsec.yaml

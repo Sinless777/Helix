@@ -13,6 +13,7 @@ commonLabels:
 resources:
   - ./helmrelease.yaml
   - ./CRD/dns-endpoint.yaml
+  - ./secrets/secret.sops.yaml
 configMapGenerator:
   - name: external-dns-values
     files:

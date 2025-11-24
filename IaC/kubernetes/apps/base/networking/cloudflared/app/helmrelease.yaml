@@ -25,9 +25,6 @@ spec:
         name: cloudflare
         namespace: flux-system
   valuesFrom:
-    - kind: Secret
-      name: cloudflared-tunnel
-      valuesKey: ""                   # This uses the encrypted secret from secret.sops.yaml
     - kind: ConfigMap
       name: cloudflared-values
       valuesKey: values.yaml          # picks up the values.yaml you created
