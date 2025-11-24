@@ -8,3 +8,4 @@ metadata:
     helix.ai/component: gitops-control-plane
 resources:
   - ./namespace.yaml
+  - ./cilium/ks.yaml

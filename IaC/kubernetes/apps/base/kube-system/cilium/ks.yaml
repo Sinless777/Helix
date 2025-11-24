@@ -5,7 +5,7 @@ metadata:
   name: cilium
 spec:
   interval: 1h
-  path: ./kubernetes/apps/kube-system/cilium/app
+  path: ./IaC/kubernetes/apps/base/kube-system/cilium/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
