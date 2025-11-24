@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 vars:
   MINIKUBE_PROFILE: helix
@@ -20,6 +20,8 @@ tasks:
           --addons=ingress,metrics-server
       - minikube addons enable ingress -p {{.MINIKUBE_PROFILE}}
       - minikube addons enable metrics-server -p {{.MINIKUBE_PROFILE}}
+      # add flux-system-sops secret if it doesn't exist
+      - kubectl -n flux-system create secret generic flux-system-sops --from-file=sops.asc=/tmp/sops.asc
       - |
         IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
         echo "Minikube IP: ${IP}"
