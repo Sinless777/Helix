@@ -27,7 +27,7 @@ tunnels:
 
 image:
   repository: cloudflare/cloudflared
-  tag: "2025.2.0"
+  tag: "2025.11.1"
   pullPolicy: IfNotPresent
 
 replicaCount: 2
