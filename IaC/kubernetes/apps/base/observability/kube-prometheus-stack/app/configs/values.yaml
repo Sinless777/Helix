@@ -2,6 +2,9 @@ namespaceOverride: observability
 
 grafana:
   defaultDashboardsEnabled: true
+  datasources:
+    defaultDatasourceEnabled: false
+    isDefaultDatasource: false
   plugins:
     - grafana-pyroscope-datasource
   service:
@@ -31,7 +34,7 @@ grafana:
       uid: prometheus
       access: proxy
       url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
-      isDefault: true
+      isDefault: false
     - name: Loki
       type: loki
       uid: loki
@@ -86,7 +89,7 @@ prometheus:
     ruleSelectorNilUsesHelmValues: false
     externalLabels:
       cluster: "${CLUSTER_NAME}"   # replace via overlay (dev/staging/prod)
-    retention: 15d                    # example: 15 days retention
+    retention: 360h                  # 15 days retention (format must be h/m/s)
     resources:
       requests:
         memory: "4Gi"
@@ -99,7 +102,7 @@ prometheus:
 alertmanager:
   alertmanagerSpec:
     replicas: 2
-    retention: 30d    # example
+    retention: 720h   # 30 days retention (format must be h/m/s)
     resources:
       requests:
         memory: "1Gi"

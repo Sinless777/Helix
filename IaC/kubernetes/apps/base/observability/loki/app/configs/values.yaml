@@ -14,11 +14,14 @@ loki:
       type: local
       local:
         directory: /var/loki/rules
+  useTestSchema: true
 
 singleBinary:
   replicas: 1
   persistence:
-    enabled: false
+    enabled: true
+    size: 5Gi
+    storageClass: ""
 
 simpleScalable:
   enabled: false
