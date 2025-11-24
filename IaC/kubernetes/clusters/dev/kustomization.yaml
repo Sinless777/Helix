@@ -5,4 +5,4 @@ resources:
   - ./cluster-vars.yaml
   - ./helm-repositories.yaml
   - ./git-repositories.yaml
-  - ./flux-system.yaml
+  - ./flux-system

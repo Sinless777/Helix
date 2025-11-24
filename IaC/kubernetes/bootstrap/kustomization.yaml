@@ -12,7 +12,6 @@ resources:
   - ./namespace.yaml
   - ./rbac.yaml
   - ./sops-age.yaml
-  - ./00-crds
 
   # Prometheus Operator CRDs (needed for ServiceMonitor/PodMonitor/Alertmanager/etc.)
   - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
