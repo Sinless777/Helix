@@ -1,0 +1,95 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: kube-system
+spec:
+  interval: 1h
+  chart:
+    spec:
+      # Replace with proper repository/source configured in flux repositories
+      chart: cilium/cilium
+      version: "1.18.4" # pin to a matched version; update accordingly
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+        namespace: flux-system
+  values:
+    # Basic datapath & routing settings
+    autoDirectNodeRoutes: true # enable direct node routes for eBPF native routing :contentReference[oaicite:1]{index=1}
+    bpf:
+      masquerade: true
+      hostLegacyRouting: true # required for some environments (e.g., Talos) :contentReference[oaicite:2]{index=2}
+    ipam:
+      mode: kubernetes # use Kubernetes-native IPAM :contentReference[oaicite:3]{index=3}
+    kubeProxyReplacement: true # replace kube-proxy with Cilium native option
+    kubeProxyReplacementHealthzBindAddr: "0.0.0.0:10256"
+    cni:
+      exclusive: false # allow pairing with other CNI (e.g., Multus)
+    securityContext:
+      capabilities:
+        ciliumAgent:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+          - PERFMON
+          - BPF
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
+    # Network service load-balancer settings
+    loadBalancer:
+      algorithm: maglev
+      mode: "{{ .Values.cilium_loadbalancer_mode }}" # override per‐env
+    l2announcements:
+      enabled: true
+    localRedirectPolicy: true
+    endpointRoutes:
+      enabled: true
+    # Observer/monitoring integration
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
+    operator:
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      replicas: 1
+      rollOutPods: true
+    rollOutCiliumPods: true
+    routingMode: native # native routing instead of overlay
+    # Optional BGP control-plane (conditionally enable via template/override)
+    bgpControlPlane:
+      enabled: { { .Values.cilium_bgp_enabled | default false } } # enable only if BGP required
+    # Dashboard for troubleshooting
+    dashboards:
+      enabled: true
+    # Hubble & GatewayAPI (disabled by default; enable when required)
+    hubble:
+      enabled: false
+    gatewayAPI:
+      enabled: false
+    # Example of additional environment overlay placeholders
+    ipv4NativeRoutingCIDR: "{{ .Values.cluster_pod_cidr }}" # override per env
+    # Cgroup handling – tune for host OS
+    cgroup:
+      automount:
+        enabled: false
+      hostRoot: /sys/fs/cgroup
+    socketLB:
+      enabled: true
+      hostNamespaceOnly: true
+    # Additional recommended flags for stability & upgrade compatibility
+    upgradeCompatibility: '{{ .Values.cilium_upgrade_compatibility | default "1.18" }}' # from docs :contentReference[oaicite:4]{index=4}

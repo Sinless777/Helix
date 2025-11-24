@@ -6,3 +6,4 @@ resources:
   - ./helm-repositories.yaml
   - ./git-repositories.yaml
   - ./flux-system
+  - ./cillium.yaml
