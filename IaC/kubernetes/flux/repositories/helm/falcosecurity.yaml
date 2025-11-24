@@ -21,7 +21,7 @@ spec:
   timeout: 60s
 
   # Always enforce TLS for upstream repos
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public repo → no credentials needed
   passCredentials: false

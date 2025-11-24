@@ -22,7 +22,7 @@ spec:
   timeout: 60s
 
   # TLS verification should always be on for security-related repos
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public repo — no credentials required
   passCredentials: false

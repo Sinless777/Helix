@@ -21,7 +21,7 @@ spec:
   timeout: 60s
 
   # Always enforce TLS for public repos
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public chart repository
   passCredentials: false

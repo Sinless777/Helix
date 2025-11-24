@@ -22,7 +22,7 @@ spec:
   timeout: 60s
 
   # TLS verification is essential for security-centric components
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public repo — no credentials needed
   passCredentials: false

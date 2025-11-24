@@ -20,7 +20,7 @@ spec:
   timeout: 60s
 
   # Security best practice
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public repo, credentials unnecessary
   passCredentials: false

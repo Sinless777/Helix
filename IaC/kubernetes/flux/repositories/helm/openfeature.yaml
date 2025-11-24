@@ -21,7 +21,7 @@ spec:
   timeout: 60s
 
   # Always enforce TLS for secure Helm index retrieval
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public repository — no authentication required
   passCredentials: false

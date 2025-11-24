@@ -21,4 +21,4 @@ spec:
 
   # Keep the local cache small and updated
   passCredentials: false
-  verifyTLS: true
+  insecureSkipTLSVerify: false

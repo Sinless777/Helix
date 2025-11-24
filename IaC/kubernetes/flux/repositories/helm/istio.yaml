@@ -21,7 +21,7 @@ spec:
   timeout: 60s
 
   # Always enforce TLS for upstream Google storage
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public repo — no credentials required
   passCredentials: false

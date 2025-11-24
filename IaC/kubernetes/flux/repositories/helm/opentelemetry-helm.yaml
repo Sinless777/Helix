@@ -22,7 +22,7 @@ spec:
   timeout: 60s
 
   # TLS verification is critical for telemetry-related components
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public Helm repository
   passCredentials: false

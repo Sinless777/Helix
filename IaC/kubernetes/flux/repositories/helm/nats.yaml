@@ -21,7 +21,7 @@ spec:
   timeout: 60s
 
   # TLS verification for chart index retrieval
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public repository — no credentials needed
   passCredentials: false

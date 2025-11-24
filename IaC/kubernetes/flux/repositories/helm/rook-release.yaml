@@ -21,7 +21,7 @@ spec:
   timeout: 60s
 
   # Strongly recommended for any storage-related upstream source
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Public repository — no credentials required
   passCredentials: false

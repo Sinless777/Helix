@@ -20,7 +20,7 @@ spec:
   timeout: 60s
 
   # TLS verification should always remain on unless self-hosted
-  verifyTLS: true
+  insecureSkipTLSVerify: false
 
   # Credentials not required for public repos
   passCredentials: false
