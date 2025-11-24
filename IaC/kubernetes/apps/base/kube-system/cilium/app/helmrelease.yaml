@@ -19,13 +19,14 @@ spec:
     autoDirectNodeRoutes: true # enable direct node routes for eBPF native routing :contentReference[oaicite:1]{index=1}
     bpf:
       masquerade: true
-      hostLegacyRouting: true # required for some environments (e.g., Talos) :contentReference[oaicite:2]{index=2}
+    bgpControlPlane:
+      enabled: true
     ipam:
       mode: kubernetes # use Kubernetes-native IPAM :contentReference[oaicite:3]{index=3}
     kubeProxyReplacement: true # replace kube-proxy with Cilium native option
     kubeProxyReplacementHealthzBindAddr: "0.0.0.0:10256"
     cni:
-      exclusive: false # allow pairing with other CNI (e.g., Multus)
+      exclusive: true
     securityContext:
       capabilities:
         ciliumAgent:
@@ -72,9 +73,6 @@ spec:
       rollOutPods: true
     rollOutCiliumPods: true
     routingMode: native # native routing instead of overlay
-    # Optional BGP control-plane (conditionally enable via template/override)
-    bgpControlPlane:
-      enabled: false # enable later via per-cluster override if needed
     # Dashboard for troubleshooting
     dashboards:
       enabled: true
@@ -96,3 +94,4 @@ spec:
       hostNamespaceOnly: true
     # Additional recommended flags for stability & upgrade compatibility
     upgradeCompatibility: "1.18" # pinned for chart 1.18.x
+    envoy.prometheus.serviceMonitor.enabled: true
