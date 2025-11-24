@@ -53,6 +53,7 @@ tasks:
     desc: Reconcile all Flux kustomizations for dev cluster after minikube start
     cmds:
       - |
+        kubectl apply -k IaC/kubernetes/clusters/dev
         flux reconcile kustomization flux-system -n flux-system
         flux reconcile kustomization cluster-vars -n flux-system || true
         flux reconcile kustomization flux-helm-repositories -n flux-system || true
