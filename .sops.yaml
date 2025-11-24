@@ -21,7 +21,7 @@ creation_rules:
           # Add other Ansible users here:
           # - OTHER_USER_FINGERPRINT
     # Encrypt typical secret-looking fields
-    encrypted_regex: '^(data|stringData|password|pass|secret|token|api_key|client_secret|access_key)$'
+    encrypted_regex: "^(data|stringData|password|pass|secret|token|api_key|client_secret|access_key)$"
 
   # ---------------------------------------------------------------------------
   # Kubernetes: Secret manifests / values files (dev, staging, prod, etc.)
@@ -31,10 +31,11 @@ creation_rules:
       - pgp:
           - A25EFEA975F16297E0765B25AF60954F70D230D4
           - DF0A8D61F4818A36E0409C2B295E99E6DD33049E
+          - 767B1632A4331A3E3828FAA0E490F1F2A2B9BD10
           # Add cluster operators / platform team here:
           # - OTHER_K8S_OPERATOR_FP
     # Standard pattern: encrypt Secret data, leave apiVersion/kind/metadata in clear
-    encrypted_regex: '^(data|stringData)$'
+    encrypted_regex: "^(data|stringData)$"
 
   # Example: stricter rules for prod-only secrets (optional, adjust paths to match your repo)
   # - path_regex: ^kubernetes/prod/.*/.*(secret|secrets|values).*\.ya?ml$
@@ -55,7 +56,7 @@ creation_rules:
           # Add infra / platform engineers here:
           # - OTHER_TERRAFORM_USER_FP
     # For tfvars, it's usually simpler to encrypt the entire file
-    encrypted_regex: '.*'
+    encrypted_regex: ".*"
 
   # ---------------------------------------------------------------------------
   # Generic "secret" files anywhere under IaC
@@ -71,4 +72,4 @@ creation_rules:
           - DF0A8D61F4818A36E0409C2B295E99E6DD33049E
           # Generic secrets users:
           # - OTHER_USER_FP
-    encrypted_regex: '.*'
+    encrypted_regex: ".*"

@@ -61,8 +61,11 @@ tasks:
         # Idempotent creation of SOPS key secret for Flux decryption
         kubectl -n flux-system create secret generic flux-system-sops --from-file=sops.asc=/tmp/sops.asc --dry-run=client -o yaml | kubectl apply -f -
         # Apply full flux-system stack (controllers, rbac, sync manifests)
+        kubectl apply -k IaC/kubernetes/bootstrap
         kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
         kubectl apply -k IaC/kubernetes/clusters/dev
+
+        # Reconcile all kustomizations in order
         flux reconcile source git flux-system -n flux-system
         flux reconcile kustomization flux-system -n flux-system
         flux reconcile kustomization cluster-vars -n flux-system || true
