@@ -6,6 +6,7 @@ commonLabels:
   app.kubernetes.io/managed-by: fluxcd
 resources:
   - ./helmrelease.yaml
+  - ./rbac.yaml
 configMapGenerator:
   - name: kube-prometheus-stack-values
     files:

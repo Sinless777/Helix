@@ -23,9 +23,6 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  dependsOn:
-    - name: rook-release
-      namespace: observability
   install:
     crds: Create
     remediation:
