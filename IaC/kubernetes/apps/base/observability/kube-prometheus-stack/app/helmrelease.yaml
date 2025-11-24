@@ -25,7 +25,6 @@ spec:
         namespace: flux-system
   dependsOn:
     - name: rook-release
-      kind: HelmRelease
       namespace: observability
   install:
     crds: Create

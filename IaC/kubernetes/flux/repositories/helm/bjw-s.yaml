@@ -10,6 +10,5 @@ metadata:
     helix.ai/component: platform-charts
 spec:
   type: oci
-  interval: 10m # polling interval tuned for production stability
+  interval: 5m
   url: oci://ghcr.io/bjw-s/helm
-  secretRef: null # Add a secret here if the OCI registry requires auth
