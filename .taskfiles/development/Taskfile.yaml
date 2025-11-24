@@ -65,11 +65,11 @@ tasks:
       - kubectl apply -k IaC/kubernetes/clusters/dev
 
       # Reconcile all kustomizations in order
-      - flux reconcile source git flux-system -n flux-system
-      - flux reconcile kustomization flux-system -n flux-system
-      - flux reconcile kustomization cluster-vars -n flux-system || true
-      - flux reconcile kustomization flux-helm-repositories -n flux-system || true
+      - flux reconcile source git dev_flux-system -n flux-system
+      - flux reconcile kustomization dev_flux-system -n flux-system
+      - flux reconcile kustomization dev_cluster-vars -n flux-system || true
+      - flux reconcile kustomization dev_flux-helm-repositories -n flux-system || true
 
       # Deploy Cert-Manager first as other components may depend on it
-      - flux reconcile kustomization cert-manager-stack -n flux-system || true
-      - flux reconcile kustomization cilium -n flux-system || true
+      - flux reconcile kustomization dev_cert-manager -n flux-system || true
+      - flux reconcile kustomization dev_cilium -n flux-system || true
