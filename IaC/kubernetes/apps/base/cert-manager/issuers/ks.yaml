@@ -9,7 +9,7 @@ spec:
   timeout: 5m
   prune: true
   dependsOn:
-    - name: cert-manager
+    - name: cert-manager-app
       namespace: flux-system
   sourceRef:
     kind: GitRepository

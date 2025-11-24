@@ -15,11 +15,11 @@ spec:
   maxHistory: 5
   releaseName: external-dns
   targetNamespace: networking
-  suspend: false               # ensure not suspended unless manually paused
+  suspend: false # ensure not suspended unless manually paused
   chart:
     spec:
       chart: external-dns
-      version: "1.15.0"         # pin to known stable version; verify latest
+      version: "1.15.0" # pin to known stable version; verify latest
       sourceRef:
         kind: HelmRepository
         name: external-dns
@@ -35,9 +35,9 @@ spec:
   driftDetection:
     mode: enabled
   valuesFrom:
-    - kind: Secret
-      name: external-dns-cloudflare-token        # reference your secret
-      valuesKey: apiToken
     - kind: ConfigMap
       name: external-dns-values
       valuesKey: values.yaml
+    - kind: Secret
+      name: external-dns-cloudflare-token
+      valuesKey: stringData
