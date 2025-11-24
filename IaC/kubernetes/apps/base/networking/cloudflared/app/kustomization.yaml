@@ -11,6 +11,7 @@ commonLabels:
   helix.ai/component: networking-tunnel
 resources:
   - ./helmrelease.yaml
+  - ./secrets/secret.sops.yaml
 configMapGenerator:
   - name: cloudflared-values
     files:
@@ -19,10 +20,4 @@ configMapGenerator:
       disableNameSuffixHash: true
 generatorOptions:
   disableNameSuffixHash: true
-secretGenerator:
-  - name: cloudflared-tunnel-secrets
-    files:
-      - secret.sops.yaml=./secrets/secret.sops.yaml
-    options:
-      disableNameSuffixHash: true
 patchesStrategicMerge: []

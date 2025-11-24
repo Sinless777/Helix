@@ -18,6 +18,10 @@ spec:
     labels:
       app.kubernetes.io/name: external-dns
       helix.ai/component: dns-automation
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-system-sops
   sourceRef:
     kind: GitRepository
     name: helix-ai
