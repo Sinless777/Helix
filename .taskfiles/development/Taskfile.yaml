@@ -71,7 +71,7 @@ tasks:
       - flux reconcile kustomization flux-helm-repositories -n flux-system || true
 
       # Deploy Cert-Manager first as other components may depend on it
-      - flux reconcile kustomization cert-manager -n flux-system || true
+      - flux reconcile kustomization cert-manager-stack -n flux-system || true
 
   reconcile:
     desc: Reconcile all Flux kustomizations for dev cluster
