@@ -8,4 +8,5 @@ metadata:
     helix.ai/component: cert-manager
 resources:
   - ./cert-manager/ks.yaml
+  - ./issuers/ks.yaml
   - ./namespace.yaml

@@ -10,4 +10,3 @@ metadata:
 resources:
   - ./helmrelease.yaml
   - ./cloudflare.sops.yaml
-  - ./cluster-issuers.yaml
