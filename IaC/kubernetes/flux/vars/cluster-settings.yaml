@@ -31,8 +31,8 @@ data:
   # ---------------------------------------------------------------------------
 
   # ACME registration emails
-  ACME_EMAIL_1: "change-me@example.com"
-  ACME_EMAIL_2: "change-me@example.com"
+  ACME_EMAIL_1: "disdainful777@gmail.com"
+  ACME_EMAIL_2: "disdainful777@gmail.com"
 
   # Primary public domain (Helix SaaS)
   DOMAIN_1: "helixaibot.com"
