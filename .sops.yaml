@@ -12,7 +12,7 @@ creation_rules:
   # ---------------------------------------------------------------------------
   # Ansible: group_vars / host_vars / vault files
   # ---------------------------------------------------------------------------
-  - path_regex: ^ansible/(group_vars|host_vars|vault)/.*\.(yml|yaml)$
+  - path_regex: ^IaC/ansible/(group_vars|host_vars|vault)/.*\.(yml|yaml)$
     key_groups:
       - pgp:
           # Timothy "Andy" Andrew Pierce - Helix / SinLess
@@ -26,7 +26,7 @@ creation_rules:
   # ---------------------------------------------------------------------------
   # Kubernetes: Secret manifests / values files (dev, staging, prod, etc.)
   # ---------------------------------------------------------------------------
-  - path_regex: ^kubernetes/.*/.*(secret|secrets|values).*\.ya?ml$
+  - path_regex: ^IaC/kubernetes/.*/.*sops.*\.ya?ml$
     key_groups:
       - pgp:
           - A25EFEA975F16297E0765B25AF60954F70D230D4
@@ -47,7 +47,7 @@ creation_rules:
   # ---------------------------------------------------------------------------
   # Terraform: tfvars / tfvars.json with sensitive values
   # ---------------------------------------------------------------------------
-  - path_regex: ^terraform/.*\.tfvars(\.json)?$
+  - path_regex: ^IaC/terraform/.*\.tfvars(\.json)?$
     key_groups:
       - pgp:
           - A25EFEA975F16297E0765B25AF60954F70D230D4

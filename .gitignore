@@ -50,13 +50,6 @@ yarn-error.log
 !.env.local.example
 .npmrc.local
 
-# SOPS encrypted files
-*.sops.yaml
-*.sops.yml
-*.sops.json
-*.sops.env
-!.sops.yaml
-
 # ─────────────────────────────────────────────
 # IDEs & editors
 # ─────────────────────────────────────────────
