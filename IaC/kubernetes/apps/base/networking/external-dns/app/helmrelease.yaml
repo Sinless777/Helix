@@ -27,12 +27,11 @@ spec:
   install:
     remediation:
       retries: 3
-      enable: true
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
-      cleanupOnFail: true
-      crds: CreateReplace
+    crds: CreateReplace
   driftDetection:
     mode: enabled
   valuesFrom:
