@@ -6,12 +6,11 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: service-mesh
-namespace: mesh
 commonLabels:
   app.kubernetes.io/part-of: helix-platform
   app.kubernetes.io/managed-by: fluxcd
   helix.ai/component: service-mesh
 resources:
   - ./namespace.yaml
-  - ./istio-system
-  - ./flagger
+  - ./istio-system/ks.yaml
+  - ./flagger/ks.yaml

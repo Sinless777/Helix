@@ -5,15 +5,14 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: networking-infrastructure
-namespace: networking
 commonLabels:
   app.kubernetes.io/part-of: helix-platform
   app.kubernetes.io/managed-by: fluxcd
   helix.ai/component: networking-infrastructure
 resources:
   - ./namespace.yaml
-  - ./coredns
-  - ./external-dns
-  - ./cloudflared
+  - ./coredns/ks.yaml
+  - ./external-dns/ks.yaml
+  - ./cloudflared/ks.yaml
   - ./emissary-ingress
-  - ./echo-server
+  - ./echo-server/ks.yaml

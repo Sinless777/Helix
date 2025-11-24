@@ -13,7 +13,8 @@ configMapGenerator:
   - name: kube-prometheus-stack-dashboard-home
     files:
       - home.json=./configs/dashboard-home.json
-    labels:
-      grafana_dashboard: "1"
+    options:
+      labels:
+        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
