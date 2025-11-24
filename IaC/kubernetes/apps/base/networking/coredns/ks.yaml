@@ -20,7 +20,6 @@ spec:
       helix.ai/component: core-dns
   dependsOn:
     - name: cloudflared
-      kind: Kustomization
       namespace: flux-system
   sourceRef:
     kind: GitRepository

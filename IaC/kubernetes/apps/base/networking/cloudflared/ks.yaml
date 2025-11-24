@@ -20,7 +20,6 @@ spec:
       helix.ai/component: networking-tunnel
   dependsOn:
     - name: external-dns
-      kind: Kustomization
       namespace: flux-system
   sourceRef:
     kind: GitRepository
