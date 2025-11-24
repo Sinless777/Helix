@@ -19,7 +19,7 @@ spec:
       app.kubernetes.io/name: coredns
       helix.ai/component: core-dns
   dependsOn:
-    - name: cloudflared
+    - name: cloudflared-tunnel
       namespace: flux-system
   sourceRef:
     kind: GitRepository

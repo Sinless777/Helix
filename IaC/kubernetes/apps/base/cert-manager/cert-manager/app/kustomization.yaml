@@ -12,7 +12,6 @@ commonLabels:
   helix.ai/component: cert-manager
 resources:
   - ./helmrelease.yaml
-  - ./clusterissuers.yaml
 configMapGenerator:
   - name: cert-manager-values
     files:

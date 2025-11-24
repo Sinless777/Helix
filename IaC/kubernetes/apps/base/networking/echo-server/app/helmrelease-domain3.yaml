@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: echo-server-domain1
+  name: echo-server-domain3
   namespace: networking
   labels:
     app.kubernetes.io/name: echo-server
