@@ -6,12 +6,6 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: cert-manager
-commonLabels:
-  app.kubernetes.io/name: cert-manager
-  helix.ai/component: cert-manager
 resources:
   - ./cert-manager/ks.yaml
-  - ./issuers/ks.yaml
   - ./namespace.yaml
-generatorOptions:
-  disableNameSuffixHash: true

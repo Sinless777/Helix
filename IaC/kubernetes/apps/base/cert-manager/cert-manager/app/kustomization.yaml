@@ -6,16 +6,8 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: cert-manager
-namespace: cert-manager
-commonLabels:
-  app.kubernetes.io/name: cert-manager
-  helix.ai/component: cert-manager
+  namespace: cert-manager
 resources:
   - ./helmrelease.yaml
   - ./cloudflare.sops.yaml
-configMapGenerator:
-  - name: cert-manager-values
-    files:
-      - values.yaml=./configs/values.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+  - ./cluster-issuers.yaml

@@ -1,1 +1,0 @@
-# Placeholder values to satisfy Flux kustomize build; cert-manager HelmRelease uses inline values.

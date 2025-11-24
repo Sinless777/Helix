@@ -10,41 +10,17 @@ metadata:
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: cert-manager
 spec:
-  interval: 30m
-  timeout: 10m
-  maxHistory: 5
-  releaseName: cert-manager
-  targetNamespace: cert-manager
-  chart:
-    spec:
-      chart: cert-manager
-      version: "v1.14.1" # pin to a stable, audited version
-      sourceRef:
-        kind: HelmRepository
-        name: jetstack
-        namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  driftDetection:
-    mode: enabled
+  chartRef:
+    kind: OCIRepository
+    name: cert-manager
+  interval: 1h
   values:
-    installCRDs: true
-    dns01RecursiveNameservers: "1.1.1.1:53,9.9.9.9:53"
+    crds:
+      enabled: true
+    replicaCount: 1
+    dns01RecursiveNameservers: https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query
     dns01RecursiveNameserversOnly: true
-    podDnsPolicy: None
-    podDnsConfig:
-      nameservers:
-        - "1.1.1.1"
-        - "9.9.9.9"
     prometheus:
       enabled: true
-      podmonitor:
+      servicemonitor:
         enabled: true
-        namespace: observability # ensure scraping in your monitoring namespace
-        # Additional options can be included per docs:
-        # For example: path: /metrics, interval: "1m" etc. :contentReference[oaicite:0]{index=0}

@@ -124,3 +124,9 @@ apps/**/src/generated/
 # Docker
 # ─────────────────────────────────────────────
 docker/hashicorp/certs/
+
+
+# ─────────────────────────────────────────────
+# Individual Files
+# ─────────────────────────────────────────────
+IaC/kubernetes/bootstrap/sops-age.yaml

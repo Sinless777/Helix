@@ -16,10 +16,7 @@ tasks:
           --driver={{.MINIKUBE_DRIVER}} \
           --container-runtime=containerd \
           --cpus={{.MINIKUBE_CPUS}} \
-          --memory={{.MINIKUBE_MEMORY}} \
-          --addons=ingress,metrics-server
-      - minikube addons enable ingress -p {{.MINIKUBE_PROFILE}}
-      - minikube addons enable metrics-server -p {{.MINIKUBE_PROFILE}}
+          --memory={{.MINIKUBE_MEMORY}}
       - |
         IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
         echo "Minikube IP: ${IP}"
@@ -52,31 +49,60 @@ tasks:
   deploy-all:
     desc: Reconcile all Flux kustomizations for dev cluster after minikube start
     cmds:
-      - |
-        # Ensure flux-system namespace exists before any Flux resources
-        kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
-        # Install Flux CRDs first to avoid resource mapping errors
-        kubectl apply -k IaC/kubernetes/clusters/dev/flux-system/CRDs
-        kubectl wait --for=condition=Established --timeout=60s crd/gitrepositories.source.toolkit.fluxcd.io crd/helmrepositories.source.toolkit.fluxcd.io crd/ocirepositories.source.toolkit.fluxcd.io crd/kustomizations.kustomize.toolkit.fluxcd.io
-        # Idempotent creation of SOPS key secret for Flux decryption
-        kubectl -n flux-system create secret generic flux-system-sops --from-file=sops.asc=/tmp/sops.asc --dry-run=client -o yaml | kubectl apply -f -
-        # Apply full flux-system stack (controllers, rbac, sync manifests)
-        kubectl apply -k IaC/kubernetes/bootstrap
-        kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
-        kubectl apply -k IaC/kubernetes/clusters/dev
+      # Ensure flux-system namespace exists before any Flux resources
+      - kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+      # Install Flux CRDs first to avoid resource mapping errors
+      - kubectl apply -k IaC/kubernetes/clusters/dev/flux-system/CRDs
+      - kubectl wait --for=condition=Established --timeout=60s crd/gitrepositories.source.toolkit.fluxcd.io crd/helmrepositories.source.toolkit.fluxcd.io crd/ocirepositories.source.toolkit.fluxcd.io crd/kustomizations.kustomize.toolkit.fluxcd.io
 
-        # Reconcile all kustomizations in order
-        flux reconcile source git flux-system -n flux-system
-        flux reconcile kustomization flux-system -n flux-system
-        flux reconcile kustomization cluster-vars -n flux-system || true
-        flux reconcile kustomization flux-helm-repositories -n flux-system || true
-        flux reconcile kustomization cert-manager -n flux-system || true
-        flux reconcile kustomization networking-base -n flux-system || true
-        flux reconcile kustomization mesh-base -n flux-system || true
-        flux reconcile kustomization platform-base -n flux-system || true
-        flux reconcile kustomization storage-base -n flux-system || true
-        flux reconcile kustomization observability-base -n flux-system || true
-        flux reconcile kustomization security-base -n flux-system || true
-        flux reconcile kustomization dr-chaos-base -n flux-system || true
-        flux reconcile kustomization cost-feature-base -n flux-system || true
-        flux reconcile kustomization apps-dev -n flux-system || true
+      # Decrypt SOPS-encrypted manifests needed for bootstrapping
+      - sops -d IaC/kubernetes/bootstrap/sops-age.sops.yaml > IaC/kubernetes/bootstrap/sops-age.yaml
+      # Apply full flux-system stack (controllers, rbac, sync manifests)
+      - kubectl apply -k IaC/kubernetes/bootstrap
+
+      # Apply cluster-specific flux-system overlays
+      - kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
+      - kubectl apply -k IaC/kubernetes/clusters/dev
+
+      # Reconcile all kustomizations in order
+      - flux reconcile source git flux-system -n flux-system
+      - flux reconcile kustomization flux-system -n flux-system
+      - flux reconcile kustomization cluster-vars -n flux-system || true
+      - flux reconcile kustomization flux-helm-repositories -n flux-system || true
+
+      # Deploy Cert-Manager first as other components may depend on it
+      - flux reconcile kustomization cert-manager -n flux-system || true
+
+      # - flux reconcile kustomization cert-manager -n flux-system || true
+      # - flux reconcile kustomization networking-base -n flux-system || true
+      # - flux reconcile kustomization mesh-base -n flux-system || true
+      # - flux reconcile kustomization platform-base -n flux-system || true
+      # - flux reconcile kustomization storage-base -n flux-system || true
+      # - flux reconcile kustomization observability-base -n flux-system || true
+      # - flux reconcile kustomization security-base -n flux-system || true
+      # - flux reconcile kustomization dr-chaos-base -n flux-system || true
+      # - flux reconcile kustomization cost-feature-base -n flux-system || true
+      # - flux reconcile kustomization apps-dev -n flux-system || true
+
+  reconcile:
+    desc: Reconcile all Flux kustomizations for dev cluster
+    cmds:
+      # Reconcile all kustomizations in order
+      - flux reconcile source git flux-system -n flux-system
+      - flux reconcile kustomization flux-system -n flux-system
+      - flux reconcile kustomization cluster-vars -n flux-system || true
+      - flux reconcile kustomization flux-helm-repositories -n flux-system || true
+
+      # Deploy Cert-Manager first as other components may depend on it
+      - flux reconcile kustomization cert-manager -n flux-system || true
+
+      # - flux reconcile kustomization cert-manager -n flux-system || true
+      # - flux reconcile kustomization networking-base -n flux-system || true
+      # - flux reconcile kustomization mesh-base -n flux-system || true
+      # - flux reconcile kustomization platform-base -n flux-system || true
+      # - flux reconcile kustomization storage-base -n flux-system || true
+      # - flux reconcile kustomization observability-base -n flux-system || true
+      # - flux reconcile kustomization security-base -n flux-system || true
+      # - flux reconcile kustomization dr-chaos-base -n flux-system || true
+      # - flux reconcile kustomization cost-feature-base -n flux-system || true
+      # - flux reconcile kustomization apps-dev -n flux-system || true
