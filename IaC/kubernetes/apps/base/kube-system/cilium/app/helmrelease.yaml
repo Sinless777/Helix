@@ -49,7 +49,9 @@ spec:
     # Network service load-balancer settings
     loadBalancer:
       algorithm: maglev
-      mode: "{{ .Values.cilium_loadbalancer_mode }}" # override per‐env
+      # Use default chart mode (snat) unless overridden per environment.
+      # Set explicitly here to keep a stable, non-templated value.
+      mode: snat
     l2announcements:
       enabled: true
     localRedirectPolicy: true
@@ -72,7 +74,7 @@ spec:
     routingMode: native # native routing instead of overlay
     # Optional BGP control-plane (conditionally enable via template/override)
     bgpControlPlane:
-      enabled: { { .Values.cilium_bgp_enabled | default false } } # enable only if BGP required
+      enabled: false # enable later via per-cluster override if needed
     # Dashboard for troubleshooting
     dashboards:
       enabled: true
@@ -82,7 +84,8 @@ spec:
     gatewayAPI:
       enabled: false
     # Example of additional environment overlay placeholders
-    ipv4NativeRoutingCIDR: "{{ .Values.cluster_pod_cidr }}" # override per env
+    # Set per-cluster if needed; omit templating to keep manifest valid.
+    # ipv4NativeRoutingCIDR: "10.244.0.0/16"
     # Cgroup handling – tune for host OS
     cgroup:
       automount:
@@ -92,4 +95,4 @@ spec:
       enabled: true
       hostNamespaceOnly: true
     # Additional recommended flags for stability & upgrade compatibility
-    upgradeCompatibility: '{{ .Values.cilium_upgrade_compatibility | default "1.18" }}' # from docs :contentReference[oaicite:4]{index=4}
+    upgradeCompatibility: "1.18" # pinned for chart 1.18.x
