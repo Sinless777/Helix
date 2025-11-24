@@ -38,6 +38,3 @@ spec:
     - kind: ConfigMap
       name: external-dns-values
       valuesKey: values.yaml
-    - kind: Secret
-      name: external-dns-cloudflare-token
-      valuesKey: stringData
