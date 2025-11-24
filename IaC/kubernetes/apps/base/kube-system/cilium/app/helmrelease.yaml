@@ -71,6 +71,7 @@ spec:
           enabled: true
       replicas: 1
       rollOutPods: true
+      skipCRDCreation: false
     rollOutCiliumPods: true
     routingMode: native # native routing instead of overlay
     # Dashboard for troubleshooting
