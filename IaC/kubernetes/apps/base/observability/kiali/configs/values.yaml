@@ -1,3 +1,0 @@
-istio_namespace: mesh
-server:
-  web_fqdn: ""

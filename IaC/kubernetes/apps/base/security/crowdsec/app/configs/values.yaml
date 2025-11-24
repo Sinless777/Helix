@@ -1,5 +1,0 @@
-agent:
-  acquisition:
-    - namespace: "*"
-      podName: "*"
-      program: journald

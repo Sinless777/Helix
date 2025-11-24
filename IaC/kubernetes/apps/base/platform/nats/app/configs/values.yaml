@@ -1,6 +1,0 @@
-nats:
-  image:
-    tag: latest
-cluster:
-  enabled: true
-  replicas: 1

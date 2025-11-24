@@ -95,14 +95,3 @@ tasks:
 
       # Deploy Cert-Manager first as other components may depend on it
       - flux reconcile kustomization cert-manager -n flux-system || true
-
-      # - flux reconcile kustomization cert-manager -n flux-system || true
-      # - flux reconcile kustomization networking-base -n flux-system || true
-      # - flux reconcile kustomization mesh-base -n flux-system || true
-      # - flux reconcile kustomization platform-base -n flux-system || true
-      # - flux reconcile kustomization storage-base -n flux-system || true
-      # - flux reconcile kustomization observability-base -n flux-system || true
-      # - flux reconcile kustomization security-base -n flux-system || true
-      # - flux reconcile kustomization dr-chaos-base -n flux-system || true
-      # - flux reconcile kustomization cost-feature-base -n flux-system || true
-      # - flux reconcile kustomization apps-dev -n flux-system || true

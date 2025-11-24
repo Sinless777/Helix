@@ -1,4 +1,0 @@
-falco:
-  jsonOutput: true
-  grpc:
-    enabled: false
