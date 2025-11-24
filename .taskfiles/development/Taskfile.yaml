@@ -20,8 +20,6 @@ tasks:
           --addons=ingress,metrics-server
       - minikube addons enable ingress -p {{.MINIKUBE_PROFILE}}
       - minikube addons enable metrics-server -p {{.MINIKUBE_PROFILE}}
-      # add flux-system-sops secret if it doesn't exist
-      - kubectl -n flux-system create secret generic flux-system-sops --from-file=sops.asc=/tmp/sops.asc
       - |
         IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
         echo "Minikube IP: ${IP}"
@@ -55,8 +53,15 @@ tasks:
     desc: Reconcile all Flux kustomizations for dev cluster after minikube start
     cmds:
       - |
-        kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
+        # Ensure flux-system namespace exists before any Flux resources
+        kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+        # Install Flux CRDs first to avoid resource mapping errors
+        kubectl apply -k IaC/kubernetes/clusters/dev/flux-system/CRDs
         kubectl wait --for=condition=Established --timeout=60s crd/gitrepositories.source.toolkit.fluxcd.io crd/helmrepositories.source.toolkit.fluxcd.io crd/ocirepositories.source.toolkit.fluxcd.io crd/kustomizations.kustomize.toolkit.fluxcd.io
+        # Idempotent creation of SOPS key secret for Flux decryption
+        kubectl -n flux-system create secret generic flux-system-sops --from-file=sops.asc=/tmp/sops.asc --dry-run=client -o yaml | kubectl apply -f -
+        # Apply full flux-system stack (controllers, rbac, sync manifests)
+        kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
         kubectl apply -k IaC/kubernetes/clusters/dev
         flux reconcile source git flux-system -n flux-system
         flux reconcile kustomization flux-system -n flux-system
