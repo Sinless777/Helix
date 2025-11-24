@@ -21,7 +21,6 @@ spec:
   timeout: 60s
 
   # Always enforce TLS verification unless using a private mirror
-  insecureSkipTLSVerify: false
 
   # Public repo, no credentials required
   passCredentials: false

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cert-manager-secret
+  namespace: cert-manager
+  labels:
+    app.kubernetes.io/name: cert-manager-secret
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: cert-manager
+type: Opaque
+stringData:
+  # Cloudflare API token with DNS edit permissions.
+  # Encrypt this value with SOPS before committing real credentials.
+  api-token: "9c5e44bf615080da1d27ea9e6656a6e856de8"

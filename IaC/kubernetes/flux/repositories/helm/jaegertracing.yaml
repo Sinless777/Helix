@@ -21,7 +21,6 @@ spec:
   timeout: 60s
 
   # TLS verification always required for integrity
-  insecureSkipTLSVerify: false
 
   # Public repository
   passCredentials: false

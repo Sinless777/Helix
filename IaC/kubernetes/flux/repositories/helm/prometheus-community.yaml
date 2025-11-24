@@ -22,7 +22,6 @@ spec:
   timeout: 60s
 
   # Always enforce TLS verification for security of telemetry stack
-  insecureSkipTLSVerify: false
 
   # Public repo — credentials not needed
   passCredentials: false

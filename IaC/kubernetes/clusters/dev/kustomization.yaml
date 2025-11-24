@@ -4,6 +4,7 @@ resources:
   - ./flux-system
   - ./cluster-vars.yaml
   - ./helm-repositories.yaml
+  - ./cert-manager.yaml
   - ./networking.yaml
   - ./mesh.yaml
   - ./platform.yaml

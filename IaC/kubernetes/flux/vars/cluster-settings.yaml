@@ -30,6 +30,10 @@ data:
   #    Kubernetes will not interpolate those.
   # ---------------------------------------------------------------------------
 
+  # ACME registration emails
+  ACME_EMAIL_1: "change-me@example.com"
+  ACME_EMAIL_2: "change-me@example.com"
+
   # Primary public domain (Helix SaaS)
   DOMAIN_1: "helixaibot.com"
   LOCAL_DOMAIN_1: "local.helixaibot.com"

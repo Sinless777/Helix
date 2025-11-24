@@ -19,8 +19,6 @@ spec:
   # Prevent long stall on slow endpoints
   timeout: 60s
 
-  # Security best practice
-  insecureSkipTLSVerify: false
 
   # Public repo, credentials unnecessary
   passCredentials: false

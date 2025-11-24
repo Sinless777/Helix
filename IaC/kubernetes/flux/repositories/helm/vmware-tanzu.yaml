@@ -22,7 +22,6 @@ spec:
   timeout: 60s
 
   # Always enforce TLS verification for enterprise/operator charts
-  insecureSkipTLSVerify: false
 
   # Public repository — credentials unnecessary
   passCredentials: false

@@ -21,7 +21,6 @@ spec:
   timeout: 60s
 
   # Ensure chart index is fetched securely
-  insecureSkipTLSVerify: false
 
   # Public repository — credentials not required
   passCredentials: false
