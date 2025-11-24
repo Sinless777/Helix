@@ -4,6 +4,7 @@ resources:
 - alerts.yaml
 - buckets.yaml
 - external-artifacts.yaml
+- git-repos.yaml
 - helm-releases.yaml
 - helm-repos.yaml
 - helmcharts.yaml
