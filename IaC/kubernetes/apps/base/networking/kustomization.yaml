@@ -14,5 +14,4 @@ resources:
   - ./coredns/ks.yaml
   - ./external-dns/ks.yaml
   - ./cloudflared/ks.yaml
-  - ./emissary-ingress
   - ./echo-server/ks.yaml
