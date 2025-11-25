@@ -19,3 +19,4 @@ resources:
   - stakater.yaml
   - spegel.yaml
   - external-dns.yaml
+  - cloudflare.yaml
