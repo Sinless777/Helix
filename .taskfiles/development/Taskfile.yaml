@@ -74,3 +74,5 @@ tasks:
       - flux reconcile kustomization cert-manager-stack -n flux-system || true
       - flux reconcile kustomization cilium -n flux-system || true
       - flux reconcile kustomization coredns -n flux-system || true
+      - flux reconcile kustomization metrics-server -n flux-system || true
+      - flux reconcile kustomization stakater-reloader -n flux-system || true
