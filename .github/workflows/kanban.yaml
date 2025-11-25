@@ -12,12 +12,14 @@ on:
     paths:
       - ".github/projects/**"
       - ".github/scripts/sync-projects-from-config.js"
+      - ".github/scripts/package.json"
 
 jobs:
   sync-projects:
     runs-on: ubuntu-latest
 
-    # Needed so we can create/update Projects v2 via API
+    # Only need read access to repo contents; the token used in the script
+    # must have `project` scope.
     permissions:
       contents: read
 
@@ -29,15 +31,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
+          cache-dependency-path: ".github/scripts/package.json"
 
       - name: Install script dependencies
-        run: |
-          npm install js-yaml @octokit/graphql
+        run: npm install --prefix .github/scripts
 
       - name: Sync GitHub Projects from .github/projects/*.yaml
         env:
+          # Use a token with `project` scope; this can be a PAT stored as a secret.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-        run: |
-          node .github/scripts/sync-projects-from-config.js
+        run: node .github/scripts/sync-projects-from-config.js

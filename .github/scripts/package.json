@@ -1,0 +1,10 @@
+{
+  "name": "helix-github-project-scripts",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/graphql": "^7.0.2",
+    "js-yaml": "^4.1.0"
+  }
+}

@@ -7,7 +7,8 @@
 //
 // Permissions:
 //   - workflow must have `contents: read`
-//   - GITHUB_TOKEN (here: PROJECTS_TOKEN) must have access to create user/org projects
+//   - GITHUB_TOKEN (here: PROJECTS_TOKEN or GITHUB_TOKEN) must have
+//     `project` scope to create user/org projects.
 
 const fs = require("fs");
 const path = require("path");
@@ -29,6 +30,7 @@ const client = graphql.defaults({
   },
 });
 
+// Always resolve from repository root, not from script dir
 const PROJECTS_DIR = path.join(process.cwd(), ".github", "projects");
 
 /**
@@ -110,6 +112,7 @@ async function getOwnerId(login) {
     console.log(
       `Login '${login}' is not a user or user not accessible, trying org...`
     );
+    console.log(err);
   }
 
   // Then try as organization
@@ -130,6 +133,7 @@ async function getOwnerId(login) {
     console.log(
       `Login '${login}' is not an organization or org not accessible.`
     );
+    console.log(err);
   }
 
   throw new Error(`Could not resolve owner '${login}' as user or org.`);
@@ -165,6 +169,7 @@ async function findExistingProject(ownerLogin, title) {
     console.log(
       `Could not query user projects for '${ownerLogin}', trying org projects...`
     );
+    console.log(err);
   }
 
   // Then try org projects
@@ -191,22 +196,48 @@ async function findExistingProject(ownerLogin, title) {
     console.log(
       `Could not query organization projects for '${ownerLogin}'. Assuming none exist.`
     );
+    console.log(err);
   }
 
   return null;
 }
 
 /**
+ * Update the project's short description after creation.
+ * GitHub does NOT allow description fields in CreateProjectV2Input,
+ * so this is a second mutation.
+ */
+async function updateProjectDescription(projectId, description) {
+  const mutation = `
+    mutation($projectId: ID!, $desc: String!) {
+      updateProjectV2(input: {
+        projectId: $projectId,
+        shortDescription: $desc
+      }) {
+        projectV2 {
+          id
+          shortDescription
+        }
+      }
+    }
+  `;
+
+  return client(mutation, {
+    projectId,
+    desc: description,
+  });
+}
+
+/**
  * Create a new Project V2.
+ * Only uses the fields that CreateProjectV2Input actually accepts:
+ * ownerId, title, repositoryId, teamId, clientMutationId.
+ * Description is applied afterwards via updateProjectV2.
  */
 async function createProject(ownerId, title, description) {
   const mutation = `
-    mutation($ownerId: ID!, $title: String!, $desc: String) {
-      createProjectV2(input: {
-        ownerId: $ownerId,
-        title: $title,
-        shortDescription: $desc
-      }) {
+    mutation($input: CreateProjectV2Input!) {
+      createProjectV2(input: $input) {
         projectV2 {
           id
           title
@@ -216,13 +247,26 @@ async function createProject(ownerId, title, description) {
     }
   `;
 
-  const result = await client(mutation, {
+  const input = {
     ownerId,
     title,
-    desc: description || "",
-  });
+    clientMutationId: `helix-sync-${Date.now()}`,
+  };
 
-  return result.createProjectV2.projectV2;
+  const result = await client(mutation, { input });
+  const project = result.createProjectV2.projectV2;
+
+  if (description && description.trim()) {
+    try {
+      await updateProjectDescription(project.id, description);
+    } catch (err) {
+      console.log(
+        `Project '${title}' created, but failed to set description: ${err.message}`
+      );
+    }
+  }
+
+  return project;
 }
 
 (async () => {
