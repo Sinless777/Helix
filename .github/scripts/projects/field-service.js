@@ -88,6 +88,9 @@ async function fetchProjectFields(client, projectId) {
         options: node.options || [],
       });
     }
+    debug(
+      `Fetched ${fields.length} field(s) so far (page hasNext=${conn.pageInfo?.hasNextPage})`
+    );
     if (!conn.pageInfo?.hasNextPage) break;
     after = conn.pageInfo.endCursor;
   }
@@ -162,6 +165,7 @@ async function syncFields(client, projectId, fieldsConfig) {
   }
 
   const existingFields = await fetchProjectFields(client, projectId);
+  info(`Syncing ${fieldsConfig.length} field(s); project currently has ${existingFields.length}.`);
 
   for (const field of fieldsConfig) {
     const name = (field && field.name ? String(field.name) : "").trim();

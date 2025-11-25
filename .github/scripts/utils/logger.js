@@ -19,6 +19,12 @@ function debug(message) {
   }
 }
 
+function dump(label, value) {
+  if (!DEBUG) return;
+  const rendered = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+  console.log(`${prefix} DEBUG ${label}: ${rendered}`);
+}
+
 function formatError(err) {
   if (!err) return "unknown error";
   if (typeof err === "string") return err;
@@ -35,5 +41,6 @@ module.exports = {
   warn,
   error,
   debug,
+  dump,
   formatError,
 };

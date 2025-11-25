@@ -1,4 +1,4 @@
-const { info, warn } = require("../utils/logger");
+const { info, warn, debug } = require("../utils/logger");
 
 async function syncViews(_client, _projectId, viewsConfig) {
   if (!viewsConfig || !viewsConfig.length) {
@@ -7,6 +7,7 @@ async function syncViews(_client, _projectId, viewsConfig) {
   }
 
   const names = viewsConfig.map((v) => v && v.name).filter(Boolean);
+  debug(`Requested view definitions: ${JSON.stringify(viewsConfig, null, 2)}`);
   warn(
     `View sync is not supported by the GitHub GraphQL API yet. Requested views: ${
       names.length ? names.join(", ") : "n/a"

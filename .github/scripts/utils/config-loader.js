@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
-const { warn, info } = require("./logger");
+const { warn, info, debug } = require("./logger");
 
 const DEFAULT_PROJECTS_DIR = path.join(process.cwd(), ".github", "projects");
 
@@ -16,10 +16,12 @@ function loadProjectConfigs(projectDir = DEFAULT_PROJECTS_DIR, fallbackOwner = "
     return [];
   }
 
+  info(`Loading project configs from ${projectDir}`);
   const files = fs
     .readdirSync(projectDir)
     .filter((f) => f.endsWith(".yaml") || f.endsWith(".yml"));
 
+  debug(`Found candidate config files: ${files.join(", ") || "none"}`);
   const configs = [];
 
   for (const file of files) {
@@ -70,7 +72,7 @@ function loadProjectConfigs(projectDir = DEFAULT_PROJECTS_DIR, fallbackOwner = "
     const views = normalizeArray(parsed.views);
     const automation = normalizeArray(parsed.automation);
 
-    configs.push({
+    const compiled = {
       sourceFile: file,
       owner,
       name,
@@ -80,9 +82,13 @@ function loadProjectConfigs(projectDir = DEFAULT_PROJECTS_DIR, fallbackOwner = "
       fields,
       views,
       automation,
-    });
+    };
+
+    debug(`Loaded project config '${name}' from ${file}`);
+    configs.push(compiled);
   }
 
+  info(`Loaded ${configs.length} project config(s).`);
   return configs;
 }
 

@@ -14,14 +14,17 @@ async function resolveOwner(client, login) {
     }
   `;
 
+  debug(`Resolving project owner '${login}' as user -> org fallback`);
   const userRes = await githubRequest(client, userQuery, { login });
   if (userRes.user) {
+    debug(`Owner '${login}' resolved as user`);
     return { id: userRes.user.id, type: "user", login: userRes.user.login };
   }
 
   try {
     const orgRes = await githubRequest(client, orgQuery, { login });
     if (orgRes.organization) {
+      debug(`Owner '${login}' resolved as organization`);
       return { id: orgRes.organization.id, type: "organization", login: orgRes.organization.login };
     }
   } catch (err) {
@@ -47,10 +50,12 @@ async function getRepository(client, repoFullName) {
     }
   `;
 
+  debug(`Fetching repository ${owner}/${name}`);
   const res = await githubRequest(client, query, { owner, name });
   if (!res.repository) {
     throw new Error(`Repository ${repoFullName} not found.`);
   }
+  debug(`Resolved repository id ${res.repository.id}`);
   return res.repository;
 }
 
@@ -84,6 +89,9 @@ async function findProjectByName(client, ownerType, ownerLogin, projectName) {
       break;
     }
 
+    debug(
+      `Scanning project page for '${projectName}', ${container.projectsV2.nodes?.length || 0} nodes (hasNext=${container.projectsV2.pageInfo?.hasNextPage})`
+    );
     for (const node of container.projectsV2.nodes || []) {
       if (node.title && node.title.toLowerCase() === projectName.toLowerCase()) {
         return node;
@@ -136,6 +144,7 @@ async function updateProject(client, projectId, updates) {
   `;
 
   const input = { projectId, ...updates };
+  debug(`Updating project ${projectId} with ${JSON.stringify(updates)}`);
   const res = await githubRequest(client, mutation, { input });
   return res.updateProjectV2.projectV2;
 }
@@ -197,6 +206,7 @@ async function ensureProject(client, config, repository) {
   if (!owner) {
     throw new Error(`Owner '${config.owner}' not found or not accessible with provided token.`);
   }
+  info(`Owner resolved: ${owner.login} (${owner.type})`);
 
   let project = await findProjectByName(client, owner.type, owner.login, config.name);
   if (!project) {
@@ -223,6 +233,8 @@ async function ensureProject(client, config, repository) {
 
   if (repository) {
     await linkProjectToRepository(client, project.id, repository);
+  } else {
+    debug("No repository linking requested.");
   }
 
   return { ...project, owner };

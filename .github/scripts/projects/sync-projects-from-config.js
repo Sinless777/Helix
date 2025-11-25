@@ -21,6 +21,7 @@ async function run() {
   const repoOwner = process.env.GITHUB_REPOSITORY_OWNER;
   const repoFull = process.env.GITHUB_REPOSITORY;
 
+  info(`Starting project sync with repo=${repoFull} owner=${repoOwner}`);
   const client = createGitHubClient(token);
   const configs = loadProjectConfigs(undefined, repoOwner);
 
@@ -43,6 +44,9 @@ async function run() {
 
   for (const cfg of configs) {
     info(`\n--- Syncing project from ${cfg.sourceFile} (${cfg.name}) ---`);
+    info(
+      `Config summary -> owner=${cfg.owner}, public=${cfg.public}, fields=${cfg.fields.length}, views=${cfg.views.length}, automation=${cfg.automation.length}`
+    );
     try {
       const project = await ensureProject(client, cfg, repository);
       await syncFields(client, project.id, cfg.fields);
