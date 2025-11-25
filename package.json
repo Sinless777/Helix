@@ -47,7 +47,7 @@
     "@swc/core": "~1.15.1",
     "@swc/helpers": "~0.5.11",
     "@swc/jest": "~0.2.38",
-    "@swc/plugin-emotion": "^13.0.0",
+    "@swc/plugin-emotion": "^14.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "24.10.1",
     "@types/react": "^19.0.0",
