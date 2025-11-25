@@ -1,5 +1,5 @@
 ---
-apiVersion: cilium.io/v2
+apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: pool
@@ -8,7 +8,7 @@ spec:
   blocks:
     - cidr: ${CLUSTER_CIDR} # from CLUSTER_CIDR
 ---
-apiVersion: cilium.io/v2
+apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
   name: l2-policy
@@ -19,7 +19,7 @@ spec:
       kubernetes.io/os: linux
 ---
 # If BGP is enabled in your environment, include the following section:
-apiVersion: cilium.io/v2
+apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPAdvertisement
 metadata:
   name: bgp-advertisement-config
@@ -35,7 +35,7 @@ spec:
         matchExpressions:
           - { key: somekey, operator: NotIn, values: ["never-used-value"] }
 ---
-apiVersion: cilium.io/v2
+apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeerConfig
 metadata:
   name: bgp-peer-config-v4
@@ -47,7 +47,7 @@ spec:
         matchLabels:
           advertise: bgp
 ---
-apiVersion: cilium.io/v2
+apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPClusterConfig
 metadata:
   name: bgp-cluster-config
