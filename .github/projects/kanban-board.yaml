@@ -1,0 +1,110 @@
+# ==========================================================
+# GitHub Project (Projects v2) Configuration
+# Kanban Board for Helix AI
+# Owner: Sinless777 / SinLess Games LLC
+# ==========================================================
+
+project:
+  name: "Helix AI Task Board"
+  description: "Central Kanban board for tracking Helix AI development across backend, frontend, infra, AI features, and IaC."
+  owner: "Sinless777" # GitHub username or org
+  public: false # set true if you want public visibility
+
+# ----------------------------------------------------------
+# Fields (equivalent to custom columns/attributes)
+# ----------------------------------------------------------
+fields:
+  - type: single_select
+    name: Status
+    options:
+      - { name: "Todo", color: "gray" }
+      - { name: "In Progress", color: "blue" }
+      - { name: "Review", color: "purple" }
+      - { name: "Blocked", color: "red" }
+      - { name: "Done", color: "green" }
+
+  - type: single_select
+    name: Priority
+    options:
+      - { name: "Critical", color: "red" }
+      - { name: "High", color: "orange" }
+      - { name: "Medium", color: "yellow" }
+      - { name: "Low", color: "gray" }
+
+  - type: single_select
+    name: Area
+    options:
+      - { name: "Frontend", color: "blue" }
+      - { name: "Backend", color: "indigo" }
+      - { name: "Infra", color: "green" }
+      - { name: "Database", color: "yellow" }
+      - { name: "AI/ML", color: "purple" }
+      - { name: "Quality", color: "gray" }
+
+  - type: number
+    name: "Story Points"
+
+# ----------------------------------------------------------
+# Views
+# ----------------------------------------------------------
+views:
+  - name: "Kanban"
+    layout: board
+    filters: ""
+    fields: ["Status", "Priority", "Area", "Story Points"]
+    group_by: "Status"
+
+  - name: "By Priority"
+    layout: board
+    group_by: "Priority"
+    fields: ["Status", "Priority", "Area"]
+
+  - name: "Backend / Infra"
+    layout: table
+    filters: 'Area = "Backend" OR Area = "Infra"'
+    fields: ["Status", "Area", "Priority", "Story Points"]
+
+  - name: "AI / ML Work"
+    layout: table
+    filters: 'Area = "AI/ML"'
+    fields: ["Status", "Priority"]
+
+  - name: "All Issues"
+    layout: table
+    fields: ["Status", "Priority", "Area", "Story Points"]
+
+# ----------------------------------------------------------
+# Automation Rules
+# ----------------------------------------------------------
+automation:
+  # Move item to "Done" when PR merged
+  - if: "is:merged"
+    set:
+      Status: "Done"
+
+  # Move to Review if PR opened or updated
+  - if: "is:pr"
+    set:
+      Status: "Review"
+
+  # Set Area based on labels
+  - if: "label:area:frontend"
+    set: { Area: "Frontend" }
+  - if: "label:area:backend"
+    set: { Area: "Backend" }
+  - if: "label:area:infra"
+    set: { Area: "Infra" }
+  - if: "label:area:database"
+    set: { Area: "Database" }
+  - if: "label:area:ai"
+    set: { Area: "AI/ML" }
+
+  # Set Priority based on labels
+  - if: "label:priority:critical"
+    set: { Priority: "Critical" }
+  - if: "label:priority:high"
+    set: { Priority: "High" }
+  - if: "label:priority:medium"
+    set: { Priority: "Medium" }
+  - if: "label:priority:low"
+    set: { Priority: "Low" }
