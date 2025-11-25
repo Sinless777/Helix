@@ -71,7 +71,6 @@
     "nx-mcp": "^0.10.0",
     "openai": "^6.9.1",
     "rollup": "^4.53.2",
-    "standard-version": "^9.5.0",
     "ts-jest": "^29.4.0",
     "ts-node": "10.9.2",
     "tslib": "^2.3.0",
