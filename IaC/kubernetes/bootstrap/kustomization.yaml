@@ -22,7 +22,9 @@ resources:
   - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
   - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
 
-  # Envoy Gateway CRDs (needed for EnvoyGateway resources)
-  - https://raw.githubusercontent.com/envoyproxy/gateway/refs/heads/main/charts/gateway-helm/crds/gatewayapi-crds.yaml
+  # Gateway API CRDs (versioned release to avoid oversized annotations from tip of main)
+  - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/standard-install.yaml
+  # Cilium CRDs (needed before applying Cilium resources)
+  - ./cilium-crds
 
   # Cloudflare DNS
