@@ -11,6 +11,8 @@ spec:
     substituteFrom:
       - name: cluster-settings
         kind: ConfigMap
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository
@@ -18,3 +20,7 @@ spec:
     namespace: flux-system
   targetNamespace: network
   wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
