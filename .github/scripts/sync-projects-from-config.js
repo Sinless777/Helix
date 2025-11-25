@@ -107,8 +107,9 @@ async function getOwnerId(login) {
       return { id: res.user.id, type: "USER" };
     }
   } catch (err) {
-    // If it's NOT_FOUND or similar, we just fall through to try org
-    console.log(`Login '${login}' is not a user or user not accessible, trying org...`);
+    console.log(
+      `Login '${login}' is not a user or user not accessible, trying org...`
+    );
   }
 
   // Then try as organization
@@ -126,7 +127,9 @@ async function getOwnerId(login) {
       return { id: res.organization.id, type: "ORG" };
     }
   } catch (err) {
-    console.log(`Login '${login}' is not an organization or org not accessible.`);
+    console.log(
+      `Login '${login}' is not an organization or org not accessible.`
+    );
   }
 
   throw new Error(`Could not resolve owner '${login}' as user or org.`);
@@ -134,15 +137,39 @@ async function getOwnerId(login) {
 
 /**
  * Check if a project with a given title already exists for owner.
+ * Use separate queries for user and org to avoid NOT_FOUND errors
+ * on the org path when the login is a user (or vice versa).
  */
 async function findExistingProject(ownerLogin, title) {
-  const query = `
+  // Try user projects first
+  const userQuery = `
     query($login: String!, $title: String!) {
       user(login: $login) {
         projectsV2(first: 50, query: $title) {
           nodes { id title }
         }
       }
+    }
+  `;
+
+  try {
+    const res = await client(userQuery, { login: ownerLogin, title });
+    if (res.user && res.user.projectsV2) {
+      const nodes = res.user.projectsV2.nodes || [];
+      const match = nodes.find((p) => p.title === title);
+      if (match) {
+        return match;
+      }
+    }
+  } catch (err) {
+    console.log(
+      `Could not query user projects for '${ownerLogin}', trying org projects...`
+    );
+  }
+
+  // Then try org projects
+  const orgQuery = `
+    query($login: String!, $title: String!) {
       organization(login: $login) {
         projectsV2(first: 50, query: $title) {
           nodes { id title }
@@ -151,23 +178,22 @@ async function findExistingProject(ownerLogin, title) {
     }
   `;
 
-  const result = await client(query, {
-    login: ownerLogin,
-    title,
-  });
-
-  const candidates = [];
-
-  if (result.user && result.user.projectsV2) {
-    candidates.push(...result.user.projectsV2.nodes);
+  try {
+    const res = await client(orgQuery, { login: ownerLogin, title });
+    if (res.organization && res.organization.projectsV2) {
+      const nodes = res.organization.projectsV2.nodes || [];
+      const match = nodes.find((p) => p.title === title);
+      if (match) {
+        return match;
+      }
+    }
+  } catch (err) {
+    console.log(
+      `Could not query organization projects for '${ownerLogin}'. Assuming none exist.`
+    );
   }
 
-  if (result.organization && result.organization.projectsV2) {
-    candidates.push(...result.organization.projectsV2.nodes);
-  }
-
-  const match = candidates.find((p) => p.title === title);
-  return match || null;
+  return null;
 }
 
 /**
