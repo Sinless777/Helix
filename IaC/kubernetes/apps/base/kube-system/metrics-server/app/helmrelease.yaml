@@ -8,6 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: metrics-server
+    namespace: flux-system
   interval: 1h
   values:
     args:
