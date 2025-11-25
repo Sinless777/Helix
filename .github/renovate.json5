@@ -1,74 +1,121 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  baseBranch: ["main"],
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  baseBranchPatterns: [
+    'main',
+  ],
   extends: [
-    "config:recommended",
-    ":semanticCommits",
-    ":maintainLockFilesMonthly",
-    ":prHourlyLimit2",
-    ":label(dependencies)",
+    'config:recommended',
+    ':semanticCommits',
+    ':maintainLockFilesMonthly',
+    ':prHourlyLimit2',
+    ':label(dependencies)',
   ],
   enabledManagers: [
-    "npm",
-    "dockerfile",
-    "github-actions",
-    "terraform",
-    "helm-values",
-    "kustomize",
-    "helmfile",
-    "ansible-galaxy",
-    "kubernetes",
+    'npm',
+    'dockerfile',
+    'github-actions',
+    'terraform',
+    'helm-values',
+    'kustomize',
+    'helmfile',
+    'ansible-galaxy',
+    'kubernetes',
   ],
   prHourlyLimit: 2,
-  labels: ["dependencies", "auto-merge"],
-  schedule: ["after 5pm every weekday", "every weekend"],
+  labels: [
+    'dependencies',
+    'auto-merge',
+  ],
+  schedule: [
+    'after 5pm every weekday',
+    'every weekend',
+  ],
   packageRules: [
     {
-      matchManagers: ["npm"],
-      matchUpdateTypes: ["patch"],
+      matchManagers: [
+        'npm',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
       automerge: true,
-      matchPackageNames: ["/.*/"],
-      matchFileNames: ["**/pnpm-lock.yaml"],
-      description: "Auto-merge npm patch updates – low risk",
+      matchPackageNames: [
+        '/.*/',
+      ],
+      matchFileNames: [
+        '**/pnpm-lock.yaml',
+      ],
+      description: 'Auto-merge npm patch updates – low risk',
     },
     {
-      matchManagers: ["npm"],
-      matchUpdateTypes: ["minor"],
+      matchManagers: [
+        'npm',
+      ],
+      matchUpdateTypes: [
+        'minor',
+      ],
       automerge: false,
-      description: "Block auto-merge for npm minor updates – needs review",
+      description: 'Block auto-merge for npm minor updates – needs review',
     },
     {
-      matchFileNames: ["^libs/.*\\.json$"],
+      matchFileNames: [
+        '^libs/.*\\.json$',
+      ],
       enabled: false,
-      matchPackageNames: ["/^@helix-ai/"],
-      description: "Disable updates on libs JSON files for @helix-ai namespace",
+      matchPackageNames: [
+        '/^@helix-ai/',
+      ],
+      description: 'Disable updates on libs JSON files for @helix-ai namespace',
     },
     {
-      matchManagers: ["ansible-galaxy"],
-      matchFileNames: ["IaC/ansible/**"],
+      matchManagers: [
+        'ansible-galaxy',
+      ],
+      matchFileNames: [
+        'IaC/ansible/**',
+      ],
       automerge: false,
-      addLabels: ["ansible-dependencies"],
-      description: "Handle Ansible dependencies in IaC/ansible folder – manual review required",
+      addLabels: [
+        'ansible-dependencies',
+      ],
+      description: 'Handle Ansible dependencies in IaC/ansible folder – manual review required',
     },
     {
-      matchManagers: ["terraform"],
-      matchFileNames: ["IaC/terraform/**"],
+      matchManagers: [
+        'terraform',
+      ],
+      matchFileNames: [
+        'IaC/terraform/**',
+      ],
       automerge: false,
-      addLabels: ["terraform-dependencies"],
-      groupName: "all terraform dependencies",
-      description: "Group & label Terraform updates – manual merge, less noise",
+      addLabels: [
+        'terraform-dependencies',
+      ],
+      groupName: 'all terraform dependencies',
+      description: 'Group & label Terraform updates – manual merge, less noise',
     },
     {
-      matchFileNames: ["IaC/kubernetes/**"],
-      matchManagers: ["helm-values", "kustomize", "helmfile"],
+      matchFileNames: [
+        'IaC/kubernetes/**',
+      ],
+      matchManagers: [
+        'helm-values',
+        'kustomize',
+        'helmfile',
+      ],
       automerge: false,
-      addLabels: ["k8s-dependencies"],
-      groupName: "kubernetes infra updates",
-      description: "Updates for Kubernetes infra (charts, kustomize) – manual review",
+      addLabels: [
+        'k8s-dependencies',
+      ],
+      groupName: 'kubernetes infra updates',
+      description: 'Updates for Kubernetes infra (charts, kustomize) – manual review',
     },
   ],
-  ignorePaths: ["apps/e2e/**", "tools/scripts/**"],
-  automergeStrategy: "merge-commit",
-  rebaseWhen: "behind-base-branch",
+  ignorePaths: [
+    'apps/e2e/**',
+    'tools/scripts/**',
+  ],
+  automergeStrategy: 'merge-commit',
+  rebaseWhen: 'behind-base-branch',
   dependencyDashboard: true,
 }
