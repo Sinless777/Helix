@@ -15,15 +15,15 @@ spec:
         namespace: flux-system
   values:
     # Basic datapath & routing settings
-    autoDirectNodeRoutes: true # enable direct node routes for eBPF native routing :contentReference[oaicite:1]{index=1}
+    autoDirectNodeRoutes: false # disable native-direct routes in minikube
     bpf:
       masquerade: true
     bgpControlPlane:
       enabled: true
     ipam:
       mode: kubernetes # use Kubernetes-native IPAM :contentReference[oaicite:3]{index=3}
-    kubeProxyReplacement: true # replace kube-proxy with Cilium native option
-    kubeProxyReplacementHealthzBindAddr: "0.0.0.0:10256"
+    kubeProxyReplacement: disabled # fully rely on kube-proxy in minikube
+    kubeProxyReplacementHealthzBindAddr: ""
     cni:
       exclusive: true
     securityContext:
@@ -56,7 +56,7 @@ spec:
       enabled: true
     localRedirectPolicy: true
     endpointRoutes:
-      enabled: true
+      enabled: false
     # Observer/monitoring integration
     prometheus:
       enabled: true
@@ -72,7 +72,7 @@ spec:
       rollOutPods: true
       skipCRDCreation: false
     rollOutCiliumPods: true
-    routingMode: native # native routing instead of overlay
+    routingMode: tunnel # simpler overlay mode for minikube
     # Dashboard for troubleshooting
     dashboards:
       enabled: true
@@ -82,8 +82,9 @@ spec:
     gatewayAPI:
       enabled: false
     # Example of additional environment overlay placeholders
-    # Set per-cluster if needed; omit templating to keep manifest valid.
-    # ipv4NativeRoutingCIDR: "10.244.0.0/16"
+    # Native routing requires explicit pod CIDR; minikube defaults to 10.244.0.0/24.
+    # Not used in tunnel mode; keep value for reference.
+    ipv4NativeRoutingCIDR: "10.244.0.0/24"
     # Cgroup handling – tune for host OS
     cgroup:
       automount:
