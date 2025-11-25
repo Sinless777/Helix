@@ -219,11 +219,13 @@ async function createProject(ownerId, title, description) {
         `Owner: ${cfg.owner} | Name: ${cfg.name} | Visibility: ${cfg.visibility}`
       );
 
+      // 1) Resolve owner (user or org)
       const ownerInfo = await getOwnerId(cfg.owner);
       console.log(
         `Resolved owner '${cfg.owner}' as ${ownerInfo.type} with id ${ownerInfo.id}`
       );
 
+      // 2) Check if project already exists
       const existing = await findExistingProject(cfg.owner, cfg.name);
       if (existing) {
         console.log(
@@ -232,6 +234,7 @@ async function createProject(ownerId, title, description) {
         continue;
       }
 
+      // 3) Create new Project V2
       console.log(`Creating new Project V2: '${cfg.name}' ...`);
       const project = await createProject(
         ownerInfo.id,
@@ -242,11 +245,18 @@ async function createProject(ownerId, title, description) {
         `Created project '${project.title}' at ${project.url} (id: ${project.id})`
       );
 
-      // NOTE:
-      // At this point, you could extend this script to:
-      // - Read cfg.rawConfig.fields / views / automation
-      // - Use additional GraphQL mutations to create fields and automation rules
-      // For now we only ensure the project shell exists.
+      // NOTE: Visibility:
+      //  - For *user* projects, GitHub Projects v2 are private.
+      //  - For *org* projects, visibility can be changed in UI.
+      //  The GraphQL API currently doesn't allow us to toggle public/private at creation.
+      //  cfg.visibility is kept for future extension and documentation.
+
+      // 4) (Future extension) Apply fields/views/automation from cfg.rawConfig
+      //    This would require additional GraphQL mutations:
+      //      - addProjectV2Field
+      //      - updateProjectV2ItemFieldValue
+      //      - etc.
+      //    We’re not doing that here yet – only creating the board shell.
     }
 
     console.log("\nAll project configs processed.");
