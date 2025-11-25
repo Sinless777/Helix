@@ -6,3 +6,4 @@ resources:
   - coredns.yaml
   - metrics-server.yaml
   - stakater.yaml
+  - spegel.yaml
