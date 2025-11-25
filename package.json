@@ -27,7 +27,7 @@
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.0",
     "@next/eslint-plugin-next": "^16.0.0",
-    "@nx-extend/vercel": "^13.0.1",
+    "@nx-extend/vercel": "^14.0.0",
     "@nx/cypress": "22.1.1",
     "@nx/eslint": "22.1.1",
     "@nx/eslint-plugin": "22.1.1",
