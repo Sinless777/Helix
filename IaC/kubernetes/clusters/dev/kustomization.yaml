@@ -8,3 +8,4 @@ resources:
   - ./flux-system
   - ./cilium.yaml
   - ./cilium-config.yaml
+  - ./coredns.yaml
