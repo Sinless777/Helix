@@ -43,4 +43,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          PROJECTS_TOKEN: ${{ secrets.PROJECTS_PAT }}
         run: node .github/scripts/sync-projects-from-config.js

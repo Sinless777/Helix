@@ -8,7 +8,7 @@ project:
   name: "Helix AI Task Board"
   description: "Central Kanban board for tracking Helix AI development across backend, frontend, infra, AI features, and IaC."
   owner: "Sinless777" # GitHub username or org
-  public: false # set true if you want public visibility
+  public: true # set true if you want public visibility
 
 # ----------------------------------------------------------
 # Fields (equivalent to custom columns/attributes)
