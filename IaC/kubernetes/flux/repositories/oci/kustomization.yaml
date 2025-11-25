@@ -16,3 +16,4 @@ resources:
   - coredns.yaml
   - cillium.yaml
   - metrics-server.yaml
+  - stakater.yaml
