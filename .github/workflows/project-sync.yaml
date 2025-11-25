@@ -1,4 +1,4 @@
-# .github/workflows/kanban.yaml
+# .github/workflows/project-sync.yaml
 name: "Sync GitHub Projects from Config"
 
 on:
@@ -11,7 +11,8 @@ on:
       - main
     paths:
       - ".github/projects/**"
-      - ".github/scripts/sync-projects-from-config.js"
+      - ".github/scripts/projects/**"
+      - ".github/scripts/utils/**"
       - ".github/scripts/package.json"
 
 jobs:
@@ -43,4 +44,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PROJECTS_PAT }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-        run: node .github/scripts/sync-projects-from-config.js
+        run: node .github/scripts/projects/sync-projects-from-config.js

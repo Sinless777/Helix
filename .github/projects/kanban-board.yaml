@@ -73,6 +73,10 @@ views:
     layout: table
     fields: ["Status", "Priority", "Area", "Story Points"]
 
+  - name: "Helix AI Roadmap"
+    layout: roadmap
+    fields: []
+
 # ----------------------------------------------------------
 # Automation Rules
 # ----------------------------------------------------------
