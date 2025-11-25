@@ -22,6 +22,9 @@ resources:
   - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
   - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
 
+  # Cilium CRDs (needed before applying Cilium resources)
+  - https://raw.githubusercontent.com/cilium/cilium/v1.18.4/install/kubernetes/cilium-crd.yaml
+
   # Cilium CRDs
 
   # Envoy CRDs
