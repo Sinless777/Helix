@@ -158,7 +158,7 @@ importers:
         version: 2.0.0(encoding@0.1.13)(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17)))
       core-js:
         specifier: ^3.36.1
-        version: 3.46.0
+        version: 3.47.0
       cypress:
         specifier: ^15.0.0
         version: 15.7.0
@@ -5493,6 +5493,9 @@ packages:
 
   core-js@3.46.0:
     resolution: {integrity: sha512-vDMm9B0xnqqZ8uSBpZ8sNtRtOdmfShrvT6h2TuQGLs0Is+cR0DYbj/KWP6ALVNbWPpqA/qPLoOuppJN07humpA==}
+
+  core-js@3.47.0:
+    resolution: {integrity: sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==}
 
   core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
@@ -16670,6 +16673,8 @@ snapshots:
       browserslist: 4.28.0
 
   core-js@3.46.0: {}
+
+  core-js@3.47.0: {}
 
   core-util-is@1.0.2: {}
 
