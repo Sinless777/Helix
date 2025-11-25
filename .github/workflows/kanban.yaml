@@ -40,8 +40,7 @@ jobs:
       - name: Sync GitHub Projects from .github/projects/*.yaml
         env:
           # Use a token with `project` scope; this can be a PAT stored as a secret.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PROJECTS_PAT }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-          PROJECTS_TOKEN: ${{ secrets.PROJECTS_PAT }}
         run: node .github/scripts/sync-projects-from-config.js
