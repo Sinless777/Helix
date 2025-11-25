@@ -226,4 +226,5 @@ async function syncFields(client, projectId, fieldsConfig) {
 
 module.exports = {
   syncFields,
+  fetchProjectFields,
 };
