@@ -73,3 +73,4 @@ tasks:
       # Deploy Cert-Manager first as other components may depend on it
       - flux reconcile kustomization cert-manager-stack -n flux-system || true
       - flux reconcile kustomization cilium -n flux-system || true
+      - flux reconcile kustomization coredns -n flux-system || true
