@@ -7,8 +7,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      # Replace with proper repository/source configured in flux repositories
-      chart: cilium/cilium
+      chart: cilium
       version: "1.18.4" # pin to a matched version; update accordingly
       sourceRef:
         kind: HelmRepository
