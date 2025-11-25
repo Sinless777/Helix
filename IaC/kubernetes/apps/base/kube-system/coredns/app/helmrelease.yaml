@@ -8,6 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: coredns
+    namespace: flux-system
   interval: 1h
   values:
     fullnameOverride: coredns
@@ -18,7 +19,8 @@ spec:
       create: true
     service:
       name: kube-dns
-      clusterIP: "#{ cluster_svc_cidr | nthhost(10) }#"
+      # Use the standard Kubernetes DNS service IP for minikube.
+      clusterIP: 10.96.0.10
     replicaCount: 2
     servers:
       - zones:
