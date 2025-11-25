@@ -30,12 +30,9 @@ const client = graphql.defaults({
   },
 });
 
-// Always resolve from repository root, not from script dir
 const PROJECTS_DIR = path.join(process.cwd(), ".github", "projects");
 
-/**
- * Load all YAML project configuration files from .github/projects.
- */
+/** Load all YAML project configuration files from .github/projects. */
 function loadProjectConfigs() {
   if (!fs.existsSync(PROJECTS_DIR)) {
     console.log(`No project directory found at ${PROJECTS_DIR}, nothing to do.`);
@@ -88,13 +85,8 @@ function loadProjectConfigs() {
   return configs;
 }
 
-/**
- * Resolve a GitHub login (user/org) to an ownerId + ownerType.
- * We MUST query user and org separately, otherwise GraphQL will throw
- * NOT_FOUND for one of the paths and octokit will treat it as an error.
- */
+/** Resolve a GitHub login (user/org) to an ownerId + ownerType. */
 async function getOwnerId(login) {
-  // Try as user first
   const userQuery = `
     query($login: String!) {
       user(login: $login) {
@@ -109,13 +101,10 @@ async function getOwnerId(login) {
       return { id: res.user.id, type: "USER" };
     }
   } catch (err) {
-    console.log(
-      `Login '${login}' is not a user or user not accessible, trying org...`
-    );
+    console.log(`Login '${login}' is not a user or user not accessible, trying org...`);
     console.log(err);
   }
 
-  // Then try as organization
   const orgQuery = `
     query($login: String!) {
       organization(login: $login) {
@@ -130,22 +119,15 @@ async function getOwnerId(login) {
       return { id: res.organization.id, type: "ORG" };
     }
   } catch (err) {
-    console.log(
-      `Login '${login}' is not an organization or org not accessible.`
-    );
+    console.log(`Login '${login}' is not an organization or org not accessible.`);
     console.log(err);
   }
 
   throw new Error(`Could not resolve owner '${login}' as user or org.`);
 }
 
-/**
- * Check if a project with a given title already exists for owner.
- * Use separate queries for user and org to avoid NOT_FOUND errors
- * on the org path when the login is a user (or vice versa).
- */
+/** Check if a project with a given title already exists for owner. */
 async function findExistingProject(ownerLogin, title) {
-  // Try user projects first
   const userQuery = `
     query($login: String!, $title: String!) {
       user(login: $login) {
@@ -166,13 +148,10 @@ async function findExistingProject(ownerLogin, title) {
       }
     }
   } catch (err) {
-    console.log(
-      `Could not query user projects for '${ownerLogin}', trying org projects...`
-    );
+    console.log(`Could not query user projects for '${ownerLogin}', trying org projects...`);
     console.log(err);
   }
 
-  // Then try org projects
   const orgQuery = `
     query($login: String!, $title: String!) {
       organization(login: $login) {
@@ -193,20 +172,14 @@ async function findExistingProject(ownerLogin, title) {
       }
     }
   } catch (err) {
-    console.log(
-      `Could not query organization projects for '${ownerLogin}'. Assuming none exist.`
-    );
+    console.log(`Could not query organization projects for '${ownerLogin}'. Assuming none exist.`);
     console.log(err);
   }
 
   return null;
 }
 
-/**
- * Update the project's short description after creation.
- * GitHub does NOT allow description fields in CreateProjectV2Input,
- * so this is a second mutation.
- */
+/** Update the project's short description after creation. */
 async function updateProjectDescription(projectId, description) {
   const mutation = `
     mutation($projectId: ID!, $desc: String!) {
@@ -228,13 +201,29 @@ async function updateProjectDescription(projectId, description) {
   });
 }
 
-/**
- * Create a new Project V2.
- * Only uses the fields that CreateProjectV2Input actually accepts:
- * ownerId, title, repositoryId, teamId, clientMutationId.
- * Description is applied afterwards via updateProjectV2.
- */
-async function createProject(ownerId, title, description) {
+/** Link an existing project to the repository */
+async function linkProjectToRepo(projectId, repositoryId) {
+  const mutation = `
+    mutation($projectId: ID!, $repositoryId: ID!) {
+      linkProjectV2ToRepository(input: {
+        projectId: $projectId,
+        repositoryId: $repositoryId
+      }) {
+        projectV2 {
+          id
+        }
+      }
+    }
+  `;
+
+  return client(mutation, {
+    projectId,
+    repositoryId,
+  });
+}
+
+/** Create a new Project V2 and optionally link it to the repository. */
+async function createProject(ownerId, title, description, repoNodeId) {
   const mutation = `
     mutation($input: CreateProjectV2Input!) {
       createProjectV2(input: $input) {
@@ -260,13 +249,33 @@ async function createProject(ownerId, title, description) {
     try {
       await updateProjectDescription(project.id, description);
     } catch (err) {
-      console.log(
-        `Project '${title}' created, but failed to set description: ${err.message}`
-      );
+      console.log(`Project '${title}' created, but failed to set description: ${err.message}`);
+    }
+  }
+
+  if (repoNodeId) {
+    try {
+      await linkProjectToRepo(project.id, repoNodeId);
+      console.log(`Linked project '${title}' to repository ${repoFull}`);
+    } catch (err) {
+      console.log(`Project '${title}' created, but failed to link repository: ${err.message}`);
     }
   }
 
   return project;
+}
+
+/** Get node ID of a repository given owner and name. */
+async function getRepositoryNodeId(owner, name) {
+  const query = `
+    query($owner: String!, $name: String!) {
+      repository(owner: $owner, name: $name) {
+        id
+      }
+    }
+  `;
+  const res = await client(query, { owner, name });
+  return res.repository.id;
 }
 
 (async () => {
@@ -281,52 +290,34 @@ async function createProject(ownerId, title, description) {
       return;
     }
 
+    const repoParts = repoFull.split('/');
+    const repoOwnerName = repoParts[0];
+    const repoName = repoParts[1];
+    const repositoryNodeId = await getRepositoryNodeId(repoOwnerName, repoName);
+
     for (const cfg of configs) {
-      console.log(
-        `\n=== Processing project config from ${cfg.sourceFile} ===`
-      );
-      console.log(
-        `Owner: ${cfg.owner} | Name: ${cfg.name} | Visibility: ${cfg.visibility}`
-      );
+      console.log(`\n=== Processing project config from ${cfg.sourceFile} ===`);
+      console.log(`Owner: ${cfg.owner} | Name: ${cfg.name} | Visibility: ${cfg.visibility}`);
 
-      // 1) Resolve owner (user or org)
       const ownerInfo = await getOwnerId(cfg.owner);
-      console.log(
-        `Resolved owner '${cfg.owner}' as ${ownerInfo.type} with id ${ownerInfo.id}`
-      );
+      console.log(`Resolved owner '${cfg.owner}' as ${ownerInfo.type} with id ${ownerInfo.id}`);
 
-      // 2) Check if project already exists
       const existing = await findExistingProject(cfg.owner, cfg.name);
       if (existing) {
-        console.log(
-          `Project already exists: '${cfg.name}' (id: ${existing.id}) – skipping create.`
-        );
+        console.log(`Project already exists: '${cfg.name}' (id: ${existing.id}) – skipping create.`);
+        // still attempt link if not linked
+        try {
+          await linkProjectToRepo(existing.id, repositoryNodeId);
+          console.log(`Linked existing project '${cfg.name}' to repository.`);
+        } catch (err) {
+          console.log(`Failed to link existing project: ${err.message}`);
+        }
         continue;
       }
 
-      // 3) Create new Project V2
       console.log(`Creating new Project V2: '${cfg.name}' ...`);
-      const project = await createProject(
-        ownerInfo.id,
-        cfg.name,
-        cfg.description
-      );
-      console.log(
-        `Created project '${project.title}' at ${project.url} (id: ${project.id})`
-      );
-
-      // NOTE: Visibility:
-      //  - For *user* projects, GitHub Projects v2 are private.
-      //  - For *org* projects, visibility can be changed in UI.
-      //  The GraphQL API currently doesn't allow us to toggle public/private at creation.
-      //  cfg.visibility is kept for future extension and documentation.
-
-      // 4) (Future extension) Apply fields/views/automation from cfg.rawConfig
-      //    This would require additional GraphQL mutations:
-      //      - addProjectV2Field
-      //      - updateProjectV2ItemFieldValue
-      //      - etc.
-      //    We’re not doing that here yet – only creating the board shell.
+      const project = await createProject(ownerInfo.id, cfg.name, cfg.description, repositoryNodeId);
+      console.log(`Created project '${project.title}' at ${project.url} (id: ${project.id})`);
     }
 
     console.log("\nAll project configs processed.");
