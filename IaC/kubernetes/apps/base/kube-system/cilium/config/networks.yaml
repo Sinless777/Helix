@@ -6,7 +6,7 @@ metadata:
 spec:
   allowFirstLastIPs: "No"
   blocks:
-    - cidr: ${CLUSTER_CIDR} # from CLUSTER_CIDR
+    - cidr: 10.11.12.0/24 # minikube pod CIDR; adjust per cluster
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
