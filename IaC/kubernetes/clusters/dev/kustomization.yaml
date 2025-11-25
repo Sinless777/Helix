@@ -4,3 +4,4 @@ resources:
   - ./flux-system
   - ./kube-system
   - ./cluster
+  - ./cert-manager.yaml
