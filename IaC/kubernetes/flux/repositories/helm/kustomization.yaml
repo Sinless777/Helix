@@ -10,6 +10,7 @@ commonLabels:
   helix.ai/component: helm-repositories
 
 resources:
+  - ./cilium.yaml
   - ./bitnami.yaml
   - ./chaos-mesh.yaml
   - ./bjw-s.yaml
