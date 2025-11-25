@@ -6,8 +6,8 @@
 //   - @octokit/graphql
 //
 // Permissions:
-//   - workflow must have `projects: write`
-//   - GITHUB_TOKEN must have access to create org/user projects
+//   - workflow must have `contents: read`
+//   - GITHUB_TOKEN (here: PROJECTS_TOKEN) must have access to create user/org projects
 
 const fs = require("fs");
 const path = require("path");
@@ -88,26 +88,48 @@ function loadProjectConfigs() {
 
 /**
  * Resolve a GitHub login (user/org) to an ownerId + ownerType.
+ * We MUST query user and org separately, otherwise GraphQL will throw
+ * NOT_FOUND for one of the paths and octokit will treat it as an error.
  */
 async function getOwnerId(login) {
-  const query = `
+  // Try as user first
+  const userQuery = `
     query($login: String!) {
-      organization(login: $login) { id }
-      user(login: $login) { id }
+      user(login: $login) {
+        id
+      }
     }
   `;
 
-  const result = await client(query, { login });
-
-  if (result.organization && result.organization.id) {
-    return { id: result.organization.id, type: "ORG" };
+  try {
+    const res = await client(userQuery, { login });
+    if (res.user && res.user.id) {
+      return { id: res.user.id, type: "USER" };
+    }
+  } catch (err) {
+    // If it's NOT_FOUND or similar, we just fall through to try org
+    console.log(`Login '${login}' is not a user or user not accessible, trying org...`);
   }
 
-  if (result.user && result.user.id) {
-    return { id: result.user.id, type: "USER" };
+  // Then try as organization
+  const orgQuery = `
+    query($login: String!) {
+      organization(login: $login) {
+        id
+      }
+    }
+  `;
+
+  try {
+    const res = await client(orgQuery, { login });
+    if (res.organization && res.organization.id) {
+      return { id: res.organization.id, type: "ORG" };
+    }
+  } catch (err) {
+    console.log(`Login '${login}' is not an organization or org not accessible.`);
   }
 
-  throw new Error(`Could not resolve owner '${login}' as org or user.`);
+  throw new Error(`Could not resolve owner '${login}' as user or org.`);
 }
 
 /**
@@ -116,12 +138,12 @@ async function getOwnerId(login) {
 async function findExistingProject(ownerLogin, title) {
   const query = `
     query($login: String!, $title: String!) {
-      organization(login: $login) {
+      user(login: $login) {
         projectsV2(first: 50, query: $title) {
           nodes { id title }
         }
       }
-      user(login: $login) {
+      organization(login: $login) {
         projectsV2(first: 50, query: $title) {
           nodes { id title }
         }
@@ -136,12 +158,12 @@ async function findExistingProject(ownerLogin, title) {
 
   const candidates = [];
 
-  if (result.organization && result.organization.projectsV2) {
-    candidates.push(...result.organization.projectsV2.nodes);
-  }
-
   if (result.user && result.user.projectsV2) {
     candidates.push(...result.user.projectsV2.nodes);
+  }
+
+  if (result.organization && result.organization.projectsV2) {
+    candidates.push(...result.organization.projectsV2.nodes);
   }
 
   const match = candidates.find((p) => p.title === title);
