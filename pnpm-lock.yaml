@@ -297,7 +297,7 @@ importers:
         version: 1.4.3(@opentelemetry/api@1.9.0)(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.94.0))
       hypertune:
         specifier: ^2.10.0
-        version: 2.10.0(encoding@0.1.13)
+        version: 2.10.1(encoding@0.1.13)
       next:
         specifier: ~16.0.1
         version: 16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.94.0)
@@ -352,7 +352,7 @@ importers:
         version: 1.4.3(@opentelemetry/api@1.9.0)(next@16.0.1(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.94.0))
       hypertune:
         specifier: ^2.10.0
-        version: 2.10.0(encoding@0.1.13)
+        version: 2.10.1(encoding@0.1.13)
       material:
         specifier: link:@mui/icons/material
         version: link:@mui/icons/material
@@ -5490,6 +5490,9 @@ packages:
   core-js@3.46.0:
     resolution: {integrity: sha512-vDMm9B0xnqqZ8uSBpZ8sNtRtOdmfShrvT6h2TuQGLs0Is+cR0DYbj/KWP6ALVNbWPpqA/qPLoOuppJN07humpA==}
 
+  core-js@3.47.0:
+    resolution: {integrity: sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==}
+
   core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
 
@@ -6867,8 +6870,8 @@ packages:
     resolution: {integrity: sha512-Y93lCzHYgGWdrJ66yIktxiaGULYc6oGiABxhcO5AufBeOyoIdZF7bIfLaOrbM0iGIOXQQgxxRrFEnb+Y6w1n4A==}
     engines: {node: '>=10.18'}
 
-  hypertune@2.10.0:
-    resolution: {integrity: sha512-/WcCeCvicb1fKX+ZrcC7Iaa80Uu8oL9Q3FHaAg5mFdoGIh7usva4Sx/KxTzYWsHbAnwAt0jQi87SUoqC7xSugQ==}
+  hypertune@2.10.1:
+    resolution: {integrity: sha512-3rvQKd1fedO4ufggTTT5rdNWdnuaLWzaUJow25IYP8e1c+VcssifuaZxCXSfnoaXEZZSqEM0bkjE0YzG4nTv7w==}
     hasBin: true
 
   iconv-lite@0.4.24:
@@ -16649,6 +16652,8 @@ snapshots:
 
   core-js@3.46.0: {}
 
+  core-js@3.47.0: {}
+
   core-util-is@1.0.2: {}
 
   core-util-is@1.0.3: {}
@@ -17103,7 +17108,7 @@ snapshots:
 
   dotenv-expand@11.0.7:
     dependencies:
-      dotenv: 16.6.1
+      dotenv: 16.4.7
 
   dotenv@16.4.7: {}
 
@@ -18477,10 +18482,10 @@ snapshots:
 
   hyperdyperid@1.2.0: {}
 
-  hypertune@2.10.0(encoding@0.1.13):
+  hypertune@2.10.1(encoding@0.1.13):
     dependencies:
       cac: 6.7.14
-      core-js: 3.46.0
+      core-js: 3.47.0
       cross-fetch: 4.1.0(encoding@0.1.13)
       dotenv: 16.6.1
       fast-json-stable-stringify: 2.1.0
