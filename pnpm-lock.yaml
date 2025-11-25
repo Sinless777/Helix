@@ -79,8 +79,8 @@ importers:
         specifier: ^16.0.0
         version: 16.0.4
       '@nx-extend/vercel':
-        specifier: ^13.0.1
-        version: 13.0.1(@nx/devkit@22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))))
+        specifier: ^14.0.0
+        version: 14.0.0(@nx/devkit@22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))))
       '@nx/cypress':
         specifier: 22.1.1
         version: 22.1.1(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))(@zkochan/js-yaml@0.0.7)(cypress@15.7.0)(eslint@9.39.1(jiti@2.4.2))(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17)))(typescript@5.9.3)
@@ -2589,15 +2589,15 @@ packages:
     engines: {node: ^14.18.0 || >=16.10.0, npm: '>=5.10.0'}
     hasBin: true
 
-  '@nx-extend/core@9.0.2':
-    resolution: {integrity: sha512-TwkVumdwdgv/h/UAS2TIaQGacp3JIjBWA78LvKfwnLA77JfmV2Z/Z1s7ZbaM+B4EmI61zQuJuY1rWs5ehMuYEQ==}
+  '@nx-extend/core@10.0.0':
+    resolution: {integrity: sha512-V9+cUqhCmLoPQo9qyhkDGvCmispdKaL2IyyASPs5vncXeRCSZzL+S9EX2A/SjVI6oV079VZ66mdjEJciws+Mvg==}
     peerDependencies:
-      '@nx/devkit': ^21.0.0
+      '@nx/devkit': ^22.0.0
 
-  '@nx-extend/vercel@13.0.1':
-    resolution: {integrity: sha512-hnL7RHA/dOv1TfmnRAwENeNjsLVWjAwOuRC2vgypzGba2GKD/a+QsbNyVSpvmV7F0Ja2eeQDcNep5aoP/9Ohkg==}
+  '@nx-extend/vercel@14.0.0':
+    resolution: {integrity: sha512-yuhRr822HQD/lIE2jHaouootIyEFNOiyiII+JlgLs0VeR/dgHJV8ji95f2uE6Bu8RSqacCa46i/3H1XJmC6uzw==}
     peerDependencies:
-      '@nx/devkit': ^21.0.0
+      '@nx/devkit': ^22.0.0
 
   '@nx/cypress@22.1.1':
     resolution: {integrity: sha512-I37PQzcBrm14GVtCoIKRBY69OKCYGgK6Wa979wgSpmtvCK1A6PtWzrOFf1r9QwdXbLHj9XGX+Sb+f6f4Pc5oLA==}
@@ -12911,16 +12911,16 @@ snapshots:
     dependencies:
       consola: 3.4.2
 
-  '@nx-extend/core@9.0.2(@nx/devkit@22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))))':
+  '@nx-extend/core@10.0.0(@nx/devkit@22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))))':
     dependencies:
       '@nx/devkit': 22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17)))
       shelljs: 0.10.0
       tslib: 2.8.1
 
-  '@nx-extend/vercel@13.0.1(@nx/devkit@22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))))':
+  '@nx-extend/vercel@14.0.0(@nx/devkit@22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))))':
     dependencies:
       '@actions/core': 1.11.1
-      '@nx-extend/core': 9.0.2(@nx/devkit@22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))))
+      '@nx-extend/core': 10.0.0(@nx/devkit@22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))))
       '@nx/devkit': 22.1.1(nx@22.1.1(@swc-node/register@1.11.1(@swc/core@1.15.3(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.3(@swc/helpers@0.5.17)))
       shelljs: 0.10.0
       tslib: 2.8.1
