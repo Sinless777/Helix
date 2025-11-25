@@ -2,20 +2,32 @@ const { githubRequest } = require("../utils/graphql-client");
 const { info, warn, debug } = require("../utils/logger");
 
 async function resolveOwner(client, login) {
-  const query = `
+  // Query user first; asking for organization(login: user) triggers a hard GraphQL error.
+  const userQuery = `
     query ($login: String!) {
-      organization(login: $login) { id login __typename }
       user(login: $login) { id login __typename }
     }
   `;
+  const orgQuery = `
+    query ($login: String!) {
+      organization(login: $login) { id login __typename }
+    }
+  `;
 
-  const res = await githubRequest(client, query, { login });
-  if (res.organization) {
-    return { id: res.organization.id, type: "organization", login: res.organization.login };
+  const userRes = await githubRequest(client, userQuery, { login });
+  if (userRes.user) {
+    return { id: userRes.user.id, type: "user", login: userRes.user.login };
   }
-  if (res.user) {
-    return { id: res.user.id, type: "user", login: res.user.login };
+
+  try {
+    const orgRes = await githubRequest(client, orgQuery, { login });
+    if (orgRes.organization) {
+      return { id: orgRes.organization.id, type: "organization", login: orgRes.organization.login };
+    }
+  } catch (err) {
+    debug(`Org lookup failed for '${login}': ${err.message || err}`);
   }
+
   return null;
 }
 
