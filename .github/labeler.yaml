@@ -1,0 +1,93 @@
+# .github/labeler.yaml
+---
+# Label when changes relate to frontend app
+area:frontend:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "apps/frontend/**"
+          - "libs/ui/**"
+          - "apps/e2e/frontend-e2e/**"
+
+# Label when changes relate to backend / services
+area:backend:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "apps/services/**"
+          - "libs/shared/db/**"
+          - "libs/shared/logger/**"
+
+# Infrastructure / DevOps / CI-CD changes
+area:infra:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "IaC/**"
+          - ".github/workflows/**"
+          - ".github/renovate.json5"
+          - ".taskfiles/**"
+
+# Terraform IaC updates
+terraform-dependencies:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "IaC/terraform/**"
+          - "**/*.tf"
+          - "**/*.hcl"
+
+# Ansible IaC updates
+ansible-dependencies:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "IaC/ansible/**"
+          - "IaC/ansible/**/*"
+
+# Kubernetes infra / Helm / Kustomize updates
+k8s-dependencies:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "IaC/kubernetes/**"
+          - "IaC/kubernetes/apps/**"
+          - "IaC/kubernetes/clusters/**"
+
+# Dependency / automation updates (general)
+dependencies:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "pnpm-lock.yaml"
+          - "package.json"
+          - "package-lock.json"
+          - "libs/shared/utils/**"
+          - ".github/renovate.json5"
+
+# Documentation changes
+type:docs:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "**/*.md"
+          - "Docs/**"
+          - "CONTRIBUTING.md"
+          - "CODE_OF_CONDUCT.md"
+
+# Test-only changes
+type:test:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "jest.config.ts"
+          - "**/*.spec.ts"
+          - "apps/e2e/**"
+
+# Security / vulnerability related changes
+type:security:
+  - any:
+      changed-files:
+        any-glob-to-any-file:
+          - "security/**"
+          - "dependency-dashboard/**"

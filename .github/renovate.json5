@@ -1,25 +1,37 @@
 {
+  // Schema reference for Renovate configuration (validates structure, etc)
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  // Only run against branches matching these patterns (typically your mainline)
   baseBranchPatterns: [
     'main',
   ],
+
+  // Extend presets to inherit recommended behaviors + your custom flags
   extends: [
-    'config:recommended',
-    ':semanticCommits',
-    ':maintainLockFilesMonthly',
-    ':prHourlyLimit2',
-    ':label(dependencies)',
+    'config:recommended',        // base recommended settings
+    ':semanticCommits',         // enforce semantic-commit style on PRs
+    ':maintainLockFilesMonthly',// ensure lock-files are kept up to date monthly
+    ':prHourlyLimit2',          // limit PRs to 2 per hour overall
+    ':label(dependencies)',      // label all dependency PRs with “dependencies”
   ],
-  prHourlyLimit: 2,
+
+  // Global limits / labels
+  prHourlyLimit: 2,             // cap of 2 PRs per hour (reinforces above preset)
   labels: [
     'dependencies',
-    'auto-merge',
+    'auto-merge',              // tag eligible PRs for auto-merge if allowed
   ],
+
+  // When Renovate can create PRs — time windows for you
   schedule: [
-    'after 5pm every weekday',
-    'every weekend',
+    'after 5pm every weekday',  // allow PRs after 5pm on weekdays
+    'every weekend'             // also allow on weekends
   ],
+
+  // Custom rules to control behavior per package manager / path / update type
   packageRules: [
+    // --- Rule: NPM patch updates (safe, auto-merge) ---
     {
       matchManagers: [
         'npm',
@@ -29,15 +41,22 @@
       ],
       automerge: true,
       matchPackageNames: [
-        '/.*/',
+        '/.*/',                   // match all npm packages
       ],
+      description: 'Auto-merge npm patch updates – low risk'
     },
+    // --- Rule: NPM minor updates (requires manual review) ---
     {
+      matchManagers: [
+        'npm',
+      ],
       matchUpdateTypes: [
         'minor',
       ],
       automerge: false,
+      description: 'Block auto-merge for npm minor updates – needs review'
     },
+    // --- Rule: Disable updates for specific JSON config files in our libs ---
     {
       matchFileNames: [
         '^libs/.*\\.json$',
@@ -46,14 +65,66 @@
       matchPackageNames: [
         '/^@helix-ai/',
       ],
+      description: 'Disable updates on libs JSON files for @helix-ai namespace'
     },
+    // --- Rule: Ansible IaC dependencies ---
+    {
+      matchManagers: [
+        'ansible-galaxy',
+        'ansible'
+      ],
+      matchPaths: [
+        'IaC/ansible/**',
+      ],
+      automerge: false,
+      addLabels: ['ansible-dependencies'],
+      description: 'Handle Ansible dependencies in IaC/ansible folder – manual review required'
+    },
+    // --- Rule: Terraform IaC dependencies ---
+    {
+      matchManagers: [
+        'terraform',
+      ],
+      matchPaths: [
+        'IaC/terraform/**',
+      ],
+      automerge: false,
+      addLabels: ['terraform-dependencies'],
+      groupName: 'all terraform dependencies',
+      description: 'Group & label Terraform updates – manual merge, less noise'
+    },
+    // --- Rule: Kubernetes IaC (Helm, Kustomize, etc) ---
+    {
+      matchPaths: [
+        'IaC/kubernetes/**',
+      ],
+      matchManagers: [
+        'helm-values',
+        'kustomize',
+        'helmfile'
+      ],
+      automerge: false,
+      addLabels: ['k8s-dependencies'],
+      groupName: 'kubernetes infra updates',
+      description: 'Updates for Kubernetes infra (charts, kustomize) – manual review'
+    }
   ],
+
+  // Paths to completely ignore from Renovate’s scanning
   ignorePaths: [
     'apps/e2e/**',
     'tools/scripts/**',
   ],
+
+  // Strategy for auto-merge: use merge commit style (rather than e.g., squash)
   automergeStrategy: 'merge-commit',
+
+  // If your branch falls behind base branch, rebase it automatically
   rebaseWhen: 'behind-base-branch',
+
+  // Initial onboarding flag: true means Renovate will open an onboarding PR
   onboarding: true,
-  dependencyDashboard: true,
+
+  // Show the dependency dashboard in GitHub so you can see pending updates
+  dependencyDashboard: true
 }

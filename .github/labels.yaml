@@ -130,3 +130,26 @@
 - name: invalid
   color: e4e669
   description: Not reproducible or not applicable
+
+# -----------------------------
+# 🧩 Dependency / Automation Labels
+# -----------------------------
+- name: dependencies
+  color: 0366d6
+  description: Automated dependency updates (managed by Renovate)
+
+- name: auto-merge
+  color: 0e8a16
+  description: Eligible for auto-merge by the bot
+
+- name: ansible-dependencies
+  color: 006b75
+  description: Dependency updates for Ansible IaC
+
+- name: terraform-dependencies
+  color: 0052cc
+  description: Dependency updates for Terraform IaC
+
+- name: k8s-dependencies
+  color: 1d76db
+  description: Dependency updates for Kubernetes infrastructure
