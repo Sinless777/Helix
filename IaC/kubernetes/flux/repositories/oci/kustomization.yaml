@@ -18,3 +18,4 @@ resources:
   - metrics-server.yaml
   - stakater.yaml
   - spegel.yaml
+  - external-dns.yaml
