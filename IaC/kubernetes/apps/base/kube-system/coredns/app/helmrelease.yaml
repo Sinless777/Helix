@@ -21,6 +21,10 @@ spec:
       name: kube-dns
       # Use the standard Kubernetes DNS service IP for minikube.
       clusterIP: 10.96.0.10
+    deployment:
+      selector:
+        matchLabels:
+          k8s-app: kube-dns
     replicaCount: 2
     servers:
       - zones:
