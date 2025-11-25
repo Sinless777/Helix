@@ -17,12 +17,12 @@ spec:
     # Basic datapath & routing settings
     autoDirectNodeRoutes: false # disable native-direct routes in minikube
     bpf:
-      masquerade: true
+      masquerade: false # rely on kube-proxy/ip-masq-agent for SNAT
     bgpControlPlane:
       enabled: true
     ipam:
       mode: kubernetes # use Kubernetes-native IPAM :contentReference[oaicite:3]{index=3}
-    kubeProxyReplacement: disabled # fully rely on kube-proxy in minikube
+    kubeProxyReplacement: false # fully rely on kube-proxy in minikube
     kubeProxyReplacementHealthzBindAddr: ""
     cni:
       exclusive: true
