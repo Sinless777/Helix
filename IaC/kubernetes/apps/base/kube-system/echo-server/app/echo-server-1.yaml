@@ -10,11 +10,6 @@ spec:
     name: echo-server
     namespace: flux-system
   interval: 1h
-  valuesFrom:
-    - kind: ConfigMap
-      name: cluster-settings
-      valuesKey: DOMAIN_1
-      targetPath: routeDomain
   values:
     controllers:
       echo:
@@ -67,7 +62,7 @@ spec:
           - port: http
     route:
       app:
-        hostnames: ['{{ printf "%s.%s" .Release.Name .Values.routeDomain }}']
+        hostnames: ['{{ printf "%s.%s" .Release.Name "$(DOMAIN_1)" }}']
         parentRefs:
           - name: envoy-external
             namespace: network
