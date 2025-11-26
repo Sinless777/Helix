@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cloudflare-dns.yaml
   - cloudflare-tunnel.yaml
+  - istio.yaml
