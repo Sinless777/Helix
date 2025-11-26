@@ -50,3 +50,11 @@ Breaking delivery into phases keeps the Helix GA infrastructure push manageable 
 - [#144](https://github.com/Sinless777/Helix/issues/144): k6 operator for automated load testing
 
 > 🎯 Once Phase 3 completes we have the minimum observability posture required for GA cutover. Data and messaging platform work (#146–#148) proceeds in parallel and is documented separately.
+
+## Readiness Checklist Snapshot
+
+| Phase | Exit Criteria | Linked Issues |
+| ----- | ------------- | ------------- |
+| Phase 1 | Prometheus, Kiali, Loki, and Mimir serving traffic in dev and staging with dashboards published. | [#133](https://github.com/Sinless777/Helix/issues/133), [#134](https://github.com/Sinless777/Helix/issues/134), [#135](https://github.com/Sinless777/Helix/issues/135), [#136](https://github.com/Sinless777/Helix/issues/136) |
+| Phase 2 | Profiling, eBPF, tracing, and collector pipelines validated end-to-end with sampling documented. | [#137](https://github.com/Sinless777/Helix/issues/137), [#138](https://github.com/Sinless777/Helix/issues/138), [#139](https://github.com/Sinless777/Helix/issues/139), [#145](https://github.com/Sinless777/Helix/issues/145) |
+| Phase 3 | Synthetic checks green, incident routing rehearsed, and load suites automated across environments. | [#140](https://github.com/Sinless777/Helix/issues/140), [#141](https://github.com/Sinless777/Helix/issues/141), [#142](https://github.com/Sinless777/Helix/issues/142), [#143](https://github.com/Sinless777/Helix/issues/143), [#144](https://github.com/Sinless777/Helix/issues/144) |
