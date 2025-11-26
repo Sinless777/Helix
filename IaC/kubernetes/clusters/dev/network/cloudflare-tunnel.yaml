@@ -15,3 +15,6 @@ spec:
     - name: cilium
       namespace: flux-system
   decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
