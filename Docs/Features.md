@@ -39,6 +39,27 @@ Each feature lists its **status**, **problem solved**, **tier availability**, an
 
 ---
 
+## GA Core Platform Foundations (v1.0)
+
+These roadmap items define the minimum feature surface required for the General Availability milestone. Grouping the work keeps cross-team coordination focused and aligns delivery sequencing.
+
+| Theme | Focus | Linked Issues |
+| ----- | ----- | ------------- |
+| Authentication & Identity | Establish shared auth service, session payloads, and multi-provider linking. | [#151](https://github.com/Sinless777/Helix/issues/151), [#152](https://github.com/Sinless777/Helix/issues/152) |
+| Context Intelligence | Build the context engine that fuses memory, telemetry, and retention controls. | [#153](https://github.com/Sinless777/Helix/issues/153) |
+| Security & Policy | Deliver zero-trust policy evaluation and signed audit logging. | [#154](https://github.com/Sinless777/Helix/issues/154) |
+| Plugin Ecosystem | Stand up the sandbox runtime and lifecycle management for third-party skills. | [#155](https://github.com/Sinless777/Helix/issues/155) |
+| Developer Surface | Ship the TypeScript SDK and CLI to expose Helix capabilities programmatically. | [#156](https://github.com/Sinless777/Helix/issues/156), [#157](https://github.com/Sinless777/Helix/issues/157) |
+
+### Delivery Checklist
+
+- Auth flows and account linking documented with environment setup for contributors (issues [#151](https://github.com/Sinless777/Helix/issues/151) and [#152](https://github.com/Sinless777/Helix/issues/152)).
+- Context engine contracts reviewed by AI and platform teams prior to SDK wiring (issue [#153](https://github.com/Sinless777/Helix/issues/153)).
+- Security engine test harness and audit pipelines validated before plugin runtime launch (issue [#154](https://github.com/Sinless777/Helix/issues/154)).
+- Plugin runtime, SDK, and CLI roadmaps remain in lockstep so developer tooling reflects the same permission model (issues [#155](https://github.com/Sinless777/Helix/issues/155), [#156](https://github.com/Sinless777/Helix/issues/156), and [#157](https://github.com/Sinless777/Helix/issues/157)).
+
+> Keeping these threads synchronized ensures GA customers receive a coherent experience across authentication, policy enforcement, and developer tooling.
+
 ## Tier Distribution Summary
 
 | **Tier**       | **Focus**                    | **Included Features**                                                           |
