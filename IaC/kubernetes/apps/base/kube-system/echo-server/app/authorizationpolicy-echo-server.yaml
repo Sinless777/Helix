@@ -1,0 +1,29 @@
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: echo-server-allow
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: echo-server-allow
+    app.kubernetes.io/component: echo-server
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: echo-server
+spec:
+  selector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values:
+          - echo-server-1
+          - echo-server-2
+          - echo-server-3
+  action: ALLOW
+  rules:
+    - to:
+        - operation:
+            paths:
+              - "/"
+              - "/healthz"
+              - "/metrics"

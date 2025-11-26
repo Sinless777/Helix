@@ -5,3 +5,4 @@ resources:
   - echo-server-2.yaml
   - echo-server-3.yaml
   - dnd-endpoint.yaml
+  - authorizationpolicy-echo-server.yaml
