@@ -11,6 +11,7 @@ spec:
     namespace: flux-system
   interval: 1h
   values:
+    routeDomain: "$(DOMAIN_1)"
     controllers:
       echo:
         strategy: RollingUpdate
@@ -62,7 +63,7 @@ spec:
           - port: http
     route:
       app:
-        hostnames: ['{{ printf "%s.%s" .Release.Name "$(DOMAIN_1)" }}']
+        hostnames: ['{{ printf "%s.%s" .Release.Name .Values.routeDomain }}']
         parentRefs:
           - name: envoy-external
             namespace: network
