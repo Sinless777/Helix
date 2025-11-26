@@ -7,7 +7,8 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: echo
+    name: bjw-s
+    namespace: flux-system
   interval: 1h
   values:
     controllers:
