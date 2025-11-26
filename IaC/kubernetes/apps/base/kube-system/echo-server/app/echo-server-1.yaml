@@ -11,7 +11,7 @@ spec:
     namespace: flux-system
   interval: 1h
   values:
-    routeDomain: "$(DOMAIN_1)"
+    routeDomain: "helixaibot.com"
     controllers:
       echo:
         strategy: RollingUpdate
