@@ -14,3 +14,4 @@ spec:
   dependsOn:
     - name: cilium
       namespace: flux-system
+  decryption:
