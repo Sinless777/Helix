@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./IaC/kubernetes/apps/base/observability/kube-prometheus-stack
+  path: ./IaC/kubernetes/apps/base/observability/kube-prometheus-stack/app
   prune: true
   wait: true
   sourceRef:
