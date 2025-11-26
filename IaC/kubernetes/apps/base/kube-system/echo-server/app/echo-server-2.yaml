@@ -63,7 +63,7 @@ spec:
           - port: http
     route:
       app:
-        hostnames: ['{{ printf "%s.%s" .Release.Name .Values.routeDomain }}']
+        hostnames: ['echo-server.{{ .Values.routeDomain }}']
         parentRefs:
           - name: envoy-external
             namespace: network
