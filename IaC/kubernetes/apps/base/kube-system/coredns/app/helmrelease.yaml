@@ -10,6 +10,15 @@ spec:
     name: coredns
     namespace: flux-system
   interval: 1h
+  install:
+    timeout: 10m
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+  upgrade:
+    timeout: 10m
+    remediation:
+      retries: 3
   values:
     fullnameOverride: coredns
     image:
