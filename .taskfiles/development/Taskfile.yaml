@@ -79,3 +79,26 @@ tasks:
       - flux reconcile kustomization spegel -n flux-system || true
       - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
       - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
+
+  reconcile-all:
+    desc: Reconcile all Flux kustomizations for dev cluster
+    cmds:
+      # Reconcile all kustomizations in order
+      - flux reconcile source git flux-system -n flux-system
+      - flux reconcile kustomization flux-system -n flux-system
+      - flux reconcile kustomization cluster-vars -n flux-system || true
+      - flux reconcile kustomization flux-helm-repositories -n flux-system || true
+
+      # Deploy Cert-Manager first as other components may depend on it
+      - flux reconcile kustomization cert-manager-stack -n flux-system || true
+
+      # kube system components
+      - flux reconcile kustomization cilium -n flux-system || true
+      - flux reconcile kustomization coredns -n flux-system || true
+      - flux reconcile kustomization metrics-server -n flux-system || true
+      - flux reconcile kustomization stakater-reloader -n flux-system || true
+      - flux reconcile kustomization spegel -n flux-system || true
+
+      # Networking components
+      - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
+      - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
