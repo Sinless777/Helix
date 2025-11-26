@@ -7,6 +7,8 @@ metadata:
 spec:
   interval: 1h
   path: ./IaC/kubernetes/apps/base/network/cloudflare-tunnel/app
+  dependsOn:
+    - name: cloudflare-dns
   postBuild:
     substituteFrom:
       - name: cluster-settings
