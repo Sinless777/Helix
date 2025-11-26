@@ -71,7 +71,6 @@
   automergeStrategy: "merge-commit",
   rebaseWhen: "behind-base-branch",
   dependencyDashboard: true,
-  // Added below — enabling file detection for kubernetes manager
   kubernetes: {
     managerFilePatterns: ["/IaC/kubernetes/.+\\.ya?ml$"],
   },
