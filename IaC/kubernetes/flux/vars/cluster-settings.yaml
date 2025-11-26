@@ -35,9 +35,9 @@ data:
   ACME_EMAIL_2: "disdainful777@gmail.com"
   ACME_EMAIL_3: "disdainful777@gmail.com"
 
-  TUNNEL_ID_1: 421f36be-745c-4ab2-b967-1c517b774684
-  TUNNEL_ID_2: ae5cbba0-8337-4d47-ad83-35ebc418aa77
-  TUNNEL_ID_3: 45175fca-f646-45e3-946f-e813c607b9dd
+  TUNNEL_ID_1: f2f46d7d-bcb2-45fd-aa4f-78868fa8d004
+  TUNNEL_ID_2: ea885cbb-0dd6-450e-aa26-c98d4c6a3695
+  TUNNEL_ID_3: 136385e4-98e5-4f65-a3a5-279524084f9e
 
   # Primary public domain (Helix SaaS)
   DOMAIN_1: "helixaibot.com"
