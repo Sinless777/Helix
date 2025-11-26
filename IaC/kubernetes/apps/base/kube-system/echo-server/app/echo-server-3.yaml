@@ -62,7 +62,7 @@ spec:
           - port: http
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.${{DOMAIN_3}}"]
+        hostnames: ["{{ .Release.Name }}.${DOMAIN_3}"]
         parentRefs:
           - name: envoy-external
             namespace: network
