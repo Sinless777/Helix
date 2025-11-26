@@ -22,3 +22,31 @@ Helix is rolling out the following foundational services across Kubernetes envir
 | Messaging         | NATS                             | [#148](https://github.com/Sinless777/Helix/issues/148) | Lightweight messaging and streaming with JetStream.                   |
 
 > ℹ️ Status and checklist details live in each linked issue. Update this table as milestones progress.
+
+## Rollout Phases
+
+Breaking delivery into phases keeps the Helix GA infrastructure push manageable while surfacing cross-cutting dependencies early. Each phase maps to the issues tracked in this repo.
+
+### Phase 1 — Core Monitoring & Metrics
+
+- [#133](https://github.com/Sinless777/Helix/issues/133): kube-prometheus-stack baseline across clusters
+- [#134](https://github.com/Sinless777/Helix/issues/134): Kiali console for service mesh visibility
+- [#135](https://github.com/Sinless777/Helix/issues/135): Grafana Loki central logging
+- [#136](https://github.com/Sinless777/Helix/issues/136): Grafana Mimir for long-term metrics retention
+
+### Phase 2 — Deep Telemetry & Profiling
+
+- [#137](https://github.com/Sinless777/Helix/issues/137): Pyroscope continuous profiling rollout
+- [#138](https://github.com/Sinless777/Helix/issues/138): Grafana Beyla eBPF agents for RED metrics
+- [#139](https://github.com/Sinless777/Helix/issues/139): Grafana Tempo distributed tracing backend
+- [#145](https://github.com/Sinless777/Helix/issues/145): Managed OpenTelemetry Collector and Jaeger UI
+
+### Phase 3 — Operational Readiness & Response
+
+- [#140](https://github.com/Sinless777/Helix/issues/140): Echo server reference workload to validate pipelines
+- [#141](https://github.com/Sinless777/Helix/issues/141): Grafana Faro frontend telemetry integration
+- [#142](https://github.com/Sinless777/Helix/issues/142): Grafana Alloy unified edge telemetry agent
+- [#143](https://github.com/Sinless777/Helix/issues/143): Grafana OnCall incident routing
+- [#144](https://github.com/Sinless777/Helix/issues/144): k6 operator for automated load testing
+
+> 🎯 Once Phase 3 completes we have the minimum observability posture required for GA cutover. Data and messaging platform work (#146–#148) proceeds in parallel and is documented separately.
