@@ -12,10 +12,10 @@ type: Opaque
 stringData:
     #ENC[AES256_GCM,data:eFiWCxb/6OZfap+yY9Ag+7NnOK1JLeI1XxNAbgw84vM74sIvNM3DQL6DUpAvanJN,iv:mnO6dcTCfPUT0CzIvVWWukQdVrmv8Ik2GDl3MCbsr/I=,tag:U6T6fvhChfhR0PZ6cXEjew==,type:comment]
     #ENC[AES256_GCM,data:/kS3lzccZ4qWYmcw+m3EshxDVX70JWh0xiAPl7hlfGuEeyaBMpDdHbwRBhIRVu3RkazwNWCIx+f/+b57gseTA4Q=,iv:p/1zWT3VaE7ZgtKlwNbUNU0hbp7Dkxa0oQyjE7Gzvb8=,tag:XzE41FMOsXtj3HT0OCmaBw==,type:comment]
-    api-token: ENC[AES256_GCM,data:yfupa046a7cAuOE9biE9oEZhWOLzf5MoHjrofkYlM+3JKiwELg==,iv:4KTGc7cQleSOIjhqcszfV2vXxyj7TTS06SFsjvZrTdA=,tag:EkZIwpGJLcowlDIiIjUFXw==,type:str]
+    api-token: ENC[AES256_GCM,data:eGrbbiH4ucDXSOUCHlqSwfN7O+lg8xzVzvGrsQicblbt/7+f4kiVzw==,iv:mOzU8HTjvQ8G5c/kdkQZIKRagVMcpnpCYv7Vu3QE6jw=,tag:N8k1jZYvR08WexFVqwqjBA==,type:str]
 sops:
-    lastmodified: "2025-11-24T20:36:51Z"
-    mac: ENC[AES256_GCM,data:4llmQ7xJkOkr6Hx96iOE1wauGV5DQgw42lb7KwU9MI10Adz0bNLw2oR7GnYXGTSx+nyhXB8ctJ8uekcTdDaS+j/e5t18bmFVD2wLa/zeaP3ET16B7eLIzYHkNK2ms+U+UN6nv79E1kQ31j2UY0Ac3igNAAATP2ZngkZzWIeGGIM=,iv:dOkGZv6T1fvwEN302INqnBT7jNzMwsMzKvAVcjkKd8w=,tag:Jz7fViDY85E16a4sTbT/Zw==,type:str]
+    lastmodified: "2025-11-26T09:54:13Z"
+    mac: ENC[AES256_GCM,data:iobxOIaBrF9E5B29dkqfEpu1SLyvrX+N4qDeLbdXjZHHf1csIzJjE6hyTe++735hbG5KRqYoTQuvjDiE5KopBy2PG3DaXjb/1m95WEuLNJb31XQ06syzs+kf21SszegzSyotm8Pf6luLlwwGp1Nmymnrn3XblrjaXssCQlE+fnk=,iv:oV5SUYZiQwATY+Gnud08OQUINF1rlm+ki/6ADsn1yZI=,tag:fIuncykuglF6KrK/d4l3RQ==,type:str]
     pgp:
         - created_at: "2025-11-24T20:36:51Z"
           enc: |-
