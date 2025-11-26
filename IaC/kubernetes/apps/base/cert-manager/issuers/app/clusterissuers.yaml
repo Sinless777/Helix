@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod-domain1
+  name: letsencrypt-staging-domain1
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -9,10 +9,10 @@ metadata:
     helix.ai/component: cert-manager
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
     email: "${ACME_EMAIL_1}"
     privateKeySecretRef:
-      name: letsencrypt-prod-domain1
+      name: letsencrypt-staging-domain1
     solvers:
       - selector:
           dnsZones:
@@ -27,7 +27,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod-domain2
+  name: letsencrypt-staging-domain2
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -35,10 +35,10 @@ metadata:
     helix.ai/component: cert-manager
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
     email: "${ACME_EMAIL_2}"
     privateKeySecretRef:
-      name: letsencrypt-prod-domain2
+      name: letsencrypt-staging-domain2
     solvers:
       - selector:
           dnsZones:
@@ -53,7 +53,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod-domain3
+  name: letsencrypt-staging-domain3
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -61,10 +61,10 @@ metadata:
     helix.ai/component: cert-manager
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
     email: "${ACME_EMAIL_3}"
     privateKeySecretRef:
-      name: letsencrypt-prod-domain3
+      name: letsencrypt-staging-domain3
     solvers:
       - selector:
           dnsZones:
