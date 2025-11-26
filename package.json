@@ -9,7 +9,8 @@
     "build": "pnpm -w -r build",
     "vercel-build": "pnpm -w -r build && pnpm --filter frontend build",
     "start": "pnpm --filter frontend start",
-    "publish:libs": "pnpm -w -r publish --access public"
+    "publish:libs": "pnpm -w -r publish --access public",
+    "update:todo": "node .github/scripts/update-todo.mjs"
   },
   "keywords": [],
   "author": "",
