@@ -23,7 +23,7 @@ spec:
               tag: 2025.11.1
             env:
               NO_AUTOUPDATE: true
-              TUNNEL_ID: ${TUNNEL_ID_1}
+              TUNNEL_ID: $(TUNNEL_ID_1)
               TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_POST_QUANTUM: true # disable when using http2
               TUNNEL_TRANSPORT_PROTOCOL: quic # or http2
@@ -76,12 +76,12 @@ spec:
       config:
         data:
           config.yaml: |-
-            tunnel: ${TUNNEL_ID_1}
+            tunnel: $(TUNNEL_ID_1)
             ingress:
-              - hostname: "*.${DOMAIN_1}"
+              - hostname: "*.$(DOMAIN_1)"
                 originRequest:
                   http2Origin: true
-                  originServerName: external.${DOMAIN_1}
+                  originServerName: external.$(DOMAIN_1)
                 service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - service: http_status:404
     persistence:
@@ -117,7 +117,7 @@ spec:
               tag: 2025.11.1
             env:
               NO_AUTOUPDATE: true
-              TUNNEL_ID: ${TUNNEL_ID_2}
+              TUNNEL_ID: $(TUNNEL_ID_2)
               TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_POST_QUANTUM: true # disable when using http2
               TUNNEL_TRANSPORT_PROTOCOL: quic # or http2
@@ -170,12 +170,12 @@ spec:
       config:
         data:
           config.yaml: |-
-            tunnel: ${TUNNEL_ID_2}
+            tunnel: $(TUNNEL_ID_2)
             ingress:
-              - hostname: "*.${DOMAIN_2}"
+              - hostname: "*.$(DOMAIN_2)"
                 originRequest:
                   http2Origin: true
-                  originServerName: external.${DOMAIN_2}
+                  originServerName: external.$(DOMAIN_2)
                 service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - service: http_status:404
     persistence:
@@ -211,7 +211,7 @@ spec:
               tag: 2025.11.1
             env:
               NO_AUTOUPDATE: true
-              TUNNEL_ID: ${TUNNEL_ID_3}
+              TUNNEL_ID: $(TUNNEL_ID_3)
               TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_POST_QUANTUM: true # disable when using http2
               TUNNEL_TRANSPORT_PROTOCOL: quic # or http2
@@ -264,12 +264,12 @@ spec:
       config:
         data:
           config.yaml: |-
-            tunnel: ${TUNNEL_ID_3}
+            tunnel: $(TUNNEL_ID_3)
             ingress:
-              - hostname: "*.${DOMAIN_3}"
+              - hostname: "*.$(DOMAIN_3)"
                 originRequest:
                   http2Origin: true
-                  originServerName: external.${DOMAIN_3}
+                  originServerName: external.$(DOMAIN_3)
                 service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
               - service: http_status:404
     persistence:

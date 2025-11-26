@@ -4,3 +4,4 @@ resources:
   - cloudflare-dns.yaml
   - cloudflare-tunnel.yaml
   - istio.yaml
+  - istio-config.yaml

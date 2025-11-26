@@ -12,8 +12,7 @@ spec:
   values:
     spegel:
       containerdSock: /run/containerd/containerd.sock
-      containerdRegistryConfigPath: /etc/cri/conf.d/hosts
-      containerdDiscardLayers: false
+      containerdRegistryConfigPath: /etc/containerd/certs.d
     service:
       registry:
         hostPort: 29999

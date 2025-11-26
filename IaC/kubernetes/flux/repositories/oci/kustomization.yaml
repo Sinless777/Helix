@@ -20,3 +20,4 @@ resources:
   - spegel.yaml
   - external-dns.yaml
   - cloudflare-tunnel.yaml
+  - echo-server.yaml
