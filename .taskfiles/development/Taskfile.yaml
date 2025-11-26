@@ -18,6 +18,9 @@ tasks:
           --cpus={{.MINIKUBE_CPUS}} \
           --memory={{.MINIKUBE_MEMORY}}
       - |
+        # Ensure containerd keeps unpacked layers so Spegel can operate.
+        minikube ssh -p {{.MINIKUBE_PROFILE}} "if grep -q 'discard_unpacked_layers = true' /etc/containerd/config.toml; then sudo sed -i 's/discard_unpacked_layers = true/discard_unpacked_layers = false/' /etc/containerd/config.toml && sudo systemctl restart containerd; fi"
+      - |
         IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
         echo "Minikube IP: ${IP}"
         echo "Add to /etc/hosts: ${IP} {{.MINIKUBE_HOSTNAME}}"
