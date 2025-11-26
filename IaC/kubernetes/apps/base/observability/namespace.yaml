@@ -10,9 +10,8 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     helm.sh/chart: observability-0.1.0
 
-    # Istio recommended labels
-    istio-injection: enabled
-    security.istio.io/tlsMode: istio
+    # Disable Istio auto-injection for observability namespace (hooks/jobs fail with sidecars)
+    istio-injection: disabled
 
   annotations:
     kubernetes.io/metadata.name: observability

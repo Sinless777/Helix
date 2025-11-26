@@ -63,8 +63,9 @@ spec:
     grafana:
       enabled: true
 
-      adminUser: null # loaded via valuesFrom
-      adminPassword: null # loaded via valuesFrom
+      # Populated via valuesFrom
+      adminUser: null
+      adminPassword: null
 
       service:
         type: ClusterIP
@@ -99,6 +100,7 @@ spec:
     ## ───────────────────────────────────────────────────────────────
     prometheus:
       enabled: true
+
       ingress:
         enabled: true
         ingressClassName: istio
@@ -126,6 +128,7 @@ spec:
     ## ───────────────────────────────────────────────────────────────
     alertmanager:
       enabled: true
+
       ingress:
         enabled: true
         ingressClassName: istio
@@ -145,7 +148,8 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              accessModes: ["ReadWriteOnce"]
+              accessModes:
+                - ReadWriteOnce
               resources:
                 requests:
                   storage: 10Gi
@@ -183,12 +187,16 @@ spec:
       enabled: true
       admissionWebhooks:
         enabled: true
+        patch:
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
+            proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":false}'
+        create:
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
+            proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":false}'
 
     serviceMonitor:
       enabled: true
     podMonitor:
-      enabled: true
-    rules:
-      enabled: true
-    alertmanagerFiles:
       enabled: true
