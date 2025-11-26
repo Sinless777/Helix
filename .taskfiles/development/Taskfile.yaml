@@ -80,7 +80,7 @@ tasks:
       - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
       - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
       - flux reconcile kustomization istio-stack -n flux-system || true
-      - flux reconcile kustomization istio-config -n flux-system || true
+      - flux reconcile kustomization istio-config-stack -n flux-system || true
 
   reconcile-all:
     desc: Reconcile all Flux kustomizations for dev cluster
@@ -105,4 +105,4 @@ tasks:
       - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
       - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
       - flux reconcile kustomization istio-stack -n flux-system || true
-      - flux reconcile kustomization istio-config -n flux-system || true
+      - flux reconcile kustomization istio-config-stack -n flux-system || true

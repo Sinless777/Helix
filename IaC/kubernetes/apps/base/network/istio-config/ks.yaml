@@ -10,6 +10,7 @@ spec:
   dependsOn:
     - name: istio
     - name: cloudflare-tunnel
+    - name: cloudflare-dns
   postBuild:
     substituteFrom:
       - name: cluster-settings
