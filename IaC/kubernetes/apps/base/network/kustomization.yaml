@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - cloudflare-dns/ks.yaml
-  - clopudflare-tunnel/ks.yaml
+  - cloudflare-tunnel/ks.yaml

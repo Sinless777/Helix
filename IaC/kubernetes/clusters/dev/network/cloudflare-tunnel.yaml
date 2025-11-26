@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./IaC/kubernetes/apps/base/network/cloudflare-tunnel/app
+  path: ./IaC/kubernetes/apps/base/network/cloudflare-tunnel
   prune: true
   wait: true
   sourceRef:
