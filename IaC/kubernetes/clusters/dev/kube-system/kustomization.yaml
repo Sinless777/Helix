@@ -7,3 +7,4 @@ resources:
   - metrics-server.yaml
   - stakater.yaml
   - spegel.yaml
+  - echo-server.yaml
