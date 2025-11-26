@@ -10,7 +10,7 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: helix-observability
   dependsOn:
     - name: cilium
   postBuild:

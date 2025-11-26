@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: helix-observability
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://github.com/SinLess777/Helix.git
+  ref:
+    branch: feature/ga-observability-plan
