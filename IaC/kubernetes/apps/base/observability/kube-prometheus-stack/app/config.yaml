@@ -1,0 +1,156 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-prometheus-stack-config
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: kube-prometheus-stack-config
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: kube-prometheus-stack
+
+data:
+  # =======================================================================
+  # Grafana Configuration
+  # =======================================================================
+
+  grafana.ini: |
+    [server]
+    protocol = http
+    http_port = 3000
+    domain = grafana.${DOMAIN_3}
+    root_url = https://grafana.${DOMAIN_3}
+
+    [auth]
+    disable_login_form = false
+    oauth_auto_login = false
+
+    [analytics]
+    reporting_enabled = false
+    check_for_updates = true
+
+    [security]
+    allow_embedding = true
+    cookie_secure = true
+    strict_transport_security = true
+
+    [users]
+    default_theme = dark
+    home_page = /d/k8s/cluster-overview
+
+    [dashboards]
+    default_home_dashboard_path = /var/lib/grafana/dashboards/cluster-overview.json
+
+    [log]
+    mode = console
+    level = info
+
+  # =======================================================================
+  # Grafana Datasources
+  # =======================================================================
+
+  datasources.yaml: |
+    apiVersion: 1
+    deleteDatasources:
+      - name: Loki
+      - name: Tempo
+      - name: Prometheus
+      - name: Mimir
+
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
+        isDefault: true
+        version: 1
+        editable: false
+
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki-gateway.observability.svc.cluster.local/loki
+        jsonData:
+          maxLines: 5000
+
+      - name: Tempo
+        type: tempo
+        access: proxy
+        url: http://tempo-query-frontend.observability.svc.cluster.local:3100
+        jsonData:
+          tracesToLogsV2:
+            datasourceUid: Loki
+            spanStartTimeShift: "-10m"
+            spanEndTimeShift: "10m"
+            filterByTraceID: true
+            filterBySpanID: true
+
+      - name: Mimir
+        type: prometheus
+        access: proxy
+        url: http://mimir-nginx.observability.svc.cluster.local/prometheus
+        jsonData:
+          timeInterval: "30s"
+
+  # =======================================================================
+  # Dashboard Providers
+  # =======================================================================
+
+  dashboards.yaml: |
+    apiVersion: 1
+    providers:
+      - name: "default-dashboards"
+        orgId: 1
+        folder: "Helix Observability"
+        folderUid: "helix-obsv"
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards
+
+  # =======================================================================
+  # Alertmanager Configuration Template (Optional)
+  # =======================================================================
+
+  alertmanager.yaml: |
+    global:
+      resolve_timeout: 5m
+    route:
+      group_by: ['alertname', 'namespace']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 4h
+      receiver: 'default'
+
+    receivers:
+      - name: 'default'
+        webhook_configs:
+          - url: "http://grafana-oncall.observability.svc.cluster.local/v1/events"
+
+    inhibit_rules:
+      - source_match:
+          severity: 'critical'
+        target_match:
+          severity: 'warning'
+        equal: ['alertname', 'namespace']
+
+  # =======================================================================
+  # Prometheus Config Patches (Optional future expansion)
+  # =======================================================================
+
+  prometheus-additional.yaml: |
+    rule_files:
+      - /etc/prometheus/rules/*.yaml
+
+  # =======================================================================
+  # Istio Mesh Sidecar Considerations
+  # =======================================================================
+
+  istio-metrics.yaml: |
+    scrape_configs:
+      - job_name: 'istio-envoy-stats'
+        metrics_path: /stats/prometheus
+        static_configs:
+          - targets:
+              - istiod.istio-system.svc.cluster.local:15014
