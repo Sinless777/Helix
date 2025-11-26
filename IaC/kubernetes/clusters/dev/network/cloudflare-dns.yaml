@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./IaC/kubernetes/apps/base/network/cloudflare-dns/app
+  path: ./IaC/kubernetes/apps/base/network/cloudflare-dns
   prune: true
   wait: true
   sourceRef:
