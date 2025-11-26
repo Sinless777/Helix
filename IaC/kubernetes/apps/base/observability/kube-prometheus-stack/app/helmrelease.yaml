@@ -1,0 +1,194 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: kube-prometheus-stack
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: kube-prometheus-stack
+
+spec:
+  interval: 1h
+  timeout: 5m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      version: ">=57.0.0"
+
+  releaseName: kube-prometheus-stack
+  targetNamespace: observability
+  install:
+    createNamespace: false
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+      strategy: rollback
+  uninstall:
+    keepHistory: false
+
+  valuesFrom:
+    - kind: Secret
+      name: kube-prometheus-stack-secrets
+      valuesKey: grafana-admin-user
+      targetPath: grafana.adminUser
+    - kind: Secret
+      name: kube-prometheus-stack-secrets
+      valuesKey: grafana-admin-password
+      targetPath: grafana.adminPassword
+    - kind: ConfigMap
+      name: kube-prometheus-stack-config
+      optional: true
+
+  values:
+    ## ───────────────────────────────────────────────────────────────
+    ## Global settings
+    ## ───────────────────────────────────────────────────────────────
+    global:
+      rbac:
+        create: true
+
+    ## ───────────────────────────────────────────────────────────────
+    ## Grafana
+    ## Public Ingress: grafana.${DOMAIN_3}
+    ## ───────────────────────────────────────────────────────────────
+    grafana:
+      enabled: true
+
+      adminUser: null # loaded via valuesFrom
+      adminPassword: null # loaded via valuesFrom
+
+      service:
+        type: ClusterIP
+        port: 80
+
+      ingress:
+        enabled: true
+        ingressClassName: istio
+        annotations:
+          kubernetes.io/ingress.class: istio
+          cert-manager.io/cluster-issuer: "letsencrypt-staging-domain3"
+        hosts:
+          - "grafana.${DOMAIN_3}"
+        tls:
+          - secretName: grafana-tls
+            hosts:
+              - "grafana.${DOMAIN_3}"
+
+      sidecar:
+        dashboards:
+          enabled: true
+          label: "grafana_dashboard"
+          searchNamespace: observability
+        datasources:
+          enabled: true
+        alerts:
+          enabled: true
+
+    ## ───────────────────────────────────────────────────────────────
+    ## Prometheus
+    ## Internal Ingress: prometheus.${DOMAIN_3}
+    ## ───────────────────────────────────────────────────────────────
+    prometheus:
+      enabled: true
+      ingress:
+        enabled: true
+        ingressClassName: istio
+        annotations:
+          kubernetes.io/ingress.class: istio
+          cert-manager.io/cluster-issuer: "letsencrypt-staging-domain3"
+        hosts:
+          - "prometheus.${DOMAIN_3}"
+        tls:
+          - secretName: prometheus-tls
+            hosts:
+              - "prometheus.${DOMAIN_3}"
+
+      prometheusSpec:
+        retention: 15d
+        walCompression: true
+        enableAdminAPI: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+
+    ## ───────────────────────────────────────────────────────────────
+    ## Alertmanager
+    ## Internal Ingress: alert-manager.${DOMAIN_3}
+    ## ───────────────────────────────────────────────────────────────
+    alertmanager:
+      enabled: true
+      ingress:
+        enabled: true
+        ingressClassName: istio
+        annotations:
+          kubernetes.io/ingress.class: istio
+          cert-manager.io/cluster-issuer: "letsencrypt-staging-domain3"
+        hosts:
+          - "alert-manager.${DOMAIN_3}"
+        tls:
+          - secretName: alert-manager-tls
+            hosts:
+              - "alert-manager.${DOMAIN_3}"
+
+      alertmanagerSpec:
+        replicas: 2
+        retention: "120h"
+        storage:
+          volumeClaimTemplate:
+            spec:
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
+
+    ## ───────────────────────────────────────────────────────────────
+    ## Node Exporter
+    ## ───────────────────────────────────────────────────────────────
+    nodeExporter:
+      enabled: true
+
+    ## ───────────────────────────────────────────────────────────────
+    ## Kube State Metrics
+    ## ───────────────────────────────────────────────────────────────
+    kubeStateMetrics:
+      enabled: true
+
+    ## ───────────────────────────────────────────────────────────────
+    ## Additional Kubernetes components
+    ## ───────────────────────────────────────────────────────────────
+    kubeEtcd:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+    kubeScheduler:
+      enabled: true
+    kubeDns:
+      enabled: true
+    kubeProxy:
+      enabled: true
+
+    ## ───────────────────────────────────────────────────────────────
+    ## CRDs + Monitors
+    ## ───────────────────────────────────────────────────────────────
+    prometheusOperator:
+      enabled: true
+      admissionWebhooks:
+        enabled: true
+
+    serviceMonitor:
+      enabled: true
+    podMonitor:
+      enabled: true
+    rules:
+      enabled: true
+    alertmanagerFiles:
+      enabled: true

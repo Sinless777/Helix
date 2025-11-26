@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+  labels:
+    app.kubernetes.io/name: observability
+    app.kubernetes.io/instance: observability
+    app.kubernetes.io/managed-by: fluxcd
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    helm.sh/chart: observability-0.1.0
+
+    # Istio recommended labels
+    istio-injection: enabled
+    security.istio.io/tlsMode: istio
+
+  annotations:
+    kubernetes.io/metadata.name: observability
+    cert-manager.io/disable-validation: "true"
