@@ -11,7 +11,7 @@ spec:
       targets: ["${TUNNEL_ID_1}.cfargotunnel.com"]
     - dnsName: "external.${DOMAIN_2}"
       recordType: CNAME
-      targets: ["${TUNNEL_ID_2}.cfargotunnel.com"]
+      targets: ["${TUNNEL_ID_1}.cfargotunnel.com"]
     - dnsName: "external.${DOMAIN_3}"
       recordType: CNAME
-      targets: ["${TUNNEL_ID_3}.cfargotunnel.com"]
+      targets: ["${TUNNEL_ID_1}.cfargotunnel.com"]

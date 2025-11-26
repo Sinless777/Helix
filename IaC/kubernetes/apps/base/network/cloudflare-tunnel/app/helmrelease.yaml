@@ -22,9 +22,15 @@ spec:
               tag: 2025.11.1
             env:
               NO_AUTOUPDATE: true
+              TUNNEL_ID: ${TUNNEL_ID_1}
               TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_POST_QUANTUM: true # disable when using http2
               TUNNEL_TRANSPORT_PROTOCOL: quic # or http2
+              TUNNEL_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    key: TUNNEL_TOKEN_1
+                    name: cloudflare-tunnel-secret
             envFrom:
               - secretRef:
                   name: cloudflare-tunnel-secret
@@ -69,6 +75,7 @@ spec:
       config:
         data:
           config.yaml: |-
+            tunnel: ${TUNNEL_ID_1}
             ingress:
               - hostname: "*.${DOMAIN_1}"
                 originRequest:
