@@ -19,7 +19,7 @@ spec:
     - from:
         - source:
             notIpBlocks:
-              - "${CLUSTER_CIDR}"
+              - "$(CLUSTER_CIDR)"
       to:
         - operation:
             ports: ["443"]

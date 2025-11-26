@@ -16,8 +16,8 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-staging-domain1
   dnsNames:
-    - "external.${DOMAIN_1}"
-    - "*.${DOMAIN_1}"
+    - "external.$(DOMAIN_1)"
+    - "*.$(DOMAIN_1)"
 
 ---
 apiVersion: cert-manager.io/v1
@@ -37,8 +37,8 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-staging-domain2
   dnsNames:
-    - "external.${DOMAIN_2}"
-    - "*.${DOMAIN_2}"
+    - "external.$(DOMAIN_2)"
+    - "*.$(DOMAIN_2)"
 
 ---
 apiVersion: cert-manager.io/v1
@@ -58,5 +58,5 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-staging-domain3
   dnsNames:
-    - "external.${DOMAIN_3}"
-    - "*.${DOMAIN_3}"
+    - "external.$(DOMAIN_3)"
+    - "*.$(DOMAIN_3)"
