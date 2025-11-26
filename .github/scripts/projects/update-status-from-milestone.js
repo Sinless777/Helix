@@ -17,6 +17,14 @@ function readEventPayload() {
   }
 }
 
+function normalizeMilestoneTitle(value) {
+  return String(value || "")
+    .replace(/[\u0080-\uFFFF]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 async function resolveProject(client, ownerLogin, projectNumber) {
   const query = `
     query ($login: String!, $number: Int!) {
@@ -180,16 +188,24 @@ async function main() {
 
   const milestone = issue.milestone?.title || "";
   const targetMilestone = (process.env.MILESTONE_NAME || "Backlog").trim();
+  const milestoneNormalized = normalizeMilestoneTitle(milestone);
+  const targetMilestoneNormalized = normalizeMilestoneTitle(targetMilestone);
   if (!milestone) {
     info("Issue has no milestone; nothing to do.");
     return;
   }
 
-  if (milestone.toLowerCase() !== targetMilestone.toLowerCase()) {
+  if (!milestoneNormalized || milestoneNormalized !== targetMilestoneNormalized) {
     info(
       `Issue milestone '${milestone}' does not match target '${targetMilestone}'; skipping.`
     );
     return;
+  }
+
+  if (milestone !== targetMilestone) {
+    info(
+      `Milestone matched after normalization ('${milestoneNormalized}'); proceeding with backlog update.`
+    );
   }
 
   const issueNodeId = issue.node_id;
