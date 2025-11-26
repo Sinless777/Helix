@@ -5,3 +5,109 @@ resources:
   - secret.sops.yaml
   - config.yaml
   - dns-endpoint.yaml
+  - ../../../../flux/vars/cluster-settings.yaml
+
+replacements:
+  # DOMAIN_1 hostnames -> grafana/prometheus/alert-manager CNAMEs
+  - source:
+      kind: ConfigMap
+      name: cluster-settings
+      fieldPath: data.DOMAIN_1
+      options:
+        prefix: grafana.
+    targets:
+      - select:
+          kind: DNSEndpoint
+          name: kube-prometheus-dns-endpoint
+        fieldPaths:
+          - spec.endpoints.0.dnsName
+  - source:
+      kind: ConfigMap
+      name: cluster-settings
+      fieldPath: data.DOMAIN_1
+      options:
+        prefix: prometheus.
+    targets:
+      - select:
+          kind: DNSEndpoint
+          name: kube-prometheus-dns-endpoint
+        fieldPaths:
+          - spec.endpoints.1.dnsName
+  - source:
+      kind: ConfigMap
+      name: cluster-settings
+      fieldPath: data.DOMAIN_1
+      options:
+        prefix: alert-manager.
+    targets:
+      - select:
+          kind: DNSEndpoint
+          name: kube-prometheus-dns-endpoint
+        fieldPaths:
+          - spec.endpoints.2.dnsName
+  - source:
+      kind: ConfigMap
+      name: cluster-settings
+      fieldPath: data.DOMAIN_1
+      options:
+        prefix: external.
+    targets:
+      - select:
+          kind: DNSEndpoint
+          name: kube-prometheus-dns-endpoint
+        fieldPaths:
+          - spec.endpoints.0.targets.0
+          - spec.endpoints.1.targets.0
+          - spec.endpoints.2.targets.0
+
+  # DOMAIN_3 hostnames -> CNAMEs
+  - source:
+      kind: ConfigMap
+      name: cluster-settings
+      fieldPath: data.DOMAIN_3
+      options:
+        prefix: grafana.
+    targets:
+      - select:
+          kind: DNSEndpoint
+          name: kube-prometheus-dns-endpoint
+        fieldPaths:
+          - spec.endpoints.3.dnsName
+  - source:
+      kind: ConfigMap
+      name: cluster-settings
+      fieldPath: data.DOMAIN_3
+      options:
+        prefix: prometheus.
+    targets:
+      - select:
+          kind: DNSEndpoint
+          name: kube-prometheus-dns-endpoint
+        fieldPaths:
+          - spec.endpoints.4.dnsName
+  - source:
+      kind: ConfigMap
+      name: cluster-settings
+      fieldPath: data.DOMAIN_3
+      options:
+        prefix: alert-manager.
+    targets:
+      - select:
+          kind: DNSEndpoint
+          name: kube-prometheus-dns-endpoint
+        fieldPaths:
+          - spec.endpoints.5.dnsName
+  - source:
+      kind: ConfigMap
+      name: cluster-settings
+      fieldPath: data.DOMAIN_3
+      options:
+        prefix: external.
+    targets:
+      - select:
+          kind: DNSEndpoint
+          name: kube-prometheus-dns-endpoint
+        fieldPaths:
+          - spec.endpoints.3.targets.0
+          - spec.endpoints.4.targets.0
+          - spec.endpoints.5.targets.0

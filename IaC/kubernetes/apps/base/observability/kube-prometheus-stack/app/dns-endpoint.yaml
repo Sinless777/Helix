@@ -6,12 +6,7 @@ metadata:
   namespace: network
 spec:
   endpoints:
+    # Domain 3 (sinlessgames.com)
     - dnsName: "grafana.${DOMAIN_3}"
-      recordType: CNAME
-      targets: ["external.${DOMAIN_3}"]
-    - dnsName: "prometheus.${DOMAIN_3}"
-      recordType: CNAME
-      targets: ["external.${DOMAIN_3}"]
-    - dnsName: "alert-manager.${DOMAIN_3}"
       recordType: CNAME
       targets: ["external.${DOMAIN_3}"]
