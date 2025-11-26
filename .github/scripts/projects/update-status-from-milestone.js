@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { createGitHubClient, githubRequest } = require("../utils/graphql-client");
 const { fetchProjectFields } = require("./field-service");
-const { info, warn, error, formatError } = require("../utils/logger");
+const { info, warn, error, formatError, debug } = require("../utils/logger");
 
 function readEventPayload() {
   const eventPath = process.env.GITHUB_EVENT_PATH;
@@ -26,26 +26,43 @@ function normalizeMilestoneTitle(value) {
 }
 
 async function resolveProject(client, ownerLogin, projectNumber) {
-  const query = `
+  const userQuery = `
     query ($login: String!, $number: Int!) {
       user(login: $login) {
         project: projectV2(number: $number) { id title }
       }
+    }
+  `;
+
+  const orgQuery = `
+    query ($login: String!, $number: Int!) {
       organization(login: $login) {
         project: projectV2(number: $number) { id title }
       }
     }
   `;
 
-  const res = await githubRequest(client, query, { login: ownerLogin, number: projectNumber });
-  const project = res.user?.project || res.organization?.project;
-  if (!project) {
-    return null;
+  try {
+    const userRes = await githubRequest(client, userQuery, { login: ownerLogin, number: projectNumber });
+    if (userRes.user?.project) {
+      info(`Resolved project '${userRes.user.project.title}' (#${projectNumber}) under user '${ownerLogin}'.`);
+      return userRes.user.project;
+    }
+  } catch (err) {
+    debug(`User lookup for '${ownerLogin}' failed: ${err.message || err}`);
   }
 
-  const ownerType = res.user?.project ? "user" : "organization";
-  info(`Resolved project '${project.title}' (#${projectNumber}) under ${ownerType} '${ownerLogin}'.`);
-  return project;
+  try {
+    const orgRes = await githubRequest(client, orgQuery, { login: ownerLogin, number: projectNumber });
+    if (orgRes.organization?.project) {
+      info(`Resolved project '${orgRes.organization.project.title}' (#${projectNumber}) under organization '${ownerLogin}'.`);
+      return orgRes.organization.project;
+    }
+  } catch (err) {
+    debug(`Organization lookup for '${ownerLogin}' failed: ${err.message || err}`);
+  }
+
+  return null;
 }
 
 async function findProjectItemForIssue(client, projectId, issueNodeId) {
