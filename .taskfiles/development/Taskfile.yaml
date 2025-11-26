@@ -76,3 +76,6 @@ tasks:
       - flux reconcile kustomization coredns -n flux-system || true
       - flux reconcile kustomization metrics-server -n flux-system || true
       - flux reconcile kustomization stakater-reloader -n flux-system || true
+      - flux reconcile kustomization spegel -n flux-system || true
+      - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
+      - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true

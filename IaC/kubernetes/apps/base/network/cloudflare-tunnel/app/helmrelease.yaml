@@ -8,6 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cloudflare-tunnel
+    namespace: flux-system
   interval: 1h
   values:
     controllers:
@@ -101,6 +102,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cloudflare-tunnel
+    namespace: flux-system
   interval: 1h
   values:
     controllers:
@@ -194,6 +196,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cloudflare-tunnel
+    namespace: flux-system
   interval: 1h
   values:
     controllers:
