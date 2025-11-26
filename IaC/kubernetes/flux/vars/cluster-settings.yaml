@@ -35,6 +35,10 @@ data:
   ACME_EMAIL_2: "disdainful777@gmail.com"
   ACME_EMAIL_3: "disdainful777@gmail.com"
 
+  TUNNEL_ID_1: 421f36be-745c-4ab2-b967-1c517b774684
+  TUNNEL_ID_2: ae5cbba0-8337-4d47-ad83-35ebc418aa77
+  TUNNEL_ID_3: 45175fca-f646-45e3-946f-e813c607b9dd
+
   # Primary public domain (Helix SaaS)
   DOMAIN_1: "helixaibot.com"
   LOCAL_DOMAIN_1: "local.helixaibot.com"
