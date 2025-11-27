@@ -13,7 +13,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: istio-ingressgateway
+      app: envoy-external
   portLevelMtls:
     "80":
       mode: DISABLE

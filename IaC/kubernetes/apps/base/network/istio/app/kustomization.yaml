@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./helmrelease-base.yaml
   - ./helmrelease.yaml
+  - ./helmrelease-gateway.yaml

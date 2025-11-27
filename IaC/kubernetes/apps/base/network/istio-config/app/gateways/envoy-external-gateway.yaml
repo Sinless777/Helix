@@ -12,7 +12,7 @@ metadata:
     helix.ai/component: service-mesh
 spec:
   selector:
-    istio: ingressgateway
+    istio: envoy-external
   servers:
     - name: domain1
       port:

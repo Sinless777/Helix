@@ -13,7 +13,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: istio-ingressgateway
+      app: envoy-external
   action: ALLOW
   rules:
     - from:

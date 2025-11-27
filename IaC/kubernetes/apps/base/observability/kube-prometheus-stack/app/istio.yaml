@@ -13,8 +13,8 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: istio-ingressgateway
-    istio: ingressgateway
+    app: envoy-external
+    istio: envoy-external
   ports:
     - name: status-port
       port: 15021
@@ -43,7 +43,7 @@ metadata:
     helix.ai/component: service-mesh
 spec:
   selector:
-    istio: ingressgateway
+    istio: envoy-external
   servers:
     - name: observability-internal-http
       port:
