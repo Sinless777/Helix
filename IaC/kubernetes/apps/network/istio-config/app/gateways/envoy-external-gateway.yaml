@@ -25,8 +25,8 @@ spec:
         minProtocolVersion: TLSV1_3
         maxProtocolVersion: TLSV1_3
       hosts:
-        - "external.$(DOMAIN_1)"
-        - "*.$(DOMAIN_1)"
+        - "external.${DOMAIN_1}"
+        - "*.${DOMAIN_1}"
     - name: domain2
       port:
         number: 443
@@ -38,8 +38,8 @@ spec:
         minProtocolVersion: TLSV1_3
         maxProtocolVersion: TLSV1_3
       hosts:
-        - "external.$(DOMAIN_2)"
-        - "*.$(DOMAIN_2)"
+        - "external.${DOMAIN_2}"
+        - "*.${DOMAIN_2}"
     - name: domain3
       port:
         number: 443
@@ -51,5 +51,5 @@ spec:
         minProtocolVersion: TLSV1_3
         maxProtocolVersion: TLSV1_3
       hosts:
-        - "external.$(DOMAIN_3)"
-        - "*.$(DOMAIN_3)"
+        - "external.${DOMAIN_3}"
+        - "*.${DOMAIN_3}"

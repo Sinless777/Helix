@@ -5,7 +5,11 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./IaC/kubernetes/apps/network/istio-config
+  path: ./IaC/kubernetes/apps/network/istio-config/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   wait: false
   sourceRef:
@@ -15,3 +19,5 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: istio-stack

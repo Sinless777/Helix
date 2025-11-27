@@ -16,7 +16,7 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-staging-domain1
   dnsNames:
-    - "*.$(DOMAIN_1)"
+    - "*.${DOMAIN_1}"
 
 ---
 apiVersion: cert-manager.io/v1
@@ -36,7 +36,7 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-staging-domain2
   dnsNames:
-    - "*.$(DOMAIN_2)"
+    - "*.${DOMAIN_2}"
 
 ---
 apiVersion: cert-manager.io/v1
@@ -56,4 +56,4 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-staging-domain3
   dnsNames:
-    - "*.$(DOMAIN_3)"
+    - "*.${DOMAIN_3}"
