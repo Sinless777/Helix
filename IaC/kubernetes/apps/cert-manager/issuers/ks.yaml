@@ -13,7 +13,7 @@ spec:
   retryInterval: 5m0s
   sourceRef:
     kind: GitRepository
-    name: helix-ai
+    name: flux-system
     namespace: flux-system
   path: "./IaC/kubernetes/apps/cert-manager/issuers/app"
   prune: true
