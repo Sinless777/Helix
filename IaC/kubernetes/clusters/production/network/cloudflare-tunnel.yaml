@@ -6,6 +6,10 @@ metadata:
 spec:
   interval: 10m
   path: ./IaC/kubernetes/apps/network/cloudflare-tunnel
+  postBuild:
+    substituteFrom:
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   wait: true
   sourceRef:
