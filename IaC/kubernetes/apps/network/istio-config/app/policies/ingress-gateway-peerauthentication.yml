@@ -1,4 +1,8 @@
 ---
+# ─────────────────────────────────────────────────────────────
+# PeerAuthentication for EXTERNAL Istio Ingress Gateway
+# Disables mTLS on ports 80 and 443 ONLY on the external gateway.
+# ─────────────────────────────────────────────────────────────
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
@@ -13,7 +17,34 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: envoy-external
+      istio: envoy-external
+  portLevelMtls:
+    "80":
+      mode: DISABLE
+    "443":
+      mode: DISABLE
+
+---
+# ─────────────────────────────────────────────────────────────
+# PeerAuthentication for INTERNAL Istio Ingress Gateway
+# Disables mTLS only on internal gateway ingress ports.
+# Typically you expose 80 & 443 internally for service-to-service use.
+# ─────────────────────────────────────────────────────────────
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: envoy-internal-ingress
+  namespace: network
+  labels:
+    app.kubernetes.io/name: envoy-internal-ingress-peerauthentication
+    app.kubernetes.io/component: service-mesh
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: service-mesh
+spec:
+  selector:
+    matchLabels:
+      istio: envoy-internal
   portLevelMtls:
     "80":
       mode: DISABLE

@@ -4,12 +4,28 @@ kind: HelmRelease
 metadata:
   name: reloader
   namespace: kube-system
+  labels:
+    app.kubernetes.io/name: reloader
+    app.kubernetes.io/component: infra
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: reloader
 spec:
+  interval: 1h0m0s
+  install:
+    createNamespace: false
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+  upgrade:
+    remediation:
+      retries: 3
+
   chartRef:
     kind: OCIRepository
     name: reloader
     namespace: flux-system
-  interval: 1h
+
   values:
     fullnameOverride: reloader
     reloader:

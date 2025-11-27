@@ -13,13 +13,16 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: envoy-external
+      istio: envoy-external
+
   action: ALLOW
+
   rules:
     - from:
         - source:
             ipBlocks:
-              - "$(CLUSTER_CIDR)"
+              - ${CLUSTER_CIDR}
       to:
         - operation:
-            ports: ["443"]
+            ports:
+              - "443"

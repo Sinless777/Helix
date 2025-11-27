@@ -3,16 +3,22 @@ kind: Namespace
 metadata:
   name: observability
   labels:
+    # Standard Kubernetes app labels
     app.kubernetes.io/name: observability
     app.kubernetes.io/instance: observability
-    app.kubernetes.io/managed-by: fluxcd
     app.kubernetes.io/component: observability
     app.kubernetes.io/part-of: helix-platform
-    helm.sh/chart: observability-0.1.0
+    app.kubernetes.io/managed-by: fluxcd
 
-    # Disable Istio auto-injection for observability namespace (hooks/jobs fail with sidecars)
-    istio-injection: disabled
+    # Helix internal metadata
+    helix.ai/component: observability
+    helix.sinlessgames.com/owner: platform
+    helix.sinlessgames.com/layer: infra
+
+    # Disable Istio sidecar injection globally in this namespace
+    sidecar.istio.io/inject: "true"
 
   annotations:
-    kubernetes.io/metadata.name: observability
+    # Namespace may contain certs for grafana/prometheus/alertmanager,
+    # so cert-manager should not block or validate resources.
     cert-manager.io/disable-validation: "true"

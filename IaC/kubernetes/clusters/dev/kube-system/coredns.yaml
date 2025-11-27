@@ -3,14 +3,26 @@ kind: Kustomization
 metadata:
   name: coredns
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/component: dns
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: kube-system-dns
 spec:
-  interval: 10m
-  path: ./IaC/kubernetes/apps/kube-system/coredns/app
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 5m0s
   prune: true
   wait: true
+
+  path: ./IaC/kubernetes/apps/kube-system/coredns/app
+
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
+
   dependsOn:
     - name: cluster-vars
       namespace: flux-system

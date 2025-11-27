@@ -2,22 +2,42 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app cloudflare-dns
+  name: cloudflare-dns
   namespace: network
+  labels:
+    app.kubernetes.io/name: cloudflare-dns
+    app.kubernetes.io/component: dns
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: external-dns
 spec:
+  interval: 1h0m0s
+
+  install:
+    crds: Create
+    createNamespace: false
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+
+  upgrade:
+    crds: Create
+    remediation:
+      retries: 3
+
   chartRef:
     kind: OCIRepository
     name: cloudflare-dns
     namespace: flux-system
-  interval: 1h
+
   values:
-    fullnameOverride: *app
+    fullnameOverride: cloudflare-dns
     provider: cloudflare
     env:
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: &secret cloudflare-dns-secret
+            name: cloudflare-dns-secret
             key: api-token
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
@@ -30,8 +50,11 @@ spec:
     sources: ["crd", "gateway-httproute"]
     txtPrefix: k8s.
     txtOwnerId: default
-    domainFilters: ["${DOMAIN_1}", "${DOMAIN_2}", "${DOMAIN_3}"]
+    domainFilters:
+      - "${DOMAIN_1}"
+      - "${DOMAIN_2}"
+      - "${DOMAIN_3}"
     serviceMonitor:
       enabled: true
     podAnnotations:
-      secret.reloader.stakater.com/reload: *secret
+      secret.reloader.stakater.com/reload: cloudflare-dns-secret

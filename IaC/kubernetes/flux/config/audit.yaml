@@ -1,4 +1,3 @@
----
 apiVersion: audit.k8s.io/v1
 kind: Policy
 metadata:
@@ -17,7 +16,8 @@ rules:
   - level: RequestResponse
     resources:
       - group: authorization.k8s.io
-        resources: ["roles","rolebindings","clusterroles","clusterrolebindings"]
+        resources:
+          ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
       - group: ""
         resources: ["secrets"]
     verbs:
@@ -30,9 +30,9 @@ rules:
   - level: Metadata
     resources:
       - group: ""
-        resources: ["pods","deployments","replicasets","jobs","cronjobs"]
+        resources: ["pods", "deployments", "replicasets", "jobs", "cronjobs"]
       - group: apps
-        resources: ["statefulsets","daemonsets"]
+        resources: ["statefulsets", "daemonsets"]
     verbs:
       - create
       - update
@@ -43,7 +43,7 @@ rules:
   - level: Request
     resources:
       - group: ""
-        resources: ["namespaces","configmaps"]
+        resources: ["namespaces", "configmaps"]
     verbs:
       - create
       - update

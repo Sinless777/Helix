@@ -1,8 +1,7 @@
----
 apiVersion: security.istio.io/v1
 kind: PeerAuthentication
 metadata:
-  name: mesh-default
+  name: default
   namespace: network
   labels:
     app.kubernetes.io/name: mesh-default-peerauthentication

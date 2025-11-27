@@ -7,13 +7,12 @@ metadata:
     app.kubernetes.io/name: kube-prometheus-stack-config
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
-    helix.ai/component: kube-prometheus-stack
+    helix.ai/component: observability
 
 data:
   # =======================================================================
   # Grafana Configuration
   # =======================================================================
-
   grafana.ini: |
     [server]
     protocol = http
@@ -48,7 +47,6 @@ data:
   # =======================================================================
   # Grafana Datasources
   # =======================================================================
-
   datasources.yaml: |
     apiVersion: 1
     deleteDatasources:
@@ -95,7 +93,6 @@ data:
   # =======================================================================
   # Dashboard Providers
   # =======================================================================
-
   dashboards.yaml: |
     apiVersion: 1
     providers:
@@ -110,14 +107,14 @@ data:
           path: /var/lib/grafana/dashboards
 
   # =======================================================================
-  # Alertmanager Configuration Template (Optional)
+  # Alertmanager Configuration
   # =======================================================================
-
   alertmanager.yaml: |
     global:
       resolve_timeout: 5m
+
     route:
-      group_by: ['alertname', 'namespace']
+      group_by: [ 'alertname', 'namespace' ]
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 4h
@@ -133,23 +130,21 @@ data:
           severity: 'critical'
         target_match:
           severity: 'warning'
-        equal: ['alertname', 'namespace']
+        equal: [ 'alertname', 'namespace' ]
 
   # =======================================================================
-  # Prometheus Config Patches (Optional future expansion)
+  # Prometheus Additional Configuration (optional future expansion)
   # =======================================================================
-
   prometheus-additional.yaml: |
     rule_files:
       - /etc/prometheus/rules/*.yaml
 
   # =======================================================================
-  # Istio Mesh Sidecar Considerations
+  # Istio Mesh Sidecar Metrics
   # =======================================================================
-
   istio-metrics.yaml: |
     scrape_configs:
-      - job_name: 'istio-envoy-stats'
+      - job_name: 'istio-envoy'
         metrics_path: /stats/prometheus
         static_configs:
           - targets:

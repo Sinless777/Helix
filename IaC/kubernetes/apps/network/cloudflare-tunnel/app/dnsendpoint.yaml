@@ -1,20 +1,26 @@
 ---
-apiVersion: externaldns.k8s.io/v1alpha1
+apiVersion: externaldns.k8s.io/vv1alpha1
 kind: DNSEndpoint
 metadata:
   name: cloudflare-tunnel
   namespace: network
+  labels:
+    app.kubernetes.io/name: cloudflare-tunnel-dns
+    app.kubernetes.io/component: dns
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: cloudflare-dns
 spec:
   endpoints:
-    # ---------------------------------------------------------
-    # External DNS Records
-    # ---------------------------------------------------------
     - dnsName: "external.${DOMAIN_1}"
       recordType: CNAME
-      targets: ["${TUNNEL_ID_1}.cfargotunnel.com"]
+      targets:
+        - "${TUNNEL_ID_1}.cfargotunnel.com"
     - dnsName: "external.${DOMAIN_2}"
       recordType: CNAME
-      targets: ["${TUNNEL_ID_2}.cfargotunnel.com"]
+      targets:
+        - "${TUNNEL_ID_2}.cfargotunnel.com"
     - dnsName: "external.${DOMAIN_3}"
       recordType: CNAME
-      targets: ["${TUNNEL_ID_3}.cfargotunnel.com"]
+      targets:
+        - "${TUNNEL_ID_3}.cfargotunnel.com"

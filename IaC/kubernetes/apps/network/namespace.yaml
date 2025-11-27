@@ -11,14 +11,17 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
 
-    # Useful for policies / targeting
-    topology.kubernetes.io/zone: shared
+    # Helix platform metadata
+    helix.ai/component: networking
     helix.sinlessgames.com/owner: platform
     helix.sinlessgames.com/layer: infra
+
+    # Topology hints / placement metadata
+    topology.kubernetes.io/zone: shared
+
   annotations:
-    # Prevent Flux from pruning objects in this namespace unless
-    # explicitly overridden – keeps core networking stack safe.
+    # Prevent Flux Kustomization pruning unless explicitly overridden
     kustomize.toolkit.fluxcd.io/prune: "disabled"
 
-    # Human-readable description (handy in UIs & tooling)
-    helix.sinlessgames.com/description: "Core networking namespace for ingress, gateways, DNS and mesh components."
+    # Human-readable description for dashboards & tooling
+    helix.sinlessgames.com/description: "Core networking namespace hosting Istio gateways, mesh config, DNS, and ingress edge components."

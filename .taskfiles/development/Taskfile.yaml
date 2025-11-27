@@ -7,109 +7,159 @@ vars:
   MINIKUBE_MEMORY: 8g
   MINIKUBE_HOSTNAME: local.dev.helixaibot.com
 
+env:
+  # Fail fast — safer for infra tasks
+  SHELL: /bin/bash
+
 tasks:
   minikube-start:
-    desc: Start a local Minikube cluster with Docker driver, custom hostname, and addons.
+    desc: Start Minikube with required containerd settings + bootstrap cluster
     cmds:
       - |
+        set -euo pipefail
+
+        echo "🚀 Starting Minikube cluster: {{.MINIKUBE_PROFILE}}"
         minikube start -p {{.MINIKUBE_PROFILE}} \
           --driver={{.MINIKUBE_DRIVER}} \
           --container-runtime=containerd \
           --cpus={{.MINIKUBE_CPUS}} \
           --memory={{.MINIKUBE_MEMORY}}
+
       - |
-        # Ensure containerd keeps unpacked layers so Spegel can operate.
-        minikube ssh -p {{.MINIKUBE_PROFILE}} "if grep -q 'discard_unpacked_layers = true' /etc/containerd/config.toml; then sudo sed -i 's/discard_unpacked_layers = true/discard_unpacked_layers = false/' /etc/containerd/config.toml && sudo systemctl restart containerd; fi"
+        echo "🔧 Ensuring containerd keeps unpacked layers..."
+        minikube ssh -p {{.MINIKUBE_PROFILE}} '
+          CFG="/etc/containerd/config.toml";
+          if grep -q "discard_unpacked_layers = true" "$CFG"; then
+            sudo sed -i "s/discard_unpacked_layers = true/discard_unpacked_layers = false/" "$CFG";
+            sudo systemctl restart containerd;
+          fi
+        '
+
       - |
         IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
-        echo "Minikube IP: ${IP}"
-        echo "Add to /etc/hosts: ${IP} {{.MINIKUBE_HOSTNAME}}"
+        echo "ℹ️  Minikube IP: $IP"
+        echo "ℹ️  Add to /etc/hosts: $IP {{.MINIKUBE_HOSTNAME}}"
+
       - task: deploy-all
 
   minikube-stop:
-    desc: Stop the Minikube cluster (keeps VM state).
-    cmds:
-      - minikube stop -p {{.MINIKUBE_PROFILE}}
-
-  minikube-delete:
-    desc: Delete the Minikube cluster (removes all state).
-    cmds:
-      - minikube delete -p {{.MINIKUBE_PROFILE}}
-
-  minikube-hosts:
-    desc: Add or update /etc/hosts entry for the Minikube IP and hostname.
+    desc: Stop the Minikube cluster
     cmds:
       - |
+        echo "🛑 Stopping Minikube..."
+        minikube stop -p {{.MINIKUBE_PROFILE}}
+
+  minikube-delete:
+    desc: Delete the Minikube cluster
+    cmds:
+      - |
+        echo "🔥 Deleting Minikube cluster..."
+        minikube delete -p {{.MINIKUBE_PROFILE}}
+
+  minikube-hosts:
+    desc: Add or update /etc/hosts entry for Minikube IP + hostname
+    cmds:
+      - |
+        set -euo pipefail
         IP=$(minikube ip -p {{.MINIKUBE_PROFILE}})
         HOST={{.MINIKUBE_HOSTNAME}}
+
         if [ -z "$IP" ]; then
-          echo "Minikube is not running; start it first."
+          echo "❌ Minikube is not running."
           exit 1
         fi
-        sudo sh -c "sed -i.bak '/[[:space:]]${HOST//./\\.}$/d' /etc/hosts && echo \"$IP $HOST\" >> /etc/hosts"
-        echo "Updated /etc/hosts with: $IP $HOST"
+
+        echo "🔧 Updating /etc/hosts for $HOST → $IP"
+        sudo sh -c "
+          sed -i.bak '/[[:space:]]${HOST//./\\.}}$/d' /etc/hosts
+          echo \"$IP $HOST\" >> /etc/hosts
+        "
+        echo "✔ Updated /etc/hosts"
 
   deploy-all:
-    desc: Reconcile all Flux kustomizations for dev cluster after minikube start
+    desc: Bootstrap and fully deploy the entire dev cluster via Flux
     cmds:
-      # Bootstrap the cluster
-      - kubectl wait --for=condition=Established --timeout=60s crd/gitrepositories.source.toolkit.fluxcd.io crd/helmrepositories.source.toolkit.fluxcd.io crd/ocirepositories.source.toolkit.fluxcd.io crd/kustomizations.kustomize.toolkit.fluxcd.io
-      - kubectl apply -k IaC/kubernetes/clusters/dev/flux-system/CRDs
-      - sops -d IaC/kubernetes/bootstrap/sops-age.sops.yaml > IaC/kubernetes/bootstrap/sops-age.yaml
-      - kubectl apply -k IaC/kubernetes/bootstrap
+      - |
+        set -euo pipefail
 
-      # # Apply cluster-specific flux-system overlays
-      - kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
-      - kubectl wait --for=condition=Ready pods --all -n flux-system --timeout=180s
-      - kubectl apply -k IaC/kubernetes/clusters/dev
+        echo "📦 Installing Flux CRDs..."
+        kubectl apply -k IaC/kubernetes/clusters/dev/flux-system/CRDs
 
-      # Reconcile all kustomizations in order
-      - flux reconcile source git flux-system -n flux-system
-      - flux reconcile kustomization flux-system -n flux-system
-      - flux reconcile kustomization cluster-vars -n flux-system || true
-      - flux reconcile kustomization flux-helm-repositories -n flux-system || true
+        echo "⏳ Waiting for Flux CRDs to establish..."
+        kubectl wait --for=condition=Established --timeout=60s crd --all
 
-      # Deploy Cert-Manager first as other components may depend on it
-      - flux reconcile kustomization cert-manager-stack -n flux-system || true
-      - kubectl wait --for=condition=available --timeout=300s deployment/cert-manager-webhook -n cert-manager || true
-      - flux reconcile kustomization cilium -n flux-system || true
-      - flux reconcile kustomization coredns -n flux-system || true
-      - flux reconcile kustomization metrics-server -n flux-system || true
-      - flux reconcile kustomization stakater-reloader -n flux-system || true
-      - flux reconcile kustomization spegel -n flux-system || true
-      - flux reconcile kustomization echo-server-stack -n flux-system || true
-      - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
-      - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
-      - flux reconcile kustomization istio-stack -n flux-system || true
-      - flux reconcile kustomization istio-config-stack -n flux-system || true
-      - flux reconcile kustomization kube-prometheus-stack -n flux-system || true
+      - |
+        echo "🔐 Decrypting bootstrap SOPS keys..."
+        sops -d IaC/kubernetes/bootstrap/sops-age.sops.yaml \
+          > IaC/kubernetes/bootstrap/sops-age.yaml
+
+      - |
+        echo "🚀 Bootstrapping Flux system..."
+        kubectl apply -k IaC/kubernetes/bootstrap
+        kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
+        kubectl wait --for=condition=Ready pods --all -n flux-system --timeout=180s
+
+      - |
+        echo "⚙️  Applying cluster dev stack..."
+        kubectl apply -k IaC/kubernetes/clusters/dev
+
+      - |
+        echo "📜 Deploying core operators..."
+        flux reconcile kustomization cert-manager-stack -n flux-system || true
+        kubectl wait --for=condition=available --timeout=300s \
+          deployment/cert-manager-webhook -n cert-manager || true
+
+        flux reconcile kustomization cilium -n flux-system || true
+        flux reconcile kustomization coredns -n flux-system || true
+        flux reconcile kustomization metrics-server -n flux-system || true
+        flux reconcile kustomization stakater-reloader -n flux-system || true
+        flux reconcile kustomization spegel -n flux-system || true
+        flux reconcile kustomization echo-server-stack -n flux-system || true
+
+      - |
+        echo "🌐 Deploying networking stack..."
+        flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
+        flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
+        flux reconcile kustomization istio-stack -n flux-system || true
+        flux reconcile kustomization istio-config-stack -n flux-system || true
+
+      - |
+        echo "📊 Deploying observability stack..."
+        flux reconcile kustomization kube-prometheus -n flux-system || true
+
+      - echo "🎉 Dev cluster bootstrap complete."
 
   reconcile-all:
-    desc: Reconcile all Flux kustomizations for dev cluster
+    desc: Reconcile all Flux Kustomizations (dev cluster)
     cmds:
-      # Reconcile all kustomizations in order
-      - flux reconcile source git flux-system -n flux-system
-      - flux reconcile kustomization flux-system -n flux-system
-      - flux reconcile kustomization cluster-vars -n flux-system || true
-      - flux reconcile kustomization flux-helm-repositories -n flux-system || true
+      - |
+        set -euo pipefail
+        echo "🔁 Reconciling entire dev stack..."
+        flux reconcile source git flux-system -n flux-system
+        flux reconcile kustomization flux-system -n flux-system
+        flux reconcile kustomization cluster-vars -n flux-system || true
+        flux reconcile kustomization flux-helm-repositories -n flux-system || true
 
-      # Deploy Cert-Manager first as other components may depend on it
-      - flux reconcile kustomization cert-manager-stack -n flux-system || true
-      - kubectl wait --for=condition=available --timeout=300s deployment/cert-manager-webhook -n cert-manager || true
+        echo "⚙️  Reconciling core..."
+        flux reconcile kustomization cert-manager-stack -n flux-system || true
+        kubectl wait --for=condition=available --timeout=300s \
+          deployment/cert-manager-webhook -n cert-manager || true
 
-      # kube system components
-      - flux reconcile kustomization cilium -n flux-system || true
-      - flux reconcile kustomization coredns -n flux-system || true
-      - flux reconcile kustomization metrics-server -n flux-system || true
-      - flux reconcile kustomization stakater-reloader -n flux-system || true
-      - flux reconcile kustomization spegel -n flux-system || true
-      - flux reconcile kustomization echo-server-stack -n flux-system || true
+        echo "🧱 Reconciling kube-system..."
+        flux reconcile kustomization cilium -n flux-system || true
+        flux reconcile kustomization coredns -n flux-system || true
+        flux reconcile kustomization metrics-server -n flux-system || true
+        flux reconcile kustomization stakater-reloader -n flux-system || true
+        flux reconcile kustomization spegel -n flux-system || true
+        flux reconcile kustomization echo-server-stack -n flux-system || true
 
-      # Networking components
-      - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
-      - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
-      - flux reconcile kustomization istio-stack -n flux-system || true
-      - flux reconcile kustomization istio-config-stack -n flux-system || true
+        echo "🌐 Reconciling networking..."
+        flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
+        flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
+        flux reconcile kustomization istio-stack -n flux-system || true
+        flux reconcile kustomization istio-config-stack -n flux-system || true
 
-      # Observability components
-      - flux reconcile kustomization kube-prometheus-stack -n flux-system || true
+        echo "📊 Reconciling observability..."
+        flux reconcile kustomization kube-prometheus -n flux-system || true
+
+        echo "🎉 Full reconciliation complete."

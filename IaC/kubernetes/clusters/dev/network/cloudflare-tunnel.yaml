@@ -3,20 +3,36 @@ kind: Kustomization
 metadata:
   name: cloudflare-tunnel-stack
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: cloudflare-tunnel
+    app.kubernetes.io/component: network
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: cloudflare-tunnel
 spec:
-  interval: 10m
-  path: ./IaC/kubernetes/apps/network/cloudflare-tunnel
-  postBuild:
-    substituteFrom:
-      - name: cluster-settings
-        kind: ConfigMap
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 5m0s
   prune: true
   wait: true
+
+  path: ./IaC/kubernetes/apps/network/cloudflare-tunnel
+
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
+
   decryption:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn: []
+
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-settings
+
+  dependsOn:
+    - name: cloudflare-dns-stack
+      namespace: flux-system

@@ -1,7 +1,11 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+metadata:
+  name: cloudflare-dns-app
+  labels:
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: cloudflare-dns
 resources:
-  - ./crds/dnsendpoints.externaldns.k8s.io.yaml
   - ./secret.sops.yaml
   - ./helmrelease.yaml

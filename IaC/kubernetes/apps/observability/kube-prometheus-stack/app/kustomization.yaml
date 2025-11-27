@@ -1,8 +1,29 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+metadata:
+  name: kube-prometheus-stack-app
+  labels:
+    app.kubernetes.io/name: kube-prometheus-stack
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+
+namespace: observability
+
 resources:
-  - helmrelease.yaml
-  - config.yaml
-  - dns-endpoint.yaml
-  - istio.yaml
-  - secret.sops.yaml
+  # Secrets first (used by HelmRelease via valuesFrom)
+  - ./secret.sops.yaml
+
+  # Shared configuration (Grafana/Prometheus/Alertmanager/etc.)
+  - ./config.yaml
+
+  # Istio-related routing/VS/Gateway bits for observability (file in this app)
+  - ./istio.yaml
+
+  # HelmRelease for kube-prometheus-stack
+  - ./helmrelease.yaml
+
+  # ExternalDNS endpoint for grafana/prometheus/alertmanager
+  - ./dns-endpoint.yaml

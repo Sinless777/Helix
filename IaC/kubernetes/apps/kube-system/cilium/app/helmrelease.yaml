@@ -10,9 +10,20 @@ metadata:
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: networking
 spec:
-  interval: 1h0m0s
-  timeout: 10m0s
-  retryInterval: 5m0s
+  interval: 1h
+  timeout: 10m
+
+  # Retry semantics belong under install/upgrade remediation — not at the top-level
+  install:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    createNamespace: false
+
+  upgrade:
+    remediation:
+      retries: 3
+      strategy: rollback
 
   chart:
     spec:
@@ -22,18 +33,18 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
-      interval: 5m0s
+      interval: 5m
 
   releaseName: cilium
 
   values:
+    # --------------------------------------------------------------------------
+    # CNI / Networking Core Configuration
+    # --------------------------------------------------------------------------
     autoDirectNodeRoutes: false
 
     bpf:
       masquerade: false
-
-    bgpControlPlane:
-      enabled: true
 
     ipam:
       mode: kubernetes
@@ -43,6 +54,72 @@ spec:
 
     cni:
       exclusive: true
+
+    routingMode: tunnel
+
+    ipv4NativeRoutingCIDR: "10.244.0.0/24"
+
+    endpointRoutes:
+      enabled: false
+
+    localRedirectPolicy: true
+
+    socketLB:
+      enabled: true
+      hostNamespaceOnly: true
+
+    # --------------------------------------------------------------------------
+    # BGP / Load Balancing
+    # --------------------------------------------------------------------------
+    bgpControlPlane:
+      enabled: true
+
+    loadBalancer:
+      algorithm: maglev
+      mode: snat
+
+    l2announcements:
+      enabled: true
+
+    # --------------------------------------------------------------------------
+    # Prometheus / Monitoring
+    # --------------------------------------------------------------------------
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
+
+    dashboards:
+      enabled: true
+
+    operator:
+      replicas: 1
+      rollOutPods: true
+      skipCRDCreation: false
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
+    rollOutCiliumPods: true
+
+    # --------------------------------------------------------------------------
+    # Optional Components
+    # --------------------------------------------------------------------------
+    hubble:
+      enabled: false
+
+    gatewayAPI:
+      enabled: false
+
+    # --------------------------------------------------------------------------
+    # Host / Kernel Settings
+    # --------------------------------------------------------------------------
+    cgroup:
+      automount:
+        enabled: false
+      hostRoot: /sys/fs/cgroup
 
     securityContext:
       capabilities:
@@ -64,56 +141,5 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-
-    loadBalancer:
-      algorithm: maglev
-      mode: snat
-
-    l2announcements:
-      enabled: true
-
-    localRedirectPolicy: true
-
-    endpointRoutes:
-      enabled: false
-
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        trustCRDsExist: true
-
-    operator:
-      replicas: 1
-      rollOutPods: true
-      skipCRDCreation: false
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-
-    rollOutCiliumPods: true
-
-    routingMode: tunnel
-
-    dashboards:
-      enabled: true
-
-    hubble:
-      enabled: false
-
-    gatewayAPI:
-      enabled: false
-
-    ipv4NativeRoutingCIDR: "10.244.0.0/24"
-
-    cgroup:
-      automount:
-        enabled: false
-      hostRoot: /sys/fs/cgroup
-
-    socketLB:
-      enabled: true
-      hostNamespaceOnly: true
 
     upgradeCompatibility: "1.18"

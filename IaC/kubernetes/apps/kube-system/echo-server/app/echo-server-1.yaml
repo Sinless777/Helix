@@ -4,14 +4,34 @@ kind: HelmRelease
 metadata:
   name: echo-server-1
   namespace: kube-system
+  labels:
+    app.kubernetes.io/name: echo-server-1
+    app.kubernetes.io/component: echo-service
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: echo-server
 spec:
+  interval: 1h
+
   chartRef:
     kind: OCIRepository
     name: echo-server
     namespace: flux-system
-  interval: 1h
+
+  install:
+    createNamespace: false
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+
+  upgrade:
+    remediation:
+      retries: 3
+
   values:
-    routeDomain: "helixaibot.com"
+    # Domain injected via Flux postBuild substitutions
+    routeDomain: "${DOMAIN_1}"
+
     controllers:
       echo:
         strategy: RollingUpdate
@@ -19,12 +39,13 @@ spec:
           app:
             image:
               repository: ghcr.io/mendhak/http-https-echo
-              tag: 38
+              tag: "38"
             env:
               HTTP_PORT: &port 80
               LOG_WITHOUT_NEWLINE: true
               LOG_IGNORE_PATH: /healthz
               PROMETHEUS_ENABLED: true
+
             probes:
               liveness: &probes
                 enabled: true
@@ -38,32 +59,40 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
+
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop: ["ALL"]
+
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 64Mi
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534
         runAsGroup: 65534
+
     service:
       app:
         ports:
           http:
             port: *port
+
     serviceMonitor:
       app:
         endpoints:
           - port: http
+
     route:
       app:
-        hostnames: ['{{ printf "%s.%s" .Release.Name .Values.routeDomain }}']
+        hostnames:
+          - '{{ printf "%s.%s" .Release.Name .Values.routeDomain }}'
         parentRefs:
           - name: envoy-external
             namespace: network

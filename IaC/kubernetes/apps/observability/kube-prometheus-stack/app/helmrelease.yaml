@@ -8,69 +8,77 @@ metadata:
     app.kubernetes.io/component: observability
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
-    helix.ai/component: kube-prometheus-stack
+    helix.ai/component: observability
 
 spec:
-  interval: 1h
-  timeout: 5m
+  interval: 1h0m0s
+  retryInterval: 10m0s
+  timeout: 10m0s
+  releaseName: kube-prometheus-stack
+  targetNamespace: observability
+  prune: true
+
   chart:
     spec:
       chart: kube-prometheus-stack
+      version: ">=57.0.0 <61.0.0"
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-      version: ">=57.0.0"
 
-  releaseName: kube-prometheus-stack
-  targetNamespace: observability
   install:
-    createNamespace: false
     remediation:
       retries: 3
+    createNamespace: false
+
   upgrade:
     remediation:
       retries: 3
       strategy: rollback
+
   uninstall:
     keepHistory: false
 
+  # -----------------------------------------------------------------------
+  # Values sourced from encrypted secrets + config map
+  # -----------------------------------------------------------------------
   valuesFrom:
     - kind: Secret
       name: kube-prometheus-stack-secrets
-      valuesKey: grafana-admin-user
+      valuesKey: admin-user
       targetPath: grafana.adminUser
+
     - kind: Secret
       name: kube-prometheus-stack-secrets
-      valuesKey: grafana-admin-password
+      valuesKey: admin-password
       targetPath: grafana.adminPassword
+
     - kind: ConfigMap
       name: kube-prometheus-stack-config
       optional: true
 
+  # -----------------------------------------------------------------------
+  # Chart values
+  # -----------------------------------------------------------------------
   values:
-    ## ───────────────────────────────────────────────────────────────
-    ## Global settings
-    ## ───────────────────────────────────────────────────────────────
     global:
       rbac:
         create: true
 
-    ## ───────────────────────────────────────────────────────────────
-    ## Grafana
-    ## Public Ingress: grafana.${DOMAIN_3}
-    ## ───────────────────────────────────────────────────────────────
+    # ======================================================================
+    # Grafana (Public: grafana.${DOMAIN_3})
+    # ======================================================================
     grafana:
       enabled: true
 
-      # Populated via valuesFrom
       adminUser: null
       adminPassword: null
 
       service:
         type: ClusterIP
         port: 80
-        portName: http-web
+        portName: http
 
       podAnnotations:
         sidecar.istio.io/inject: "true"
@@ -78,23 +86,21 @@ spec:
         proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":true}'
 
       ingress:
-        # Disabled in favor of Istio Gateway/VirtualService in this app
         enabled: false
 
       sidecar:
         dashboards:
           enabled: true
-          label: "grafana_dashboard"
+          label: grafana_dashboard
           searchNamespace: observability
         datasources:
           enabled: true
         alerts:
           enabled: true
 
-    ## ───────────────────────────────────────────────────────────────
-    ## Prometheus
-    ## Internal Ingress: prometheus.${DOMAIN_3}
-    ## ───────────────────────────────────────────────────────────────
+    # ======================================================================
+    # Prometheus (Internal: prometheus.${DOMAIN_3})
+    # ======================================================================
     prometheus:
       enabled: true
 
@@ -113,16 +119,16 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
+
         podMetadata:
           annotations:
             sidecar.istio.io/inject: "true"
             sidecar.istio.io/rewriteAppHTTPProbers: "true"
             proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":true}'
 
-    ## ───────────────────────────────────────────────────────────────
-    ## Alertmanager
-    ## Internal Ingress: alertmanager.${DOMAIN_3}
-    ## ───────────────────────────────────────────────────────────────
+    # ======================================================================
+    # Alertmanager (Internal: alertmanager.${DOMAIN_3})
+    # ======================================================================
     alertmanager:
       enabled: true
 
@@ -136,50 +142,51 @@ spec:
       alertmanagerSpec:
         externalUrl: "https://alertmanager.${DOMAIN_3}"
         replicas: 2
-        retention: "120h"
+        retention: 120h
+
         podMetadata:
           annotations:
             sidecar.istio.io/inject: "true"
             sidecar.istio.io/rewriteAppHTTPProbers: "true"
             proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":true}'
+
         storage:
           volumeClaimTemplate:
             spec:
-              accessModes:
-                - ReadWriteOnce
+              accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
                   storage: 10Gi
 
-    ## ───────────────────────────────────────────────────────────────
-    ## Node Exporter
-    ## ───────────────────────────────────────────────────────────────
+    # ======================================================================
+    # Node Exporter
+    # ======================================================================
     nodeExporter:
       enabled: true
 
-    ## ───────────────────────────────────────────────────────────────
-    ## Kube State Metrics
-    ## ───────────────────────────────────────────────────────────────
+    # ======================================================================
+    # Kube State Metrics
+    # ======================================================================
     kubeStateMetrics:
       enabled: true
 
-    ## ───────────────────────────────────────────────────────────────
-    ## Additional Kubernetes components
-    ## ───────────────────────────────────────────────────────────────
+    # ======================================================================
+    # Kubernetes component monitors
+    # ======================================================================
     kubeEtcd:
       enabled: true
     kubeControllerManager:
       enabled: true
     kubeScheduler:
       enabled: true
-    kubeDns:
-      enabled: true
     kubeProxy:
       enabled: true
+    kubeDns:
+      enabled: true
 
-    ## ───────────────────────────────────────────────────────────────
-    ## CRDs + Monitors
-    ## ───────────────────────────────────────────────────────────────
+    # ======================================================================
+    # Prometheus Operator / CRDs
+    # ======================================================================
     prometheusOperator:
       enabled: true
       admissionWebhooks:
@@ -187,11 +194,9 @@ spec:
         patch:
           podAnnotations:
             sidecar.istio.io/inject: "false"
-            proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":false}'
         create:
           podAnnotations:
             sidecar.istio.io/inject: "false"
-            proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":false}'
 
     serviceMonitor:
       enabled: true

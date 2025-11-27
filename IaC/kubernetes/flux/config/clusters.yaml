@@ -20,20 +20,32 @@ kind: Kustomization
 metadata:
   name: clusters
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: clusters-root
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: cluster-aggregation
 spec:
   interval: 5m0s
-  path: ./IaC/kubernetes
+  retryInterval: 1m0s
+  timeout: 5m0s
   prune: true
   wait: true
+
   sourceRef:
     kind: GitRepository
     name: clusters
     namespace: flux-system
-  validation: client
+
+  path: ./IaC/kubernetes
+
+  # Enables decryption of SOPS-encrypted secrets in the repo
   decryption:
     provider: sops
     secretRef:
       name: flux-system-sops
+
   postBuild:
+    # Allow variable substitution from environment or default fallbacks
     substitute:
       CLUSTER_NAME: "${CLUSTER_NAME:=unknown}"

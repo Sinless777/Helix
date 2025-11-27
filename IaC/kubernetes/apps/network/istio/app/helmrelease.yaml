@@ -1,6 +1,5 @@
-# IaC/kubernetes/apps/base/network/istio/app/helmrelease.istio.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: istio
@@ -13,61 +12,35 @@ metadata:
     helix.ai/component: service-mesh
 spec:
   releaseName: istiod
-  interval: 30m
+  interval: 30m0s
 
   dependsOn:
     - name: istio-base
       namespace: network
 
-  chart:
-    spec:
-      chart: istiod
-      # pin to whatever you decide; example:
-      version: 1.28.0
-      sourceRef:
-        kind: HelmRepository
-        name: istio
-        namespace: flux-system
-      interval: 1h
-
-  # Istio base (CRDs) must be installed separately with istio/base
-  # via another HelmRelease before this one.
-
   install:
-    createNamespace: true
+    createNamespace: false
     remediation:
-      retries: -1
+      retries: 3
+      remediateLastFailure: true
 
   upgrade:
     remediation:
-      retries: -1
+      retries: 3
+
+  chartRef:
+    kind: HelmRepository
+    name: istio
+    namespace: flux-system
 
   values:
-    # --- Global mesh settings ---
     global:
-      # Control-plane namespace (you are using `network` for mesh)
       istioNamespace: network
-
-      # Give the gateways a predictable revision name for multi-revision support later on.
       revision: default
-
-      # Default sidecar behaviour – still need namespace labels,
-      # but this keeps the mesh config consistent.
       proxy:
         autoInject: enabled
-
-    # --- MeshConfig (mTLS etc.) ---
     meshConfig:
-      # Turn on automatic mTLS where possible
       enableAutoMtls: true
-
-      # You can add further meshConfig here as needed, e.g.:
-      # defaultConfig:
-      #   holdApplicationUntilProxyStarts: true
-
-    # --- Pilot / istiod specific options ---
     pilot:
       autoscaleEnabled: true
       traceSampling: 1.0
-      # If you later decide to use an external CA (e.g. via cert-manager),
-      # you’d adjust pilot / meshConfig CA settings here.

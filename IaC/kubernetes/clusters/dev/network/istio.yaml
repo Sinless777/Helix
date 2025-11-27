@@ -3,14 +3,26 @@ kind: Kustomization
 metadata:
   name: istio-stack
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: istio
+    app.kubernetes.io/component: service-mesh
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: istio
 spec:
-  interval: 10m
-  path: ./IaC/kubernetes/apps/network/istio
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 10m0s
   prune: true
   wait: true
+
+  path: ./IaC/kubernetes/apps/network/istio
+
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
+
   decryption:
     provider: sops
     secretRef:

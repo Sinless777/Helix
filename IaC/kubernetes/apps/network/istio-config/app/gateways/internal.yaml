@@ -1,0 +1,50 @@
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: internal-gateway
+  namespace: network
+  labels:
+    app.kubernetes.io/name: internal-gateway
+    app.kubernetes.io/component: service-mesh
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: service-mesh
+spec:
+  selector:
+    istio: envoy-internal
+
+  servers:
+    # ─────────────────────────────────────────────
+    # Internal HTTPS Gateway (Cluster / Internal Services)
+    # ─────────────────────────────────────────────
+    - name: internal-https
+      port:
+        number: 443
+        name: https-internal
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: envoy-internal-tls
+        minProtocolVersion: TLSV1_3
+        maxProtocolVersion: TLSV1_3
+      hosts:
+        - internal.${DOMAIN_1}
+        - "*.${DOMAIN_1}"
+        - internal.${DOMAIN_2}
+        - "*.${DOMAIN_2}"
+        - internal.${DOMAIN_3}
+        - "*.${DOMAIN_3}"
+
+    # ─────────────────────────────────────────────
+    # Optional internal HTTP port (disable externally)
+    # Enabled for mesh-to-mesh traffic or L7 routing
+    # ─────────────────────────────────────────────
+    - name: internal-http
+      port:
+        number: 80
+        name: http-internal
+        protocol: HTTP
+      hosts:
+        - internal.${DOMAIN_1}
+        - internal.${DOMAIN_2}
+        - internal.${DOMAIN_3}

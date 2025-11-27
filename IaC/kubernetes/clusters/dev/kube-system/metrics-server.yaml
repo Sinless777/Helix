@@ -3,14 +3,26 @@ kind: Kustomization
 metadata:
   name: metrics-server
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: metrics-server
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: kube-system-monitoring
 spec:
-  interval: 10m
-  path: ./IaC/kubernetes/apps/kube-system/metrics-server/app
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 5m0s
   prune: true
   wait: true
+
+  path: ./IaC/kubernetes/apps/kube-system/metrics-server/app
+
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
+
   dependsOn:
     - name: cluster-vars
       namespace: flux-system

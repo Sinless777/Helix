@@ -3,14 +3,26 @@ kind: Kustomization
 metadata:
   name: stakater-reloader
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: stakater-reloader
+    app.kubernetes.io/component: kube-system
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: stakater-reloader
 spec:
-  interval: 10m
-  path: ./IaC/kubernetes/apps/kube-system/reloader/app
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 5m0s
   prune: true
   wait: true
+
+  path: ./IaC/kubernetes/apps/kube-system/reloader/app
+
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
+
   dependsOn:
     - name: cluster-vars
       namespace: flux-system

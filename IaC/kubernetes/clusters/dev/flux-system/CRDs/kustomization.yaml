@@ -1,14 +1,21 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+metadata:
+  name: flux-system-crds
+  labels:
+    app.kubernetes.io/name: flux-system-crds
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: gitops-control-plane
 resources:
-- alerts.yaml
-- buckets.yaml
-- external-artifacts.yaml
-- git-repos.yaml
-- helm-releases.yaml
-- helm-repos.yaml
-- helmcharts.yaml
-- kustomizations.yaml
-- notification-providers.yaml
-- notification-recievers.yaml
-- oci-repos.yaml
+  - alerts.yaml
+  - buckets.yaml
+  - external-artifacts.yaml
+  - git-repos.yaml
+  - helm-releases.yaml
+  - helm-repos.yaml
+  - helmcharts.yaml
+  - kustomizations.yaml
+  - notification-providers.yaml
+  - notification-recievers.yaml
+  - oci-repos.yaml

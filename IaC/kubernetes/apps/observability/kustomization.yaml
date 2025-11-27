@@ -1,5 +1,18 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+metadata:
+  name: observability-stack
+  labels:
+    app.kubernetes.io/name: observability-stack
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+
 resources:
-  - namespace.yaml
-  - kube-prometheus-stack/ks.yaml
+  # Namespace for all observability components
+  - ./namespace.yaml
+
+  # Flux Kustomization for kube-prometheus-stack
+  - ./kube-prometheus-stack/ks.yaml

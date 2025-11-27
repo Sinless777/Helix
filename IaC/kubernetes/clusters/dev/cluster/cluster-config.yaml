@@ -3,12 +3,19 @@ kind: Kustomization
 metadata:
   name: cluster-config
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: cluster-config
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: cluster-config
 spec:
-  interval: 10m
-  path: ./IaC/kubernetes/flux/config
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 2m0s
   prune: true
   wait: true
+  path: ./IaC/kubernetes/flux/config
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 2m
+    namespace: flux-system

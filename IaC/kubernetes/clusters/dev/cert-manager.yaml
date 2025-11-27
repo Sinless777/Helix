@@ -11,11 +11,10 @@ metadata:
 spec:
   interval: 10m0s
   retryInterval: 2m0s
-  wait: true
   timeout: 10m0s
   prune: true
+  wait: true
 
-  # Correct path → points to the *actual* app-level kustomization
   path: ./IaC/kubernetes/apps/cert-manager
 
   sourceRef:
@@ -31,6 +30,3 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
-      - kind: Secret
-        name: cluster-secrets
-        optional: true

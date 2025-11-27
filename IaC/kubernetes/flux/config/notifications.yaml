@@ -39,6 +39,6 @@ spec:
       namespace: flux-system
       name: "*"
   eventMetadata:
-    cluster: ${CLUSTER_NAME}
-    env: ${ENVIRONMENT}        # e.g. production / staging
+    cluster: "${CLUSTER_NAME}"
+    env: "${ENVIRONMENT}"
     source: flux-system

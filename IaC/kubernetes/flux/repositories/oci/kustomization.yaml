@@ -1,23 +1,20 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-metadata:
-  # All OCI-based Helm repositories belong to flux-system
-  namespace: flux-system
 
-  # Consistent metadata applied to all future OCI repository definitions
-  labels:
-    app.kubernetes.io/part-of: helix-platform
-    app.kubernetes.io/managed-by: fluxcd
-    helix.ai/component: helm-repositories-oci
+namespace: flux-system
+
+commonLabels:
+  app.kubernetes.io/part-of: helix-platform
+  app.kubernetes.io/managed-by: fluxcd
+  helix.ai/component: oci-repository
 
 resources:
-  - jetstack.yaml
-  - coredns.yaml
-  - cillium.yaml
-  - metrics-server.yaml
-  - stakater.yaml
-  - spegel.yaml
-  - external-dns.yaml
-  - cloudflare-tunnel.yaml
-  - echo-server.yaml
+  - oci-repo-jetstack.yaml
+  - oci-repo-coredns.yaml
+  - oci-repo-cilium.yaml
+  - oci-repo-metrics-server.yaml
+  - oci-repo-stakater.yaml
+  - oci-repo-spegel.yaml
+  - oci-repo-external-dns.yaml
+  - oci-repo-bjw-s-app-template.yaml

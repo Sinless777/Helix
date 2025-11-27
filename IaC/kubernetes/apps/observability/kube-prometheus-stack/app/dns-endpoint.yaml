@@ -4,15 +4,35 @@ kind: DNSEndpoint
 metadata:
   name: kube-prometheus-dns-endpoint
   namespace: network
+  labels:
+    app.kubernetes.io/name: kube-prometheus-dns-endpoint
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
 spec:
   endpoints:
-    # Domain 3 (sinlessgames.com)
-    - dnsName: "grafana.${DOMAIN_3}"
+    # ─────────────────────────────────────────────
+    # Grafana — routed through external gateway
+    # ─────────────────────────────────────────────
+    - dnsName: grafana.${DOMAIN_3}
       recordType: CNAME
-      targets: ["external.${DOMAIN_3}"]
-    - dnsName: "prometheus.${DOMAIN_3}"
+      targets:
+        - external.${DOMAIN_3}
+
+    # ─────────────────────────────────────────────
+    # Prometheus — internal-only (cluster access)
+    # Mapped via internal gateway (SNI routing)
+    # ─────────────────────────────────────────────
+    - dnsName: prometheus.${DOMAIN_3}
       recordType: CNAME
-      targets: ["envoy-internal.network.svc.cluster.local"]
-    - dnsName: "alertmanager.${DOMAIN_3}"
+      targets:
+        - internal.${DOMAIN_3}
+
+    # ─────────────────────────────────────────────
+    # Alertmanager — internal-only
+    # ─────────────────────────────────────────────
+    - dnsName: alertmanager.${DOMAIN_3}
       recordType: CNAME
-      targets: ["envoy-internal.network.svc.cluster.local"]
+      targets:
+        - internal.${DOMAIN_3}

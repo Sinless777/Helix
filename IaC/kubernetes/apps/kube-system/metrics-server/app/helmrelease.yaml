@@ -4,12 +4,28 @@ kind: HelmRelease
 metadata:
   name: metrics-server
   namespace: kube-system
+  labels:
+    app.kubernetes.io/name: metrics-server
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: metrics
 spec:
+  interval: 1h0m0s
+  install:
+    createNamespace: false
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+  upgrade:
+    remediation:
+      retries: 3
+
   chartRef:
     kind: OCIRepository
     name: metrics-server
     namespace: flux-system
-  interval: 1h
+
   values:
     args:
       - --kubelet-insecure-tls

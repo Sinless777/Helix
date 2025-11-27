@@ -4,35 +4,41 @@ kind: Kustomization
 metadata:
   name: kube-prometheus
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: kube-prometheus
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
 
 spec:
-  interval: 1h
-  retryInterval: 2m
-  timeout: 5m
+  interval: 1h0m0s
+  retryInterval: 2m0s
+  timeout: 10m0s
+  wait: true
+  prune: true
 
-  # Path to the HelmRelease + values
   path: ./IaC/kubernetes/apps/observability/kube-prometheus-stack/app
+  targetNamespace: observability
 
-  # Ensure DNS and cert-manager come online first
   dependsOn:
     - name: cloudflare-dns
     - name: cert-manager
     - name: istio
+    - name: istio-config
 
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
 
-  targetNamespace: observability
-
-  wait: true
-  prune: true
-
   postBuild:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
+      - kind: Secret
+        name: cluster-secrets
+        optional: true
 
   decryption:
     provider: sops

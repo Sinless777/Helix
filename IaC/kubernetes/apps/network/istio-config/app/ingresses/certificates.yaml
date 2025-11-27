@@ -2,58 +2,67 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: envoy-external-domain1
+  name: envoy-external-domain-1
   namespace: network
   labels:
-    app.kubernetes.io/name: envoy-external-domain1
+    app.kubernetes.io/name: envoy-external-domain-1
     app.kubernetes.io/component: service-mesh
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: service-mesh
 spec:
-  secretName: envoy-external-domain1-tls
+  secretName: envoy-external-domain-1-tls
+  commonName: "*.${DOMAIN_1}"
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging-domain1
+    name: letsencrypt-staging-domain-1
   dnsNames:
     - "*.${DOMAIN_1}"
+    - external.${DOMAIN_1}
+    - ${DOMAIN_1}
 
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: envoy-external-domain2
+  name: envoy-external-domain-2
   namespace: network
   labels:
-    app.kubernetes.io/name: envoy-external-domain2
+    app.kubernetes.io/name: envoy-external-domain-2
     app.kubernetes.io/component: service-mesh
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: service-mesh
 spec:
-  secretName: envoy-external-domain2-tls
+  secretName: envoy-external-domain-2-tls
+  commonName: "*.${DOMAIN_2}"
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging-domain2
+    name: letsencrypt-staging-domain-2
   dnsNames:
     - "*.${DOMAIN_2}"
+    - external.${DOMAIN_2}
+    - ${DOMAIN_2}
 
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: envoy-external-domain3
+  name: envoy-external-domain-3
   namespace: network
   labels:
-    app.kubernetes.io/name: envoy-external-domain3
+    app.kubernetes.io/name: envoy-external-domain-3
     app.kubernetes.io/component: service-mesh
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: service-mesh
 spec:
-  secretName: envoy-external-domain3-tls
+  secretName: envoy-external-domain-3-tls
+  commonName: "*.${DOMAIN_3}"
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging-domain3
+    name: letsencrypt-staging-domain-3
   dnsNames:
     - "*.${DOMAIN_3}"
+    - external.${DOMAIN_3}
+    - ${DOMAIN_3}

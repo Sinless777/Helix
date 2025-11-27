@@ -4,14 +4,23 @@ kind: DNSEndpoint
 metadata:
   name: echo-server-dns-endpoint
   namespace: network
+  labels:
+    app.kubernetes.io/name: echo-server-dns-endpoint
+    app.kubernetes.io/component: dns
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: dns-endpoint
 spec:
   endpoints:
     - dnsName: "echo-server.${DOMAIN_1}"
       recordType: CNAME
-      targets: ["external.${DOMAIN_1}"]
+      targets:
+        - "external.${DOMAIN_1}"
     - dnsName: "echo-server.${DOMAIN_2}"
       recordType: CNAME
-      targets: ["external.${DOMAIN_2}"]
+      targets:
+        - "external.${DOMAIN_2}"
     - dnsName: "echo-server.${DOMAIN_3}"
       recordType: CNAME
-      targets: ["external.${DOMAIN_3}"]
+      targets:
+        - "external.${DOMAIN_3}"

@@ -3,14 +3,26 @@ kind: Kustomization
 metadata:
   name: cloudflare-dns-stack
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: cloudflare-dns
+    app.kubernetes.io/component: network
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: cloudflare-dns
 spec:
-  interval: 10m
-  path: ./IaC/kubernetes/apps/network/cloudflare-dns
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 5m0s
   prune: true
   wait: true
+
+  path: ./IaC/kubernetes/apps/network/cloudflare-dns
+
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
+
   dependsOn:
     - name: cilium
       namespace: flux-system

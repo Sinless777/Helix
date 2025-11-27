@@ -11,13 +11,12 @@ metadata:
     helix.ai/component: flux-bootstrap
 spec:
   # Polling interval for new artifacts
-  interval: 10m
+  interval: 10m0s
   # Timeout for pulling the OCI artifact
-  timeout: 2m
+  timeout: 2m0s
   url: oci://ghcr.io/fluxcd/flux-manifests
   ref:
     tag: v2.2.2
-
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -28,24 +27,27 @@ metadata:
     app.kubernetes.io/name: flux
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
-    helix.ai/component: flux-bootstrap
+    helix.ai.component: flux-bootstrap
 spec:
-  interval: 10m
-  path: "./"             # root of this GitOps repository
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 5m0s
   prune: true
   wait: true
-  timeout: 5m
-  retryInterval: 2m
-  # Enforce drift detection to alert when changes are made outside Git
+
+  # enforce drift detection so flux corrects external changes
   driftDetection:
     mode: enabled
+
   sourceRef:
     kind: OCIRepository
     name: flux-manifests
-    # version & namespace implied by metadata
-  # Patches to tune controller behavior
+    namespace: flux-system
+
+  path: "./" # root of this GitOps repo
+
   patches:
-    # Example: remove problematic network policies for k3s
+    # Example: remove problematic networkpolicies for e.g. k3s or custom needs
     - patch: |
         $patch: delete
         apiVersion: networking.k8s.io/v1
@@ -55,7 +57,8 @@ spec:
       target:
         group: networking.k8s.io
         kind: NetworkPolicy
-    # Increase controller concurrency and API throughput
+
+    # Increase controller concurrency + kube-api throughput
     - patch: |
         - op: add
           path: /spec/template/spec/containers/0/args/-
@@ -72,7 +75,8 @@ spec:
       target:
         kind: Deployment
         name: "(kustomize-controller|helm-controller|source-controller)"
-    # Increase resource limits for controller deployments
+
+    # Increase resource limits for controllers
     - patch: |
         apiVersion: apps/v1
         kind: Deployment
@@ -90,7 +94,8 @@ spec:
       target:
         kind: Deployment
         name: "(kustomize-controller|helm-controller|source-controller)"
-    # Enable Helm near-OOM detection feature
+
+    # Enable Helm-controller OOMWatch feature
     - patch: |
         - op: add
           path: /spec/template/spec/containers/0/args/-

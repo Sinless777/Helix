@@ -4,20 +4,32 @@ kind: Kustomization
 metadata:
   name: cloudflare-dns
   namespace: flux-system
+  labels:
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai.component: external-dns
 spec:
-  interval: 1h
+  interval: 1h0m0s
+  retryInterval: 2m0s
+  timeout: 5m0m0s
+
   path: ./IaC/kubernetes/apps/network/cloudflare-dns/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-settings
-        kind: ConfigMap
+
   prune: true
+  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+
   targetNamespace: network
-  wait: true
+
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-settings
+        namespace: flux-system
+
   decryption:
     provider: sops
     secretRef:

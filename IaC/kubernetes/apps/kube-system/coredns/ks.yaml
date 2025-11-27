@@ -4,17 +4,30 @@ kind: Kustomization
 metadata:
   name: coredns
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: dns
 spec:
-  interval: 1h
+  interval: 1h0m0s
+  retryInterval: 2m0s
+  timeout: 5m0s
+
   path: ./IaC/kubernetes/apps/kube-system/coredns/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
+
   prune: true
+  wait: false
+
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+
   targetNamespace: kube-system
-  wait: false
+
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cluster-secrets
+        optional: true

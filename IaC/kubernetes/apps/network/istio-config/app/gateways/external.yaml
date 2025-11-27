@@ -1,0 +1,57 @@
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: external-gateway
+  namespace: network
+  labels:
+    app.kubernetes.io/name: external-gateway
+    app.kubernetes.io/component: service-mesh
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: service-mesh
+spec:
+  selector:
+    istio: envoy-external
+
+  servers:
+    - name: domain-1
+      port:
+        number: 443
+        name: https-domain-1
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: envoy-external-domain-1-tls
+        minProtocolVersion: TLSV1_3
+        maxProtocolVersion: TLSV1_3
+      hosts:
+        - external.${DOMAIN_1}
+        - "*.${DOMAIN_1}"
+
+    - name: domain-2
+      port:
+        number: 443
+        name: https-domain-2
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: envoy-external-domain-2-tls
+        minProtocolVersion: TLSV1_3
+        maxProtocolVersion: TLSV1_3
+      hosts:
+        - external.${DOMAIN_2}
+        - "*.${DOMAIN_2}"
+
+    - name: domain-3
+      port:
+        number: 443
+        name: https-domain-3
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: envoy-external-domain-3-tls
+        minProtocolVersion: TLSV1_3
+        maxProtocolVersion: TLSV1_3
+      hosts:
+        - external.${DOMAIN_3}
+        - "*.${DOMAIN_3}"

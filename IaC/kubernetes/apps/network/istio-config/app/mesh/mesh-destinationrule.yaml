@@ -1,4 +1,3 @@
----
 apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
@@ -11,7 +10,21 @@ metadata:
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: service-mesh
 spec:
-  host: "*.svc.cluster.local"
+  host: mesh
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
+
+    # Optional: Mesh-safe defaults (recommended)
+    connectionPool:
+      tcp:
+        maxConnections: 1000
+      http:
+        http1MaxPendingRequests: 1000
+        maxRequestsPerConnection: 100
+
+    outlierDetection:
+      consecutive5xxErrors: 5
+      interval: 5s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50

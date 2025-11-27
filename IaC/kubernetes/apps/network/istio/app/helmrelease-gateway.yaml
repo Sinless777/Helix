@@ -1,6 +1,5 @@
-# IaC/kubernetes/apps/base/network/istio/app/helmrelease-gateway.yaml
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: envoy-external
@@ -10,29 +9,29 @@ metadata:
     app.kubernetes.io/component: service-mesh
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
-    helix.ai/component: service-mesh
+    helix.ai.component: service-mesh
 spec:
-  releaseName: envoy-external
-  interval: 30m
+  interval: 30m0s
+
   dependsOn:
-    - name: istio
+    - name: istio-base
       namespace: network
-  chart:
-    spec:
-      chart: gateway
-      version: 1.28.0
-      sourceRef:
-        kind: HelmRepository
-        name: istio
-        namespace: flux-system
-      interval: 1h
+
   install:
-    createNamespace: true
+    createNamespace: false
     remediation:
-      retries: -1
+      retries: 3
+      remediateLastFailure: true
+
   upgrade:
     remediation:
-      retries: -1
+      retries: 3
+
+  chartRef:
+    kind: HelmRepository
+    name: istio
+    namespace: flux-system
+
   values:
     name: envoy-external
     service:

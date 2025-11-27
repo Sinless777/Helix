@@ -4,19 +4,24 @@ kind: HelmRelease
 metadata:
   name: coredns
   namespace: kube-system
+  labels:
+    app.kubernetes.io/name: coredns
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: dns
 spec:
   chartRef:
     kind: OCIRepository
     name: coredns
     namespace: flux-system
-  interval: 1h
+  interval: 1h0m0s
   install:
-    timeout: 10m
+    timeout: 10m0s
     remediation:
       retries: 3
       remediateLastFailure: true
   upgrade:
-    timeout: 10m
+    timeout: 10m0s
     remediation:
       retries: 3
   values:
@@ -28,7 +33,6 @@ spec:
       create: true
     service:
       name: kube-dns
-      # Use the standard Kubernetes DNS service IP for minikube.
       clusterIP: 10.96.0.10
     deployment:
       selector:
@@ -37,7 +41,7 @@ spec:
     replicaCount: 2
     servers:
       - zones:
-          - zone: .
+          - zone: "."
             scheme: dns://
             use_tcp: true
         port: 53

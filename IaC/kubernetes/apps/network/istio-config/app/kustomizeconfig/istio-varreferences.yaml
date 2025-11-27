@@ -1,9 +1,58 @@
 varReference:
+  # ─────────────────────────────────────────────
+  # Istio Gateways
+  # ─────────────────────────────────────────────
   - kind: Gateway
-    path: spec/servers/hosts
+    path: spec/servers/*/hosts
+
+  # ─────────────────────────────────────────────
+  # Certificates (cert-manager)
+  # ─────────────────────────────────────────────
   - kind: Certificate
     path: spec/dnsNames
+  - kind: Certificate
+    path: spec/commonName
+
+  # ─────────────────────────────────────────────
+  # Istio AuthorizationPolicy
+  # ─────────────────────────────────────────────
   - kind: AuthorizationPolicy
-    path: spec/rules/from/source/ipBlocks
+    path: spec/rules/*/from/*/source/ipBlocks
   - kind: AuthorizationPolicy
-    path: spec/rules/from/source/notIpBlocks
+    path: spec/rules/*/from/*/source/notIpBlocks
+
+  # ─────────────────────────────────────────────
+  # Istio VirtualServices
+  # ─────────────────────────────────────────────
+  - kind: VirtualService
+    path: spec/hosts
+  - kind: VirtualService
+    path: spec/http/*/match/*/uri/prefix
+  - kind: VirtualService
+    path: spec/tls/*/match/*/sniHosts
+
+  # ─────────────────────────────────────────────
+  # Istio DestinationRule
+  # ─────────────────────────────────────────────
+  - kind: DestinationRule
+    path: spec/host
+  - kind: DestinationRule
+    path: spec/trafficPolicy/loadBalancer/simple
+
+  # ─────────────────────────────────────────────
+  # Istio EnvoyFilter
+  # ─────────────────────────────────────────────
+  - kind: EnvoyFilter
+    path: spec/configPatches/*/match/*/context
+
+  # ─────────────────────────────────────────────
+  # Istio PeerAuthentication
+  # ─────────────────────────────────────────────
+  - kind: PeerAuthentication
+    path: spec/selector/matchLabels/app
+
+  # ─────────────────────────────────────────────
+  # Istio RequestAuthentication
+  # ─────────────────────────────────────────────
+  - kind: RequestAuthentication
+    path: spec/jwtRules/*/issuer

@@ -16,6 +16,11 @@ spec:
   prune: true
   wait: true
 
+  dependsOn:
+    - name: cert-manager-stack
+    - name: cluster-vars
+    - name: flux-helm-repositories
+
   # Reconciles the HelmRelease in /app
   path: ./IaC/kubernetes/apps/kube-system/cilium/app
 

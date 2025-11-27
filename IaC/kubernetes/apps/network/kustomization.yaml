@@ -1,8 +1,27 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+metadata:
+  name: network-stack
+  labels:
+    app.kubernetes.io/name: network-stack
+    app.kubernetes.io/component: networking
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: networking
+
 resources:
+  # Namespace for all network-level components
   - ./namespace.yaml
+
+  # Cloudflare-managed external DNS
   - ./cloudflare-dns/ks.yaml
+
+  # Cloudflare Tunnel (exposes your ingress edge privately)
   - ./cloudflare-tunnel/ks.yaml
+
+  # Istio service mesh (gateways, operator/HelmRelease)
   - ./istio/ks.yaml
+
+  # Istio configuration & mesh-wide policies
   - ./istio-config/ks.yaml

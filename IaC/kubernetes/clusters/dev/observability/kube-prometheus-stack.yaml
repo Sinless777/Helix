@@ -3,20 +3,35 @@ kind: Kustomization
 metadata:
   name: kube-prometheus-stack
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: kube-prometheus-stack
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: monitoring
 spec:
-  interval: 10m
-  path: ./IaC/kubernetes/apps/observability/kube-prometheus-stack/app
+  interval: 10m0s
+  retryInterval: 2m0s
+  timeout: 10m0s
   prune: true
   wait: true
+
+  path: ./IaC/kubernetes/apps/observability/kube-prometheus-stack/app
+
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
+
   dependsOn:
     - name: cilium
+      namespace: flux-system
+
   postBuild:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
+
   decryption:
     provider: sops
     secretRef:
