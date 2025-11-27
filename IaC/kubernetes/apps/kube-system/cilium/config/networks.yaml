@@ -10,9 +10,13 @@ metadata:
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: networking
 spec:
-  allowFirstLastIPs: false
-  blocks:
-    - cidr: 10.11.12.0/24 # adjust per-cluster
+  # Must be string, not boolean
+  allowFirstLastIPs: "false"
+
+  # Valid modern schema (Cilium ≥ 1.14)
+  cidrs:
+    - cidr: "10.11.12.0/24" # adjust per-cluster
+
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
@@ -29,6 +33,7 @@ spec:
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux
+
 ---
 # Enable only when BGP is used in the environment
 apiVersion: cilium.io/v2alpha1
@@ -54,6 +59,7 @@ spec:
             operator: In
             values:
               - bgp
+
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeerConfig
@@ -72,6 +78,7 @@ spec:
       advertisements:
         matchLabels:
           advertise: bgp
+
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPClusterConfig
