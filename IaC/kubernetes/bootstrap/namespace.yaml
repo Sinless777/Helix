@@ -13,3 +13,16 @@ metadata:
     kubernetes.io/metadata.name: flux-system
     istio-injection: "disabled"
     linkerd.io/inject: "disabled"
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: network
+  labels:
+    app.kubernetes.io/name: network
+    app.kubernetes.io/part-of: helix-platform
+    helix.ai/component: networking
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce-version: latest
+  annotations:
+    kubernetes.io/metadata.name: network

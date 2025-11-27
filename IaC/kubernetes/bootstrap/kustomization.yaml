@@ -49,3 +49,6 @@ resources:
 
   # ExternalDNS CRDs (needed before applying ExternalDNS resources)
   - https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/heads/master/config/crd/standard/dnsendpoints.externaldns.k8s.io.yaml
+
+  # Istio CRDs (needed before applying Istio resources) security.istio.io
+  - https://raw.githubusercontent.com/istio/istio/release-1.19/manifests/charts/base/crds/crd-all.gen.yaml

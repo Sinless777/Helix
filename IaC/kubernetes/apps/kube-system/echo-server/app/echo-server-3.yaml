@@ -15,7 +15,7 @@ spec:
 
   chartRef:
     kind: OCIRepository
-    name: echo-server
+    name: bjw-s-app-template
     namespace: flux-system
 
   install:
