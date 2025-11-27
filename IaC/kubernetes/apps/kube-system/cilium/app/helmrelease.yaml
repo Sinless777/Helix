@@ -3,29 +3,47 @@ kind: HelmRelease
 metadata:
   name: cilium
   namespace: kube-system
+  labels:
+    app.kubernetes.io/name: cilium
+    app.kubernetes.io/component: cni
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: networking
 spec:
-  interval: 1h
+  interval: 1h0m0s
+  timeout: 10m0s
+  retryInterval: 5m0s
+
   chart:
     spec:
       chart: cilium
-      version: "1.18.4" # pin to a matched version; update accordingly
+      version: "1.18.4"
       sourceRef:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
+      interval: 5m0s
+
+  releaseName: cilium
+
   values:
-    # Basic datapath & routing settings
-    autoDirectNodeRoutes: false # disable native-direct routes in minikube
+    autoDirectNodeRoutes: false
+
     bpf:
-      masquerade: false # rely on kube-proxy/ip-masq-agent for SNAT
+      masquerade: false
+
     bgpControlPlane:
       enabled: true
+
     ipam:
-      mode: kubernetes # use Kubernetes-native IPAM :contentReference[oaicite:3]{index=3}
-    kubeProxyReplacement: false # fully rely on kube-proxy in minikube
+      mode: kubernetes
+
+    kubeProxyReplacement: false
     kubeProxyReplacementHealthzBindAddr: ""
+
     cni:
       exclusive: true
+
     securityContext:
       capabilities:
         ciliumAgent:
@@ -46,53 +64,56 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-    # Network service load-balancer settings
+
     loadBalancer:
       algorithm: maglev
-      # Use default chart mode (snat) unless overridden per environment.
-      # Set explicitly here to keep a stable, non-templated value.
       mode: snat
+
     l2announcements:
       enabled: true
+
     localRedirectPolicy: true
+
     endpointRoutes:
       enabled: false
-    # Observer/monitoring integration
+
     prometheus:
       enabled: true
       serviceMonitor:
         enabled: true
         trustCRDsExist: true
+
     operator:
+      replicas: 1
+      rollOutPods: true
+      skipCRDCreation: false
       prometheus:
         enabled: true
         serviceMonitor:
           enabled: true
-      replicas: 1
-      rollOutPods: true
-      skipCRDCreation: false
+
     rollOutCiliumPods: true
-    routingMode: tunnel # simpler overlay mode for minikube
-    # Dashboard for troubleshooting
+
+    routingMode: tunnel
+
     dashboards:
       enabled: true
-    # Hubble & GatewayAPI (disabled by default; enable when required)
+
     hubble:
       enabled: false
+
     gatewayAPI:
       enabled: false
-    # Example of additional environment overlay placeholders
-    # Native routing requires explicit pod CIDR; minikube defaults to 10.244.0.0/24.
-    # Not used in tunnel mode; keep value for reference.
+
     ipv4NativeRoutingCIDR: "10.244.0.0/24"
-    # Cgroup handling – tune for host OS
+
     cgroup:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
+
     socketLB:
       enabled: true
       hostNamespaceOnly: true
-    # Additional recommended flags for stability & upgrade compatibility
-    upgradeCompatibility: "1.18" # pinned for chart 1.18.x
-    envoy.prometheus.serviceMonitor.enabled: true
+
+    upgradeCompatibility: "1.18"

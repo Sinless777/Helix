@@ -7,4 +7,8 @@ metadata:
     purpose: system-components
     environment: base
     app.kubernetes.io/name: kube-system
+    app.kubernetes.io/component: control-plane-system
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helm.sh/resource-policy: keep
     helix.ai/component: gitops-control-plane
