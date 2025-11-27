@@ -102,6 +102,7 @@ tasks:
       - |
         echo "⚙️  Applying cluster dev stack..."
         kubectl apply -k IaC/kubernetes/clusters/dev
+        kubectl wait --for=condition=Ready pods --all -n flux-system --timeout=180s
 
       - |
         echo "📜 Deploying core operators..."
