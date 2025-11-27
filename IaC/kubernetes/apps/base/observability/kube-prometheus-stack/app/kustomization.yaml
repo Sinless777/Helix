@@ -4,3 +4,5 @@ resources:
   - helmrelease.yaml
   - config.yaml
   - dns-endpoint.yaml
+  - istio.yaml
+  - secret.sops.yaml

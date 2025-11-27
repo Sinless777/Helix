@@ -70,19 +70,16 @@ spec:
       service:
         type: ClusterIP
         port: 80
+        portName: http-web
+
+      podAnnotations:
+        sidecar.istio.io/inject: "true"
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":true}'
 
       ingress:
-        enabled: true
-        ingressClassName: istio
-        annotations:
-          kubernetes.io/ingress.class: istio
-          cert-manager.io/cluster-issuer: "letsencrypt-staging-domain3"
-        hosts:
-          - "grafana.${DOMAIN_3}"
-        tls:
-          - secretName: grafana-tls
-            hosts:
-              - "grafana.${DOMAIN_3}"
+        # Disabled in favor of Istio Gateway/VirtualService in this app
+        enabled: false
 
       sidecar:
         dashboards:
@@ -102,49 +99,49 @@ spec:
       enabled: true
 
       ingress:
-        enabled: true
-        ingressClassName: istio
-        annotations:
-          kubernetes.io/ingress.class: istio
-          cert-manager.io/cluster-issuer: "letsencrypt-staging-domain3"
-        hosts:
-          - "prometheus.${DOMAIN_3}"
-        tls:
-          - secretName: prometheus-tls
-            hosts:
-              - "prometheus.${DOMAIN_3}"
+        enabled: false
+
+      service:
+        type: ClusterIP
+        port: 9090
 
       prometheusSpec:
+        externalUrl: "https://prometheus.${DOMAIN_3}"
         retention: 15d
         walCompression: true
         enableAdminAPI: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
+        podMetadata:
+          annotations:
+            sidecar.istio.io/inject: "true"
+            sidecar.istio.io/rewriteAppHTTPProbers: "true"
+            proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":true}'
 
     ## ───────────────────────────────────────────────────────────────
     ## Alertmanager
-    ## Internal Ingress: alert-manager.${DOMAIN_3}
+    ## Internal Ingress: alertmanager.${DOMAIN_3}
     ## ───────────────────────────────────────────────────────────────
     alertmanager:
       enabled: true
 
       ingress:
-        enabled: true
-        ingressClassName: istio
-        annotations:
-          kubernetes.io/ingress.class: istio
-          cert-manager.io/cluster-issuer: "letsencrypt-staging-domain3"
-        hosts:
-          - "alert-manager.${DOMAIN_3}"
-        tls:
-          - secretName: alert-manager-tls
-            hosts:
-              - "alert-manager.${DOMAIN_3}"
+        enabled: false
+
+      service:
+        type: ClusterIP
+        port: 9093
 
       alertmanagerSpec:
+        externalUrl: "https://alertmanager.${DOMAIN_3}"
         replicas: 2
         retention: "120h"
+        podMetadata:
+          annotations:
+            sidecar.istio.io/inject: "true"
+            sidecar.istio.io/rewriteAppHTTPProbers: "true"
+            proxy.istio.io/config: '{"holdApplicationUntilProxyStarts":true}'
         storage:
           volumeClaimTemplate:
             spec:

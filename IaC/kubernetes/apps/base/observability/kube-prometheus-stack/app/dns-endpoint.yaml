@@ -10,3 +10,9 @@ spec:
     - dnsName: "grafana.${DOMAIN_3}"
       recordType: CNAME
       targets: ["external.${DOMAIN_3}"]
+    - dnsName: "prometheus.${DOMAIN_3}"
+      recordType: CNAME
+      targets: ["envoy-internal.network.svc.cluster.local"]
+    - dnsName: "alertmanager.${DOMAIN_3}"
+      recordType: CNAME
+      targets: ["envoy-internal.network.svc.cluster.local"]
