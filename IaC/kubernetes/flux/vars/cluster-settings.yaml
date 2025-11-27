@@ -50,3 +50,7 @@ data:
   # Main brand / marketing domain
   DOMAIN_3: "sinlessgames.com"
   LOCAL_DOMAIN_3: "local.sinlessgames.com"
+
+  # Cluster-specific settings
+  ENVIRONMENT: "dev" # Override in cluster overlays: staging, production
+  CLUSTER_NAME: "dev" # Override in cluster overlays: staging, production

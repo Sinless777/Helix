@@ -24,6 +24,9 @@ resources:
 
   # Gateway API CRDs (versioned release to avoid oversized annotations from tip of main)
   - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/standard-install.yaml
+
+  # Cert-Manager CRDs (needed before applying cert-manager resources)
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.crds.yaml
   # Cilium CRDs (needed before applying Cilium resources)
   - ./cilium-crds
 

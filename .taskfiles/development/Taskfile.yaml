@@ -75,6 +75,7 @@ tasks:
 
       # Deploy Cert-Manager first as other components may depend on it
       - flux reconcile kustomization cert-manager-stack -n flux-system || true
+      - kubectl wait --for=condition=available --timeout=300s deployment/cert-manager-webhook -n cert-manager || true
       - flux reconcile kustomization cilium -n flux-system || true
       - flux reconcile kustomization coredns -n flux-system || true
       - flux reconcile kustomization metrics-server -n flux-system || true
@@ -85,6 +86,7 @@ tasks:
       - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
       - flux reconcile kustomization istio-stack -n flux-system || true
       - flux reconcile kustomization istio-config-stack -n flux-system || true
+      - flux reconcile kustomization kube-prometheus-stack -n flux-system || true
 
   reconcile-all:
     desc: Reconcile all Flux kustomizations for dev cluster
@@ -97,6 +99,7 @@ tasks:
 
       # Deploy Cert-Manager first as other components may depend on it
       - flux reconcile kustomization cert-manager-stack -n flux-system || true
+      - kubectl wait --for=condition=available --timeout=300s deployment/cert-manager-webhook -n cert-manager || true
 
       # kube system components
       - flux reconcile kustomization cilium -n flux-system || true
@@ -111,3 +114,6 @@ tasks:
       - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
       - flux reconcile kustomization istio-stack -n flux-system || true
       - flux reconcile kustomization istio-config-stack -n flux-system || true
+
+      # Observability components
+      - flux reconcile kustomization kube-prometheus-stack -n flux-system || true
