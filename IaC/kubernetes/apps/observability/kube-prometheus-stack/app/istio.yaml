@@ -30,7 +30,7 @@ spec:
       protocol: TCP
 
 ---
-apiVersion: networking.istio.io/v1
+apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
   name: envoy-internal
@@ -70,7 +70,7 @@ spec:
         - "alertmanager.${DOMAIN_3}"
 
 ---
-apiVersion: networking.istio.io/v1
+apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: grafana
@@ -103,7 +103,7 @@ spec:
       timeout: 30s
 
 ---
-apiVersion: networking.istio.io/v1
+apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: kube-prometheus-stack-prometheus
@@ -136,7 +136,7 @@ spec:
       timeout: 60s
 
 ---
-apiVersion: networking.istio.io/v1
+apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: kube-prometheus-stack-alertmanager

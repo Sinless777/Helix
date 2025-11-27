@@ -5,23 +5,6 @@ resources:
   - echo-server-2.yaml
   - echo-server-3.yaml
   - dns-endpoint.yaml
-
-patchesStrategicMerge:
-  - |
-    apiVersion: security.istio.io/v1
-    kind: AuthorizationPolicy
-    metadata:
-      name: echo-server-1-allow
-      namespace: kube-system
-  - |
-    apiVersion: security.istio.io/v1
-    kind: AuthorizationPolicy
-    metadata:
-      name: echo-server-2-allow
-      namespace: kube-system
-  - |
-    apiVersion: security.istio.io/v1
-    kind: AuthorizationPolicy
-    metadata:
-      name: echo-server-3-allow
-      namespace: kube-system
+  - authorizationpolicy-1.yaml
+  - authorizationpolicy-2.yaml
+  - authorizationpolicy-3.yaml
