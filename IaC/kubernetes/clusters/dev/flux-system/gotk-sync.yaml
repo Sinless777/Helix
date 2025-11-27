@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: feature/ga-observability-plan
   url: https://github.com/SinLess777/Helix.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
