@@ -7,6 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: sops-secret-reader
     app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: gitops-control-plane
 rules:
   - apiGroups: [""]
@@ -23,10 +24,17 @@ metadata:
   labels:
     app.kubernetes.io/name: bind-sops-secret-reader
     app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: gitops-control-plane
 subjects:
   - kind: ServiceAccount
     name: kustomize-controller
+    namespace: flux-system
+  - kind: ServiceAccount
+    name: helm-controller
+    namespace: flux-system
+  - kind: ServiceAccount
+    name: source-controller
     namespace: flux-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io

@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-staging-domain1
+  name: letsencrypt-staging-domain-1
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -10,13 +10,13 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "${ACME_EMAIL_1}"
+    email: ${ACME_EMAIL_1}
     privateKeySecretRef:
-      name: letsencrypt-staging-domain1
+      name: letsencrypt-staging-domain-1
     solvers:
       - selector:
           dnsZones:
-            - "${DOMAIN_1}"
+            - ${DOMAIN_1}
         dns01:
           cloudflare:
             apiTokenSecretRef:
@@ -27,7 +27,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-staging-domain2
+  name: letsencrypt-staging-domain-2
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -36,13 +36,13 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "${ACME_EMAIL_2}"
+    email: ${ACME_EMAIL_2}
     privateKeySecretRef:
-      name: letsencrypt-staging-domain2
+      name: letsencrypt-staging-domain-2
     solvers:
       - selector:
           dnsZones:
-            - "${DOMAIN_2}"
+            - ${DOMAIN_2}
         dns01:
           cloudflare:
             apiTokenSecretRef:
@@ -53,7 +53,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-staging-domain3
+  name: letsencrypt-staging-domain-3
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -62,13 +62,13 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "${ACME_EMAIL_3}"
+    email: ${ACME_EMAIL_3}
     privateKeySecretRef:
-      name: letsencrypt-staging-domain3
+      name: letsencrypt-staging-domain-3
     solvers:
       - selector:
           dnsZones:
-            - "${DOMAIN_3}"
+            - ${DOMAIN_3}
         dns01:
           cloudflare:
             apiTokenSecretRef:

@@ -7,3 +7,9 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: gitops-control-plane
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce-version: latest
+  annotations:
+    kubernetes.io/metadata.name: flux-system
+    istio-injection: "disabled"
+    linkerd.io/inject: "disabled"

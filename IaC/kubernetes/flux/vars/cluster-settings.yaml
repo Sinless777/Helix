@@ -31,9 +31,7 @@ data:
   # ---------------------------------------------------------------------------
 
   # ACME registration emails
-  ACME_EMAIL_1: "disdainful777@gmail.com"
-  ACME_EMAIL_2: "disdainful777@gmail.com"
-  ACME_EMAIL_3: "disdainful777@gmail.com"
+  ACME_EMAIL: "disdainful777@gmail.com"
 
   TUNNEL_ID_1: f2f46d7d-bcb2-45fd-aa4f-78868fa8d004
   TUNNEL_ID_2: ea885cbb-0dd6-450e-aa26-c98d4c6a3695

@@ -7,4 +7,3 @@ resources:
   - ./network
   - ./observability
   - ./cert-manager.yaml
-  - ./istio-config.yaml

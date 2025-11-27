@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-production-domain1
+  name: letsencrypt-production-domain-1
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -10,9 +10,9 @@ metadata:
 spec:
   acme:
     server: https://acme-production-v02.api.letsencrypt.org/directory
-    email: "${ACME_EMAIL_1}"
+    email: "${ACME_EMAIL}"
     privateKeySecretRef:
-      name: letsencrypt-production-domain1
+      name: letsencrypt-production-domain-1
     solvers:
       - selector:
           dnsZones:
@@ -27,7 +27,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-production-domain2
+  name: letsencrypt-production-domain-2
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -36,9 +36,9 @@ metadata:
 spec:
   acme:
     server: https://acme-production-v02.api.letsencrypt.org/directory
-    email: "${ACME_EMAIL_2}"
+    email: "${ACME_EMAIL}"
     privateKeySecretRef:
-      name: letsencrypt-production-domain2
+      name: letsencrypt-production-domain-2
     solvers:
       - selector:
           dnsZones:
@@ -53,7 +53,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-production-domain3
+  name: letsencrypt-production-domain-3
   labels:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/part-of: helix-platform
@@ -62,9 +62,9 @@ metadata:
 spec:
   acme:
     server: https://acme-production-v02.api.letsencrypt.org/directory
-    email: "${ACME_EMAIL_3}"
+    email: "${ACME_EMAIL}"
     privateKeySecretRef:
-      name: letsencrypt-production-domain3
+      name: letsencrypt-production-domain-3
     solvers:
       - selector:
           dnsZones:

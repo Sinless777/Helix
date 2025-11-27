@@ -52,41 +52,37 @@ tasks:
   deploy-all:
     desc: Reconcile all Flux kustomizations for dev cluster after minikube start
     cmds:
-      # Ensure flux-system namespace exists before any Flux resources
-      - kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
-      # Install Flux CRDs first to avoid resource mapping errors
-      - kubectl apply -k IaC/kubernetes/clusters/dev/flux-system/CRDs
+      # Bootstrap the cluster
       - kubectl wait --for=condition=Established --timeout=60s crd/gitrepositories.source.toolkit.fluxcd.io crd/helmrepositories.source.toolkit.fluxcd.io crd/ocirepositories.source.toolkit.fluxcd.io crd/kustomizations.kustomize.toolkit.fluxcd.io
-
-      # Decrypt SOPS-encrypted manifests needed for bootstrapping
+      - kubectl apply -k IaC/kubernetes/clusters/dev/flux-system/CRDs
       - sops -d IaC/kubernetes/bootstrap/sops-age.sops.yaml > IaC/kubernetes/bootstrap/sops-age.yaml
-      # Apply full flux-system stack (controllers, rbac, sync manifests)
       - kubectl apply -k IaC/kubernetes/bootstrap
 
-      # Apply cluster-specific flux-system overlays
+      # # Apply cluster-specific flux-system overlays
       - kubectl apply -k IaC/kubernetes/clusters/dev/flux-system
-      - kubectl apply -k IaC/kubernetes/clusters/dev
+      - kubectl wait --for=condition=Ready pods --all -n flux-system --timeout=180s
+      # - kubectl apply -k IaC/kubernetes/clusters/dev
 
-      # Reconcile all kustomizations in order
-      - flux reconcile source git flux-system -n flux-system
-      - flux reconcile kustomization flux-system -n flux-system
-      - flux reconcile kustomization cluster-vars -n flux-system || true
-      - flux reconcile kustomization flux-helm-repositories -n flux-system || true
+      # # Reconcile all kustomizations in order
+      # - flux reconcile source git flux-system -n flux-system
+      # - flux reconcile kustomization flux-system -n flux-system
+      # - flux reconcile kustomization cluster-vars -n flux-system || true
+      # - flux reconcile kustomization flux-helm-repositories -n flux-system || true
 
-      # Deploy Cert-Manager first as other components may depend on it
-      - flux reconcile kustomization cert-manager-stack -n flux-system || true
-      - kubectl wait --for=condition=available --timeout=300s deployment/cert-manager-webhook -n cert-manager || true
-      - flux reconcile kustomization cilium -n flux-system || true
-      - flux reconcile kustomization coredns -n flux-system || true
-      - flux reconcile kustomization metrics-server -n flux-system || true
-      - flux reconcile kustomization stakater-reloader -n flux-system || true
-      - flux reconcile kustomization spegel -n flux-system || true
-      - flux reconcile kustomization echo-server-stack -n flux-system || true
-      - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
-      - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
-      - flux reconcile kustomization istio-stack -n flux-system || true
-      - flux reconcile kustomization istio-config-stack -n flux-system || true
-      - flux reconcile kustomization kube-prometheus-stack -n flux-system || true
+      # # Deploy Cert-Manager first as other components may depend on it
+      # - flux reconcile kustomization cert-manager-stack -n flux-system || true
+      # - kubectl wait --for=condition=available --timeout=300s deployment/cert-manager-webhook -n cert-manager || true
+      # - flux reconcile kustomization cilium -n flux-system || true
+      # - flux reconcile kustomization coredns -n flux-system || true
+      # - flux reconcile kustomization metrics-server -n flux-system || true
+      # - flux reconcile kustomization stakater-reloader -n flux-system || true
+      # - flux reconcile kustomization spegel -n flux-system || true
+      # - flux reconcile kustomization echo-server-stack -n flux-system || true
+      # - flux reconcile kustomization cloudflare-dns-stack -n flux-system || true
+      # - flux reconcile kustomization cloudflare-tunnel-stack -n flux-system || true
+      # - flux reconcile kustomization istio-stack -n flux-system || true
+      # - flux reconcile kustomization istio-config-stack -n flux-system || true
+      # - flux reconcile kustomization kube-prometheus-stack -n flux-system || true
 
   reconcile-all:
     desc: Reconcile all Flux kustomizations for dev cluster

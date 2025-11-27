@@ -3,12 +3,17 @@ kind: Secret
 metadata:
     name: sops-age
     namespace: flux-system
+    labels:
+        app.kubernetes.io/name: sops-age
+        app.kubernetes.io/part-of: helix-platform
+        app.kubernetes.io/managed-by: fluxcd
+        helix.ai/component: gitops-control-plane
 type: Opaque
 stringData:
     sops.pgp.asc: ENC[AES256_GCM,data:Jt7YbTdLURwPKj34eVYp5dSX3tufassMEQS0POwtjQ9GejqCCik5UUNo/vececHb3xxbplWKula5+TU0ohOOpuLJFRxkMLdCtqHS7VnY3OQQ+DYaB6bClN0qPk8WWOs3SLzU4e31HtfQ0T1kPfQlJe9IP2zPrS3Caam7lpDkNuTXrlbGfxYS2WiTgq3ha/dY0uydFC2pDQz4dHtaL16bssoy1g4wJsNaEwgZ9pGnIUKk6WSc0oAUpcihADk+XDdyDrZ009rGZiyHzwPRbSsCA0K+FJ9TwK516wRhFIFQrsOEPTjRC2wuZOSxZJI2hK70GKpeaXSmYSeyRzEDuVnY41s20ym/EdfZ++fG4CCW09p1bFrVqtEeigWeoFwbAhWL1w9QJFP1LWZjhnM0RcFHxKoxgIRRjhP4opMBDy3tqpq9RGlakw0Kes67aAsdHpJxoXL5om+eMksFXiKbML0TZd3p4KmxV/ONHu99GHdCJiL7Hfjl19Y1MBEoUFT0eMFFP7pv+qquRyl2VmoPS1ui6a4kMaYMhWzWofGZrBj6CJx3eclgK+/b64UO1IvUDHUL3NFSWeZRhvgV77xXH7Sy2oMf7SLpvj2hgSmYApMTvm/5CUU6OQSCq8oIM10+n9FunQ6R+SkUIqqkCPEWtaW1EldaYGDa16ZigW2n37c3hVn6woWuT5DA/KxH4ogyccTnVsFpCrV/+AyevY5umAuH64DOaAKrXVeBqBzCLo9eBDfWe1GG4mkvTzNm2r0Y4w3vECtvX3HnyU23L9VO/X3mQSk+MPSETlBgpmGOXcx6rRW2wSr+ZPRTjs30VQX2b2gY6tkrRAJ7XJJYcmU+h5T1bl5A9AgWEEymNJ8rbgqRcZT/sDRHBaQV7D7Ud6TElCh/kXku3iCLqNRAI7fYj4PVO8HAUx0tK9JV6a0L0xhkMokd0huObqlOx0+09g1u2RIHDMQBs6A3R7UFho/oXgHa9c1bCfJjt9xyFQPa/5Mk9TfKCsJETtG8QzCnlxbg6dv2KfagoAVYXVrOwiKN9LwVoOVOOX4mPiIH/xjXS2ch0zEJR9Me30Ze0CS6M7a1tf/sSFqAnyeJsE4A/EbEA0tjTfOdeVjXiWrYVSp/GaURlinQCsF9upOKMFLwWvRxAn9oNIWB3iy1H38s/vZj1qumqOtXgej8VcsgmNtmryq1ATvD8QYsaYantfRUe6BFHxJAO+pJNgGKM/SJZo4fdSOc3kyurv1T+B+BmvanCTT/aHptarlih7z7qixFfar+0Hx/igG/fcYUkF2EzbBTrFCKLfy5oonP8PRpQvf2IJCvdg0QqIIuFvDqiiVoWB5C+lBrJVWXhIuEUbCdAwpal4YaiNCijF4=,iv:WGHAC+ppxckw1i/e7yTQL4COCrhEmtVdrrnqNHAsdvE=,tag:6HTiR3ayIlnLBc2ExMqAeA==,type:str]
 sops:
-    lastmodified: "2025-11-24T22:19:04Z"
-    mac: ENC[AES256_GCM,data:CP7KgAOMxznthcBs2gvsojoN0DZJ2w5175FwXnyQuWUGu8a0FZxj90KHXO7nAca4/PWPRy3GpzkI4Vid5E0HyjjnOvD1Uw8jSjEJ0i0Z1UBU1j1MSUhYhvsHCtpxcuA/FA514ZftPtgd0TrryEqouxNr6geFB5aQ+gUcUM0R2YY=,iv:PiUub+niwI5sFMFTyLToZ5JlYHMeAO4wLdnLVhYOZh4=,tag:jYp9j1ZD/tJUyfesmMbaYw==,type:str]
+    lastmodified: "2025-11-27T16:56:00Z"
+    mac: ENC[AES256_GCM,data:OHCNmhhGTtat0EvUmwL70kZHMnYn6hdOAmeWy118yqib+RCeLpA4BGeFdelHdBWV8tEKrAtx7q1wbwF+UJz4jDd01Ji6gsVSNfCv/NqyimYmSFLgjhjd5t2lk0v2ONM1GNwtF7NrCZA4gTemXjt465y06kiVKAhENVRfhBpJ/mg=,iv:Gy/OYJNPQEKrtRtrhJ3v5XMBetNHOAchNv5o5HrSZlw=,tag:0lW7kI8Nc++NH/sMsH2dYg==,type:str]
     pgp:
         - created_at: "2025-11-24T22:19:04Z"
           enc: |-

@@ -4,6 +4,8 @@ metadata:
   name: cert-manager
   labels:
     app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/component: certificate-management
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
+    helm.sh/resource-policy: keep
     helix.ai/component: cert-manager

@@ -3,21 +3,21 @@ kind: Kustomization
 metadata:
   name: cert-manager-issuers
   namespace: flux-system
+  labels:
+    app.kubernetes.io/name: cert-manager-issuers
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: cert-manager
 spec:
-  interval: 1h
-  path: ./IaC/kubernetes/apps/cert-manager/issuers/app
-  prune: true
-  wait: true
-  dependsOn:
-    - name: cert-manager
+  interval: 1h0m0s
+  retryInterval: 5m0s
   sourceRef:
     kind: GitRepository
     name: helix-ai
     namespace: flux-system
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-settings
-      - kind: Secret
-        name: cluster-secrets
-        optional: true
+  path: "./IaC/kubernetes/apps/cert-manager/issuers/app"
+  prune: true
+  wait: true
+  timeout: 10m0s
+  dependsOn:
+    - name: cert-manager

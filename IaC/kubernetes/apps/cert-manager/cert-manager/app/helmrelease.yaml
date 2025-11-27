@@ -10,18 +10,25 @@ metadata:
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: cert-manager
 spec:
+  interval: 1h0m0s
+  timeout: 10m0s
   chartRef:
     kind: OCIRepository
     name: cert-manager
     namespace: flux-system
-  interval: 1h
   values:
+    installCRDs: false
     crds:
       enabled: true
     replicaCount: 1
-    dns01RecursiveNameservers: https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query
-    dns01RecursiveNameserversOnly: true
+    extraArgs:
+      # ensure DNS-01 challenge resolver behavior
+      - --dns01-recursive-nameservers-only
+      - --dns01-recursive-nameservers=1.1.1.1:443,1.0.0.1:443
+    dns01RecursiveNameservers: null
     prometheus:
       enabled: true
       servicemonitor:
         enabled: true
+  # optional: releaseName: cert-manager
+  # optional: dependsOn, if you later introduce issuers or other HelmReleases that require cert-manager first

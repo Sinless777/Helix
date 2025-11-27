@@ -9,14 +9,17 @@ metadata:
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: cert-manager
 spec:
-  interval: 1h
+  interval: 1h0m0s
+  retryInterval: 5m0s
   sourceRef:
     kind: GitRepository
     name: helix-ai
     namespace: flux-system
-  path: ./IaC/kubernetes/apps/cert-manager/cert-manager/app
+  path: "./IaC/kubernetes/apps/cert-manager/cert-manager/app"
   targetNamespace: cert-manager
   prune: true
+  wait: true
+  timeout: 10m0s
   decryption:
     provider: sops
     secretRef:
