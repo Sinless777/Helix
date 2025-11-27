@@ -46,3 +46,6 @@ resources:
   - https://raw.githubusercontent.com/cilium/cilium/v1.18.4/pkg/k8s/apis/cilium.io/client/crds/v2/ciliumnetworkpolicies.yaml
   - https://raw.githubusercontent.com/cilium/cilium/v1.18.4/pkg/k8s/apis/cilium.io/client/crds/v2/ciliumnodeconfigs.yaml
   - https://raw.githubusercontent.com/cilium/cilium/v1.18.4/pkg/k8s/apis/cilium.io/client/crds/v2/ciliumnodes.yaml
+
+  # ExternalDNS CRDs (needed before applying ExternalDNS resources)
+  - https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/heads/master/config/crd/standard/dnsendpoints.externaldns.k8s.io.yaml
