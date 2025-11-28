@@ -13,7 +13,7 @@ spec:
   retryInterval: 2m0s
   timeout: 10m0s
   prune: true
-  wait: true
+  wait: false
 
   path: ./IaC/kubernetes/apps/cert-manager
 
