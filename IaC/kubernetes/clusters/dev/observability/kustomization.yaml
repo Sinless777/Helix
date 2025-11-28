@@ -8,4 +8,5 @@ metadata:
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: observability
 resources:
+  - namespace.yaml
   - kube-prometheus-stack.yaml
