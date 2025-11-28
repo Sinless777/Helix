@@ -43,7 +43,7 @@ spec:
   decryption:
     provider: sops
     secretRef:
-      name: flux-system-sops
+      name: sops-age
 
   postBuild:
     # Allow variable substitution from environment or default fallbacks
