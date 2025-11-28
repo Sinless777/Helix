@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/component: observability
+    helix.ai/component: observability
+data:
+  collector.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: otel-gateway
+              scrape_interval: 30s
+              static_configs:
+                - targets: ["127.0.0.1:8888"]
+      loki:
+        use_insecure: true
+    processors:
+      batch:
+        timeout: 5s
+        send_batch_size: 512
+      tail_sampling:
+        decision_wait: 10s
+        num_traces: 500
+        policies:
+          - latency:
+              threshold_ms: 900
+          - status_code:
+              status_codes:
+                - ERROR
+          - probabilistic:
+              hash_seed: 22
+              sampling_percentage: ${OTEL_TRACE_SAMPLING:=20}
+      attributes:
+        actions:
+          - key: deployment.environment
+            action: upsert
+            value: ${ENVIRONMENT}
+    exporters:
+      otlp/tempo:
+        endpoint: tempo-distributor.observability.svc.cluster.local:4317
+        tls:
+          insecure: true
+      loki:
+        endpoint: http://loki-gateway.observability.svc.cluster.local/loki/api/v1/push
+        headers:
+          X-Scope-OrgID: helix
+      prometheusremotewrite/mimir:
+        endpoint: http://mimir-nginx.observability.svc.cluster.local/api/v1/push
+      logging:
+        loglevel: debug
+    extensions:
+      health_check:
+        endpoint: 0.0.0.0:13133
+      pprof:
+        endpoint: 0.0.0.0:1777
+    service:
+      extensions: [health_check, pprof]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [tail_sampling, batch]
+          exporters: [otlp/tempo]
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [prometheusremotewrite/mimir]
+        logs:
+          receivers: [otlp, loki]
+          processors: [attributes, batch]
+          exporters: [loki]

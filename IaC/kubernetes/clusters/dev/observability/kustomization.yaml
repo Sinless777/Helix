@@ -7,4 +7,16 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: observability
-resources: []
+resources:
+  - namespaces.yaml
+  - kube-prometheus-stack.yaml
+  - grafana-mimir.yaml
+  - loki.yaml
+  - tempo.yaml
+  - pyroscope.yaml
+  - otel-collector.yaml
+  - beyla.yaml
+  - grafana-alloy.yaml
+  - grafana-faro.yaml
+  - echo-reference.yaml
+  - kiali.yaml

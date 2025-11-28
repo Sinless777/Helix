@@ -14,5 +14,24 @@ resources:
   # Namespace for all observability components
   - ./namespace.yaml
 
+  # Namespace for performance workloads (k6 operator, load tests)
+  - ./performance-namespace.yaml
+
   # Flux Kustomization for kube-prometheus-stack
   - ./kube-prometheus-stack/ks.yaml
+
+  # Phase 1 – Core monitoring assets
+  - ./grafana-mimir/ks.yaml
+  - ./loki/ks.yaml
+  - ./kiali/ks.yaml
+
+  # Phase 2 – Deep telemetry assets
+  - ./tempo/ks.yaml
+  - ./otel-collector/ks.yaml
+  - ./pyroscope/ks.yaml
+  - ./beyla/ks.yaml
+
+  # Phase 3 – Operational readiness
+  - ./grafana-alloy/ks.yaml
+  - ./grafana-faro/ks.yaml
+  - ./echo-reference/ks.yaml

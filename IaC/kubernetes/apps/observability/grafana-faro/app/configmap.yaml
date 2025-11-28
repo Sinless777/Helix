@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-faro-config
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: grafana-faro
+    app.kubernetes.io/component: observability
+data:
+  env: |
+    FARO_APP_URL=${FARO_APP_URL:=https://app.${DOMAIN_1}}
+    FARO_SAMPLE_RATE=${FARO_SAMPLE_RATE:=1.0}
+  rum.js: |
+    window.__FARO__ = {
+      app: "helix",
+      env: "${ENVIRONMENT}",
+      version: "ga-phase-3",
+      sampleRate: ${FARO_SAMPLE_RATE:=1.0}
+    };

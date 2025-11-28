@@ -41,6 +41,7 @@
 <!-- markdownlint-enable MD033 -->
 
 Helix is an **intelligent digital companion** built for users, creators, and businesses — combining automation, contextual memory, and a secure plugin system in one extensible platform.
+
 > “Unify your tools. Amplify your mind.”
 
 ---
@@ -107,11 +108,11 @@ Every part of Helix is accessible via its **open API and TypeScript SDK** (`@hel
 
 Helix is engineered with enterprise-grade security from the start:
 
-* **Per-tenant secrets** stored via Vault/KMS
-* **mTLS mesh** for edge and plugin traffic
-* **Signed Audit Logs** (Ed25519)
-* **RBAC/ABAC** controls for every tool and API
-* **Air-gapped deployment support** for compliance environments (SOC2, HIPAA, GDPR)
+- **Per-tenant secrets** stored via Vault/KMS
+- **mTLS mesh** for edge and plugin traffic
+- **Signed Audit Logs** (Ed25519)
+- **RBAC/ABAC** controls for every tool and API
+- **Air-gapped deployment support** for compliance environments (SOC2, HIPAA, GDPR)
 
 ---
 
@@ -142,96 +143,100 @@ Helix is built on a **modular, secure, multi-tenant architecture** designed to s
 
 ### 💻 Frontend
 
-* **Framework:** [Next.js](https://nextjs.org/) (App Router, Server Components)
-* **Styling:** TailwindCSS + [shadcn/ui](https://ui.shadcn.com/) for clean, component-driven UI
-* **Modes:** Web app, Discord bot UI, upcoming mobile (React Native)
-* **UX Architecture:** Chat interface + plugin drawer + memory viewer + dashboard panels
+- **Framework:** [Next.js](https://nextjs.org/) (App Router, Server Components)
+- **Styling:** TailwindCSS + [shadcn/ui](https://ui.shadcn.com/) for clean, component-driven UI
+- **Modes:** Web app, Discord bot UI, upcoming mobile (React Native)
+- **UX Architecture:** Chat interface + plugin drawer + memory viewer + dashboard panels
 
 ---
 
 ### 🔧 Backend Core
 
-* **Database:** [Supabase](https://supabase.com/) (Postgres + Realtime + Auth)
-* **ORM:** [MikroORM](https://mikro-orm.io/) for schema-driven, typesafe Postgres modeling
-* **Cache & Queues:** Redis (short-term memory, task queues, session context)
-* **Vector Memory:** pgvector (HNSW/IVFFlat) for long-term memory & context embeddings
+- **Database:** [Supabase](https://supabase.com/) (Postgres + Realtime + Auth)
+- **ORM:** [MikroORM](https://mikro-orm.io/) for schema-driven, typesafe Postgres modeling
+- **Cache & Queues:** Redis (short-term memory, task queues, session context)
+- **Vector Memory:** pgvector (HNSW/IVFFlat) for long-term memory & context embeddings
 
 ---
 
 ### ⚙️ Inference & Intelligence
 
-* **Router:** Model control plane routes inference requests across providers based on cost, latency, org policy
-* **Supported Models:**
+- **Router:** Model control plane routes inference requests across providers based on cost, latency, org policy
+- **Supported Models:**
 
-  * `openai:gpt-4`, `openai:gpt-3.5-turbo`
-  * `claude-3-opus` / `claude-3-sonnet`
-  * `ollama:llama3-70b`, `mistral`, custom fine-tunes
-* **Fallback Logic:** Retry-on-failure, tier-aware switches, hybrid local/cloud override
+  - `openai:gpt-4`, `openai:gpt-3.5-turbo`
+  - `claude-3-opus` / `claude-3-sonnet`
+  - `ollama:llama3-70b`, `mistral`, custom fine-tunes
+
+- **Fallback Logic:** Retry-on-failure, tier-aware switches, hybrid local/cloud override
 
 ---
 
 ### 🌍 Edge Runtime
 
-* **Primary Edge:** [Cloudflare Workers](https://developers.cloudflare.com/workers/) (webhooks, automations, inference)
-* **UI Delivery:** Vercel Edge Functions + CDN
-* **Chaos Ready:** Workers are instrumented for chaos testing (latency spikes, plugin sandbox failures)
+- **Primary Edge:** [Cloudflare Workers](https://developers.cloudflare.com/workers/) (webhooks, automations, inference)
+- **UI Delivery:** Vercel Edge Functions + CDN
+- **Chaos Ready:** Workers are instrumented for chaos testing (latency spikes, plugin sandbox failures)
 
 ---
 
 ### 🔐 Secrets & Isolation
 
-* **Secrets Backend:** Vault, AWS KMS, or on-prem HSM per tenant/org
-* **Audit Trails:** Append-only audit logs (Ed25519-signed)
-* **Plugin Isolation:** Each skill/tool runs in a Deno sandbox with scope-limited memory and access
-* **RBAC/ABAC:** Fully enforced at plugin, API, memory, and automation layers
+- **Secrets Backend:** Vault, AWS KMS, or on-prem HSM per tenant/org
+- **Audit Trails:** Append-only audit logs (Ed25519-signed)
+- **Plugin Isolation:** Each skill/tool runs in a Deno sandbox with scope-limited memory and access
+- **RBAC/ABAC:** Fully enforced at plugin, API, memory, and automation layers
 
 ---
 
 ### 📊 Observability & Monitoring
 
-* **Tracing:** OpenTelemetry (OTEL)
-* **Dashboards:** [Grafana Cloud](https://grafana.com/), with panels for:
+- **Tracing:** OpenTelemetry (OTEL)
+- **Dashboards:** [Grafana Cloud](https://grafana.com/), with panels for:
 
-  * Skill execution latency
-  * Plugin failures
-  * Memory recall precision
-  * Usage metrics per org/user/tier
-* **Telemetry Stack:**
+  - Skill execution latency
+  - Plugin failures
+  - Memory recall precision
+  - Usage metrics per org/user/tier
 
-  * `Tempo` for traces
-  * `Loki` for logs
-  * `Mimir` for metrics
-  * `Pyroscope` for CPU profiles
-  * `k6` for load testing
-  * `Alertmanager` for incident ops
+- **Telemetry Stack:**
+
+  - `Tempo` for traces
+  - `Loki` for logs
+  - `Mimir` for metrics
+  - `Pyroscope` for CPU profiles
+  - `k6` for load testing
+  - `Alertmanager` for incident ops
 
 ---
 
 ### 🔁 DevOps & Infra
 
-* **Deployment:** GitOps-based (GitHub Actions → Vercel + Cloudflare deploys)
-* **Multi-Tenant Support:**
+- **Deployment:** GitOps-based (GitHub Actions → Vercel + Cloudflare deploys)
+- **Multi-Tenant Support:**
 
-  * Per-org data isolation
-  * Custom memory scopes (`org|user|tool|conversation`)
-* **Air-Gapped Mode:**
+  - Per-org data isolation
+  - Custom memory scopes (`org|user|tool|conversation`)
 
-  * BYO Postgres, Redis, KMS, Workers
-  * No public SaaS dependencies
-  * CLI-based provisioning via `helixctl` (WIP)
+- **Air-Gapped Mode:**
+
+  - BYO Postgres, Redis, KMS, Workers
+  - No public SaaS dependencies
+  - CLI-based provisioning via `helixctl` (WIP)
 
 ---
 
 ### 📦 Extensibility
 
-* **Plugin Runtime:** Deno VM, signed manifest, permissions + review queue
-* **Automation Engine:** Trigger (event/webhook/schedule) → Filter → Action (tool/skill/memory)
-* **SDKs:**
+- **Plugin Runtime:** Deno VM, signed manifest, permissions + review queue
+- **Automation Engine:** Trigger (event/webhook/schedule) → Filter → Action (tool/skill/memory)
+- **SDKs:**
 
-  * TypeScript: `@helix/sdk`
-  * Python (beta)
-  * REST API (OpenAPI Spec WIP)
-* **Marketplace:** Users and orgs can install 3rd-party tools securely
+  - TypeScript: `@helix/sdk`
+  - Python (beta)
+  - REST API (OpenAPI Spec WIP)
+
+- **Marketplace:** Users and orgs can install 3rd-party tools securely
 
 ---
 
@@ -253,6 +258,7 @@ Helix is built on a **modular, secure, multi-tenant architecture** designed to s
   Features.md         # Product tiers and capabilities
   DEPLOY.md           # Deployment notes and cloud prerequisites
   ThirdParty.md       # Vendor/third-party integration references
+  observability/ga-plan.md # Canonical Observability GA rollout plan
 ```
 
 ---
@@ -272,16 +278,16 @@ Use `/docs/plugin-guide.md` (coming soon) to build, sign, and test new tools.
 ---
 
 | ✅ / ⚙️ / 🧱 | Milestone                               | Description                                                                                                                                                                                                   |
-| --------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ⚙️              | **Core Memory System**                  | Implemented contextual memory with Redis (short-term) and `pgvector`-backed long-term embeddings, organized by `MemorySpace` and `MemoryShard`. Includes time-bounded retention and persona-aware recall.     |
-| ⚙️              | **Hybrid Inference Router**             | Fully operational routing layer that dynamically switches between OpenAI, Claude, and Ollama/local models. Supports fallback logic, model policy enforcement, and latency- or tier-based switching.           |
-| ⚙️            | **Plugin Runtime MVP**                  | Sandbox-ready Deno VM to run signed tools with manifest-defined permissions. Current focus: execution tracing, audit logs, scoped memory access. Used for skills like “schedule.post”, “summarize.page”, etc. |
-| ⚙️            | **Web + Discord UI**                    | Unified assistant interface across web (Next.js + shadcn/ui) and Discord (`HelixBot`) with support for chat, memory inspection, tool drawer, personas, and message context.                                   |
-| 🧱             | **Chaos Engineering Toolkit**           | Controlled failure injection for memory, inference, automations, and plugin runtime. Includes OTEL-backed observability, rollback hooks, and pre-prod harness. Will support `chaos_mode_enabled` flag.        |
-| 🧱             | **IoT Edge Agent + Smart Home Control** | MQTT/Zigbee-capable `Agent` model with support for edge heartbeat, command dispatch, and state sync. Helix will control devices via text or scheduled automations.                                            |
-| 🧱             | **Helix Linux Distro**                  | Privacy-first Linux environment with Helix as the core AI assistant. Includes native CLI (`helixctl`), voice activation, secure local inference, and offline plugin support.                                  |
-| 🧱             | **Mobile App (Android/iOS)**            | React Native-based assistant interface with chat, notifications, memory sync, and voice input. Will support offline caching, push messaging, and native intents.                                              |
-| 🧱             | **Developer Marketplace**               | Plugin marketplace where creators can submit, review, and share skills, integrations, and workflows. Includes signed manifest submission, sandbox tests, and scoped install UI.                               |
+| ------------ | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ⚙️           | **Core Memory System**                  | Implemented contextual memory with Redis (short-term) and `pgvector`-backed long-term embeddings, organized by `MemorySpace` and `MemoryShard`. Includes time-bounded retention and persona-aware recall.     |
+| ⚙️           | **Hybrid Inference Router**             | Fully operational routing layer that dynamically switches between OpenAI, Claude, and Ollama/local models. Supports fallback logic, model policy enforcement, and latency- or tier-based switching.           |
+| ⚙️           | **Plugin Runtime MVP**                  | Sandbox-ready Deno VM to run signed tools with manifest-defined permissions. Current focus: execution tracing, audit logs, scoped memory access. Used for skills like “schedule.post”, “summarize.page”, etc. |
+| ⚙️           | **Web + Discord UI**                    | Unified assistant interface across web (Next.js + shadcn/ui) and Discord (`HelixBot`) with support for chat, memory inspection, tool drawer, personas, and message context.                                   |
+| 🧱           | **Chaos Engineering Toolkit**           | Controlled failure injection for memory, inference, automations, and plugin runtime. Includes OTEL-backed observability, rollback hooks, and pre-prod harness. Will support `chaos_mode_enabled` flag.        |
+| 🧱           | **IoT Edge Agent + Smart Home Control** | MQTT/Zigbee-capable `Agent` model with support for edge heartbeat, command dispatch, and state sync. Helix will control devices via text or scheduled automations.                                            |
+| 🧱           | **Helix Linux Distro**                  | Privacy-first Linux environment with Helix as the core AI assistant. Includes native CLI (`helixctl`), voice activation, secure local inference, and offline plugin support.                                  |
+| 🧱           | **Mobile App (Android/iOS)**            | React Native-based assistant interface with chat, notifications, memory sync, and voice input. Will support offline caching, push messaging, and native intents.                                              |
+| 🧱           | **Developer Marketplace**               | Plugin marketplace where creators can submit, review, and share skills, integrations, and workflows. Includes signed manifest submission, sandbox tests, and scoped install UI.                               |
 
 ---
 

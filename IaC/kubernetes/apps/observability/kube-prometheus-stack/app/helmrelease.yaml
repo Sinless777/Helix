@@ -12,11 +12,9 @@ metadata:
 
 spec:
   interval: 1h0m0s
-  retryInterval: 10m0s
   timeout: 10m0s
   releaseName: kube-prometheus-stack
   targetNamespace: observability
-  prune: true
 
   chart:
     spec:

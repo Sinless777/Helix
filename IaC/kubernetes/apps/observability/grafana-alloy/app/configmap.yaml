@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-alloy-config
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: grafana-alloy
+    app.kubernetes.io/component: observability
+data:
+  alloy.river: |
+    loki.write "logs" {
+      endpoint = "http://loki-gateway.observability.svc.cluster.local/loki/api/v1/push"
+      labels = {
+        cluster = "${CLUSTER_NAME}",
+        env = "${ENVIRONMENT}"
+      }
+    }
+
+    otelcol.exporter.otlp "tempo" {
+      client {
+        endpoint = "otel-collector-gateway.observability.svc.cluster.local:4317"
+        tls {
+          insecure = true
+        }
+      }
+    }
+
+    discovery.kubernetes "pods" {
+      role = "pod"
+      selectors {
+        role = "pod"
+      }
+    }
+
+    loki.process "container_logs" {
+      forward_to = [loki.write.logs.receiver]
+      stage.json {}
+    }
+
+    otelcol.receiver.otlp "default" {
+      grpc {
+        endpoint = "0.0.0.0:4317"
+      }
+    }

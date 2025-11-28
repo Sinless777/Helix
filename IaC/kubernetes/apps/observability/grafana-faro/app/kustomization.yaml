@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: grafana-faro-app
+  labels:
+    app.kubernetes.io/name: grafana-faro
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+namespace: observability
+resources:
+  - configmap.yaml
+  - deployment.yaml
+  - service.yaml

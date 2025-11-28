@@ -1,0 +1,31 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: grafana-alloy
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/name: grafana-alloy
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+spec:
+  interval: 15m
+  wait: true
+  prune: true
+  path: ./IaC/kubernetes/apps/observability/grafana-alloy/app
+  targetNamespace: observability
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  dependsOn:
+    - name: otel-collector
+      namespace: flux-system
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-settings
+      - kind: Secret
+        name: cluster-secrets
+        optional: true

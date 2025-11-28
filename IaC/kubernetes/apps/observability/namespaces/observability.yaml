@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+  labels:
+    app.kubernetes.io/name: observability
+    app.kubernetes.io/instance: observability
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+    helix.sinlessgames.com/owner: platform
+    helix.sinlessgames.com/layer: infra
+    sidecar.istio.io/inject: "true"
+  annotations:
+    cert-manager.io/disable-validation: "true"

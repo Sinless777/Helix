@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: beyla
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: beyla
+    app.kubernetes.io/component: observability
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: beyla
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: beyla
+      annotations:
+        checksum/config: ${BEYLA_CONFIG_CHECKSUM:=1}
+    spec:
+      serviceAccountName: otel-collector
+      hostPID: true
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: beyla
+          image: grafana/beyla:1.7.0
+          args:
+            - "run"
+          env:
+            - name: BEYLA_OTLP_ENDPOINT
+              value: otel-collector-gateway.observability.svc.cluster.local:4317
+            - name: BEYLA_METRICS_INTERVAL
+              value: ${BEYLA_METRICS_INTERVAL:=30s}
+            - name: BEYLA_TRACE_SAMPLING
+              value: ${BEYLA_SAMPLE_PERCENT:=50}
+            - name: BEYLA_NAMESPACE_SELECTOR
+              value: "app=api,app=worker"
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi

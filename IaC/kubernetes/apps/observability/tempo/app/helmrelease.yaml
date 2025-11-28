@@ -1,0 +1,77 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tempo
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: tempo
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+spec:
+  interval: 30m
+  releaseName: tempo
+  chart:
+    spec:
+      chart: tempo-distributed
+      version: ">=1.13.0 <1.15.0"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+    createNamespace: false
+  values:
+    tempo:
+      searchEnabled: true
+      retention: ${TEMPO_RETENTION:=48h}
+      storage:
+        trace:
+          backend: s3
+          s3:
+            endpoint: ${TEMPO_S3_ENDPOINT:=https://s3.amazonaws.com}
+            bucket: ${TEMPO_S3_BUCKET:=helix-tempo}
+            access_key_id: ${TEMPO_S3_ACCESS_KEY:=changeme}
+            secret_access_key: ${TEMPO_S3_SECRET_KEY:=changeme}
+            insecure: ${TEMPO_S3_INSECURE:=false}
+      metricsGenerator:
+        enabled: true
+    distributor:
+      replicas: ${TEMPO_DISTRIBUTORS:=2}
+      resources:
+        requests:
+          cpu: 200m
+          memory: 256Mi
+    ingester:
+      replicas: ${TEMPO_INGESTERS:=2}
+      persistence:
+        enabled: true
+        size: ${TEMPO_INGESTER_PV:=20Gi}
+    querier:
+      replicas: ${TEMPO_QUERIERS:=2}
+    queryFrontend:
+      replicas: 2
+    compactor:
+      replicas: 1
+    gateway:
+      enabled: true
+      service:
+        type: ClusterIP
+    tracesSampler:
+      enabled: true
+      config:
+        tail_sampling:
+          policies:
+            - composite:
+                max_spans_per_second: 500
+                policies:
+                  - latency:
+                      threshold_ms: 900
+                  - status_code:
+                      status_codes:
+                        - ERROR
+                  - rate_limiting:
+                      spans_per_second: ${TEMPO_SAMPLE_RATE:=50}

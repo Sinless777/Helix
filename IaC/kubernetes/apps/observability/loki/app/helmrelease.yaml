@@ -1,0 +1,106 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+spec:
+  interval: 30m
+  timeout: 15m
+  releaseName: loki
+  chart:
+    spec:
+      chart: loki-distributed
+      version: ">=0.76.0 <0.80.0"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+    createNamespace: false
+  upgrade:
+    remediation:
+      retries: 3
+      strategy: rollback
+  uninstall:
+    keepHistory: false
+  values:
+    loki:
+      auth_enabled: true
+      commonConfig:
+        replication_factor: ${LOKI_REPLICATION:=2}
+      storage:
+        type: s3
+        bucketNames:
+          chunks: ${LOKI_BUCKET_CHUNKS:=helix-loki-chunks}
+          ruler: ${LOKI_BUCKET_RULER:=helix-loki-ruler}
+          admin: ${LOKI_BUCKET_ADMIN:=helix-loki-admin}
+        s3:
+          region: ${LOKI_S3_REGION:=us-west-2}
+          endpoint: ${LOKI_S3_ENDPOINT:=https://s3.amazonaws.com}
+          accessKeyId: ${LOKI_S3_ACCESS_KEY:=changeme}
+          secretAccessKey: ${LOKI_S3_SECRET_KEY:=changeme}
+          s3ForcePathStyle: true
+      schemaConfig:
+        configs:
+          - from: "2024-01-01"
+            store: boltdb-shipper
+            object_store: s3
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
+      rulerConfig:
+        storage:
+          type: s3
+          s3:
+            bucketnames: ${LOKI_BUCKET_RULER:=helix-loki-ruler}
+            endpoint: ${LOKI_S3_ENDPOINT:=https://s3.amazonaws.com}
+            access_key_id: ${LOKI_S3_ACCESS_KEY:=changeme}
+            secret_access_key: ${LOKI_S3_SECRET_KEY:=changeme}
+        alertmanager_url: http://kube-prometheus-stack-alertmanager.observability:9093
+      limits_config:
+        retention_period: ${LOKI_RETENTION:=30d}
+        ingestion_rate_mb: 32
+        ingestion_burst_size_mb: 64
+        per_stream_rate_limit: 3MB
+        per_stream_rate_limit_burst: 15MB
+    gateway:
+      enabled: true
+      service:
+        type: ClusterIP
+    write:
+      replicas: ${LOKI_WRITES:=2}
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+    read:
+      replicas: ${LOKI_READS:=2}
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+    compactor:
+      replicas: 1
+      retention_enabled: true
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+    monitoring:
+      dashboards:
+        enabled: true
+      rules:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+    test:
+      enabled: false

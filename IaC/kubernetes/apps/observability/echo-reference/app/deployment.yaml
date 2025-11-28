@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-reference
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: echo-reference
+    app.kubernetes.io/component: observability
+spec:
+  replicas: ${ECHO_REPLICAS:=2}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: echo-reference
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: echo-reference
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        otel.traces/enabled: "true"
+        otel.traces/exporter: "otlp"
+        otel.metrics/enabled: "true"
+        k8s-sidecar-target-directory: /var/www/html
+    spec:
+      containers:
+        - name: echo
+          image: ghcr.io/helm/examples/echo-server:0.4.0
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://otel-collector-gateway.observability:4317
+            - name: LOG_ENDPOINT
+              value: http://loki-gateway.observability:3100
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 10

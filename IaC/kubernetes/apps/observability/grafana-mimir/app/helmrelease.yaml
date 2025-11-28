@@ -1,0 +1,107 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana-mimir
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: grafana-mimir
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+spec:
+  interval: 30m
+  timeout: 15m
+  releaseName: grafana-mimir
+  chart:
+    spec:
+      chart: mimir-distributed
+      version: ">=5.1.0 <6.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+    createNamespace: false
+  upgrade:
+    remediation:
+      retries: 3
+      strategy: rollback
+  uninstall:
+    keepHistory: false
+  values:
+    global:
+      clusterDomain: cluster.local
+    metaMonitoring:
+      prometheus:
+        enabled: true
+      grafanaAgent:
+        enabled: false
+    mimir:
+      structuredConfig:
+        common:
+          storage:
+            backend: s3
+            s3:
+              endpoint: ${MIMIR_S3_ENDPOINT:=https://s3.amazonaws.com}
+              secret_access_key: ${MIMIR_S3_SECRET_KEY:=changeme}
+              access_key_id: ${MIMIR_S3_ACCESS_KEY:=changeme}
+              bucket_name: ${MIMIR_S3_BUCKET:=helix-mimir}
+              insecure: ${MIMIR_S3_INSECURE:=false}
+              http:
+                idle_conn_timeout: 90s
+          replication_factor: ${MIMIR_REPLICATION:=3}
+        ingester_limits:
+          max_inflight_push_requests: 200
+        memberlist:
+          join_members:
+            - grafana-mimir-gossip-ring
+    ingester:
+      replicas: ${MIMIR_INGESTERS:=3}
+      persistence:
+        enabled: true
+        size: ${MIMIR_INGESTER_PV:=50Gi}
+    distributor:
+      replicas: ${MIMIR_DISTRIBUTORS:=3}
+    store_gateway:
+      replicas: ${MIMIR_STORE_GATEWAYS:=3}
+    compactor:
+      replicas: 1
+      persistence:
+        size: ${MIMIR_COMPACTOR_PV:=200Gi}
+      config:
+        block_ranges_period: 2h
+        retention_enabled: true
+        retention_delete_delay: 2h
+        deletion_delay: 2h
+        block_retention_period: ${MIMIR_RETENTION:=30d}
+    alertmanager:
+      enabled: true
+    ruler:
+      enabled: true
+      rulerConfig:
+        evaluation_interval: 30s
+        ring:
+          replication_factor: 3
+    runtimeConfig:
+      existingConfigmap: grafana-mimir-runtime
+      key: overrides.yaml
+    nginx:
+      enabled: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+    serviceAccount:
+      create: true
+    pdb:
+      enabled: true
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: grafana-mimir

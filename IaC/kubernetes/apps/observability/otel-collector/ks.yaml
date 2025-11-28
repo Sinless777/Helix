@@ -1,40 +1,35 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kube-prometheus-stack
+  name: otel-collector
   namespace: flux-system
   labels:
-    app.kubernetes.io/name: kube-prometheus-stack
-    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/name: otel-collector
+    app.kubernetes.io/component: observability
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
-    helix.ai/component: monitoring
+    helix.ai/component: observability
 spec:
-  interval: 10m0s
-  retryInterval: 2m0s
-  timeout: 10m0s
-  prune: true
+  interval: 15m
+  retryInterval: 5m
+  timeout: 5m
   wait: true
-
-  path: ./IaC/kubernetes/apps/observability/kube-prometheus-stack/app
-
+  prune: true
+  path: ./IaC/kubernetes/apps/observability/otel-collector/app
+  targetNamespace: observability
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-
   dependsOn:
-    - name: cilium
+    - name: tempo
       namespace: flux-system
-    - name: observability-namespaces
+    - name: loki
       namespace: flux-system
-
   postBuild:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
-
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
+      - kind: Secret
+        name: cluster-secrets
+        optional: true

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-mimir-runtime
+  namespace: observability
+  labels:
+    app.kubernetes.io/name: grafana-mimir
+    app.kubernetes.io/component: observability
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: observability
+  annotations:
+    grafana/mimir-config: "true"
+data:
+  overrides.yaml: |
+    overrides:
+      default:
+        ingestion_burst_size_mb: 64
+        ingestion_rate_mb: 32
+        max_series_per_metric: 500000
+        max_series_per_user: 2000000
+        max_global_series_per_tenant: 0
+        ruler_max_rule_groups_per_tenant: 1000
+        compactor_blocks_retention_period: ${MIMIR_RETENTION:=30d}
