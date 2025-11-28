@@ -37,7 +37,8 @@ spec:
     name: clusters
     namespace: flux-system
 
-  path: ./IaC/kubernetes
+  # Build only the 'dev' cluster layout to avoid duplicating application-level kustomizations
+  path: ./IaC/kubernetes/clusters/dev
 
   # Enables decryption of SOPS-encrypted secrets in the repo
   decryption:
