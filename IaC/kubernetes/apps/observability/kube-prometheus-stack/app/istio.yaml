@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-prometheus-istio-placeholder
+  labels:
+    app.kubernetes.io/name: kube-prometheus-stack
+    app.kubernetes.io/component: observability
+    helix.ai/placeholder: "true"
+data:
+  note: "Placeholder config to satisfy kustomize inclusion for istio-related resources in dev clusters. Remove or replace in environments with Istio installed."

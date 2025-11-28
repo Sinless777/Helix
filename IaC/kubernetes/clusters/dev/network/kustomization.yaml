@@ -7,8 +7,4 @@ metadata:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: network-bootstrap
-resources:
-  - cloudflare-dns.yaml
-  - cloudflare-tunnel.yaml
-  - istio.yaml
-  - istio-config.yaml
+resources: []

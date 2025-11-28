@@ -11,5 +11,4 @@ metadata:
 resources:
   - ./flux.yaml
   - ./notifications.yaml
-  - ./audit.yaml
   - ./clusters.yaml

@@ -21,11 +21,7 @@ spec:
   path: ./IaC/kubernetes/apps/observability/kube-prometheus-stack/app
   targetNamespace: observability
 
-  dependsOn:
-    - name: cloudflare-dns
-    - name: cert-manager
-    - name: istio
-    - name: istio-config
+  # Keep App-level dependsOn minimal — cluster-level kustomizations can add ordering
 
   sourceRef:
     kind: GitRepository
