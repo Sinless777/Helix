@@ -9,7 +9,7 @@ spec:
   interval: 1m0s
   url: https://github.com/Sinless777/Helix
   ref:
-    branch: main
+    branch: feature/ga-observability-plan
   ignore: |
     Docs/**
     IaC/ansible/**
