@@ -35,9 +35,6 @@ spec:
   prune: true
   wait: true
 
-  # enforce drift detection so flux corrects external changes
-  driftDetection:
-    mode: enabled
 
   sourceRef:
     kind: OCIRepository
