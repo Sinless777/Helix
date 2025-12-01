@@ -39,25 +39,7 @@ spec:
         enabled: true
       grafanaAgent:
         enabled: false
-    mimir:
-      structuredConfig:
-        common:
-          storage:
-            backend: s3
-            s3:
-              endpoint: ${MIMIR_S3_ENDPOINT:=https://s3.amazonaws.com}
-              secret_access_key: ${MIMIR_S3_SECRET_KEY:=changeme}
-              access_key_id: ${MIMIR_S3_ACCESS_KEY:=changeme}
-              bucket_name: ${MIMIR_S3_BUCKET:=helix-mimir}
-              insecure: ${MIMIR_S3_INSECURE:=false}
-              http:
-                idle_conn_timeout: 90s
-          replication_factor: ${MIMIR_REPLICATION:=3}
-        ingester_limits:
-          max_inflight_push_requests: 200
-        memberlist:
-          join_members:
-            - grafana-mimir-gossip-ring
+    mimir: {}
     ingester:
       replicas: ${MIMIR_INGESTERS:=3}
       persistence:

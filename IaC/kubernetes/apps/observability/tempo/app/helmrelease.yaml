@@ -27,33 +27,29 @@ spec:
   values:
     tempo:
       searchEnabled: true
-      retention: ${TEMPO_RETENTION:=48h}
+      retention: 48h
       storage:
         trace:
-          backend: s3
-          s3:
-            endpoint: ${TEMPO_S3_ENDPOINT:=https://s3.amazonaws.com}
-            bucket: ${TEMPO_S3_BUCKET:=helix-tempo}
-            access_key_id: ${TEMPO_S3_ACCESS_KEY:=changeme}
-            secret_access_key: ${TEMPO_S3_SECRET_KEY:=changeme}
-            insecure: ${TEMPO_S3_INSECURE:=false}
+          backend: local
+          local:
+            path: /var/tempo/traces
       metricsGenerator:
         enabled: true
     distributor:
-      replicas: ${TEMPO_DISTRIBUTORS:=2}
+      replicas: 1
       resources:
         requests:
           cpu: 200m
           memory: 256Mi
     ingester:
-      replicas: ${TEMPO_INGESTERS:=2}
+      replicas: 1
       persistence:
         enabled: true
         size: ${TEMPO_INGESTER_PV:=20Gi}
     querier:
-      replicas: ${TEMPO_QUERIERS:=2}
+      replicas: 1
     queryFrontend:
-      replicas: 2
+      replicas: 1
     compactor:
       replicas: 1
     gateway:

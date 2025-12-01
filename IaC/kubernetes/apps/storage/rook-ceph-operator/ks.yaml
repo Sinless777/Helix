@@ -1,28 +1,28 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: grafana-mimir
+  name: rook-ceph-operator
   namespace: flux-system
   labels:
-    app.kubernetes.io/name: grafana-mimir
-    app.kubernetes.io/component: observability
+    app.kubernetes.io/name: rook-ceph-operator
+    app.kubernetes.io/component: storage
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
-    helix.ai/component: observability
+    helix.ai/component: storage
 spec:
   interval: 30m
   retryInterval: 5m
   timeout: 10m
-  wait: true
   prune: true
-  path: ./IaC/kubernetes/apps/observability/grafana-mimir/app
-  targetNamespace: observability
+  wait: true
+  targetNamespace: rook-ceph
+  path: ./IaC/kubernetes/apps/storage/rook-ceph-operator/app
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: storage-namespaces
       namespace: flux-system
   postBuild:
     substituteFrom:

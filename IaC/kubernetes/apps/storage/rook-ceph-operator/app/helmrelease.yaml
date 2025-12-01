@@ -1,0 +1,77 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rook-ceph-operator
+  namespace: rook-ceph
+  labels:
+    app.kubernetes.io/name: rook-ceph-operator
+    app.kubernetes.io/component: storage
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: storage
+spec:
+  interval: 1h
+  timeout: 10m
+
+  install:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    createNamespace: false
+
+  upgrade:
+    remediation:
+      retries: 3
+      strategy: rollback
+
+  chart:
+    spec:
+      chart: rook-ceph
+      version: v1.15.0
+      sourceRef:
+        kind: HelmRepository
+        name: rook-release
+        namespace: flux-system
+      interval: 30m
+
+  releaseName: rook-ceph-operator
+
+  values:
+    crds:
+      enabled: true
+
+    csi:
+      kubeletDirPath: /var/lib/kubelet
+      csiDriverNamePrefix: rook-ceph
+      enableCSIEncryption: false
+      enableRbdDriver: true
+      enableCephfsDriver: true
+      enableNFSGanesha: false
+      serviceMonitor:
+        enabled: true
+      pluginTolerations:
+        - operator: Exists
+      provisionerTolerations:
+        - operator: Exists
+      rbdProvisionerReplicas: 1
+      cephFSProvisionerReplicas: 1
+      cephFSGRPCMDSAnnotations:
+        sidecar.istio.io/inject: "false"
+
+    monitoring:
+      enabled: true
+      createPrometheusRules: true
+
+    allowLoopDevices: false
+    enableDiscoveryDaemon: true
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+
+    logLevel: INFO
+    priorityClassName: system-cluster-critical

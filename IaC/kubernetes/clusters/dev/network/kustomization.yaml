@@ -9,6 +9,6 @@ metadata:
     helix.ai/component: network-bootstrap
 resources:
   - cloudflare-dns.yaml
-  - cloudflar-tunnel.yaml
+  - cloudflare-tunnel.yaml
   - istio.yaml
   - istio-config.yaml

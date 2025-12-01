@@ -1,0 +1,132 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rook-ceph-cluster
+  namespace: rook-ceph
+  labels:
+    app.kubernetes.io/name: rook-ceph-cluster
+    app.kubernetes.io/component: storage
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: storage
+spec:
+  interval: 1h
+  timeout: 15m
+
+  install:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    createNamespace: false
+
+  upgrade:
+    remediation:
+      retries: 3
+      strategy: rollback
+
+  chart:
+    spec:
+      chart: rook-ceph-cluster
+      version: v1.15.0
+      sourceRef:
+        kind: HelmRepository
+        name: rook-release
+        namespace: flux-system
+      interval: 30m
+
+  releaseName: rook-ceph-cluster
+
+  values:
+    monitoring:
+      enabled: true
+      createPrometheusRules: true
+
+    toolbox:
+      enabled: true
+      tolerations:
+        - operator: Exists
+      priorityClassName: system-cluster-critical
+
+    cephClusterSpec:
+      dataDirHostPath: /var/lib/rook
+
+      network:
+        provider: host
+
+      dashboard:
+        enabled: true
+        ssl: false
+
+      crashCollector:
+        disable: false
+
+      logCollector:
+        enabled: true
+
+      mon:
+        count: 1
+        allowMultiplePerNode: true
+      mgr:
+        count: 1
+
+      resources:
+        mon:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+        mgr:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+        osd:
+          requests:
+            cpu: 250m
+            memory: 1Gi
+
+      priorityClassNames:
+        mon: system-cluster-critical
+        mgr: system-cluster-critical
+        osd: system-node-critical
+
+      placement:
+        all:
+          tolerations:
+            - operator: Exists
+
+      storage:
+        useAllNodes: true
+        useAllDevices: false
+        deviceFilter: ^sd[b-z]$
+        config:
+          osdsPerDevice: "1"
+          encryptedDevice: "false"
+        onlyApplyOSDPlacement: false
+
+    cephBlockPools:
+      - name: replicapool
+        spec:
+          failureDomain: host
+          replicated:
+            size: 1
+            requireSafeReplicaSize: false
+        storageClass:
+          enabled: true
+          name: rook-ceph-block
+          isDefault: true
+          annotations:
+            storageclass.kubernetes.io/is-default-class: "true"
+          allowVolumeExpansion: true
+          reclaimPolicy: Delete
+          volumeBindingMode: WaitForFirstConsumer
+          parameters:
+            clusterID: rook-ceph
+            pool: replicapool
+            imageFormat: "2"
+            imageFeatures: layering
+            csi.storage.k8s.io/fstype: xfs
+            csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+            csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph

@@ -1,55 +1,69 @@
-apiVersion: audit.k8s.io/v1
-kind: Policy
+apiVersion: v1
+kind: ConfigMap
 metadata:
   name: helix-platform-audit-policy
+  namespace: flux-system
   labels:
     app.kubernetes.io/part-of: helix-platform
     app.kubernetes.io/managed-by: fluxcd
     helix.ai/component: audit-policy
+data:
+  policy.yaml: |
+    apiVersion: audit.k8s.io/v1
+    kind: Policy
+    metadata:
+      name: helix-platform-audit-policy
 
-# Omit early stages to reduce noise
-omitStages:
-  - "RequestReceived"
+    omitStages:
+      - "RequestReceived"
 
-rules:
-  # 1. Admin-level operations: full details for RBAC & control-plane
-  - level: RequestResponse
-    resources:
-      - group: authorization.k8s.io
+    rules:
+      - level: RequestResponse
         resources:
-          ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
-      - group: ""
-        resources: ["secrets"]
-    verbs:
-      - create
-      - update
-      - patch
-      - delete
+          - group: authorization.k8s.io
+            resources:
+              - roles
+              - rolebindings
+              - clusterroles
+              - clusterrolebindings
+          - group: ""
+            resources:
+              - secrets
+        verbs:
+          - create
+          - update
+          - patch
+          - delete
 
-  # 2. Platform workload operations: metadata only for workloads
-  - level: Metadata
-    resources:
-      - group: ""
-        resources: ["pods", "deployments", "replicasets", "jobs", "cronjobs"]
-      - group: apps
-        resources: ["statefulsets", "daemonsets"]
-    verbs:
-      - create
-      - update
-      - patch
-      - delete
+      - level: Metadata
+        resources:
+          - group: ""
+            resources:
+              - pods
+              - deployments
+              - replicasets
+              - jobs
+              - cronjobs
+          - group: apps
+            resources:
+              - statefulsets
+              - daemonsets
+        verbs:
+          - create
+          - update
+          - patch
+          - delete
 
-  # 3. Namespace & ConfigMap changes: higher detail
-  - level: Request
-    resources:
-      - group: ""
-        resources: ["namespaces", "configmaps"]
-    verbs:
-      - create
-      - update
-      - patch
-      - delete
+      - level: Request
+        resources:
+          - group: ""
+            resources:
+              - namespaces
+              - configmaps
+        verbs:
+          - create
+          - update
+          - patch
+          - delete
 
-  # 4. Catch-all: metadata for all other requests
-  - level: Metadata
-    # no specific resource group → matches all
+      - level: Metadata

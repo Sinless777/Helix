@@ -15,7 +15,7 @@ spec:
       labels:
         app.kubernetes.io/name: otel-collector-agent
       annotations:
-        configchecksum: ${OTEL_AGENT_CONFIG_CHECKSUM:=1}
+        configchecksum: "${OTEL_AGENT_CONFIG_CHECKSUM:=1}"
     spec:
       serviceAccountName: otel-collector
       tolerations:

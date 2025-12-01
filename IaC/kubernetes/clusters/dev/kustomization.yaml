@@ -13,4 +13,5 @@ resources:
   - ./cluster
   - ./network
   - ./observability
+  - ./storage
   - ./cert-manager.yaml

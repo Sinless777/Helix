@@ -33,38 +33,25 @@ spec:
     keepHistory: false
   values:
     loki:
-      auth_enabled: true
+      auth_enabled: false
       commonConfig:
-        replication_factor: ${LOKI_REPLICATION:=2}
+        replication_factor: 1
       storage:
-        type: s3
-        bucketNames:
-          chunks: ${LOKI_BUCKET_CHUNKS:=helix-loki-chunks}
-          ruler: ${LOKI_BUCKET_RULER:=helix-loki-ruler}
-          admin: ${LOKI_BUCKET_ADMIN:=helix-loki-admin}
-        s3:
-          region: ${LOKI_S3_REGION:=us-west-2}
-          endpoint: ${LOKI_S3_ENDPOINT:=https://s3.amazonaws.com}
-          accessKeyId: ${LOKI_S3_ACCESS_KEY:=changeme}
-          secretAccessKey: ${LOKI_S3_SECRET_KEY:=changeme}
-          s3ForcePathStyle: true
+        type: filesystem
       schemaConfig:
         configs:
           - from: "2024-01-01"
             store: boltdb-shipper
-            object_store: s3
+            object_store: filesystem
             schema: v13
             index:
               prefix: loki_index_
               period: 24h
       rulerConfig:
         storage:
-          type: s3
-          s3:
-            bucketnames: ${LOKI_BUCKET_RULER:=helix-loki-ruler}
-            endpoint: ${LOKI_S3_ENDPOINT:=https://s3.amazonaws.com}
-            access_key_id: ${LOKI_S3_ACCESS_KEY:=changeme}
-            secret_access_key: ${LOKI_S3_SECRET_KEY:=changeme}
+          type: local
+          local:
+            directory: /etc/loki/rules
         alertmanager_url: http://kube-prometheus-stack-alertmanager.observability:9093
       limits_config:
         retention_period: ${LOKI_RETENTION:=30d}
@@ -77,13 +64,13 @@ spec:
       service:
         type: ClusterIP
     write:
-      replicas: ${LOKI_WRITES:=2}
+      replicas: 1
       resources:
         requests:
           cpu: 200m
           memory: 512Mi
     read:
-      replicas: ${LOKI_READS:=2}
+      replicas: 1
       resources:
         requests:
           cpu: 200m

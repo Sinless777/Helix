@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: storage-foundation
+  labels:
+    app.kubernetes.io/name: storage-foundation
+    app.kubernetes.io/component: storage
+    app.kubernetes.io/part-of: helix-platform
+    app.kubernetes.io/managed-by: fluxcd
+    helix.ai/component: storage
+resources:
+  - ./namespaces
+  - ./rook-ceph-operator/ks.yaml
+  - ./rook-ceph-cluster/ks.yaml

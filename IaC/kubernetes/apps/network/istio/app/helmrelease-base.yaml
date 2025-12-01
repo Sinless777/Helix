@@ -23,10 +23,14 @@ spec:
     remediation:
       retries: 3
 
-  chartRef:
-    kind: HelmRepository
-    name: istio
-    namespace: flux-system
+  chart:
+    spec:
+      chart: base
+      version: ">=1.22.0 <1.24.0"
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: flux-system
 
   values:
     global:

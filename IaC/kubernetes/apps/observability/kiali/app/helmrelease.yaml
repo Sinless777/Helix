@@ -25,7 +25,9 @@ spec:
       retries: 3
   values:
     auth:
-      strategy: openshift
+      strategy: anonymous
+      anonymous:
+        role: admin
     deployment:
       viewOnlyMode: false
       accessibleNamespaces:
